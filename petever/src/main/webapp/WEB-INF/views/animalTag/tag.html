@@ -1,0 +1,164 @@
+
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&family=Sunflower:wght@500&display=swap"
+        rel="stylesheet">
+    <script>
+        $(function () {
+            $("[name=color]").change(function () {
+                var $color = $(this);
+                console.log($color.val());
+
+                $("#ani-info-tag1").css('background-image', 'url(img/animalTag.png)');
+                $("#ani-info-tag2").css('background-image', 'url(img/animalTag.png)');
+
+                var realColor;
+                if ($color.val() == 'green') {
+                    realColor = '#659976';
+                } else if ($color.val() == 'blue') {
+                    realColor = '#006699';
+                } else if ($color.val() == 'ivory') {
+                    realColor = '#EBE7DD';
+                } else if ($color.val() == 'pink') {
+                    realColor = '#D35F5F';
+                } else if ($color.val() == 'brown') {
+                    realColor = '#CB9661';
+                }
+
+
+                $("#ani-info-tag1").css('background-color', realColor);
+                $("#ani-info-tag2").css('background-color', realColor);
+
+            });
+
+            $("[name=font]").change(function () {
+                var $font = $(this);
+                // console.log($font.val());
+                $(".animal-tag-font").css("font-family", $font.val());
+            });
+            //동물이름
+            $("#ani-name").keyup(function () {
+                var $aniName = $(this);
+                // console.log($aniName.val());
+                $("#preview-name").text($aniName.val());
+            });
+            //동물생년월일
+            $("#ani-birth").change(function () {
+                var $aniBirth = $(this);
+                // console.log($aniBirth.val());
+                $("#preview-birth").text($aniBirth.val());
+            });
+            //동물성별
+            $("[name=aniGender]").click(function () {
+                var $aniGender = $(this);
+                // console.log($aniGender.next().text());
+                $("#preview-gender").text("/ " + $aniGender.next().text());
+            });
+            //동물등록번호
+            $("#ani-ssn").keyup(function () {
+                var $aniSsn = $(this);
+                // console.log($aniSsn.val());
+                $("#preview-ssn").text($aniSsn.val());
+            });
+            //동물주인 이름
+            $("#person-name").keyup(function () {
+                var $personName = $(this);
+                // console.log($personName.val());
+                $("#preview-person-name").text($personName.val());
+            });
+            //동물주인 전화번호
+            $("#person-phone").keyup(function () {
+                var $personPhone = $(this);
+                // console.log($personPhone.val());
+                $("#preview-person-phone").text($personPhone.val());
+            });
+        });
+
+        function previewReset() {
+            $(".ani-img").css('background-color', '');
+            $(".ani-img-2").css('background-color', '');
+            $(".animal-tag-font").css("font-family", '');
+            $("#preview-name").text('');
+            $("#preview-birth").text('');
+            $("#preview-gender").text('');
+            $("#preview-ssn").text('');
+            $("#preview-person-name").text('');
+            $("#preview-person-phone").text('');
+        }
+    </script>
+    <div id="main-wrap">
+        <section class="main"></section>
+        <section class="content-wrap">
+            <h1>입양하기</h1>
+            <p>펫에버에서는 이러한 일들을 합니다.</p>
+            <div class="content">
+                <div class="tag-wrap">
+                    <div class="animal-tag-preview">
+                        <div id="ani-info-tag1">
+                            <label class="animal-tag-font" id="preview-name" for=""></label><br>
+                            <label class="animal-tag-font" id="preview-birth" for=""></label>
+                            <label class="animal-tag-font" id="preview-gender" for=""></label><br>
+                            <label class="animal-tag-font" id="preview-ssn" for=""></label><br>
+                        </div>
+
+                        <label class="preview-label preview-front" for="">앞면</label>
+
+                        <div id="ani-info-tag2">
+                            <label class="animal-tag-font" id="preview-person-name" for=""></label><br>
+                            <label class="animal-tag-font" id="preview-person-phone" for=""></label><br>
+                        </div>
+
+                        <label class="preview-label preview-back" for="">뒷면</label>
+                    </div>
+                    <div class="animal-tag-select">
+                        <form action="" method="GET">
+                            <h4>색상</h4>
+                            <input type="radio" name="color" id="green" value="green">
+                            <label class="ani-radio" for="green">그린</label>
+                            <input type="radio" name="color" id="blue" value="blue">
+                            <label class="ani-radio" for="blue">블루</label>
+                            <input type="radio" name="color" id="ivory" value="ivory">
+                            <label class="ani-radio" for="ivory">아이보리</label>
+                            <input type="radio" name="color" id="pink" value="pink">
+                            <label class="ani-radio" for="pink">핑크</label>
+                            <input type="radio" name="color" id="brown" value="brown">
+                            <label class="ani-radio" for="brown">브라운</label>
+
+                            <h4>폰트</h4>
+                            <input type="radio" name="font" id="font_DoHyeon" value="Do Hyeon">
+                            <label class="ani-radio font_DoHyeon" for="font_DoHyeon">도현체</label>
+                            <input type="radio" name="font" id="font_Jua" value="Jua">
+                            <label class="ani-radio font_Jua" for="font_Jua">주아체</label>
+                            <input type="radio" name="font" id="font_Sunflower" value="Sunflower">
+                            <label class="ani-radio font_Sunflower" for="font_Sunflower">선플라워체</label>
+                            <br>
+                            <label for="ani-name" class="ani-label">동물이름</label>&nbsp;
+                            <input type="text" name="aniName" id="ani-name">
+                            <br>
+                            <label for="ani-birth" class="ani-label">동물생년월일</label>&nbsp;
+                            <input type="date" name="aniBirth" id="ani-birth">
+                            <br>
+                            <label for="ani-gender" class="ani-label">동물성별</label>&nbsp;
+                            <input type="radio" name="aniGender" id="ani-gender-m">
+                            <label class="ani-radio" for="ani-gender-m">수컷</label>
+                            <input type="radio" name="aniGender" id="ani-gender-f">
+                            <label class="ani-radio" for="ani-gender-f">암컷</label>
+                            <br>
+                            <label for="ani-ssn" class="ani-label">동물등록번호</label>&nbsp;
+                            <input type="text" name="aniSsn" id="ani-ssn">
+                            <br>
+                            <label for="person-name" class="ani-label">보호자 이름</label>&nbsp;
+                            <input type="text" name="personName" id="person-name">
+                            <br>
+                            <label for="person-phone" class="ani-label">보호자 전화번호</label>&nbsp;
+                            <input type="text" name="personPhone" id="person-phone">
+                            <br>
+                            <input class="btn" type="submit" value="구매">
+                            <input class="btn" type="reset" value="초기화" onclick="previewReset();">
+                        </form>
+                    </div>
+                    <img src="img/tag1.jpg" alt="" width="900px">
+                    <img src="img/tag2.jpg" alt="">
+                    <img src="img/tag3.jpg" alt="" width="900px">
+                </div>
+            </div>
+        </section>
+    </div>
