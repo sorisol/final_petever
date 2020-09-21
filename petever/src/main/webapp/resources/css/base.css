@@ -1,0 +1,35 @@
+.menu{
+    top:45px;
+}
+
+.main-bar{
+    position: absolute;
+}
+.content-wrap {
+    position: relative;
+    margin-top: -485px;
+    margin-bottom: 50px;
+    z-index: 1;
+}
+
+.content-wrap>h1,
+.content-wrap>p {
+    line-height: 44px;
+    color: white;
+    text-align: center;
+}
+
+.content-wrap>h1 {
+    font-size: 26px;
+}
+
+.content {
+    width: 1130px;
+    background-color: white;
+    position: relative;
+    left: calc(50% - 565px);
+    padding-right: 230px;
+    border-radius: 200px 0 0 0;
+    margin-top: 45px;
+    padding-top: 90px;
+}
