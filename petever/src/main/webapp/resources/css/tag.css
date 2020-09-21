@@ -1,0 +1,139 @@
+.main {
+    width: 1440px;
+    height: 716px;
+    background: url("img/sub2.jpg") no-repeat center;
+    background-size: 1440px;
+    margin: 0 auto;
+}
+
+.content {
+    overflow: hidden;
+}
+
+.tag-wrap{
+    width:900px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.animal-tag-preview {
+    width: 390px;
+    height: 520px;
+    border: 1px solid #6d6e71;
+    border-radius: 10px;
+    float: left;
+    padding: 20px;
+    text-align: center;
+}
+
+#ani-info-tag1 {
+    margin-left: auto;
+    margin-right: auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 210px;
+    height: 235px;
+}
+
+#ani-info-tag2 {
+    margin-left: auto;
+    margin-right: auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 210px;
+    height: 235px;
+}
+
+.animal-tag-font {
+    display: inline-block;
+    text-shadow: 1px 1px 0 darkgrey;
+    font-size: 18px;
+}
+
+#preview-name {
+    margin-top: 110px;
+    font-size: 25px;
+}
+
+#preview-person-name {
+    margin-top: 135px;
+    font-size: 25px;
+}
+
+.preview-label {
+    font-family: '돋움체', sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+#preview-birth {
+    margin-left: 10px;
+}
+
+.animal-tag-select {
+    width: 390px;
+    height: 520px;
+    border: 1px solid #6d6e71;
+    border-radius: 10px;
+    float: left;
+    padding: 20px;
+    margin-left: 35px;
+}
+
+.animal-tag-select h4 {
+    margin-bottom: 10px;
+}
+
+.animal-tag-select input {
+    margin-bottom: 30px;
+}
+
+.ani-label {
+    font-size: 14px;
+    font-weight: bold;
+
+}
+
+.ani-radio {
+    font-size: 15px;
+    margin-right: 10px;
+}
+
+.font_DoHyeon {
+    font-family: 'Do Hyeon', sans-serif;
+
+}
+
+.font_Jua {
+    font-family: 'Jua', sans-serif;
+}
+
+.font_Sunflower {
+    font-family: 'Sunflower', sans-serif;
+}
+
+.btn {
+    width: 180px;
+    height: 50px;
+    float: left;
+    background-color: #FFDD93;
+    border: 1px solid #FFDD93;
+    border-bottom: 3px solid #FFDD93;
+    text-align: center;
+    line-height: 40px;
+    color: #373b44;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 8px;
+    display: block;
+    cursor: pointer;
+    border-radius: 30px;
+    outline: none;
+}
+
+input[type="submit"]{
+    background-color: #e8c2b7;
+    border: 1px solid #e8c2b7;
+    border-bottom: 3px solid #e8c2b7;
+    margin-right: 10px;
+}

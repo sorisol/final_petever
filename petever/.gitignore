@@ -167,4 +167,4 @@ $RECYCLE.BIN/
 
 .classpath
 .project
-src/main/webapp/WEB-INF/jspwork
+src/main/webapp/WEB-INF/jspwork/*

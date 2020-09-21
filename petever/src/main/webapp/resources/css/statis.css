@@ -1,0 +1,98 @@
+.main {
+    width: 1440px;
+    height: 716px;
+    background: url("img/sub4.jpg") no-repeat center;
+    background-size: 1440px;
+    margin: 0 auto;
+}
+
+.shelter-search-wrap {
+    border: 1px solid #d1d3d4;
+    border-radius: 5px;
+    margin: 20px auto;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
+    width: 990px;
+    height: 45px;
+    padding-top: 15px;
+}
+
+.shelter-search-wrap select {
+    width: 100px;
+    height: 25px;
+    margin-right: 10px;
+}
+
+.shelter-search-wrap input[type="date"] {
+    width: 125px;
+    height: 22px;
+}
+
+.shelter-search-wrap input[type="text"] {
+    width: 170px;
+    height: 25px;
+}
+
+#search-btn {
+    width: 40px;
+    height: 26px;
+    position: relative;
+    top: 2px;
+    left: -6px;
+    outline: none;
+}
+
+.content .stats-wrap {
+    width: 1130px;
+}
+
+
+.content .stats-wrap .canvas-wrap {
+    width: 1000px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.content .stats-wrap .stats {
+    width: 285px;
+    height: 300px;
+    margin-top: 90px;
+    float: left;
+}
+
+.content .stats-wrap .bar {
+    width: 690px;
+    height: 300px;
+}
+
+.content .stats-wrap .area {
+    width: 700px;
+    height: 300px;
+    margin: 50px auto;
+}
+
+.content .stats-wrap .stats:nth-child(1) {
+    margin-right: 25px;
+}
+
+.total-wrap{
+    width: 100%;
+    height: 180px;
+    background: url("img/statis.jpg");
+    text-align: center;
+    margin-top: 50px;
+    border-radius: 100px;
+    background-position: left;
+}
+.total-wrap h1{
+    font-size: 38px;
+    color:white;
+    line-height: 80px;
+}
+
+.total-wrap p{
+    color: white;
+    line-height: 25px;
+    margin-top: 10px;
+}
