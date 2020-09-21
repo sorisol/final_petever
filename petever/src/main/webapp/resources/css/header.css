@@ -48,7 +48,7 @@ header .main-bar ul li:nth-child(n+2){
 .logo{
     width: 275px;
     height:92px;
-    /* background: url("/resources/images/logo.png") no-repeat; */
+    background: url("../images/logo.png") no-repeat;
     background-size: cover;
     background-position: center;
     position: absolute;
