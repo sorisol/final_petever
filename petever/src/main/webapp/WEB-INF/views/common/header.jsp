@@ -5,18 +5,19 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>main::</title>
-    <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/common.css">
-    <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/header.css">
-    <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/base.css">
-    <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/footer.css">
-    <script src="${ pageContext.request.contextPath }/resources/js/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="./resources/css/common.css">
+    <link rel="stylesheet" href="./resources/css/header.css">
+    <link rel="stylesheet" href="./resources/css/index.css">
+    <link rel="stylesheet" href="./resources/css/base.css">
+    <link rel="stylesheet" href="./resources/css/footer.css">
+    <script src="./resources/js/jquery-3.3.1.min.js"></script>
 </head>
+
 
 <body>
     <header>
