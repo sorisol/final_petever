@@ -41,6 +41,6 @@
             <li>입양후기</li>
             <li>인식표</li>
             <li>보호소</li>
-            <li>통계</li>
+            <li><a href="${ pageContext.request.contextPath }/statis/statis.do">통계</a></li>
         </ul>
     </div>
