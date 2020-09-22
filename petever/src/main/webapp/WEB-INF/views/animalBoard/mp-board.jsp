@@ -130,7 +130,7 @@
                     </table>
 
                     <hr style="height: 1px; border:none; background-color: #373b44; width: 860px; margin: 35px 50px;">
-
+					<button>글쓰기</button>
                     <div class="post-wrap">
                     <a href="${ pageContext.request.contextPath }/animalboard/boardView">
                         <div class="post">

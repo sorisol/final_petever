@@ -27,6 +27,7 @@
     width: 200px;
     float: left;
     margin: 10px;
+    text-decoration: none;
 }
 
 .post:nth-child(4n+1) {
@@ -56,6 +57,9 @@ span {
 hr {
     width: 200px;
     margin: 10px auto;
+    height: 1px;
+    background-color: lightgray;
+    border: 0;
 }
 
 .tag+span {

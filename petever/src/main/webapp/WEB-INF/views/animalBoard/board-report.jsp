@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>report::</title>
-    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css">
     <style>
         body{
             width:500px;
