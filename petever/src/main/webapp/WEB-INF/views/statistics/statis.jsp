@@ -1,4 +1,7 @@
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
         integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg=="
         crossorigin="anonymous"></script>
@@ -7,7 +10,7 @@
         crossorigin="anonymous"></script>
     <script src="js/chartjs-plugin-labels.min.js"></script>
     <script src="js/utils.js"></script>
-
+<jsp:include page="/WEB-INF/views/common/header.jsp"/>
     <div id="main-wrap">
         <section class="main">
 
@@ -55,7 +58,16 @@
             </div>
         </section>
     </div>
-
+    <footer>
+        <div class="f-wrap">
+            <h2>Team Petever</h2>
+            <hr style="width:100%">
+            <p>qwer123@naver.com</p>
+            <p>ⓒ team petever all right reserved</p>
+            <p>서울시 강남구 강남대로 185</p>
+        </div>
+    </footer>
+</body>
 <script>
     var label = ["보호", "입양", "반환", "자연사", "안락사", "방사", "기증"];
     var data = [30826, 132424, 57400, 116877, 98876, 3896, 7893];
@@ -270,3 +282,5 @@
         });
     });
 </script>
+
+ <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
