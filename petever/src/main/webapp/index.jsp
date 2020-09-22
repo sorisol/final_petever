@@ -2,16 +2,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
-        integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg=="
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"
-        integrity="sha512-vBmx0N/uQOXznm/Nbkp7h0P1RfLSj0HQrFSzV8m7rOGyj30fYAOKHYvCNez+yM8IrfnW0TCodDEjRqf6fodf/Q=="
-        crossorigin="anonymous"></script>
-    <script src="./resources/js/chartjs-plugin-labels.min.js"></script>
-    <script src="./resources/js/utils.js"></script>
 
-<link rel="stylesheet" href="./resources/css/index.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js" integrity="sha512-vBmx0N/uQOXznm/Nbkp7h0P1RfLSj0HQrFSzV8m7rOGyj30fYAOKHYvCNez+yM8IrfnW0TCodDEjRqf6fodf/Q==" crossorigin="anonymous"></script>
+<script src="${pageContext.request.contextPath}/resources/js/chartjs-plugin-labels.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/utils.js"></script>
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/index.css">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
    <div id="main-wrap">
@@ -23,28 +20,28 @@
                 <p class="title">■ 실종 동물 / 보호</p>
                 <ul>
                     <li>
-                        <img src="./resources/images/dog1.jpg" alt="실종 및 보호 동물 사진">
+                        <img src="${pageContext.request.contextPath}/resources/images/dog1.jpg" alt="실종 및 보호 동물 사진">
                     </li>
                     <li>
-                        <img src="./resources/images/dog2.jpg" alt="실종 및 보호 동물 사진">
+                        <img src="${pageContext.request.contextPath}/resources/images/dog2.jpg" alt="실종 및 보호 동물 사진">
                     </li>
                     <li>
-                        <img src="./resources/images/dog3.jpg" alt="실종 및 보호 동물 사진">
+                        <img src="${pageContext.request.contextPath}/resources/images/dog3.jpg" alt="실종 및 보호 동물 사진">
                     </li>
                     <li>
-                        <img src="./resources/images/dog4.jpg" alt="실종 및 보호 동물 사진">
+                        <img src="${pageContext.request.contextPath}/resources/images/dog4.jpg" alt="실종 및 보호 동물 사진">
                     </li>
                     <li>
-                        <img src="./resources/images/dog5.jpg" alt="실종 및 보호 동물 사진">
+                        <img src="${pageContext.request.contextPath}/resources/images/dog5.jpg" alt="실종 및 보호 동물 사진">
                     </li>
                     <li>
-                        <img src="./resources/images/dog6.jpg" alt="실종 및 보호 동물 사진">
+                        <img src="${pageContext.request.contextPath}/resources/images/dog6.jpg" alt="실종 및 보호 동물 사진">
                     </li>
                     <li>
-                        <img src="./resources/images/dog7.jpg" alt="실종 및 보호 동물 사진">
+                        <img src="${pageContext.request.contextPath}/resources/images/dog7.jpg" alt="실종 및 보호 동물 사진">
                     </li>
                     <li>
-                        <img src="./resources/images/dog8.jpg" alt="실종 및 보호 동물 사진">
+                        <img src="${pageContext.request.contextPath}/resources/images/dog8.jpg" alt="실종 및 보호 동물 사진">
                     </li>
                 </ul>
             </article>
