@@ -57,7 +57,7 @@
                         <p>국회의원은 국회에서 직무상 행한 발언과 표결에 관하여 국회외에서 책임을 지지 아니한다. 모든 국민은 행위시의 법률에 의하여 범죄를 구성하지 아니하는 행위로 소추되지
                             아니하며, 동일한 범죄에 대하여 거듭 처벌받지 아니한다.</p>
                         <br>
-                        <img src="./resources/images/pug.jpg" alt="" width="600">
+                        <img src="${pageContext.request.contextPath}/resources/images/pug.jpg" alt="" width="600">
 
                     </div>
                     <div class="pet-info">
