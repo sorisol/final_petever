@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
         integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg=="
         crossorigin="anonymous"></script>
@@ -12,6 +11,7 @@
     <script src="./resources/js/chartjs-plugin-labels.min.js"></script>
     <script src="./resources/js/utils.js"></script>
 
+<link rel="stylesheet" href="./resources/css/index.css">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
    <div id="main-wrap">
