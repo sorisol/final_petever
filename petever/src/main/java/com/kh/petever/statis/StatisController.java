@@ -14,7 +14,7 @@ public class StatisController {
 	@GetMapping("/statis.do")
 	public String shelterBoard() {
 		log.debug("접속");
-		
+		System.out.println("접속");
 		return "statistics/statis";
 	}
 
