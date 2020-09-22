@@ -18,4 +18,9 @@ public class AnimalBoardController {
 	public String animalboardView() {
 		return "animalBoard/mp-board-view";
 	}
+	
+	@GetMapping("/animalboard/boardFrm")
+	public String animalboardFrm() {
+		return "animalBoard/mp-boardFrm";
+	}
 }

@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%--한글 인코딩처리 --%>
 <fmt:requestEncoding value="utf-8"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
@@ -130,7 +129,7 @@
                     </table>
 
                     <hr style="height: 1px; border:none; background-color: #373b44; width: 860px; margin: 35px 50px;">
-					<button>글쓰기</button>
+					<button onclick="location.href='/animalboard/boardFrm'">글쓰기</button>
                     <div class="post-wrap">
                     <a href="${ pageContext.request.contextPath }/animalboard/boardView">
                         <div class="post">
