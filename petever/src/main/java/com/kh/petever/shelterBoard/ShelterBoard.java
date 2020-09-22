@@ -10,8 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/shelterBoard")
 @Slf4j
 public class ShelterBoard {
-	//보호소 파일입니다
 	
+	//보소호 게시판 주석테스트
 	@GetMapping("/shelterBoard.do")
 	public String shelterBoard() {
 		log.debug("111");
