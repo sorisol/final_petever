@@ -12,7 +12,7 @@
     <title>main::</title>
     <link rel="stylesheet" href="./resources/css/common.css">
     <link rel="stylesheet" href="./resources/css/header.css">
-    <link rel="stylesheet" href="./resources/css/index.css">
+    <!-- <link rel="stylesheet" href="./resources/css/index.css"> -->
     <link rel="stylesheet" href="./resources/css/base.css">
     <link rel="stylesheet" href="./resources/css/footer.css">
     <script src="./resources/js/jquery-3.3.1.min.js"></script>
@@ -34,7 +34,7 @@
         <ul>
             <div class="logo"></div>
             <li>사이트소개</li>
-            <li>유실유기동물</li>
+            <li><a href="${ pageContext.request.contextPath }/animalboard">유실유기동물</a></li>
             <li>임시보호처</li>
             <li>입양후기</li>
             <li>인식표</li>

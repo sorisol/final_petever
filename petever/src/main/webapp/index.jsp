@@ -13,7 +13,7 @@
     <script src="./resources/js/utils.js"></script>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-
+<link rel="stylesheet" href="./resources/css/index.css">
    <div id="main-wrap">
         <section class="main">
 
