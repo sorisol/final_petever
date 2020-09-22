@@ -11,6 +11,12 @@ public class AnimalBoardController {
 	
 	@GetMapping("/animalboard")
 	public String animalboardList() {
+		log.debug("안녕");
 		return "animalBoard/mp-board";
+	}
+	
+	@GetMapping("/animalboard/boardView")
+	public String animalboardView() {
+		return "animalBoard/mp-board-view";
 	}
 }

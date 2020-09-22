@@ -132,7 +132,7 @@
                     <hr style="height: 1px; border:none; background-color: #373b44; width: 860px; margin: 35px 50px;">
 
                     <div class="post-wrap">
-                    <a href="/animalboard/boardView">
+                    <a href="${ pageContext.request.contextPath }/animalboard/boardView">
                         <div class="post">
                             <img src="./resources/images/dog8.jpg" alt="">
                             <br>

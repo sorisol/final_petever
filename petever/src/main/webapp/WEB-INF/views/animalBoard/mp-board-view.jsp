@@ -5,9 +5,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%--한글 인코딩처리 --%>
 <fmt:requestEncoding value="utf-8"/>
-<jsp:include page="/WEB-INF/views/common/header.jsp">
-	<jsp:param value="" name="pageTitle"/>
-</jsp:include>
+<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mp-board-view.css">
 	    <div id="main-wrap">
         <section class="main">
 
