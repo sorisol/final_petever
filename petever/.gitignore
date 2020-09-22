@@ -1,6 +1,6 @@
 
-# Created by https://www.toptal.com/developers/gitignore/api/java,java-web,eclipse,windows,macos,maven
-# Edit at https://www.toptal.com/developers/gitignore?templates=java,java-web,eclipse,windows,macos,maven
+# Created by https://www.toptal.com/developers/gitignore/api/java,java-web,eclipse,windows,macos
+# Edit at https://www.toptal.com/developers/gitignore?templates=java,java-web,eclipse,windows,macos
 
 ### Eclipse ###
 .metadata
@@ -125,18 +125,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-### Maven ###
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-release.properties
-dependency-reduced-pom.xml
-buildNumber.properties
-.mvn/timing.properties
-# https://github.com/takari/maven-wrapper#usage-without-binary-jar
-.mvn/wrapper/maven-wrapper.jar
-
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
@@ -163,8 +151,8 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/java,java-web,eclipse,windows,macos,maven
+# End of https://www.toptal.com/developers/gitignore/api/java,java-web,eclipse,windows,macos
 
 .classpath
 .project
-src/main/webapp/WEB-INF/jspwork/*
+src/main/webapp/WEB-INF/jspwork
