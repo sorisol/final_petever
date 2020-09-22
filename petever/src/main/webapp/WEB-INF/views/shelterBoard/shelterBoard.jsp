@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/shelterBoard.css">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
 
@@ -133,7 +133,7 @@
 
                     <div class="post-wrap">
                         <div class="post">
-                            <img src="img/dog8.jpg" alt="">
+                            <img src="${pageContext.request.contextPath}/resources/images/dog8.jpg" alt="">
                             <br>
                             <span class="tag missing">[실종]</span>
                             <span>찾습니다</span>
@@ -144,7 +144,7 @@
                             <span>2020.09.13</span>
                         </div>
                         <div class="post">
-                            <img src="img/dog2.jpg" alt="">
+                            <img src="${pageContext.request.contextPath}/resources/images/dog2.jpg" alt="">
                             <br>
                             <span class="tag protect">[보호]</span>
                             <span>제목</span>
@@ -155,7 +155,7 @@
                             <span>2020.09.13</span>
                         </div>
                         <div class="post">
-                            <img src="img/dog7.jpg" alt="">
+                            <img src="${pageContext.request.contextPath}/resources/images/dog7.jpg" alt="">
                             <br>
                             <span class="tag missing">[실종]</span>
                             <span>제목</span>
@@ -166,7 +166,7 @@
                             <span>2020.09.13</span>
                         </div>
                         <div class="post">
-                            <img src="img/dog4.jpg" alt="">
+                            <img src="${pageContext.request.contextPath}/resources/images/dog4.jpg" alt="">
                             <br>
                             <span class="tag missing">[실종]</span>
                             <span>제목</span>
@@ -177,7 +177,7 @@
                             <span>2020.09.13</span>
                         </div>
                         <div class="post">
-                            <img src="img/dog5.jpg" alt="">
+                            <img src="${pageContext.request.contextPath}/resources/images/dog5.jpg" alt="">
                             <br>
                             <span class="tag missing">[실종]</span>
                             <span>제목</span>
