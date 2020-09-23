@@ -1,0 +1,21 @@
+footer{
+    height:210px;
+    background-color: #373b44;
+}
+footer .f-wrap{
+    width:400px;
+    margin:  0 auto;
+    text-align: center;
+    
+}
+footer .f-wrap h2{
+    padding-top:20px;
+}
+footer .f-wrap *{
+    color: #fffde4;
+    line-height: 35px;
+}
+footer hr{
+    margin:15px 0;
+    background-color: #fffde4;
+}

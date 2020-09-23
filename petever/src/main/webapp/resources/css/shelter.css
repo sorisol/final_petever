@@ -1,0 +1,125 @@
+.main {
+    width: 1440px;
+    height: 716px;
+    background: url("img/sub1.jpg") no-repeat center;
+    background-size: 1440px;
+    margin: 0 auto;
+}
+
+.shelter-search-wrap {
+    border: 1px solid #d1d3d4;
+    border-radius: 5px;
+    margin: 20px auto;
+    font-family: '돋움', sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
+    width: 838px;
+    height: 45px;
+    padding-top: 15px;
+}
+
+.shelter-search-wrap select option {
+    font-size: 12px;
+}
+
+.shelter-search-wrap img {
+    width: 50px;
+    height: 100%;
+    display: block;
+}
+
+.shelter-search-wrap label {
+    margin-right: 10px;
+}
+
+.shelter-search-wrap select {
+    width: 100px;
+    height: 25px;
+    margin-right: 10px;
+}
+
+.shelter-search-wrap input[type="text"] {
+    width: 170px;
+    height: 25px;
+}
+
+#search-btn {
+    width: 40px;
+    height:29px;
+    position: relative;
+    top: 2px;
+    left: -6px;
+    outline: none;
+}
+
+.sehlter-board-wrap {
+    width: 900px;
+    margin: 0px auto;
+}
+
+.sehlter-board-wrap table {
+    margin-left: 30px;
+    border-collapse: collapse;
+    border-bottom: 2px solid #FFDD93;
+}
+
+.sehlter-board-wrap table tr:hover {
+    background-color: #ebebeb;
+}
+
+.sehlter-board-wrap table tr th {
+    border-collapse: collapse;
+    font-size: 15px;
+    text-align: center;
+    padding: 10px;
+    background-color: #FFDD93;
+}
+
+.sehlter-board-wrap table tr td {
+    border-bottom: 1px solid #a0a0a0;
+    border-collapse: collapse;
+    font-size: 12px;
+    text-align: center;
+    padding: 15px 10px;
+    font-family: '돋움', sans-serif;
+}
+
+.shelter-pageBar-wrap {
+    width: 838px;
+    height: 40px;
+    background-color: #F8F6F8;
+    margin: 0 auto;
+}
+
+.shelter-pageBar-wrap ul {
+    width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    overflow: hidden;
+}
+
+.shelter-pageBar-wrap li {
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+    font-weight: normal;
+    color: #373b44;
+    line-height: 30px;
+    background-color: white;
+    border: 1px solid #ebebeb;
+    border-radius: 5px;
+    float: left;
+    margin-right: 3px;
+    margin-top: 3.5px;
+}
+
+.shelter-pageBar-wrap li:hover,
+.shelter-pageBar-wrap .on {
+    background-color: #FFDD93;
+}
+
+.shelter-pageBar-wrap li.page-btn {
+    width: 60px;
+    color: #bbbbbb;
+}
