@@ -10,7 +10,7 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/index.css">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-
+<link rel="stylesheet" href="./resources/css/index.css">
    <div id="main-wrap">
         <section class="main">
 

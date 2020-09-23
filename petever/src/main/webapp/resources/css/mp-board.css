@@ -1,7 +1,7 @@
 .main {
     width: 1440px;
     height: 716px;
-    background: url("img/sub2.jpg") no-repeat center;
+    background: url("../images/sub2.jpg") no-repeat center;
     background-size: 1440px;
     margin: 0 auto;
 }
@@ -27,6 +27,7 @@
     width: 200px;
     float: left;
     margin: 10px;
+    text-decoration: none;
 }
 
 .post:nth-child(4n+1) {
@@ -56,6 +57,9 @@ span {
 hr {
     width: 200px;
     margin: 10px auto;
+    height: 1px;
+    background-color: lightgray;
+    border: 0;
 }
 
 .tag+span {
