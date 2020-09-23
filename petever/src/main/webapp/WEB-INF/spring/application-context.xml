@@ -18,7 +18,31 @@
 		<property name="password" value="${datasource.password}"/>
 	</bean>
 	
-
+	
+		<bean class="net.sf.log4jdbc.Log4jdbcProxyDataSource"
+		  id="dataSource">
+		<constructor-arg ref="realDataSource"/>
+		<property name="logFormatter">
+			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+				<property name="loggingType" value="MULTI_LINE"/>
+				<property name="sqlPrefix" value="[SQL] "/>
+			</bean>
+		</property>
+	</bean>
+	
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean"
+		  id="sqlSessionFactoryBean">
+		<!-- ref속성으로 dataSource빈을 참조한다. -->
+		<property name="dataSource" ref="dataSource"/>
+		<!-- mybatis관련 설정파일은 target/classes에서 참조한다. -->
+		<property name="configLocation" value="classpath:mybatis-config.xml"/>
+		<property name="mapperLocations" value="classpath*:mapper/**/*-mapper.xml"/>
+	</bean>
+	
+	<bean class="org.mybatis.spring.SqlSessionTemplate"
+		  id="sqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactoryBean" />
+	</bean>
 
 
 		
