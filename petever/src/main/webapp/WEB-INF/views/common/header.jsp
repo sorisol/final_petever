@@ -35,7 +35,7 @@
         <ul>
             <div class="logo"></div>
             <li>사이트소개</li>
-            <li>유기동물</li>
+            <li><a href="${ pageContext.request.contextPath }/animalboard">유기동물</a></li>
             <li><a href="${ pageContext.request.contextPath }/shelterBoard/shelterBoard.do">보호소동물</a></li>
             <li>입양후기</li>
             <li>인식표</li>
