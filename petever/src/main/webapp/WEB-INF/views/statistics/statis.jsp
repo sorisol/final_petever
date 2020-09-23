@@ -15,7 +15,7 @@
     <div id="main-wrap">
         <section class="main">
 
-        </section>
+        </section> 
         <section class="content-wrap">
             <h1>유기동물 통계</h1>
             <p>전국 모든지역 유기동물 현황</p>
