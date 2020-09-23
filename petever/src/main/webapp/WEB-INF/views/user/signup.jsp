@@ -16,10 +16,11 @@
                 <input type="text" name="" id="" placeholder="4자리 이상">
                 <label for="">비밀번호</label>
                 <input type="password" name="" id="" placeholder="4자리 이상">
-                <input type="password" name="" id="" placeholder="비밀번호 확인">
                 <label for="">이메일</label>
                 <input type="text" name="" id="email-id" class="email"> @
                 <input type="text" name="" id="email" class="email">
+                <label for="">생년월일</label>
+                <input type="date" name="" id="">     
                 <label for="">전화번호</label>
                 <input type="tel" name="" id="">
                 <label for="">주소</label>
