@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="statis">
+
+	<insert id="insertXml">
+		insert into
+			statis (
+				no, 
+				kind,
+				state,
+				org,
+				careaddr,
+				happenday,
+				filename
+			)
+		values (
+			seq_statis_no.nextval,
+			#{ title },
+			#{ kind },
+			#{ org },
+			#{ careAddr },
+			#{ happenDay },
+			#{ fileName }		
+		)
+	</insert>
+</mapper>
