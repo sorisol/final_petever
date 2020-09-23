@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ShelterBoard {
 	
-	//보소호 게시판 주석테스트
 	@GetMapping("/shelterBoard.do")
 	public String shelterBoard() {
 		log.debug("111");
