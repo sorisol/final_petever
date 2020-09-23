@@ -8,8 +8,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"
         integrity="sha512-vBmx0N/uQOXznm/Nbkp7h0P1RfLSj0HQrFSzV8m7rOGyj30fYAOKHYvCNez+yM8IrfnW0TCodDEjRqf6fodf/Q=="
         crossorigin="anonymous"></script>
-    <script src="js/chartjs-plugin-labels.min.js"></script>
-    <script src="js/utils.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/chartjs-plugin-labels.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/utils.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/statis.css" />
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
     <div id="main-wrap">
         <section class="main">
@@ -58,15 +59,6 @@
             </div>
         </section>
     </div>
-    <footer>
-        <div class="f-wrap">
-            <h2>Team Petever</h2>
-            <hr style="width:100%">
-            <p>qwer123@naver.com</p>
-            <p>ⓒ team petever all right reserved</p>
-            <p>서울시 강남구 강남대로 185</p>
-        </div>
-    </footer>
 </body>
 <script>
     var label = ["보호", "입양", "반환", "자연사", "안락사", "방사", "기증"];
