@@ -55,10 +55,4 @@
 		
 	<!-- #13.2 @Transational 어노테이션에 대해 Transaction Advice 적용 -->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
-	
-	
-	
-	
-	
-	
 </beans>

@@ -128,8 +128,8 @@
                         </tr>
                     </table>
 
-                    <hr style="height: 1px; border:none; background-color: #373b44; width: 860px; margin: 35px 50px;">
-					<button onclick="location.href='/animalboard/boardFrm'">글쓰기</button>
+                    <hr style="height: 1px; border:none; background-color: lightgray; width: 860px; margin: 30px 50px;">
+					
                     <div class="post-wrap">
                     <a href="${ pageContext.request.contextPath }/animalboard/boardView">
                         <div class="post">
@@ -189,6 +189,8 @@
                             <span>2020.09.13</span>
                         </div>
                     </div>
+                    <hr style="height: 1px; border:none; background-color: lightgray; width: 860px; margin: 35px 50px 10px 50px;">
+                    <button onclick="location.href='${pageContext.request.contextPath}/animalboard/boardFrm'" class="write-btn">글쓰기</button>
                     <div class="search">
                         <select name="" id="">
                             <option value="">제목</option>
