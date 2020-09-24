@@ -3,45 +3,45 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="user">
-
-<!-- 		<insert id="insertUser">
-		insert into 
-			user 
-		values(
-			#{userId},
-			#{password},
-			#{email},
-			#{birthDay},
-			#{phone},
-			#{address},
-			#{userRole}
-		)
-	</insert>
+		<insert id="insertUser">
+		 insert into 
+		 		tb_user
+		 	values(
+		 			#{ userId },
+					#{ password },
+					#{ email },
+					#{ birthDay },
+					#{ phone },
+					#{ address }, default
+					)
+		
+		</insert>
+		
+		<select id="selectOneUser" resultMap="userMap">
+			select 
+				*
+			from 
+				tb_user
+			where 
+				user_id = #{ userId }
+		</select>
+		
+ 		<resultMap type="user" id="userMap">
 	
-	<select id="selectOneUser" resultMap="userMap">
-		select 
-			*
-		from 
-			user
-		where 
-			user_id = #{ userId }
-	</select>
-	<resultMap type="user" id="userMap">
+		</resultMap>
 	
-	</resultMap>
-	
-	 <update id="updateUser">
+		<update id="updateUser">
 		update 
-			user 
+			"user"
 		set 
-			email = #{ email },
-			birthday = #{ birthDay }, 
-			phone = #{ phone }, 
-			address = #{ address }, 
-			hobby = #{ hobby } 
+			user_pwd = #{ password },
+			user_email = #{ email },
+			user_birth_date = #{ birthDay },
+			user_phone = #{ phone },
+			user_local = #{ address }
 		where 
 			user_id = #{ userId }
-	</update>
+		</update>
+		
+	</mapper>
 	
- -->
-</mapper>

@@ -48,6 +48,7 @@ public class UserController {
 		System.out.println("rawPassword@controller = " + rawPassword);
 		System.out.println("encryptPassword@controller = " + encryptPassword);
 		
+		System.out.println("DB전 = " + user);
 				//1.비지니스로직 실행
 				int result = userService.insertUser(user);
 				
