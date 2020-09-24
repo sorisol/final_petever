@@ -87,7 +87,7 @@ td {
 
 /*하단 검색부분*/
 .content .search {
-    width: 360px;
+    width: 400px;
     margin: 50px auto;
     text-align: center;
     overflow: hidden;
@@ -97,28 +97,34 @@ td {
     float: left;
 }
 
-.search select,
-option {
+.search select {
     width: 80px;
     height: 36px;
     padding: 0px 12px;
     font-size: 16px;
     size: 34px;
-    border-right: none;
+    border: 1px solid #ebecef;
+}
+
+.search select:focus {
+    border: 1px solid #FFDD93;
+    outline-color: #FFDD93;
 }
 
 .search input {
     width: 200px;
     height: 32px;
     padding: 0px 12px;
+    margin: 0px 10px;
+    border: 1px solid #ebecef;
 }
 
 .search input:focus {
     width: 202px;
     height: 34px;
     padding: 0px 12px;
-    border: 1px solid #FF8A00;
-    outline: 1px solid #FFDD93;
+    border: 1px solid #FFDD93;
+    outline-color: #FFDD93;
 }
 
 .search button {
@@ -128,9 +134,11 @@ option {
     background-color: #FFDD93;
     color: #373b44;
     font-size: 16px;
-    margin: 0px 0px 0px -5px;
+    /* margin: 0px 0px 0px -5px; */
     outline: none;
     cursor: pointer;
+    font-weight: bold;
+    
 }
 
 .missing {
@@ -139,4 +147,19 @@ option {
 
 .protect {
     color: #5F9EA0;
+}
+.write-btn {
+	float: right;
+	width: 68px;
+    height: 36px;
+    margin-right: 80px;
+    margin-bottom: 20px;
+    border: 1px solid #FFDD93;
+    background-color: #FFDD93;
+    color: #373b44;
+    font-size: 16px;
+    font-weight: bold;
+}
+.write-btn:focus {
+	outline-color: #FFDD93;	
 }
