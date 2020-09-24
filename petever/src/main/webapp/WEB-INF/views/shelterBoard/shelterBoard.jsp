@@ -5,30 +5,61 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/shelterBoard.css">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+<script>
+$(function() {
+	var sido = $("#sido"); 
+	var sigugun = $("#sigugun");
+
+	$("#sido").change(function() {
+		console.log(sido.val());
+
+		$.ajax({
+			url : "${ pageContext.request.contextPath }/shelterBoard/sigugun.do",
+			data : { sido : $(this).val() },
+			tpye : "GET",
+			success : function(data) {
+				consol.log(data);
+			},
+			error : function(x, s, e) {
+				console.log("처리실패", x, s, e);
+			}
+		});
+			
+	});
+		
+
+	
+});
+
+</script>
+
+
 
     <div id="main-wrap">
         <section class="main">
 
         </section>
         <section class="content-wrap">
-            <h1>보호소 동물 게시판</h1>
+            <h1>유기동물 게시판</h1>
             <p>남은 겨울이 라이너 별 어머니, 불러 덮어 이름과, 까닭입니다.</p>
-            ${ sidoMap }
             <div class="content">
                 <div class="border">
-                    <table class="preference">
-                        <tr>
-                            <td>
-                                <select name="" id="" style="width: 100%; height: 25px;">
-                                <c:forEach items="${ sidoMap }" var="c" >
-                                	<c:forEach items="c" var="sido">
-	                                	<option value="">${ sido }</option>
-                                	</c:forEach>
-                                </c:forEach>
-                                </select>
-                            </td>
-                        </tr>
-                    </table>
+
+                    <div class="search-bar">
+                    <form action="">
+                    	<select name="sido" id="sido">
+                   			<option value="">시도</option>
+                        	<c:forEach items="${ sidoMap.resultMap }" var="sd" >
+                          		<option value="${ sd.orgCd }">${ sd.orgdownNm }</option>
+                        	</c:forEach>
+                        </select>
+                        <select name="sigugun" id="sigugun">
+                        	<option value="">시구군</option>
+                        </select>
+                    
+                    </form>
+
+                    </div>
 
                     <hr style="height: 1px; border:none; background-color: #373b44; width: 860px; margin: 35px 50px;">
 
@@ -102,8 +133,8 @@
             </div>
         </section>
     </div>
-
-
+    
+    <button type="button" onclick="location.href='${ pageContext.request.contextPath }/shelterBoard/shelterDB'">DB만들기</button>
 
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
