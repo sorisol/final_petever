@@ -28,12 +28,9 @@ public class XmlParserUtil {
 		String getNodeName = "";
 		
 		//root 다음의 첫번째 노드명
-		String num = document.getFirstChild().getLastChild().getFirstChild().getFirstChild().getNodeName();
-		System.out.println("getNodeLength : " + num);
-		
 		if(document.getFirstChild().getChildNodes().getLength() > 0) {
 			getNodeName = document.getFirstChild().getLastChild().getFirstChild().getFirstChild().getNodeName();
-			System.out.println("getNodeName : " + getNodeName);
+//			System.out.println("getNodeName : " + getNodeName);
 			
 			// root 다음의 첫번째 노드 찾아서 셋팅
 			nodeList = document.getElementsByTagName(getNodeName);

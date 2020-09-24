@@ -11,11 +11,11 @@ grant resource, connect to petever;
 ------------------------------ 
 -- 테이블 생성
 ------------------------------
-CREATE TABLE "user" (
+CREATE TABLE tb_user (
 	user_id	VARCHAR2(30)	NOT NULL,
-	user_pwd	VARCHAR2(300)	NOT NULL	,
+	user_pwd	VARCHAR2(300)	NOT NULL,
 	user_email	VARCHAR2(100)	NOT NULL,
-	user_birth_date	VARCHAR2(8)	NOT NULL	,
+	user_birth_date	date NOT NULL,
 	user_phone	 VARCHAR2(11)	NOT NULL,
 	user_local	VARCHAR2(40)	NOT NULL,
 	user_role	CHAR(1) default 'U' NOT NULL,
@@ -36,25 +36,25 @@ CREATE TABLE "user" (
 --);
 
 CREATE TABLE animal_board (
-	ani_bo_id	NUMBER	NOT NULL	,
-	user_id	VARCHAR2(30)	NOT NULL	,
-	ani_bo_title	VARCHAR(200)	NOT NULL,
-	ani_bo_content	VARCHAR2(3000)	NOT NULL	,
+	ani_bo_id	NUMBER	NOT NULL,
+	user_id	VARCHAR2(30)	NOT NULL,
+	ani_bo_title	VARCHAR(200) NOT NULL,
+	ani_bo_content	VARCHAR2(3000)	NOT NULL,
 	ani_bo_date DATE default sysdate,
-	ani_bo_tag VARCHAR2(30)	NOT NULL,
+	ani_bo_tag VARCHAR2(30) NOT NULL,
 	ani_bo_local	VARCHAR2(1000)	NOT NULL,
-   	ani_bo_type	VARCHAR2(20)	,
-	ani_bo_kind	VARCHAR2(50)	,
-	ani_bo_gender	 VARCHAR2(10)	,
-	ani_bo_age	VARCHAR2(20)	,
-	ani_bo_size	VARCHAR2(20)	,
-	ani_bo_hair	VARCHAR2(50)	,
-	ani_bo_color	VARCHAR2(50)	,
-	ani_bo_cha VARCHAR2(500)	,
+   	ani_bo_type	VARCHAR2(20),
+	ani_bo_kind	VARCHAR2(50),
+	ani_bo_gender	 VARCHAR2(10),
+	ani_bo_age	VARCHAR2(20),
+	ani_bo_size	VARCHAR2(20),
+	ani_bo_hair	VARCHAR2(50),
+	ani_bo_color	VARCHAR2(50),
+	ani_bo_cha VARCHAR2(500),
 	ani_bo_miss_date	VARCHAR2(50),
     constraints pk_ani_bo_id primary key(ani_bo_id),
     constraints fk_ani_bo_user_id foreign key(user_id)
-                                    references "user"(user_id)
+                                    references tb_user(user_id)
                                     on delete cascade
                            
 );
@@ -85,7 +85,7 @@ CREATE TABLE animal_comment (
                                     references animal_board(ani_bo_id)
                                     on delete cascade,
     constraints fk_co_user_id foreign key(user_id)
-                                    references "user"(user_id)
+                                    references tb_user(user_id)
                                     on delete cascade,
     constraints ck_ani_co_level check (ani_co_level in('1','2'))
 );
@@ -112,7 +112,7 @@ CREATE TABLE review_board (
 	rew_bo_reg_date	DATE default sysdate,
     constraints pk_rew_bo_id primary key(rew_bo_id),
     constraints fk_rew_user_id foreign key(user_id)
-                                    references "user"(user_id)
+                                    references tb_user(user_id)
                                     on delete cascade
 );
 
@@ -128,7 +128,7 @@ CREATE TABLE review_comment (
                                     references review_board(rew_bo_id)
                                     on delete cascade,
     constraints fk_rew_co_user_id foreign key(user_id)
-                                    references "user"(user_id)
+                                    references tb_user(user_id)
                                     on delete cascade,
     constraints ck_rew_co_level check (rew_co_level in('1','2'))
 );
@@ -157,50 +157,33 @@ CREATE TABLE Report (
                                         references animal_board(ani_bo_id)
                                         on delete cascade,
     constraints fk_rep_user_id foreign key(user_id)
-                                        references "user"(user_id)
+                                        references tb_user(user_id)
                                         on delete cascade,
     constraints ck_rep_display check(rep_display in('Y','N'))
 );
-drop table statis;
-create table statis(
-    no number,
-    kind varchar(200),
-    state varchar(30),
-    org varchar(100),
-    careaddr varchar(500),
-    happenday varchar(30),
-    filename varchar(500)
-);
-drop sequence seq_statis_no;
-create sequence seq_statis_no;
-commit;
-select count(*) from statis;
+drop table shelterAnimal;
 
-insert into
-			statis (
-				no, 
-				kind,
-				state,
-				org,
-				careaddr,
-				happenday,
-				filename
-			)
-		values (
-			seq_statis_no.nextval,
-			'a','a','a','a','a','a'
-		);
+select count(*) from shelterAnimal;
+
+select * from shelterAnimal;
+
+delete from shelterAnimal;
+
+drop TABLE shelterAnimal;
+
+commit;
+
         drop table shelterAnimal;
 create table shelterAnimal(
     desertion_no varchar2(20),
     file_name varchar2(200),
     happen_dt date,
-    happen_place varchar2(50),
+    happen_place varchar2(200),
     kind_cd varchar2(100),
-    color_cd varchar2(50),
+    color_cd varchar2(100),
     age varchar2(30),
     weight varchar2(30),
-    notice_no varchar2(30),
+    notice_no varchar2(50),
     notice_sdt date,
     notice_edt date,
     popfile varchar2(200),
@@ -212,10 +195,9 @@ create table shelterAnimal(
     care_tel varchar2(14),
     care_addr varchar2(300),
     org_nm varchar2(100),
-    charge_nm varchar2(20),
+    charge_nm varchar2(40),
     officetel varchar2(14),
-    constraint pk_notice_no primary key(notice_no)
+    constraint pk_desertion_no primary key(desertion_no)
 );
  
-
 
