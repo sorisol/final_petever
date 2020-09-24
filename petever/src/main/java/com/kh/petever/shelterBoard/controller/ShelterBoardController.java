@@ -31,13 +31,13 @@ public class ShelterBoardController {
 	@Autowired
 	private ShelterBoardService shelterBoardService;
 
-	String serviceKey = "0oxoWLIMN%2BGCfVq7BsLiAFpHnGopa6SVnMkjsPVZ8zGyPBR89l2H%2FRpS6IvjnMDLpYFxpmFjBzhWbDJg4fj6LA%3D%3D";
+	String serviceKey = "8K6TziMrpfFbxxnak21vb%2B1P77px04rGI6I5hJxhxlzk2pcZzthYznTc9ZfSOox93LUNH3Z1PbMaF%2FVk62rUjQ%3D%3D";
 	
 	@GetMapping("/shelterDB")
 	public String animalDb() {
 		
 		RestTemplate template = new RestTemplate();
-		String addressAnimal = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/abandonmentPublic?bgnde=20170101&endde=20200924&pageNo=1&numOfRows=30000&ServiceKey=";
+		String addressAnimal = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/abandonmentPublic?bgnde=20170101&endde=20200924&pageNo=1&numOfRows=100000&ServiceKey=";
 		
 		URI uri = null;
 		try {
