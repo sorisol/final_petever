@@ -15,25 +15,25 @@
             <h1>[보호] 퍼그(수컷)을 보호하고 있습니다.</h1>
             <p>#강아지 #3살 #퍼그 #수컷 #강남구 #중성화</p>
             <div class="content">
-            	 <form name="boardFrm">
+            	 <form name="boardFrm" id="boardFrm" method="get" action="${pageContext.request.contextPath}/animalboard/insertBoard">
                     <h1>글쓰기</h1>
                     <div class="title">
-                        <select name="" id="">
+                        <select name="ani_bo_tag">
                             <option selected disabled hidden>말머리</option>
-                            <option value="">실종</option>
-                            <option value="">목격</option>
-                            <option value="">보호</option>
-                            <option value="">완료</option>
+                            <option value="실종">실종</option>
+                            <option value="목격">목격</option>
+                            <option value="보호">보호</option>
+                            <option value="완료">완료</option>
                         </select>
-                        <input type="text" placeholder="제목을 입력해 주세요.">
+                        <input type="text" placeholder="제목을 입력해 주세요." name="ani_bo_title">
                     </div>
-                    <textarea name="" id="board-content" rows="10" cols="100"></textarea>
+                    <textarea id="board-content" name="board-content" rows="20"></textarea>
                         <div class="pet-info">
                             <table class="pet-info">
                                 <tr>
                                     <th>동물종류</th>
                                     <td>
-                                        <input type="checkbox" name="" id="">
+                                        <input type="checkbox" name="ani_bo_kind" id="ani_bo_kind">
                                         <label for="">강아지</label>
                                     </td>
                                     <td>
@@ -151,20 +151,27 @@
                             </table>
                         </div>
                     
-                        <input type="submit" value="등록" class="btn">
+                        <input type="submit" value="등록" class="btn" id="submitbtn">
                         <input type="button" value="취소" onclick="javascript:history.go(-1)" class="btn">
                 </form>
             </div>
         </section>
     </div>
 <script type="text/javascript">
-	var oEditors = [];
-	nhn.husky.EZCreator.createInIFrame({
-		 oAppRef: oEditors,
-		 elPlaceHolder: "board-content",
-		 sSkinURI: "${pageContext.request.contextPath}/resources/editor/SmartEditor2Skin.html",
-		 fCreator: "createSEditor2"
-	});
+var oEditors = [];
+
+nhn.husky.EZCreator.createInIFrame({
+ oAppRef: oEditors,
+ elPlaceHolder: "board-content",
+ sSkinURI: "${pageContext.request.contextPath}/resources/editor/SmartEditor2Skin.html",
+ fCreator: "createSEditor2"
+});
+
+$("#submitbtn").click(function() {
+	console.log(oEditors.getById["board-content"].exec("UPDATE_CONTENTS_FIELD", []));
+	oEditors.getById["board-content"].exec("UPDATE_CONTENTS_FIELD", []);
+	$("#boardFrm").submit();
+});
 </script>
 	
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

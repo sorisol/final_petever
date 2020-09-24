@@ -11,7 +11,7 @@ grant resource, connect to petever;
 ------------------------------ 
 -- 테이블 생성
 ------------------------------
-CREATE TABLE "user" (
+CREATE TABLE tb_user (
 	user_id	VARCHAR2(30)	NOT NULL,
 	user_pwd	VARCHAR2(300)	NOT NULL	,
 	user_email	VARCHAR2(100)	NOT NULL,
@@ -54,7 +54,7 @@ CREATE TABLE animal_board (
 	ani_bo_miss_date	VARCHAR2(50),
     constraints pk_ani_bo_id primary key(ani_bo_id),
     constraints fk_ani_bo_user_id foreign key(user_id)
-                                    references "user"(user_id)
+                                    references tb_user(user_id)
                                     on delete cascade
                            
 );
@@ -85,7 +85,7 @@ CREATE TABLE animal_comment (
                                     references animal_board(ani_bo_id)
                                     on delete cascade,
     constraints fk_co_user_id foreign key(user_id)
-                                    references "user"(user_id)
+                                    references tb_user(user_id)
                                     on delete cascade,
     constraints ck_ani_co_level check (ani_co_level in('1','2'))
 );
@@ -112,7 +112,7 @@ CREATE TABLE review_board (
 	rew_bo_reg_date	DATE default sysdate,
     constraints pk_rew_bo_id primary key(rew_bo_id),
     constraints fk_rew_user_id foreign key(user_id)
-                                    references "user"(user_id)
+                                    references tb_user(user_id)
                                     on delete cascade
 );
 
@@ -128,7 +128,7 @@ CREATE TABLE review_comment (
                                     references review_board(rew_bo_id)
                                     on delete cascade,
     constraints fk_rew_co_user_id foreign key(user_id)
-                                    references "user"(user_id)
+                                    references tb_user(user_id)
                                     on delete cascade,
     constraints ck_rew_co_level check (rew_co_level in('1','2'))
 );
@@ -157,7 +157,7 @@ CREATE TABLE Report (
                                         references animal_board(ani_bo_id)
                                         on delete cascade,
     constraints fk_rep_user_id foreign key(user_id)
-                                        references "user"(user_id)
+                                        references tb_user(user_id)
                                         on delete cascade,
     constraints ck_rep_display check(rep_display in('Y','N'))
 );
