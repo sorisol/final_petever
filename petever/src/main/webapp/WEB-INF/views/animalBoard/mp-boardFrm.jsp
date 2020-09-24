@@ -6,7 +6,7 @@
 <fmt:requestEncoding value="utf-8"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mp-boardFrm.css">
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/editor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
 	    <div id="main-wrap">
         <section class="main">
 
