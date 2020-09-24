@@ -17,6 +17,16 @@ public class StatisServiceImpl implements StatisService {
 		return statisDao.insertXml(statis);
 	}
 
+	@Override
+	public Statis selectStatis() {
+		return statisDao.selectStatis();
+	}
+
+	@Override
+	public int countStatis() {
+		return statisDao.countStatis();
+	}
+
 //	@Override
 //	public int insertDev(Dev dev) {
 //		return demoDao.insertDev(dev);

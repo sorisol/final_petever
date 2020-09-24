@@ -4,25 +4,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="statis">
 
-	<insert id="insertXml">
-		insert into
-			statis (
-				no, 
-				kind,
-				state,
-				org,
-				careaddr,
-				happenday,
-				filename
-			)
-		values (
-			seq_statis_no.nextval,
-			#{ title },
-			#{ kind },
-			#{ org },
-			#{ careAddr },
-			#{ happenDay },
-			#{ fileName }		
+	<insert id="countStatis">
+		insert into shelterAnimal
+		values(
+			#{ desertionNo }, #{ fileName }, to_date(#{ happenDt }, 'yyyymmdd'), #{ happenPlace }, #{ kindCd },
+			#{ colorCd }, #{ age }, #{ weight }, #{ noticeNo }, to_date(#{ noticeSdt }, 'yyyymmdd'),
+			to_date(#{ noticeEdt }, 'yyyymmdd'), #{ popfile }, #{ processState }, #{ genderCd }, #{ neuterYn },
+			#{ SpecialMark }, #{ careNm }, #{ careTel }, #{ careAddr }, #{ orgNm },
+			#{ chargeNm }, #{ officetel }
 		)
+	
 	</insert>
+	
+	<select id="selectStatis">
+		select * from statis
+	</select>
+	<select id="countStatis" resultType="_int">
+		select count(*) from statis
+	</select>
 </mapper>

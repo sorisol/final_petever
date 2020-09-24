@@ -18,6 +18,9 @@
         </section> 
         <section class="content-wrap">
             <h1>유기동물 통계</h1>
+			<form action="${pageContext.request.contextPath}/statis/statisXml.do" method="POST">
+				<input type="submit" value="전송""/>
+			</form>
             <p>전국 모든지역 유기동물 현황</p>
             <div class="content">
                 <div class="shelter-search-wrap">
@@ -43,9 +46,9 @@
                         </div>
                     </div>
                     <article class="total-wrap">
-                            <h1>총 1,824,339마리</h1>
+                            <h1>총 ${ cnt } 마리</h1>
                             <hr style="width: 500px; background-color: white; height: 1px; border:none; margin: 0 auto;">
-                            <p>현재 대한민국 유기된 동물  <br/>adipisicing elit. Et accusamus ipsum provident</p>
+                            <p>2017년 ~ 현재 대한민국 유기된 동물  <br/>Data provided by OpenApi Animal and Plant Quarantine Agency.</p>
                         </article>
                     <div class="canvas-wrap">
                         <div class="area">

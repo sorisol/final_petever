@@ -6,5 +6,9 @@ public interface StatisDao {
 
 	int insertXml(Statis statis);
 
+	Statis selectStatis();
+
+	int countStatis();
+
 
 }

@@ -164,13 +164,58 @@ CREATE TABLE Report (
 drop table statis;
 create table statis(
     no number,
-    kind varchar(7),
-    state varchar(20),
-    org varchar(50),
-    careaddr varchar(50),
-    beginday varchar(50),
-    endday varchar(50),
-    filename varchar(100)
+    kind varchar(200),
+    state varchar(30),
+    org varchar(100),
+    careaddr varchar(500),
+    happenday varchar(30),
+    filename varchar(500)
 );
-
+drop sequence seq_statis_no;
 create sequence seq_statis_no;
+commit;
+select count(*) from statis;
+
+insert into
+			statis (
+				no, 
+				kind,
+				state,
+				org,
+				careaddr,
+				happenday,
+				filename
+			)
+		values (
+			seq_statis_no.nextval,
+			'a','a','a','a','a','a'
+		);
+        drop table shelterAnimal;
+create table shelterAnimal(
+    desertion_no varchar2(20),
+    file_name varchar2(200),
+    happen_dt date,
+    happen_place varchar2(50),
+    kind_cd varchar2(100),
+    color_cd varchar2(50),
+    age varchar2(30),
+    weight varchar2(30),
+    notice_no varchar2(30),
+    notice_sdt date,
+    notice_edt date,
+    popfile varchar2(200),
+    process_state varchar2(20),
+    gender_cd varchar2(1),
+    neuter_yn varchar2(1),
+    special_mark varchar2(500),
+    care_nm varchar2(100),
+    care_tel varchar2(14),
+    care_addr varchar2(300),
+    org_nm varchar2(100),
+    charge_nm varchar2(20),
+    officetel varchar2(14),
+    constraint pk_notice_no primary key(notice_no)
+);
+ 
+
+

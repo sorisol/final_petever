@@ -17,6 +17,16 @@ public class StatisDaoImpl implements StatisDao {
 		return session.insert("statis.insertXml",statis);
 	}
 
+	@Override
+	public Statis selectStatis() {
+		return session.selectOne("statis.selectStatis");
+	}
+
+	@Override
+	public int countStatis() {
+		return session.selectOne("statis.countStatis");
+	}
+
 //	@Override
 //	public int insertDev(Dev dev) {
 //		return session.insert("demo.insertDev", dev);
