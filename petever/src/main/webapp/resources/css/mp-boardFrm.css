@@ -1,0 +1,57 @@
+.main {
+    width: 1440px;
+    height: 716px;
+    background: url("../images/sub1.jpg") no-repeat center;
+    background-size: 1440px;
+    margin: 0 auto;
+}
+form[name=boardFrm] {
+    width: 1000px;
+    margin: 50px auto;
+}
+.title {
+    margin: 20px auto;
+}
+.title > select {
+    width: 120px;
+    height: 36px;
+    border: 1px solid #ebecef;
+    font-size: 15px;
+}
+.title > input {
+    float: right;
+    padding: 0 10px;
+    height: 34px;
+    width: 850px;
+    font-size: 15px;
+    border: 1px solid #ebecef;
+}
+.title :focus{
+    border: 1px solid #FFDD93;
+    outline: none;
+}
+.btn {
+    float: right;
+    width: 56px;
+    height: 38px;
+    border: 1px solid #FFDD93;
+    background-color: #FFDD93;
+    color: #373b44;
+    font-weight: bold;
+    margin-left: 10px;
+}
+form textarea {
+    height: 550px;
+}
+table {
+    width: 1000px;
+    text-align: left;
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 10px;
+}
+table th {
+    padding-right: 10px;
+}
+table td,th {
+    padding: 2px;
+}
