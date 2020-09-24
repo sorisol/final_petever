@@ -9,12 +9,12 @@
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
 	</settings>
 	
-<!-- 	<typeAliases>
+	<typeAliases>
 		<typeAlias type="com.kh.petever.common.typehandler.StringArrayTypeHandler" alias="strArrTypeHandler"/>
-		<package name="com.kh.spring"/>
+		<package name="com.kh.petever"/>
 	</typeAliases>
 	
-	<typeHandlers>
+<!-- 	<typeHandlers>
 		<typeHandler handler="com.kh.petever.common.typehandler.StringArrayTypeHandler"/>
 	</typeHandlers> -->
 	
