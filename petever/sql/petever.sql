@@ -8,6 +8,20 @@ default tablespace users;
 grant resource, connect to petever;
 
 
+----------------------------
+--테이블 드랍문
+----------------------------
+drop table animal_attach;
+drop table animal_comment;
+drop table animal_tag;
+drop table report;
+drop table animal_board;
+drop table review_attach;
+drop table review_comment;
+drop table review_board;
+drop table tb_user;
+------------------------------
+
 ------------------------------ 
 -- 테이블 생성
 ------------------------------
@@ -51,7 +65,7 @@ CREATE TABLE animal_board (
 	ani_bo_hair	VARCHAR2(50),
 	ani_bo_color	VARCHAR2(50),
 	ani_bo_cha VARCHAR2(500),
-	ani_bo_miss_date	VARCHAR2(50),
+	ani_bo_miss_date	DATE,
     constraints pk_ani_bo_id primary key(ani_bo_id),
     constraints fk_ani_bo_user_id foreign key(user_id)
                                     references tb_user(user_id)
@@ -95,7 +109,7 @@ CREATE TABLE animal_tag (
 	tag_color VARCHAR2(100)	NOT NULL	,
 	tag_font VARCHAR2(30)	NOT NULL	,
 	tag_pet_name	VARCHAR2(50)	NOT NULL	,
-	tag_birth_date	VARCHAR2(50),
+	tag_birth_date	DATE,
 	tag_gender	VARCHAR2(30),
 	tag_num NUMBER,
 	tag_family_name	VARCHAR2(50)	NOT NULL,
