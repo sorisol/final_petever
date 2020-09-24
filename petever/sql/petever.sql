@@ -175,18 +175,19 @@ CREATE TABLE Report (
                                         on delete cascade,
     constraints ck_rep_display check(rep_display in('Y','N'))
 );
-drop table statis;
-create table statis(
-    no number,
-    kind varchar(7),
-    state varchar(20),
-    org varchar(50),
-    careaddr varchar(50),
-    beginday varchar(50),
-    endday varchar(50),
-    filename varchar(100)
-);
+drop table shelterAnimal;
 
+select count(*) from shelterAnimal;
+
+select * from shelterAnimal;
+
+delete from shelterAnimal;
+
+drop TABLE shelterAnimal;
+
+commit;
+
+        drop table shelterAnimal;
 create table shelterAnimal(
     desertion_no varchar2(20),
     file_name varchar2(200),
@@ -196,7 +197,7 @@ create table shelterAnimal(
     color_cd varchar2(100),
     age varchar2(30),
     weight varchar2(30),
-    notice_no varchar2(30),
+    notice_no varchar2(50),
     notice_sdt date,
     notice_edt date,
     popfile varchar2(200),
@@ -210,16 +211,7 @@ create table shelterAnimal(
     org_nm varchar2(100),
     charge_nm varchar2(40),
     officetel varchar2(14),
-    constraint pk_notice_no primary key(notice_no)
+    constraint pk_desertion_no primary key(desertion_no)
 );
-
-select * from shelterAnimal;
-
-delete from shelterAnimal;
-
-drop TABLE shelterAnimal;
-
-commit;
-
-create sequence seq_statis_no;
+ 
 

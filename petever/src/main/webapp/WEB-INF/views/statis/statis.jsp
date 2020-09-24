@@ -18,19 +18,22 @@
         </section> 
         <section class="content-wrap">
             <h1>유기동물 통계</h1>
+			<form action="${pageContext.request.contextPath}/statis/statisXml.do" method="POST">
+				<input type="submit" value="전송" style="display=none;" />
+			</form>
             <p>전국 모든지역 유기동물 현황</p>
             <div class="content">
                 <div class="shelter-search-wrap">
-                    <form action="" method="GET">
+                    <form id="searchFrm" method="GET">
                         <label for="city">시도</label>
                         <select name="city" id="city"></select>
                         <label for="province">구/군</label>
                         <select name="province" id="province"></select>
-                        <input type="date" id="start" name="trip-start" value="2017-01-25" min="2017-01-25"
+                        <input type="date" id="startDay" name="trip-start" value="2017-01-01" min="2017-01-01"
                             max="2020-09-21">
-                        <input type="date" id="start" name="trip-start" value="2019-09-21" min="2017-01-25"
+                        <input type="date" id="endDay" name="trip-start" value="2019-09-21" min="2017-01-01"
                             max="2020-09-21">
-                        <input type="submit" value="검색" id="search-btn">
+                        <input type="button" value="검색" id="search-btn">
                     </form>
                 </div>
                 <div class="stats-wrap">
@@ -43,9 +46,9 @@
                         </div>
                     </div>
                     <article class="total-wrap">
-                            <h1>총 1,824,339마리</h1>
+                            <h1>총 ${ allCnt } 마리 </h1>
                             <hr style="width: 500px; background-color: white; height: 1px; border:none; margin: 0 auto;">
-                            <p>현재 대한민국 유기된 동물  <br/>adipisicing elit. Et accusamus ipsum provident</p>
+                            <p>2017년 ~ 현재 대한민국 유기된 동물  <br/>Data provided by OpenApi Animal and Plant Quarantine Agency.</p>
                         </article>
                     <div class="canvas-wrap">
                         <div class="area">
@@ -61,8 +64,31 @@
     </div>
 </body>
 <script>
+	$("#search-btn").click(function(){
+		var city = $("#city").val();
+		var province = $("#province").val();
+		var startDay = $("#startDay").val();
+		var endDay = $("#endDay").val();
+		console.log(city, province, startDay, endDay);
+		$.ajax({
+			url : "${ pageContext.request.contextPath}/statis/statis.do",
+			data : {
+				city : city,
+				province : province,
+				startDay : startDay,
+				endDay : endDay
+			},
+			method : "GET",
+			success : function(data){
+				console.log(data.allCnt);
+			},
+			error : function(xhr, status, err){
+				console.log("처리실패", xhr, status, err);
+			}
+		});
+	});
     var label = ["보호", "입양", "반환", "자연사", "안락사", "방사", "기증"];
-    var data = [30826, 132424, 57400, 116877, 98876, 3896, 7893];
+    var data = [${ protectCnt }, ${ dismissCnt }, ${ returnCnt }, ${ deathCnt }, ${ euthanasiaCnt }, ${ radiateCnt }, ${ donationCnt }];
     var back = ["#245EFF", "#3DD5FF", "#40F7B4", "#00C788", "#FFAA9D", "#FB5F83", "#BB4BEB"]
     new Chart(
         document.getElementById("doughnut"), {
