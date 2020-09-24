@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="shelterBoard">
+	<insert id="insertShelterAnimal">
+		insert into shelterAnimal
+		values(
+			#{ desertionNo }, #{ fileName }, #{ happenDt }, #{ happenPlace }, #{ kindCd },
+			#{ colorCd }, #{ age }, #{ weight }, #{ noticeNo }, #{ noticeSdt },
+			#{ noticeEdt }, #{ popfile }, #{ processState }, #{ genderCd }, #{ neuterYn },
+			#{ SpecialMark }, #{ careNm }, #{ careTel }, #{ careAddr }, #{ orgNm },
+			#{ chargeNm }, #{ officetel }
+		)
+	
+	</insert>
+	
+</mapper>

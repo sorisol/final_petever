@@ -11,11 +11,11 @@ grant resource, connect to petever;
 ------------------------------ 
 -- 테이블 생성
 ------------------------------
-CREATE TABLE "user" (
+CREATE TABLE tb_user (
 	user_id	VARCHAR2(30)	NOT NULL,
-	user_pwd	VARCHAR2(300)	NOT NULL	,
+	user_pwd	VARCHAR2(300)	NOT NULL,
 	user_email	VARCHAR2(100)	NOT NULL,
-	user_birth_date	VARCHAR2(8)	NOT NULL	,
+	user_birth_date	date NOT NULL,
 	user_phone	 VARCHAR2(11)	NOT NULL,
 	user_local	VARCHAR2(40)	NOT NULL,
 	user_role	CHAR(1) default 'U' NOT NULL,
@@ -36,21 +36,21 @@ CREATE TABLE "user" (
 --);
 
 CREATE TABLE animal_board (
-	ani_bo_id	NUMBER	NOT NULL	,
-	user_id	VARCHAR2(30)	NOT NULL	,
-	ani_bo_title	VARCHAR(200)	NOT NULL,
-	ani_bo_content	VARCHAR2(3000)	NOT NULL	,
+	ani_bo_id	NUMBER	NOT NULL,
+	user_id	VARCHAR2(30)	NOT NULL,
+	ani_bo_title	VARCHAR(200) NOT NULL,
+	ani_bo_content	VARCHAR2(3000)	NOT NULL,
 	ani_bo_date DATE default sysdate,
-	ani_bo_tag VARCHAR2(30)	NOT NULL,
+	ani_bo_tag VARCHAR2(30) NOT NULL,
 	ani_bo_local	VARCHAR2(1000)	NOT NULL,
-   	ani_bo_type	VARCHAR2(20)	,
-	ani_bo_kind	VARCHAR2(50)	,
-	ani_bo_gender	 VARCHAR2(10)	,
-	ani_bo_age	VARCHAR2(20)	,
-	ani_bo_size	VARCHAR2(20)	,
-	ani_bo_hair	VARCHAR2(50)	,
-	ani_bo_color	VARCHAR2(50)	,
-	ani_bo_cha VARCHAR2(500)	,
+   	ani_bo_type	VARCHAR2(20),
+	ani_bo_kind	VARCHAR2(50),
+	ani_bo_gender	 VARCHAR2(10),
+	ani_bo_age	VARCHAR2(20),
+	ani_bo_size	VARCHAR2(20),
+	ani_bo_hair	VARCHAR2(50),
+	ani_bo_color	VARCHAR2(50),
+	ani_bo_cha VARCHAR2(500),
 	ani_bo_miss_date	VARCHAR2(50),
     constraints pk_ani_bo_id primary key(ani_bo_id),
     constraints fk_ani_bo_user_id foreign key(user_id)
@@ -173,4 +173,36 @@ create table statis(
     filename varchar(100)
 );
 
+<<<<<<< HEAD
+create table shelterAnimal(
+    desertion_no varchar2(20),
+    file_name varchar2(200),
+    happen_dt varchar2(8),
+    happen_place varchar2(20),
+    kind_cd varchar2(100),
+    color_cd varchar2(50),
+    age varchar2(30),
+    weight varchar2(30),
+    notice_no varchar2(30),
+    notice_sdt varchar2(8),
+    notice_edt varchar2(8),
+    popfile varchar2(200),
+    process_state varchar2(20),
+    gender_cd varchar2(1),
+    neuter_yn varchar2(1),
+    special_mark varchar2(500),
+    care_nm varchar2(100),
+    care_tel varchar2(14),
+    care_addr varchar2(300),
+    org_nm varchar2(100),
+    charge_nm varchar2(20),
+    officetel varchar2(14),
+    constraint pk_notice_no primary key(notice_no)
+);
+
+commit;
+
+
+=======
 create sequence seq_statis_no;
+>>>>>>> branch 'master' of https://github.com/rato12/petever.git
