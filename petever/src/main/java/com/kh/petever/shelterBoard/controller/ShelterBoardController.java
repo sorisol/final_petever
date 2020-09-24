@@ -37,7 +37,7 @@ public class ShelterBoardController {
 	public String animalDb() {
 		
 		RestTemplate template = new RestTemplate();
-		String addressAnimal = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/abandonmentPublic?bgnde=20200101&endde=20200924&pageNo=1&numOfRows=10&ServiceKey=";
+		String addressAnimal = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/abandonmentPublic?bgnde=20170101&endde=20200924&pageNo=1&numOfRows=30000&ServiceKey=";
 		
 		URI uri = null;
 		try {
@@ -54,7 +54,7 @@ public class ShelterBoardController {
 			e.printStackTrace();
 		}
 		
-		System.out.println(map);
+//		System.out.println(map);
 		ShelterAnimal sa = new ShelterAnimal();
 		
 		for(String key : map.keySet()) {
@@ -92,11 +92,11 @@ public class ShelterBoardController {
 				sa.setChargeNm(map1.get("chargeNm"));
 				sa.setOfficetel(map1.get("officetel"));
 				
-				System.out.println(sa);
+//				System.out.println(sa);
 				int result = shelterBoardService.insertShelterAnimal(sa);
 				
 				String msg = result > 0 ? "보호소 동물 등록 성공 :)" : "보호소 동물 등록 실패ㅜ";
-				log.debug("등록 결과 {}", msg);
+//				log.debug("등록 결과 {}", msg);
 			}
 			
 		}
