@@ -16,6 +16,4 @@ import lombok.ToString;
 public class Photo {
 
 	private MultipartFile filedata;
-	private String callback;
-	private String callback_func;
 }
