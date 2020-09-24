@@ -6,7 +6,7 @@ section {
 .logo {
     width: 275px;
     height: 92px;
-    background: url("img/logo.png") no-repeat;
+    background: url("../images/logo.png") no-repeat;
     background-size: cover;
     background-position: center;
     margin: 0 auto;

@@ -1,6 +1,7 @@
 package com.kh.petever.user.model.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import com.kh.petever.user.model.dao.UserDAO;
@@ -15,6 +16,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int insertUser(User user) {
 		return userDAO.insertUser(user);
+		/*
+		 * int resultData = userDAO.insertUser(user); return resultData;
+		 */
 	}
 
 	@Override
