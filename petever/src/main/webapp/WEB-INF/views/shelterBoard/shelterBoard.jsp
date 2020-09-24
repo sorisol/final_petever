@@ -33,15 +33,18 @@ $(function() {
 
 </script>
 
+
+
     <div id="main-wrap">
         <section class="main">
 
         </section>
         <section class="content-wrap">
-            <h1>보호소 동물 게시판</h1>
+            <h1>유기동물 게시판</h1>
             <p>남은 겨울이 라이너 별 어머니, 불러 덮어 이름과, 까닭입니다.</p>
             <div class="content">
                 <div class="border">
+
                     <div class="search-bar">
                     <form action="">
                     	<select name="sido" id="sido">

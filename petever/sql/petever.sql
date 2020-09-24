@@ -161,7 +161,19 @@ CREATE TABLE Report (
                                         on delete cascade,
     constraints ck_rep_display check(rep_display in('Y','N'))
 );
+drop table statis;
+create table statis(
+    no number,
+    kind varchar(7),
+    state varchar(20),
+    org varchar(50),
+    careaddr varchar(50),
+    beginday varchar(50),
+    endday varchar(50),
+    filename varchar(100)
+);
 
+<<<<<<< HEAD
 create table shelterAnimal(
     desertion_no varchar2(20),
     file_name varchar2(200),
@@ -191,3 +203,6 @@ create table shelterAnimal(
 commit;
 
 
+=======
+create sequence seq_statis_no;
+>>>>>>> branch 'master' of https://github.com/rato12/petever.git
