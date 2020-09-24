@@ -4,8 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="shelterBoard">
 	<insert id="insertShelterAnimal">
-		insert into
-		from shelterAnimal
+		insert into shelterAnimal
 		values(
 			#{ desertionNo }, #{ fileName }, #{ happenDt }, #{ happenPlace }, #{ kindCd },
 			#{ colorCd }, #{ age }, #{ weight }, #{ noticeNo }, #{ noticeSdt },
