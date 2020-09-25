@@ -9,7 +9,6 @@
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
 	</settings>
 	
-
  	<typeAliases>
 		<!-- <typeAlias type="com.kh.petever.common.typehandler.StringArrayTypeHandler" alias="strArrTypeHandler"/> -->
 		<typeAlias type="org.springframework.security.core.authority.SimpleGrantedAuthority" alias="simpleGrantedAuthority"/>

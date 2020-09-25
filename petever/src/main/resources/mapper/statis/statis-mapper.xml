@@ -5,24 +5,71 @@
 <mapper namespace="statis">
 
 	<insert id="insertXml">
-		insert into
-			statis (
-				no, 
-				kind,
-				state,
-				org,
-				careaddr,
-				happenday,
-				filename
-			)
-		values (
-			seq_statis_no.nextval,
-			#{ title },
-			#{ kind },
-			#{ org },
-			#{ careAddr },
-			#{ happenDay },
-			#{ fileName }		
+		insert into shelterAnimal
+		values(
+			#{ desertionNo }, #{ fileName }, to_date(#{ happenDt }, 'yyyymmdd'), #{ happenPlace }, #{ kindCd },
+			#{ colorCd }, #{ age }, #{ weight }, #{ noticeNo }, to_date(#{ noticeSdt }, 'yyyymmdd'),
+			to_date(#{ noticeEdt }, 'yyyymmdd'), #{ popfile }, #{ processState }, #{ genderCd }, #{ neuterYn },
+			#{ SpecialMark }, #{ careNm }, #{ careTel }, #{ careAddr }, #{ orgNm },
+			#{ chargeNm }, #{ officetel }
 		)
 	</insert>
+	
+	<select id="countStatis" resultType="_int">
+		select count(*) from shelterAnimal
+	</select>
+	<select id="protectCount" resultType="_int">
+		select count(*) from shelterAnimal where process_state like '%보호%'
+	</select>
+	<select id="dismissCount" resultType="_int">
+		select count(*) from shelterAnimal where process_state like '%입양%'
+	</select>
+	<select id="returnCount" resultType="_int">
+		select count(*) from shelterAnimal where process_state like '%반환%'
+	</select>
+	<select id="deathCount" resultType="_int">
+		select count(*) from shelterAnimal where process_state like '%자연사%'
+	</select>
+	<select id="euthanasiaCount" resultType="_int">
+		select count(*) from shelterAnimal where process_state like '%안락사%'
+	</select>
+	<select id="radiateCount" resultType="_int">
+		select count(*) from shelterAnimal where process_state like '%방사%'
+	</select>
+	<select id="donationCount" resultType="_int">
+		select count(*) from shelterAnimal where process_state like '%기증%'
+	</select>
+
+	<select id="countStatisSearch" resultType="_int">
+		select count(*) from shelterAnimal where care_addr like #{ city } and 
+		(happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
+	</select>
+	<select id="protectCountSearch" resultType="_int">
+		select count(*) from shelterAnimal where process_state like '%보호%' and 
+		care_addr like #{ city } and (happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
+	</select>
+	<select id="dismissCountSearch" resultType="_int">
+		select count(*) from shelterAnimal where process_state like '%입양%' and 
+		care_addr like #{ city } and (happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
+	</select>
+	<select id="returnCountSearch" resultType="_int">
+		select count(*) from shelterAnimal where process_state like '%반환%' and 
+		care_addr like #{ city } and (happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
+	</select>
+	<select id="deathCountSearch" resultType="_int">
+		select count(*) from shelterAnimal where process_state like '%자연사%' and 
+		care_addr like #{ city } and (happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
+	</select>
+	<select id="euthanasiaCountSearch" resultType="_int">
+		select count(*) from shelterAnimal where process_state like '%안락사%' and 
+		care_addr like #{ city } and (happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
+	</select>
+	<select id="radiateCountSearch" resultType="_int">
+		select count(*) from shelterAnimal where process_state like '%방사%' and 
+		care_addr like #{ city } and (happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
+	</select>
+	<select id="donationCountSearch" resultType="_int">
+		select count(*) from shelterAnimal where process_state like '%기증%' and 
+		care_addr like #{ city } and (happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
+	</select>
 </mapper>
