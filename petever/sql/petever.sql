@@ -175,19 +175,8 @@ CREATE TABLE Report (
                                         on delete cascade,
     constraints ck_rep_display check(rep_display in('Y','N'))
 );
-drop table shelterAnimal;
 
-select count(*) from shelterAnimal;
-
-select * from shelterAnimal;
-
-delete from shelterAnimal;
-
-drop TABLE shelterAnimal;
-
-commit;
-
-        drop table shelterAnimal;
+        
 create table shelterAnimal(
     desertion_no varchar2(20),
     file_name varchar2(200),
@@ -214,4 +203,3 @@ create table shelterAnimal(
     constraint pk_desertion_no primary key(desertion_no)
 );
  
-

@@ -3,11 +3,14 @@ package com.kh.petever.shelterBoard.controller;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.xml.sax.SAXException;
 
+import com.kh.petever.common.Utils;
 import com.kh.petever.common.XmlParserUtil;
 import com.kh.petever.shelterBoard.model.service.ShelterBoardService;
 import com.kh.petever.shelterBoard.model.vo.ShelterAnimal;
@@ -98,58 +102,47 @@ public class ShelterBoardController {
 				String msg = result > 0 ? "보호소 동물 등록 성공 :)" : "보호소 동물 등록 실패ㅜ";
 //				log.debug("등록 결과 {}", msg);
 			}
-			
 		}
-		
 		return "shelterBoard/shelterBoard";
 	}
 	
 	@GetMapping("/shelterBoard.do")
-	public String shelterBoard(Model model) {
-		RestTemplate template = new RestTemplate();
-		String addressSido1 = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/sido?ServiceKey=";
-		String addressSido2 = "&pageNo=1&numOfRows=20";
+	public String shelterBoard(Model model, @RequestParam(defaultValue = "1", value="cPage") int cPage, HttpServletRequest request,
+			@RequestParam(value="kind", required = false) String kind, @RequestParam(value="gender", required = false) String gender,
+			@RequestParam(defaultValue="0", value="age") int age, @RequestParam(value="color", required = false) String color,
+			@RequestParam(defaultValue="0", value="weigh") float weigh, @RequestParam(value="state", required = false) String state,
+			@RequestParam(value="sido", required = false) String sido, @RequestParam(value="sigugun", required = false) String sigugun) {
+		//page 처리
+		final int limit = 16;
+		int offset = (cPage - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset,limit);
 		
-		URI uri = null;
-		try {
-			uri = new URI(addressSido1 + serviceKey + addressSido2);
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
-		String sido = template.getForObject(uri, String.class);
-				
-		try {
-			model.addAttribute("sidoMap", XmlParserUtil.XmlToMap(sido));
-//			System.out.println(XmlParserUtil.XmlToMap(obj));
-		} catch (SAXException | IOException | ParserConfigurationException e) {
-			e.printStackTrace();
-		}
-//		log.debug(obj);
+		//조회 DATA 확인
+		Map<String, Object> map = new HashMap<>();
+		map.put("kind", kind);
+		map.put("gender", gender);
+		map.put("age", age);
+		map.put("color", color);
+		map.put("weigh", weigh);
+		map.put("state", state);
+		map.put("sido", sido);
+		map.put("sigugun", sigugun);
+		log.debug("map = {}", map);
+		
+		List<ShelterAnimal> list = shelterBoardService.selectAll(map, rowBounds);
+//		log.debug("보호소 동물 : {}", list);
+		
+		String url = request.getRequestURI() + "?";
+		int totalContents = shelterBoardService.shelterAnimalCount();
+		String pageBar = Utils.getPageBarHtml(cPage, 10, totalContents, url);
+		
+		model.addAttribute("shelterBoardList", list);
+		model.addAttribute("pageBar", pageBar);
 		
 		return "shelterBoard/shelterBoard";
 	}
 	
-	@GetMapping("/sigugun.do")
-	public Map<String, Object> sigugun(Model model, @RequestParam("sido")String sido) throws SAXException, IOException, ParserConfigurationException {
-		log.debug("시도 번호: {}",  sido);
-		
-		RestTemplate template = new RestTemplate();
-		String address1 = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/sigungu?upr_cd=";
-		String address2 = "&ServiceKey=";
-		
-		URI uri = null;
-		
-		try {
-			uri = new URI(address1 + sido + address2 + serviceKey);
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
-		String obj = template.getForObject(uri, String.class);
-		
-		System.out.println(XmlParserUtil.XmlToMap(obj));
 
-		return XmlParserUtil.XmlToMap(obj);
-	}
 	
 
 }

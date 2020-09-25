@@ -12,7 +12,38 @@
 			#{ SpecialMark }, #{ careNm }, #{ careTel }, #{ careAddr }, #{ orgNm },
 			#{ chargeNm }, #{ officetel }
 		)
-	
 	</insert>
+	<select id="selectAll" resultMap="shelterAnimalMap">
+		select *
+	    from shelterAnimal
+	    <where>
+	    	<if test="kind != null and kind != ''">
+	    		kind_cd like '%'||#{kind}||'%'
+	    	</if>
+	    	<if test="gender != null and gender != ''">
+	    		and gender_cd = #{gender}
+	    	</if>
+	    	<if test="color != null and color != ''">
+	    		and color_cd like '%'||#{color}||'%'
+	    	</if>
+	    	<if test="state != null and state != ''">
+	    		and process_state like '%'||#{state}||'%'
+	    	</if>
+	    	<if test="sido != null and sido != ''">
+	    		and org_nm like '%'||#{sido}||'%'
+	    	</if>
+	    	<if test="sigugun != null and sigugun != ''">
+	    		and org_nm like '%'||#{sigugun}||'%'
+	    	</if>
+	    </where>
+		order by happen_dt, notice_no desc
+	</select>
+	<resultMap type="ShelterAnimal" id="shelterAnimalMap">
+	</resultMap>
+	
+	<select id="shelterAnimalCount" resultType="_int">
+		select count(*) 
+		from shelterAnimal
+	</select>
 	
 </mapper>

@@ -40,7 +40,7 @@
 
 /*게시글 말머리*/
 .post :nth-child(3) {
-    font-size: 20px;
+    font-size: 13px;
 }
 
 /*게시글 제목 밑에 간격*/
@@ -50,7 +50,7 @@
 
 .post p,
 span {
-    font-size: 14px;
+    font-size: 12px;
 }
 
 hr {
