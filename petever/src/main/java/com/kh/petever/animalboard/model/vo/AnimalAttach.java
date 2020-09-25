@@ -1,6 +1,7 @@
 package com.kh.petever.animalboard.model.vo;
 
-import org.springframework.web.multipart.MultipartFile;
+import java.io.Serializable;
+import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +14,11 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Photo {
+public class AnimalAttach implements Serializable {
 
-	private MultipartFile filedata;
+	private int aniATId;
+	private int aniBoId;
+	private String aniAtOriginalName;
+	private String aniAtRenamedName;
+	private Date aniAtUploadDate;
 }

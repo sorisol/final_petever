@@ -6,7 +6,7 @@
 <fmt:requestEncoding value="utf-8"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
-<link rel="stylesheet" href="./resources/css/mp-board.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mp-board.css">
     <div id="main-wrap">
         <section class="main">
 
