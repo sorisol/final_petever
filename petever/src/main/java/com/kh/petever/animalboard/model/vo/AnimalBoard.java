@@ -17,7 +17,7 @@ import lombok.ToString;
 @ToString
 public class AnimalBoard  implements Serializable{
 
-	private String aniBoId;
+	private int aniBoId;
 	private String userId;
 	private String aniBoTitle;
 	private String aniBoContent;

@@ -54,6 +54,8 @@ public class AnimalBoardController {
 	
 	@RequestMapping("/animalboard/insertBoard") 
 	public String insertBoard(AnimalBoard animal, RedirectAttributes redirectAttr){
+		//로그인한 사용자 아이디
+		animal.setUserId("honggd");
 		log.debug("animal = {}", animal);
 		log.debug("map = {}", fileNameMap);
 		
