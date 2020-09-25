@@ -54,6 +54,15 @@
 		order by
 			ani_bo_id desc
 	</select>
-	<resultMap id="animalBoardMap" type="animalBoard"></resultMap>
 	
+	<select id="selectOneBoard" resultMap="animalBoardMap">
+		select
+			*
+		from
+			animal_board
+		where
+			ani_bo_id = #{no}
+	</select>
+	
+	<resultMap id="animalBoardMap" type="animalBoard"></resultMap>
 </mapper>

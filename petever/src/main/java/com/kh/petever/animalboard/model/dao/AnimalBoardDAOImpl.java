@@ -32,4 +32,9 @@ public class AnimalBoardDAOImpl implements AnimalBoardDAO {
 		return sqlSession.selectList("animalBoard.selectBoardList");
 	}
 
+	@Override
+	public AnimalBoard selectOneBoard(int no) {
+		return sqlSession.selectOne("animalBoard.selectOneBoard", no);
+	}
+
 }

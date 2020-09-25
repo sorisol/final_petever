@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -54,7 +54,12 @@ public class AnimalBoardController {
 	}
 	
 	@GetMapping("/animalboard/boardView")
-	public String animalboardView() {
+	public String animalboardView(@RequestParam int no,Model model) {
+		log.debug("{}번 게시글 조회", no);
+		
+		AnimalBoard animalBoard = service.selectOneBoard(no);
+		log.debug("animalBoard = {}", animalBoard);
+		
 		return "animalBoard/mp-board-view";
 	}
 	

@@ -13,4 +13,6 @@ public interface AnimalBoardDAO {
 
 	List<AnimalBoard> selectBoardList(int limit, int offset);
 
+	AnimalBoard selectOneBoard(int no);
+
 }

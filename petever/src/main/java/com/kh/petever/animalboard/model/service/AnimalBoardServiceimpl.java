@@ -53,4 +53,9 @@ public class AnimalBoardServiceimpl implements AnimalBoardService {
 		return dao.selectBoardList(limit, offset);
 	}
 
+	@Override
+	public AnimalBoard selectOneBoard(int no) {
+		return dao.selectOneBoard(no);
+	}
+
 }
