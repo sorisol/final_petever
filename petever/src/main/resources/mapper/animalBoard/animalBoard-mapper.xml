@@ -23,7 +23,7 @@
 			#{aniBoHair},
 			#{aniBoColor},
 			#{aniBoCha},
-			#{aniBoMissDate}
+			to_date(#{aniBoMissDate}, 'yyyy-MM-dd')
 		)
 		<selectKey keyProperty="aniBoId" resultType="_int" order="AFTER">
 			select
