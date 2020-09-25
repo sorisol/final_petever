@@ -45,4 +45,15 @@
 		)
 	</insert>
 	
+	<select id="selectBoardList" resultMap="animalBoardMap">
+		select
+			* 
+		from
+			animal_board left join animal_attach
+                         using(ani_bo_id)
+		order by
+			ani_bo_id desc
+	</select>
+	<resultMap id="animalBoardMap" type="animalBoard"></resultMap>
+	
 </mapper>

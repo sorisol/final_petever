@@ -1,5 +1,8 @@
 package com.kh.petever.animalboard.model.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,6 +24,12 @@ public class AnimalBoardDAOImpl implements AnimalBoardDAO {
 	@Override
 	public int insertAttachment(AnimalAttach attach) {
 		return sqlSession.insert("animalBoard.insertAttachment", attach);
+	}
+
+	@Override
+	public List<AnimalBoard> selectBoardList(int limit, int offset) {
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return sqlSession.selectList("animalBoard.selectBoardList");
 	}
 
 }

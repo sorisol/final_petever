@@ -26,18 +26,13 @@
 .content .post {
     width: 200px;
     float: left;
-    margin: 10px;
+    margin: 20px 10px;
     text-decoration: none;
 }
 
 .post:nth-child(4n+1) {
-    margin-left: 50px;
+    margin-left: 25px;
 }
-
-.post:nth-child(4n+1) {
-    margin-left: 50px;
-}
-
 
 /*게시글 말머리*/
 .post :nth-child(3) {
@@ -143,6 +138,9 @@ td {
 
 .missing {
     color: #F08080;
+}
+.sighting {
+    color: #F0EF97;
 }
 
 .protect {

@@ -28,7 +28,7 @@
 	<!-- Application Loggers -->
 	<!-- 로깅내역을 수집하는 객체 -->
 	<logger name="com.kh.spring" additivity="true">
-		<level value="debug" />
+		<level value="trace" />
 	</logger>
 	
 	<!-- #10.2 log4jdbc logger 등록 -->
@@ -63,9 +63,8 @@
 
 	<!-- Root Logger -->
 	<root>
-		<priority value="debug" />
+		<priority value="warn" />
 		<appender-ref ref="console" />
-		<appender-ref ref="fileLogger" />
 	</root>
 	
 </log4j:configuration>

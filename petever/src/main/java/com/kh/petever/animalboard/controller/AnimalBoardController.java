@@ -18,7 +18,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.petever.animalboard.model.service.AnimalBoardService;
@@ -38,8 +41,16 @@ public class AnimalBoardController {
 	private AnimalBoardService service;
 	
 	@GetMapping("/animalboard")
-	public String animalboardList() {
-		return "animalBoard/mp-board";
+	public ModelAndView animalboardListView(ModelAndView mav, @RequestParam(defaultValue="1", value="cPage") int cPage) {
+		final int limit = 16;
+		int offset = (cPage-1)*limit;
+		
+		List<AnimalBoard> boardList = service.selectBoardList(limit, offset);
+		log.debug("boardList = {}", boardList);
+		mav.addObject("boardList", boardList);
+		
+		mav.setViewName("animalBoard/mp-board");
+		return mav;
 	}
 	
 	@GetMapping("/animalboard/boardView")
