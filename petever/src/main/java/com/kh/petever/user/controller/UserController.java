@@ -3,15 +3,23 @@ package com.kh.petever.user.controller;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.petever.user.model.service.UserService;
@@ -19,8 +27,11 @@ import com.kh.petever.user.model.vo.User;
 
 @Controller
 @RequestMapping("/user")
-
+@SessionAttributes(value = { "loginUser" })
 public class UserController {
+	
+	private Logger log = 
+			LoggerFactory.getLogger(getClass());
 	
 	@Autowired
 	private UserService userService;
@@ -40,15 +51,16 @@ public class UserController {
 	public String userSignup(User user,
 						RedirectAttributes redirectAttr) {
 		
-		System.out.println("user@controller = " + user);
+		log.debug("user@controller = {}", user);
 		
-		String rawPassword = user.getPassword();
+		String rawPassword = user.getUserPwd();
 		String encryptPassword = bcryptPasswordEncoder.encode(rawPassword);
-		user.setPassword(encryptPassword);
+		user.setUserPwd(encryptPassword);
 		System.out.println("rawPassword@controller = " + rawPassword);
 		System.out.println("encryptPassword@controller = " + encryptPassword);
 		
-		System.out.println("DB전 = " + user);
+		
+
 				//1.비지니스로직 실행
 				int result = userService.insertUser(user);
 				
@@ -75,6 +87,58 @@ public class UserController {
 		
 	}
 	
+	//로그인 페이지 연결
+	@RequestMapping("/login.do")
+	public String login() {
+		return "user/login";
+	}
+	
+	@RequestMapping(value = "/login.do",
+					method = RequestMethod.POST)
+	public String userLogin(@RequestParam String userId,
+							@RequestParam String userPwd,
+							Model model,
+							RedirectAttributes redirectAttr,
+							HttpSession session) {
+		
+		log.debug("userId = {}, userPwd = {}", userId, userPwd);
+		
+		User user = userService.selectOneUser(userId);
+		log.debug("user = {}", user);
+		
+		String location = "/";
+		
+		
+		
+		//로그인 성공
+		if(user != null && bcryptPasswordEncoder.matches(userPwd, user.getUserPwd())) {
+		
+		model.addAttribute("loginUser", user);
+		
+		String next = (String)session.getAttribute("next");
+		location = next != null ? next : location;
+		session.removeAttribute("next");
+		
+		
+	
+		//로그인 실패
+		}else {
+			redirectAttr.addFlashAttribute("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
+			
+			
+		}
+		
+		return "redirect:/";
+	}
+	
+	/*	//로그인페이지연결
+	@GetMapping("/login.do")
+	public String login() {
+		
+		System.out.println("접속");
+		return "user/login";
+*/
+	
 	//회원정보수정페이지 연결
 	@GetMapping("/user.do")
 	public String user() {
@@ -82,16 +146,9 @@ public class UserController {
 		System.out.println("접속");
 		return "user/user";
 
-	}
-	
-	//로그인페이지연결
-	@GetMapping("/login.do")
-	public String login() {
-		
-		System.out.println("접속");
-		return "user/login";
+		}
+
 
 	}
 
-}
 

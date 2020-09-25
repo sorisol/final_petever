@@ -8,16 +8,16 @@
 		 		tb_user
 		 	values(
 		 			#{ userId },
-					#{ password },
-					#{ email },
-					#{ birthDay },
-					#{ phone },
-					#{ address }, default
+					#{ userPwd },
+					#{ userEmail },
+					#{ userBirth },
+					#{ userPhone },
+					#{ userLocal }, default
 					)
 		
 		</insert>
 		
-		<select id="selectOneUser" resultMap="userMap">
+		<select id="selectOneUser" resultMap="userMapppp">
 			select 
 				*
 			from 
@@ -25,20 +25,29 @@
 			where 
 				user_id = #{ userId }
 		</select>
+	
+		<resultMap type="user" id="userMapppp">
+			<id column="user_id" property="userId"/>
+			<result column="user_pwd" property="userPwd"/> 
+			<result column="user_eamil" property="userEmail"/> 
+			<result column="user_birth_date" property="userBirth"/> 
+			<result column="user_phone" property="userPhone"/>
+			<result column="user_local" property="userLocal"/>
+			<result column="user_role" property="userRole"/>
+		</resultMap>
 		
  		<resultMap type="user" id="userMap">
-	
 		</resultMap>
 	
 		<update id="updateUser">
 		update 
-			"user"
+			tb_user
 		set 
-			user_pwd = #{ password },
-			user_email = #{ email },
-			user_birth_date = #{ birthDay },
-			user_phone = #{ phone },
-			user_local = #{ address }
+			user_pwd = #{ userPwd },
+			user_email = #{ userEmail },
+			user_birth_date = #{ userBirth },
+			user_phone = #{ userPhone },
+			user_local = #{ userLocal }
 		where 
 			user_id = #{ userId }
 		</update>
