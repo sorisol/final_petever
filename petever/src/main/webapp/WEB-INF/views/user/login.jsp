@@ -3,19 +3,21 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/user.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/login.css">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-
    <section>
         <div class="logo"></div>
         <div class="login">
-            <form action="">
-                <input type="text" placeholder="아이디 입력">
-                <input type="password" placeholder="비밀번호 입력">
+            <form action="${pageContext.request.contextPath}/user/login.do" 
+                  method="POST">
+               <div class="login-body">
+                <input type="text" name="userId">
+                <input type="password" name="userPwd">
                 <button>로그인</button>
                 <div class="check">
                     <input type="checkbox" id="switch" /><label for="switch"></label>
                     <p>로그인 상태 유지</p>
+                  </div>
                 </div>
             </form>
             <div id="search">

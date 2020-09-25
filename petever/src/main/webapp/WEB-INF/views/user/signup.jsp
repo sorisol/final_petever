@@ -15,15 +15,15 @@
                 <label for="">아이디 <span class="id-check">중복확인</span></label>
                 <input type="text" name="userId" id="" placeholder="4자리 이상">
                 <label for="">비밀번호</label>
-                <input type="password" name="password" id="" placeholder="4자리 이상">
+                <input type="password" name="userPwd" id="" placeholder="4자리 이상">
                  <label for="">이메일</label>
-                <input type="text" name="email" id="">
+                <input type="text" name="userEmail" id="">
                 <label for="">생년월일</label>
-                <input type="date" name="birthDay" id="">     
+                <input type="date" name="userBirth" id="">     
                 <label for="">전화번호</label>
-                <input type="tel" name="phone" id="">
+                <input type="tel" name="userPhone" id="">
                 <label for="">주소</label>
-                <input type="text" name="address" id="addr">
+                <input type="text" name="userLocal" id="addr">
                 <button class="addr-search">검색</button> -->
                 <input type="submit" value="회원가입" onclick="button1_click();">
          

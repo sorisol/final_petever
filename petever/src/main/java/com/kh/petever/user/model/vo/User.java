@@ -13,87 +13,104 @@ public class User implements Serializable {
 
 	
 	private String userId;
-	private String password;
-	private String email;
-	private Date birthDay;
-	private String phone;
-	private String address;
+	private String userPwd;
+	private String userEmail;
+	private Date userBirth;
+	private String userPhone;
+	private String userLocal;
 	private String userRole;
+	
 
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(String userId, String password, String email, Date birthDay, String phone, String address,
+
+	public User(String userId, String userPwd, String userEmail, Date userBirth, String userPhone, String userLocal,
 			String userRole) {
 		super();
 		this.userId = userId;
-		this.password = password;
-		this.email = email;
-		this.birthDay = birthDay;
-		this.phone = phone;
-		this.address = address;
+		this.userPwd = userPwd;
+		this.userEmail = userEmail;
+		this.userBirth = userBirth;
+		this.userPhone = userPhone;
+		this.userLocal = userLocal;
 		this.userRole = userRole;
 	}
 
+
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", password=" + password + ", email=" + email + ", birthDay=" + birthDay
-				+ ", phone=" + phone + ", address=" + address + ", userRole=" + userRole + "]";
+		return "User [userId=" + userId + ", userPwd=" + userPwd + ", userEmail=" + userEmail + ", userBirth="
+				+ userBirth + ", userPhone=" + userPhone + ", userLocal=" + userLocal + ", userRole=" + userRole + "]";
 	}
+
 
 	public String getUserId() {
 		return userId;
 	}
 
+
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
-	public String getPassword() {
-		return password;
+
+	public String getUserPwd() {
+		return userPwd;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+
+	public void setUserPwd(String userPwd) {
+		this.userPwd = userPwd;
 	}
 
-	public String getEmail() {
-		return email;
+
+	public String getUserEmail() {
+		return userEmail;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 
-	public Date getBirthDay() {
-		return birthDay;
+
+	public Date getUserBirth() {
+		return userBirth;
 	}
 
-	public void setBirthDay(Date birthDay) {
-		this.birthDay = birthDay;
+
+	public void setUserBirth(Date userBirth) {
+		this.userBirth = userBirth;
 	}
 
-	public String getPhone() {
-		return phone;
+
+	public String getUserPhone() {
+		return userPhone;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+
+	public void setUserPhone(String userPhone) {
+		this.userPhone = userPhone;
 	}
 
-	public String getAddress() {
-		return address;
+
+	public String getUserLocal() {
+		return userLocal;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+
+	public void setUserLocal(String userLocal) {
+		this.userLocal = userLocal;
 	}
+
 
 	public String getUserRole() {
 		return userRole;
 	}
+
 
 	public void setUserRole(String userRole) {
 		this.userRole = userRole;

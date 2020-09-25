@@ -10,14 +10,14 @@
 	</settings>
 	
  	<typeAliases>
-		<!-- <typeAlias type="com.kh.petever.common.typehandler.StringArrayTypeHandler" alias="strArrTypeHandler"/> -->
+		<typeAlias type="com.kh.petever.common.typehandler.StringArrayTypeHandler" alias="strArrTypeHandler"/> 
 		<typeAlias type="org.springframework.security.core.authority.SimpleGrantedAuthority" alias="simpleGrantedAuthority"/>
 		<package name="com.kh.petever"/>
 	</typeAliases>
 	
-<!-- 	<typeHandlers>
+ 	<typeHandlers>
 		<typeHandler handler="com.kh.petever.common.typehandler.StringArrayTypeHandler"/>
-	</typeHandlers> -->
+	</typeHandlers> 
 	
 
 </configuration>

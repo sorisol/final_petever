@@ -24,8 +24,18 @@
     <header>
         <div class="main-bar">
             <ul>
+            <c:if test="${ empty loginUser }">
                 <li><a href="${ pageContext.request.contextPath }/user/login.do">로그인</li>
+                &nbsp;
                 <li><a href="${ pageContext.request.contextPath }/user/signup.do">회원가입</li>
+                </c:if>
+                <c:if test="${not empty loginUser}">
+                <a href="#">${loginUser.userId }</a>님, 환영합니다!
+                &nbsp;
+                
+                  <li><a href="${ pageContext.request.contextPath }/user/signup.do">로그아웃</li>
+                
+                </c:if>
                 <li><a href="${ pageContext.request.contextPath }/user/user.do">마이페이지</li>
                 <li>고객센터</li>
             </ul>
