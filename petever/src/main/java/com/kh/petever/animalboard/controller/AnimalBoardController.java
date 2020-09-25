@@ -6,17 +6,24 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.petever.animalboard.model.service.AnimalBoardService;
+import com.kh.petever.animalboard.model.vo.AnimalAttach;
+import com.kh.petever.animalboard.model.vo.AnimalBoard;
 import com.kh.petever.animalboard.model.vo.Photo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -25,8 +32,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AnimalBoardController {
 	
-	@Resource(name="uploadPath")
-	String uploadPath;
+	private Map<String, String> fileNameMap = new HashMap<>();
+	
+	@Autowired
+	private AnimalBoardService service;
 	
 	@GetMapping("/animalboard")
 	public String animalboardList() {
@@ -44,13 +53,36 @@ public class AnimalBoardController {
 	}
 	
 	@RequestMapping("/animalboard/insertBoard") 
-	public String insertBoard(@RequestParam("ani_bo_tag")String tag, @RequestParam("ani_bo_title")String title, @RequestParam("board-content")String content
-							){
-		log.debug("tag: {}, title:  {}", tag, title);
-		log.debug("{}", content);
-		return "animalBoard/mp-board";
+	public String insertBoard(AnimalBoard animal, RedirectAttributes redirectAttr){
+		log.debug("animal = {}", animal);
+		log.debug("map = {}", fileNameMap);
+		
+		List<AnimalAttach> boardAttachList = new ArrayList<>();
+		//파일 이름을 AnimalAttach vo에저장
+		for(int i=0; i<fileNameMap.size(); i++) {
+			AnimalAttach attach = new AnimalAttach();
+			attach.setAniAtOriginalName(fileNameMap.get("aniAtOriginalName"));
+			attach.setAniAtRenamedName(fileNameMap.get("aniAtRenamedName"));
+			//리스트로 만들기
+			boardAttachList.add(attach);
+		}
+		log.debug("boardAttachList = {}", boardAttachList);
+		
+		//animalBoard vo에 list로 넣기
+		animal.setAttachList(boardAttachList);
+		
+		
+		try {
+			int result = service.insertBoard(animal);
+			redirectAttr.addFlashAttribute("msg", "게시글 등록 성공");
+		} catch(Exception e) {
+			log.error("게시물 등록 오류", e);
+			redirectAttr.addFlashAttribute("msg", "게시글 등록 실패");
+		}
+		return "redirect:/animalboard";
 	}
 	
+	//이 아래로는 파일 관련
 	@RequestMapping("/file_uploader")
 	public String file_uploader(HttpServletRequest request, HttpServletResponse response, Photo photo){
 		String return1=request.getParameter("callback");
@@ -80,7 +112,10 @@ public class AnimalBoardController {
 					//파일 기본경로 _ 상세경로
 					String filePath = dftFilePath + "resources"+ File.separator + "editor" + File.separator +"upload" + File.separator;
 					File file = new File(filePath);
-					if(!file.exists()) { file.mkdirs(); } String realFileNm = "";
+					if(!file.exists()) { 
+						file.mkdirs();
+					} 
+					String realFileNm = "";
 					SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
 					String today= formatter.format(new java.util.Date());
 					realFileNm = today+UUID.randomUUID().toString() + name.substring(name.lastIndexOf("."));
@@ -103,7 +138,6 @@ public class AnimalBoardController {
 	
 	@RequestMapping("/file_uploader_html5")
 	public void file_uploader_html5(HttpServletRequest request, HttpServletResponse response){
-		log.debug("html5실행");
 		try { 
 			//파일정보 
 			String sFileInfo = "";
@@ -111,7 +145,8 @@ public class AnimalBoardController {
 			String filename = request.getHeader("file-name");
 			//파일 확장자
 			String filename_ext = filename.substring(filename.lastIndexOf(".")+1);
-			//확장자를소문자로 변경 filename_ext = filename_ext.toLowerCase();
+			//확장자를소문자로 변경
+			filename_ext = filename_ext.toLowerCase();
 			//이미지 검증 배열변수
 			String[] allow_file = {"jpg","png","bmp","gif"};
 			//돌리면서 확장자가 이미지인지
@@ -128,16 +163,24 @@ public class AnimalBoardController {
 				print.close();
 			} else {
 				//이미지이므로 신규 파일로 디렉토리 설정 및 업로드
+				
 				//파일 기본경로
-//				String dftFilePath = request.getSession().getServletContext().getRealPath("/");
-//				log.debug("dftFilePath = {} ", dftFilePath);
-//				//파일 기본경로 _ 상세경로
-//				String filePath = dftFilePath + "resources" + File.separator + "editor" + File.separator +"multiupload" + File.separator;
-//				log.debug("filePath = {} ", filePath);
-				log.debug("uploadPath = {}", uploadPath);
+				String filePath = request.getServletContext().getRealPath("/resources/editor/multiupload/");
+//				String dftFilePath1 = request.getSession().getServletContext().getRealPath("/");
+				log.debug("filePath = {} ", filePath);
+//				
+				//방법2
+//				@Autowired
+//				ServletContext servletContext;
+//				String dftFilePath2 = servletContext.getRealPath("/");
 				
+//				//방법3
+				//servlet-context.xml에서 파일 위치 직접 적어주고
+				//@Resource(name="uploadPath")
+				//String uploadPath;
+//				log.debug("uploadPath = {}", uploadPath);
 				
-				File file = new File(uploadPath);
+				File file = new File(filePath);
 				
 				if(!file.exists()) {
 					file.mkdirs();
@@ -146,7 +189,7 @@ public class AnimalBoardController {
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
 				String today= formatter.format(new java.util.Date());
 				realFileNm = today+UUID.randomUUID().toString() + filename.substring(filename.lastIndexOf("."));
-				String rlFileNm = uploadPath + realFileNm;
+				String rlFileNm = filePath + realFileNm;
 				//////////////// 서버에 파일쓰기 /////////////////
 				InputStream is = request.getInputStream();
 				OutputStream os=new FileOutputStream(rlFileNm);
@@ -166,14 +209,24 @@ public class AnimalBoardController {
 				sFileInfo += "&bNewLine=true";
 				// img 태그의 title 속성을 원본파일명으로 적용시켜주기 위함 
 				sFileInfo += "&sFileName="+ filename; 
-				sFileInfo += "&sFileURL="+"/resources/editor/multiupload/"+realFileNm;
+				sFileInfo += "&sFileURL="+"/petever/resources/editor/multiupload/"+realFileNm;
+				log.debug("sFileInfo = {}", sFileInfo);
 				PrintWriter print = response.getWriter();
 				print.print(sFileInfo);
 				print.flush();
 				print.close();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			} 
+				
+//				log.debug("filename = " + filename);
+//				log.debug("rfilename = " + realFileNm);
+				
+				fileNameMap.put("aniAtOriginalName", filename);
+				fileNameMap.put("aniAtRenamedName", realFileNm);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+//		Map<String, String> fileNameMap = new HashMap<>();
+//		return fileNameMap;
 	}
 }

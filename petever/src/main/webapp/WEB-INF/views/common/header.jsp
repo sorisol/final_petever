@@ -15,7 +15,10 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/base.css">
     <script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.min.js"></script>
     <script>
-		
+	    <%--RedirectAttributes에 등록된 msg값 존재여부 확인 후 출력 --%>
+	    <c:if test="${not empty msg }">
+	    	alert('${ msg }');
+	    </c:if>
     </script>
 </head>
 
