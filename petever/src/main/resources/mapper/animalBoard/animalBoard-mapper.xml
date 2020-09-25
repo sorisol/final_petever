@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="animalBoard">
+
+	<insert id="insertBoard">
+		insert into
+			animal_board
+		values(
+			seq_animal_board_id.nextval,
+			#{userId},
+			#{aniBoTitle},
+			#{aniBoContent},
+			default,
+			#{aniBoTag},
+			#{aniBoLocal},
+			#{aniBoType},
+			#{aniBoKind},
+			#{aniBoGender},
+			#{aniBoAge},
+			#{aniBoSize},
+			#{aniBoHair},
+			#{aniBoColor},
+			#{aniBoCha},
+			#{aniBoMissDate}
+		)
+		<selectKey keyProperty="aniBoId" resultType="_int" order="AFTER">
+			select
+				seq_animal_board_id.currval
+			from
+				dual
+		</selectKey>
+	</insert>
+	
+	<insert id="insertAttachment">
+		insert into
+			animal_attach
+		values(
+			seq_animal_attach_id.nextval,
+			#{aniBoId},
+			#{aniAtOriginalName},
+			#{aniAtRenamedName},
+			default
+		)
+	</insert>
+	
+</mapper>
