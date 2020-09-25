@@ -19,6 +19,10 @@
 	
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 	
+	<beans:bean id="uploadPath" class="java.lang.String">
+		<beans:constructor-arg value="D:\Ggit\petever\petever\src\main\webapp\resources\editor\multiupload\"/>
+	</beans:bean>
+	
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />

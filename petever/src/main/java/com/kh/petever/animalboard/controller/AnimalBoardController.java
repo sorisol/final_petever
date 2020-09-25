@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.UUID;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,6 +24,9 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 public class AnimalBoardController {
+	
+	@Resource(name="uploadPath")
+	String uploadPath;
 	
 	@GetMapping("/animalboard")
 	public String animalboardList() {
@@ -125,13 +129,15 @@ public class AnimalBoardController {
 			} else {
 				//이미지이므로 신규 파일로 디렉토리 설정 및 업로드
 				//파일 기본경로
-				String dftFilePath = request.getSession().getServletContext().getRealPath("/");
-				log.debug("dftFilePath = {} ", dftFilePath);
-				//파일 기본경로 _ 상세경로
-				String filePath = dftFilePath + "resources" + File.separator + "editor" + File.separator +"multiupload" + File.separator;
-				log.debug("filePath = {} ", filePath);
+//				String dftFilePath = request.getSession().getServletContext().getRealPath("/");
+//				log.debug("dftFilePath = {} ", dftFilePath);
+//				//파일 기본경로 _ 상세경로
+//				String filePath = dftFilePath + "resources" + File.separator + "editor" + File.separator +"multiupload" + File.separator;
+//				log.debug("filePath = {} ", filePath);
+				log.debug("uploadPath = {}", uploadPath);
 				
-				File file = new File(filePath);
+				
+				File file = new File(uploadPath);
 				
 				if(!file.exists()) {
 					file.mkdirs();
@@ -140,7 +146,7 @@ public class AnimalBoardController {
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
 				String today= formatter.format(new java.util.Date());
 				realFileNm = today+UUID.randomUUID().toString() + filename.substring(filename.lastIndexOf("."));
-				String rlFileNm = filePath + realFileNm;
+				String rlFileNm = uploadPath + realFileNm;
 				//////////////// 서버에 파일쓰기 /////////////////
 				InputStream is = request.getInputStream();
 				OutputStream os=new FileOutputStream(rlFileNm);
