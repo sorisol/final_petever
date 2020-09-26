@@ -27,8 +27,8 @@ public class ShelterBoardDAOImpl implements ShelterBoardDAO{
 	}
 
 	@Override
-	public int shelterAnimalCount() {
-		return sqlSession.selectOne("shelterBoard.shelterAnimalCount");
+	public int shelterAnimalCount(Map<String, Object> map) {
+		return sqlSession.selectOne("shelterBoard.shelterAnimalCount", map);
 	}
 
 	

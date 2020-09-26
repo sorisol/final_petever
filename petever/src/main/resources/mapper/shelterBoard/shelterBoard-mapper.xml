@@ -15,13 +15,25 @@
 	</insert>
 	<select id="selectAll" resultMap="shelterAnimalMap">
 		select *
-	    from shelterAnimal
+	    from(select S.*, to_number(extract(year from sysdate)-extract(year from to_date(substr(nvl(regexp_replace(substr(S.age, 0, instr(S.age, '(', 1)-1), ' |-|`', ''),0), 0, 4), 'rrrr'))) ani_age 
+	    	from shelterAnimal S)
 	    <where>
 	    	<if test="kind != null and kind != ''">
 	    		kind_cd like '%'||#{kind}||'%'
 	    	</if>
 	    	<if test="gender != null and gender != ''">
 	    		and gender_cd = #{gender}
+	    	</if>
+	    	<if test="age != null and age != ''">
+	    		<if test="age == 3">
+	    			and ani_age between 0 and 3
+	    		</if>
+	    		<if test="age == 7">
+	    			and ani_age between 4 and 7
+	    		</if>
+	    		<if test="age == 8">
+	    			and ani_age >= 8
+	    		</if>
 	    	</if>
 	    	<if test="color != null and color != ''">
 	    		and color_cd like '%'||#{color}||'%'
@@ -32,18 +44,50 @@
 	    	<if test="sido != null and sido != ''">
 	    		and org_nm like '%'||#{sido}||'%'
 	    	</if>
-	    	<if test="sigugun != null and sigugun != ''">
+	    	<if test="sido != null and sido != '' and sigugun != null and sigugun != ''">
 	    		and org_nm like '%'||#{sigugun}||'%'
 	    	</if>
 	    </where>
-		order by happen_dt, notice_no desc
+		order by happen_dt desc, notice_no desc
 	</select>
 	<resultMap type="ShelterAnimal" id="shelterAnimalMap">
 	</resultMap>
 	
 	<select id="shelterAnimalCount" resultType="_int">
 		select count(*) 
-		from shelterAnimal
+		from(select S.*, to_number(extract(year from sysdate)-extract(year from to_date(substr(nvl(regexp_replace(substr(S.age, 0, instr(S.age, '(', 1)-1), ' |-|`', ''),0), 0, 4), 'rrrr'))) ani_age 
+	    	from shelterAnimal S)
+	    <where>
+	    	<if test="kind != null and kind != ''">
+	    		kind_cd like '%'||#{kind}||'%'
+	    	</if>
+	    	<if test="gender != null and gender != ''">
+	    		and gender_cd = #{gender}
+	    	</if>
+	    	<if test="age != null and age != ''">
+	    		<if test="age == 3">
+	    			and ani_age between 0 and 3
+	    		</if>
+	    		<if test="age == 7">
+	    			and ani_age between 4 and 7
+	    		</if>
+	    		<if test="age == 8">
+	    			and ani_age >= 8
+	    		</if>
+	    	</if>
+	    	<if test="color != null and color != ''">
+	    		and color_cd like '%'||#{color}||'%'
+	    	</if>
+	    	<if test="state != null and state != ''">
+	    		and process_state like '%'||#{state}||'%'
+	    	</if>
+	    	<if test="sido != null and sido != ''">
+	    		and org_nm like '%'||#{sido}||'%'
+	    	</if>
+	    	<if test="sido != null and sido != '' and sigugun != null and sigugun != ''">
+	    		and org_nm like '%'||#{sigugun}||'%'
+	    	</if>
+	    </where>
 	</select>
 	
 </mapper>

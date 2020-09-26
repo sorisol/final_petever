@@ -5,6 +5,7 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/shelterBoard.css">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+
 <script>
 
 $(function () {
@@ -31,9 +32,11 @@ $(function () {
         $selectCity = $(this);
         $selectCity.append("<option value=>시/도 선택</option>");
         $.each(eval(area0), function () {
-            $selectCity.append("<option value=" + this + ">" + this + "</option>");
+            $selectCity.append("<option value=" + this + " ${ param.sido eq '"+this+"' ? 'selected' : ''} >" + this + "</option>");
         })
         $selectCity.parent().next().children().append("<option value=''>구/군 선택</option>");
+        console.log("${param.sido == '충정남도' ? '1' : '2' }");
+        console.log("${param.sido}");
     });
 
     $("select[name=sido]").change(function () {
@@ -52,6 +55,49 @@ $(function () {
             });
         }
     });
+
+	$("input[name=kind]").click(function() {
+		if($(this).prop('checked')) {
+			$("input[name=kind]").prop('checked', false);
+			$(this).prop('checked', true);
+		}
+	});
+
+	$("input[name=gender]").click(function() {
+		if($(this).prop('checked')) {
+			$("input[name=gender]").prop('checked', false);
+			$(this).prop('checked', true);
+		}
+	});
+	
+	$("input[name=age]").click(function() {
+		if($(this).prop('checked')) {
+			$("input[name=age]").prop('checked', false);
+			$(this).prop('checked', true);
+		}
+	});
+	
+	$("input[name=color]").click(function() {
+		if($(this).prop('checked')) {
+			$("input[name=color]").prop('checked', false);
+			$(this).prop('checked', true);
+		}
+	});
+
+	$("input[name=weight]").click(function() {
+		if($(this).prop('checked')) {
+			$("input[name=weight]").prop('checked', false);
+			$(this).prop('checked', true);
+		}
+	});
+
+	$("input[name=state]").click(function() {
+		if($(this).prop('checked')) {
+			$("input[name=state]").prop('checked', false);
+			$(this).prop('checked', true);
+		}
+	});
+    
 });
 </script>
 
@@ -69,76 +115,76 @@ $(function () {
                         <tr>
                             <th>동물종류</th>
                             <td>
-                                <input type="checkbox" name="kind" id="kind-dog" value="개">
+                                <input type="checkbox" name="kind" id="kind-dog" value="개" ${ param.kind eq '개' ? 'checked' : ''}>
                                 <label for="kind-dog">강아지</label>
                             </td>
                             <td>
-                                <input type="checkbox" name="kind" id="kind-cat" value="고양이">
+                                <input type="checkbox" name="kind" id="kind-cat" value="고양이" ${ param.kind eq '고양이' ? 'checked' : ''}>
                                 <label for="kind-cat">고양이</label>
                             </td>
                             <td style="padding-right: 20px;">
-                                <input type="checkbox" name="kind" id="kind-etc" value="기타">
+                                <input type="checkbox" name="kind" id="kind-etc" value="기타" ${ param.kind eq '기타' ? 'checked' : ''}>
                                 <label for="kind-etc">기타</label>
                             </td>
                             <th>성별</th>
                             <td>
-                                <input type="checkbox" name="gender" id="gender-f" value="F">
+                                <input type="checkbox" name="gender" id="gender-f" value="F" ${ param.gender eq 'F' ? 'checked' : ''}>
                                 <label for="gender-f">암컷</label>
                             </td>
                             <td>
-                                <input type="checkbox" name="gender" id="gender-m" value="M">
+                                <input type="checkbox" name="gender" id="gender-m" value="M" ${ param.gender eq 'M' ? 'checked' : ''}>
                                 <label for="gender-m">수컷</label>
                             </td>
                         </tr>
                         <tr>
                             <th>나이</th>
                             <td>
-                                <input type="checkbox" name="age" id="age-3" value="3">
+                                <input type="checkbox" name="age" id="age-3" value="3" ${ param.age eq '3' ? 'checked' : ''}>
                                 <label for="age-3">0~3</label>
                             </td>
                             <td>
-                                <input type="checkbox" name="age" id="age-7" value="7">
+                                <input type="checkbox" name="age" id="age-7" value="7" ${ param.age eq '7' ? 'checked' : ''}>
                                 <label for="age-7">4~7</label>
                             </td>
                             <td>
-                                <input type="checkbox" name="age" id="age-8" value="8">
+                                <input type="checkbox" name="age" id="age-8" value="8" ${ param.age eq '8' ? 'checked' : ''}>
                                 <label for="age-8">8살이상</label>
                             </td>
                             <th>색상</th>
                             <td>
-                                <input type="checkbox" name="color" id="color-black" value="검">
+                                <input type="checkbox" name="color" id="color-black" value="검" ${ param.color eq '검' ? 'checked' : ''}>
                                 <label for="color-black">블랙</label>
                             </td>
                             <td>
-                                <input type="checkbox" name="color" id="color-white" value="흰">
+                                <input type="checkbox" name="color" id="color-white" value="흰" ${ param.color eq '흰' ? 'checked' : ''}>
                                 <label for="color-white">화이트</label>
                             </td>
                             <td>
-                                <input type="checkbox" name="color" id="color-brown" value="갈">
+                                <input type="checkbox" name="color" id="color-brown" value="갈" ${ param.color eq '갈' ? 'checked' : ''}>
                                 <label for="color-brown">브라운</label>
                             </td>
                         </tr>
                         <tr>
                             <th>무게</th>
                             <td>
-                                <input type="checkbox" name="weight" id="weight-5" value="5">
+                                <input type="checkbox" name="weight" id="weight-5" value="5" ${ param.weight eq '5' ? 'checked' : ''}>
                                 <label for="weight-5">5kg 미만</label>
                             </td>
                             <td>
-                                <input type="checkbox" name="weight" id="weight-10" value="9">
+                                <input type="checkbox" name="weight" id="weight-10" value="9" ${ param.weight eq '9' ? 'checked' : ''}>
                                 <label for="weight-10">5~9kg</label>
                             </td>
                             <td>
-                                <input type="checkbox" name="weight" id="weight-15" value="10">
+                                <input type="checkbox" name="weight" id="weight-15" value="10" ${ param.weight eq '10' ? 'checked' : ''}>
                                 <label for="weight-15">10kg 이상</label>
                             </td>
                             <th>상태</th>
                             <td>
-                                <input type="checkbox" name="state" id="state-ing" value="보호">
+                                <input type="checkbox" name="state" id="state-ing" value="보호" ${ param.state eq '보호' ? 'checked' : ''}>
                                 <label for="state-ing">보호중</label>
                             </td>
                             <td>
-                                <input type="checkbox" name="state" id="stage-end" value="종료">
+                                <input type="checkbox" name="state" id="stage-end" value="종료" ${ param.state eq '종료' ? 'checked' : ''}>
                                 <label for="stage-end">종료</label>
                             </td>
                         </tr>
@@ -168,6 +214,8 @@ $(function () {
                     			<br />
                     			<p>종류 : <b>${ sbl.kindCd }</b></p>
                     			<p>지역 : <b>${ sbl.orgNm }</b></p>
+                    			<p>나이 : <b>${ sbl.age }</b></p>
+                    			
                     			<hr />
                     			<span>공고번호 : ${ sbl.noticeNo }</span>
                     		</div>
