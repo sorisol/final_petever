@@ -41,4 +41,8 @@ public interface StatisDao {
 
 	int donationCount(Map<String, String> search);
 
+	int adoptStatis(String area);
+
+	int euthanasia(String area);
+
 }

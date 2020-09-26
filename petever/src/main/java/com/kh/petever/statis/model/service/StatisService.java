@@ -40,4 +40,8 @@ public interface StatisService {
 
 	int donationCount(Map<String, String> search);
 
+	int adoptStatis(String area);
+
+	int euthanasia(String area);
+
 }
