@@ -177,10 +177,17 @@ CREATE TABLE Report (
 );
 drop table shelterAnimal;
 
-select count(*) from shelterAnimal;
-
 select * from shelterAnimal;
 
+select count(*) from shelterAnimal where notice_no like '%의왕%';
+and process_state like '%자연사%';
+select count(*)
+ from shelterAnimal
+ where process_state like '%보호%'
+ and 
+		care_addr like '%서울특별시 강남구%'
+ and (happen_dt   >=    '2017-01-01'
+ and happen_dt   <=     '2019-09-21');
 delete from shelterAnimal;
 
 drop TABLE shelterAnimal;

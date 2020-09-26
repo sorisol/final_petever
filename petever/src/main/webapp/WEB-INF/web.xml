@@ -50,4 +50,11 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
+	<mvc:annotation-driven>
+     <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+   </mvc:message-converters>
+</mvc:annotation-driven>
+	
 </web-app>

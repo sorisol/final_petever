@@ -31,8 +31,8 @@
                         <select name="province" id="province"></select>
                         <input type="date" id="startDay" name="trip-start" value="2017-01-01" min="2017-01-01"
                             max="2020-09-21">
-                        <input type="date" id="endDay" name="trip-start" value="2019-09-21" min="2017-01-01"
-                            max="2020-09-21">
+                        <input type="date" id="endDay" name="trip-start" value="2020-09-26" min="2017-01-01"
+                            max="2020-09-26">
                         <input type="button" value="검색" id="search-btn">
                     </form>
                 </div>
@@ -46,7 +46,7 @@
                         </div>
                     </div>
                     <article class="total-wrap">
-                            <h1>총 ${ allCnt } 마리 </h1>
+                            <h1 class="totalStatis">총 ${ allCnt } 마리 </h1>
                             <hr style="width: 500px; background-color: white; height: 1px; border:none; margin: 0 auto;">
                             <p>2017년 ~ 현재 대한민국 유기된 동물  <br/>Data provided by OpenApi Animal and Plant Quarantine Agency.</p>
                         </article>
@@ -64,176 +64,224 @@
     </div>
 </body>
 <script>
+    var label = ["보호", "입양", "반환", "자연사", "안락사", "방사", "기증"];
+    var back = ["#245EFF", "#3DD5FF", "#40F7B4", "#00C788", "#FFAA9D", "#FB5F83", "#BB4BEB"]
+	var data = [ ${protectCnt}, ${dismissCnt}, ${returnCnt}, ${deathCnt}, ${euthanasiaCnt}, ${radiateCnt}, ${donationCnt}]
+
+    var doughnutChart = new Chart(
+            document.getElementById("doughnut"), {
+                "type": "doughnut",
+                "data": {
+                    "labels": label,
+                    "datasets": [{
+                        "data": data,
+                        "backgroundColor": back
+                    }]
+                },
+                options: {
+                    hover: {
+                        animationDuration: 0
+                    },
+                    pieceLabel: {
+                        render: 'percentage'
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    legend: {
+                        display: false
+                    }
+                }
+            });
+
+        var barOptions_stacked = {
+            animation: {
+                onComplete: function () {
+                    var chartInstance = this.chart;
+                    var ctx = chartInstance.ctx;
+                    ctx.textAlign = "left";
+                    ctx.font = "11px Open Sans";
+                    ctx.fillStyle = "black";
+
+                    Chart.helpers.each(this.data.datasets.forEach(function (dataset, i) {
+                        var meta = chartInstance.controller.getDatasetMeta(i);
+                        Chart.helpers.each(meta.data.forEach(function (bar, index) {
+                            data = dataset.data[index];
+                            if (i == 0) {
+                                ctx.fillText(data, bar._model.x - 1, bar._model.y);
+                            } else {
+                                ctx.fillText(data, bar._model.x - 25, bar._model.y + 4);
+                            }
+                        }), this)
+                    }), this);
+                }
+            }
+        };
+
+        var ctx = document.getElementById("barChart");
+        var barChartTop = new Chart(ctx, {
+            type: 'horizontalBar',
+            data: {
+                labels: label,
+
+                datasets: [{
+                    label: "유기동물 현황(마리)",
+                    data: data,
+                    backgroundColor: back
+                }]
+            },
+
+            options: {
+                barOptions_stacked,
+                maintainAspectRatio: false,
+                legend: {
+                    labels: {
+    					fontSize: 18,
+                        boxWidth: 0
+                    }
+                }
+            }
+        });
+
+        var ctx = document.getElementById("AreabarChart1");
+        var adoptChart = new Chart(ctx, {
+            type: 'horizontalBar',
+            data: {
+                labels: ["수도권", "강원도", "충남", "충북", "경북", "경남", "전남", "전북", "제주도"],
+
+                datasets: [{
+                    label: "지역별 입양률(%)",
+                    barPercentage: 0.5,
+                    barThickness: 15,
+                    maxBarThickness: 15,
+                    minBarLength: 2,
+                    data: [5, 15, 25, 45, 58, 88, 100],
+                    backgroundColor: ["#51B5E0","#A4DFF9","#51B5E0","#A4DFF9","#51B5E0","#A4DFF9","#51B5E0"]
+                }]
+            },
+
+            options: {
+                barOptions_stacked,
+                maintainAspectRatio: false,
+                legend: {
+                    labels: {
+                        fontColor: "#51B5E0",
+    					fontSize: 18,
+                        boxWidth: 0
+                    }
+                }
+            }
+        });
+
+        var ctx = document.getElementById("AreabarChart2");
+        var euthanasiaChart = new Chart(ctx, {
+            type: 'horizontalBar',
+            data: {
+            	labels: ["수도권", "강원도", "충남", "충북", "경북", "경남", "전남", "전북", "제주도"],
+
+                datasets: [{
+                    label: "지역별 안락사율(%)",
+                    barPercentage: 0.5,
+                    barThickness: 15,
+                    maxBarThickness: 15,
+                    minBarLength: 2,
+                    data: [5, 20, 30, 40, 50, 60, 100],
+                    backgroundColor: ["#f08080", "#FEC2C0","#f08080", "#FEC2C0","#f08080", "#FEC2C0","#f08080"]
+                }]
+            },
+
+            options: {
+                barOptions_stacked,
+                maintainAspectRatio: false,
+                legend: {
+                    labels: {
+                        fontColor: "red",
+    					fontSize: 18,
+                        boxWidth: 0
+                    }
+                }
+            }
+        });
+    
 	$("#search-btn").click(function(){
 		var city = $("#city").val();
 		var province = $("#province").val();
 		var startDay = $("#startDay").val();
 		var endDay = $("#endDay").val();
 		console.log(city, province, startDay, endDay);
+		var paramArea;
+		switch(area){
+			case"area1" : paramArea = area1; break;
+			case"area2" : paramArea = area2; break;
+			case"area3" : paramArea = area3; break;
+			case"area4" : paramArea = area4; break;
+			case"area5" : paramArea = area5; break;
+			case"area6" : paramArea = area6; break;
+			case"area7" : paramArea = area7; break;
+			case"area8" : paramArea = area8; break;
+			case"area9" : paramArea = area9; break;
+			case"area10" : paramArea = aree10; break;
+			case"area11" : paramArea = area11; break;
+			case"area12" : paramArea = area12; break;
+			case"area13" : paramArea = area13; break;
+			case"area14" : paramArea = area14; break;
+			case"area15" : paramArea = area15; break;
+			case"area16" : paramArea = area16; break;
+		}
+		console.log(paramArea);
+		if($("#city option:selected").val() == "시/도"){
+			alert("선택해주세요");
+			return;
+		}
 		$.ajax({
-			url : "${ pageContext.request.contextPath}/statis/statis.do",
+			url : "${ pageContext.request.contextPath}/statis/searchStatis.do",
 			data : {
 				city : city,
 				province : province,
 				startDay : startDay,
-				endDay : endDay
+				endDay : endDay,
+				paramArea : JSON.stringify(paramArea)
 			},
+			dataType:"json",
 			method : "GET",
-			success : function(data){
-				console.log(data.allCnt);
+			success : function(res){
+				var ajaxStaticData = [ res.test[1], res.test[2], res.test[3], res.test[4], res.test[5], res.test[6], res.test[7]];
+				var ajaxLable = paramArea;
+				var adoptChartData = res.adopt;
+				var euthanasiaChartData = res.euthanasia;
+
+				if(ajaxLable.length > 10){
+					$(".area").css("height","600px");
+				}
+				
+				doughnutChart.data.datasets.forEach(function(dataset) {
+					dataset.data = ajaxStaticData;
+				});
+				barChartTop.data.datasets.forEach(function(dataset) {
+					dataset.data = ajaxStaticData;
+				});
+
+				addData(adoptChart, ajaxLable, adoptChartData);
+				
+				addData(euthanasiaChart, ajaxLable, euthanasiaChartData);
+				
+				doughnutChart.update();
+				barChartTop.update();
+				
 			},
 			error : function(xhr, status, err){
 				console.log("처리실패", xhr, status, err);
 			}
 		});
 	});
-    var label = ["보호", "입양", "반환", "자연사", "안락사", "방사", "기증"];
-    var data = [${ protectCnt }, ${ dismissCnt }, ${ returnCnt }, ${ deathCnt }, ${ euthanasiaCnt }, ${ radiateCnt }, ${ donationCnt }];
-    var back = ["#245EFF", "#3DD5FF", "#40F7B4", "#00C788", "#FFAA9D", "#FB5F83", "#BB4BEB"]
-    new Chart(
-        document.getElementById("doughnut"), {
-            "type": "doughnut",
-            "data": {
-                "labels": label,
-                "datasets": [{
-                    "data": data,
-                    "backgroundColor": back
-                }]
-            },
-            options: {
-                hover: {
-                    animationDuration: 0
-                },
-                pieceLabel: {
-                    render: 'percentage'
-                },
-                responsive: true,
-                maintainAspectRatio: false,
-                legend: {
-                    display: false
-                }
-            }
-        });
 
-    var barOptions_stacked = {
-        animation: {
-            onComplete: function () {
-                var chartInstance = this.chart;
-                var ctx = chartInstance.ctx;
-                ctx.textAlign = "left";
-                ctx.font = "11px Open Sans";
-                ctx.fillStyle = "black";
-
-                Chart.helpers.each(this.data.datasets.forEach(function (dataset, i) {
-                    var meta = chartInstance.controller.getDatasetMeta(i);
-                    Chart.helpers.each(meta.data.forEach(function (bar, index) {
-                        data = dataset.data[index];
-                        if (i == 0) {
-                            ctx.fillText(data, bar._model.x - 1, bar._model.y);
-                        } else {
-                            ctx.fillText(data, bar._model.x - 25, bar._model.y + 4);
-                        }
-                    }), this)
-                }), this);
-            }
-        }
-    };
-
-    var ctx = document.getElementById("barChart");
-    var myChart = new Chart(ctx, {
-        type: 'horizontalBar',
-        data: {
-            labels: label,
-
-            datasets: [{
-                label: "유기동물 현황(마리)",
-                data: data,
-                backgroundColor: back
-            }]
-        },
-
-        options: {
-            barOptions_stacked,
-            maintainAspectRatio: false,
-            legend: {
-                labels: {
-					fontSize: 18,
-                    boxWidth: 0
-                }
-            },
-            scales: {
-                xAxes: [{
-                    ticks: {
-                        min: 0,
-                        max: 150000,
-                        stepSize: 5000,
-                        fontSize: 14,
-                    }
-                }]
-            }
-        }
-    });
-
-    var ctx = document.getElementById("AreabarChart1");
-    var myChart = new Chart(ctx, {
-        type: 'horizontalBar',
-        data: {
-            labels: ["수도권", "강원도", "충남", "충북", "전남", "전북", "제주도"],
-
-            datasets: [{
-                label: "지역별 입양률(%)",
-                barPercentage: 0.5,
-                barThickness: 15,
-                maxBarThickness: 15,
-                minBarLength: 2,
-                data: [5, 15, 25, 45, 58, 88, 100],
-                backgroundColor: ["#51B5E0","#A4DFF9","#51B5E0","#A4DFF9","#51B5E0","#A4DFF9","#51B5E0"]
-            }]
-        },
-
-        options: {
-            barOptions_stacked,
-            maintainAspectRatio: false,
-            legend: {
-                labels: {
-                    fontColor: "#51B5E0",
-					fontSize: 18,
-                    boxWidth: 0
-                }
-            }
-        }
-    });
-
-    var ctx = document.getElementById("AreabarChart2");
-    var myChart = new Chart(ctx, {
-        type: 'horizontalBar',
-        data: {
-            labels: ["수도권", "강원도", "충남", "충북", "전남", "전북", "제주도"],
-
-            datasets: [{
-                label: "지역별 안락사율(%)",
-                barPercentage: 0.5,
-                barThickness: 15,
-                maxBarThickness: 15,
-                minBarLength: 2,
-                data: [5, 20, 30, 40, 50, 60, 100],
-                backgroundColor: ["#f08080", "#FEC2C0","#f08080", "#FEC2C0","#f08080", "#FEC2C0","#f08080"]
-            }]
-        },
-
-        options: {
-            barOptions_stacked,
-            maintainAspectRatio: false,
-            legend: {
-                labels: {
-                    fontColor: "red",
-					fontSize: 18,
-                    boxWidth: 0
-                }
-            }
-        }
-    });
-    $(function () {
+	function addData(chart, label, data) {
+	    chart.data.labels =label;
+	    chart.data.datasets.forEach((dataset) => {
+	        dataset.data = data;
+	    });
+	    chart.update();
+	}
+    
         var area0 = ["시/도 선택", "서울특별시", "인천광역시", "대전광역시", "광주광역시", "대구광역시", "울산광역시", "부산광역시", "경기도", "강원도",
             "충청북도", "충청남도", "전라북도", "전라남도", "경상북도", "경상남도", "제주도"
         ];
@@ -248,9 +296,9 @@
         var area7 = ["강서구", "금정구", "남구", "동구", "동래구", "부산진구", "북구", "사상구", "사하구", "서구", "수영구", "연제구", "영도구",
             "중구", "해운대구", "기장군"
         ];
-        var area8 = ["고양시", "과천시", "광명시", "광주시", "구리시", "군포시", "김포시", "남양주시", "동두천시", "부천시", "성남시", "수원시",
-            "시흥시", "안산시", "안성시", "안양시", "양주시", "오산시", "용인시", "의왕시", "의정부시", "이천시", "파주시", "평택시", "포천시",
-            "하남시", "화성시", "가평군", "양평군", "여주군", "연천군"
+        var area8 = ["고양시", "과천시", "광주시", "구리시", "군포시", "김포시", "남양주시", "부천시", "성남시", "수원시",
+            "시흥시", "안산시", "안성시", "양주시", "오산시", "용인시", "파주시", "평택시", "포천시",
+            "하남시", "화성시", "가평군", "양평군", "여주군"
         ];
         var area9 = ["강릉시", "동해시", "삼척시", "속초시", "원주시", "춘천시", "태백시", "고성군", "양구군", "양양군", "영월군", "인제군", "정선군",
             "철원군", "평창군", "홍천군", "화천군", "횡성군"
@@ -272,6 +320,8 @@
             "산청군", "의령군", "창녕군", "하동군", "함안군", "함양군", "합천군"
         ];
         var area16 = ["서귀포시", "제주시", "남제주군", "북제주군"];
+        var area;
+    $(function () {
 
         $("select[name=city]").each(function () {
             console.log(this);
@@ -283,7 +333,7 @@
         });
 
         $("select[name=city]").change(function () {
-            var area = "area" + $("option", $(this)).index($("option:selected", $(
+            area = "area" + $("option", $(this)).index($("option:selected", $(
                 this))); //선택지역의 구군 Array
             console.log(area);
             var $province = $(this).next().next(); //성택영역 구군 객체

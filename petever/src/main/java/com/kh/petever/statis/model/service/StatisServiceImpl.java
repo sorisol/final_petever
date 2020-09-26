@@ -99,4 +99,14 @@ public class StatisServiceImpl implements StatisService {
 		return statisDao.donationCount(search);
 	}
 
+	@Override
+	public int adoptStatis(String area) {
+		return statisDao.adoptStatis(area);
+	}
+
+	@Override
+	public int euthanasia(String area) {
+		return statisDao.euthanasia(area);
+	}
+
 }

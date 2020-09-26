@@ -72,4 +72,12 @@
 		select count(*) from shelterAnimal where process_state like '%기증%' and 
 		care_addr like #{ city } and (happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
 	</select>
+
+	<select id="euthanasia" resultType="_int">
+		select count(*) from shelterAnimal where care_addr like #{ area } and (process_state like '%안락사%' or process_state like '%자연사%')
+	</select>
+
+	<select id="adoptStatis" resultType="_int">
+		select count(*) from shelterAnimal where care_addr like #{ area } and (process_state like '%입양%'  or process_state like '%보호%')
+	</select>
 </mapper>
