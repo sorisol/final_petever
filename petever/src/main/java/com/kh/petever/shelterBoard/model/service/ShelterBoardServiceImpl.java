@@ -27,8 +27,8 @@ public class ShelterBoardServiceImpl implements ShelterBoardService{
 	}
 
 	@Override
-	public int shelterAnimalCount() {
-		return shelterBoardDAO.shelterAnimalCount();
+	public int shelterAnimalCount(Map<String, Object> map) {
+		return shelterBoardDAO.shelterAnimalCount(map);
 	}
 
 	

@@ -13,6 +13,6 @@ public interface ShelterBoardDAO {
 
 	List<ShelterAnimal> selectAll(Map<String, Object> map, RowBounds rowBounds);
 
-	int shelterAnimalCount();
+	int shelterAnimalCount(Map<String, Object> map);
 
 }

@@ -110,7 +110,7 @@ public class ShelterBoardController {
 	public String shelterBoard(Model model, @RequestParam(defaultValue = "1", value="cPage") int cPage, HttpServletRequest request,
 			@RequestParam(value="kind", required = false) String kind, @RequestParam(value="gender", required = false) String gender,
 			@RequestParam(defaultValue="0", value="age") int age, @RequestParam(value="color", required = false) String color,
-			@RequestParam(defaultValue="0", value="weigh") float weigh, @RequestParam(value="state", required = false) String state,
+			@RequestParam(defaultValue="0", value="weigh") float weight, @RequestParam(value="state", required = false) String state,
 			@RequestParam(value="sido", required = false) String sido, @RequestParam(value="sigugun", required = false) String sigugun) {
 		//page 처리
 		final int limit = 16;
@@ -123,7 +123,7 @@ public class ShelterBoardController {
 		map.put("gender", gender);
 		map.put("age", age);
 		map.put("color", color);
-		map.put("weigh", weigh);
+		map.put("weigh", weight);
 		map.put("state", state);
 		map.put("sido", sido);
 		map.put("sigugun", sigugun);
@@ -132,10 +132,12 @@ public class ShelterBoardController {
 		List<ShelterAnimal> list = shelterBoardService.selectAll(map, rowBounds);
 //		log.debug("보호소 동물 : {}", list);
 		
-		String url = request.getRequestURI() + "?";
-		int totalContents = shelterBoardService.shelterAnimalCount();
+		String url = request.getRequestURI() + "?kind="+ kind +"&gender=" + gender+ "&age=" + age + "&color=" + color + 
+					"&weight=" + weight + "&state=" + state +"&sido=" + sido + "&sigugun=" + sigugun;
+		int totalContents = shelterBoardService.shelterAnimalCount(map);
 		String pageBar = Utils.getPageBarHtml(cPage, 10, totalContents, url);
 		
+		model.addAttribute("param", map);
 		model.addAttribute("shelterBoardList", list);
 		model.addAttribute("pageBar", pageBar);
 		
