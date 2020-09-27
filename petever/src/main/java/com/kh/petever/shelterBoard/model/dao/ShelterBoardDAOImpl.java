@@ -31,5 +31,10 @@ public class ShelterBoardDAOImpl implements ShelterBoardDAO{
 		return sqlSession.selectOne("shelterBoard.shelterAnimalCount", map);
 	}
 
+	@Override
+	public List<ShelterAnimal> shelterSelectOne(String deserNo) {
+		return sqlSession.selectList("shelterBoard.shelterSelectOne", deserNo);
+	}
+
 	
 }

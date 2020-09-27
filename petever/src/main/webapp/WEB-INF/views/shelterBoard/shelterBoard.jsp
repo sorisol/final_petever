@@ -27,18 +27,19 @@ $(function () {
     var area15 = ["거제시", "김해시", "마산시", "밀양시", "사천시", "양산시", "진주시", "진해시", "창원시", "통영시", "거창군", "고성군", "남해군", "산청군", "의령군", "창녕군", "하동군", "함안군", "함양군", "합천군"];
     var area16 = ["서귀포시", "제주시", "남제주군", "북제주군"];
 
+	//page load시 시도 select
     $("select[name=sido]").each(function () {
         console.log(this);
         $selectCity = $(this);
         $selectCity.append("<option value=>시/도 선택</option>");
         $.each(eval(area0), function () {
-            $selectCity.append("<option value=" + this + " ${ param.sido eq '"+this+"' ? 'selected' : ''} >" + this + "</option>");
+            $selectCity.append("<option value="+this+">" + this + "</option>");
         })
         $selectCity.parent().next().children().append("<option value=''>구/군 선택</option>");
-        console.log("${param.sido == '충정남도' ? '1' : '2' }");
-        console.log("${param.sido}");
+
     });
 
+	//시도 선택시 시구군 select
     $("select[name=sido]").change(function () {
         var area = "area" + $("option", $(this)).index($("option:selected", $(this))); //선택지역의 구군 Array
         console.log(area);
@@ -56,6 +57,7 @@ $(function () {
         }
     });
 
+    //체크박스 중복 체크 X
 	$("input[name=kind]").click(function() {
 		if($(this).prop('checked')) {
 			$("input[name=kind]").prop('checked', false);
@@ -97,8 +99,15 @@ $(function () {
 			$(this).prop('checked', true);
 		}
 	});
-    
 });
+
+	function shelterAnidetail(desertionNo){
+		var deserNo = desertionNo;
+		console.log(deserNo);
+		
+		location.href="${pageContext.request.contextPath}/shelterBoard/shelterAni?deserNo=" + deserNo;
+	}
+	
 </script>
 
     <div id="main-wrap">
@@ -215,7 +224,7 @@ $(function () {
                     			<p>종류 : <b>${ sbl.kindCd }</b></p>
                     			<p>지역 : <b>${ sbl.orgNm }</b></p>
                     			<p>나이 : <b>${ sbl.age }</b></p>
-                    			
+                    			<button id="ani-search-detail" onclick="shelterAnidetail('${ sbl.desertionNo }')">조회</button>
                     			<hr />
                     			<span>공고번호 : ${ sbl.noticeNo }</span>
                     		</div>
