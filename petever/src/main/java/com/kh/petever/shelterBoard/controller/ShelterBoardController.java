@@ -108,10 +108,10 @@ public class ShelterBoardController {
 	
 	@GetMapping("/shelterBoard.do")
 	public String shelterBoard(Model model, @RequestParam(defaultValue = "1", value="cPage") int cPage, HttpServletRequest request,
-			@RequestParam(value="kind", required = false) String kind, @RequestParam(value="gender", required = false) String gender,
-			@RequestParam(defaultValue="0", value="age") int age, @RequestParam(value="color", required = false) String color,
-			@RequestParam(defaultValue="0", value="weigh") float weight, @RequestParam(value="state", required = false) String state,
-			@RequestParam(value="sido", required = false) String sido, @RequestParam(value="sigugun", required = false) String sigugun) {
+			@RequestParam(value="kind", defaultValue="", required = false) String kind, @RequestParam(value="gender", defaultValue="", required = false) String gender,
+			@RequestParam(value="age", defaultValue="0", required = false) int age, @RequestParam(value="color", defaultValue="", required = false) String color,
+			@RequestParam(value="weigh", defaultValue="0", required = false) float weight, @RequestParam(value="state", defaultValue="", required = false) String state,
+			@RequestParam(value="sido", defaultValue="", required = false) String sido, @RequestParam(value="sigugun", defaultValue="", required = false) String sigugun) {
 		//page 처리
 		final int limit = 16;
 		int offset = (cPage - 1) * limit;
@@ -133,7 +133,7 @@ public class ShelterBoardController {
 //		log.debug("보호소 동물 : {}", list);
 		
 		String url = request.getRequestURI() + "?kind="+ kind +"&gender=" + gender+ "&age=" + age + "&color=" + color + 
-					"&weight=" + weight + "&state=" + state +"&sido=" + sido + "&sigugun=" + sigugun;
+					"&weight=" + weight + "&state=" + state +"&sido=" + sido + "&sigugun=" + sigugun + "&";
 		int totalContents = shelterBoardService.shelterAnimalCount(map);
 		String pageBar = Utils.getPageBarHtml(cPage, 10, totalContents, url);
 		
@@ -142,6 +142,17 @@ public class ShelterBoardController {
 		model.addAttribute("pageBar", pageBar);
 		
 		return "shelterBoard/shelterBoard";
+	}
+	
+	@GetMapping("/shelterAni")
+	public String shelterAnimal(Model model, @RequestParam("deserNo") String deserNo) {
+		log.debug("deserNo = {}", deserNo);
+		
+		List<ShelterAnimal> aniList = shelterBoardService.shelterSelectOne(deserNo);
+		log.debug("aniList = {}", aniList);
+		
+		model.addAttribute("aniList", aniList);
+		return "shelterBoard/shelterAnimal";
 	}
 	
 

@@ -31,6 +31,11 @@ public class ShelterBoardServiceImpl implements ShelterBoardService{
 		return shelterBoardDAO.shelterAnimalCount(map);
 	}
 
+	@Override
+	public List<ShelterAnimal> shelterSelectOne(String deserNo) {
+		return shelterBoardDAO.shelterSelectOne(deserNo);
+	}
+
 	
 	
 	

@@ -15,4 +15,6 @@ public interface ShelterBoardDAO {
 
 	int shelterAnimalCount(Map<String, Object> map);
 
+	List<ShelterAnimal> shelterSelectOne(String deserNo);
+
 }

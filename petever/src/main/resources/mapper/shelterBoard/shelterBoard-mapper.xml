@@ -90,4 +90,10 @@
 	    </where>
 	</select>
 	
+	<select id="shelterSelectOne" resultMap="shelterAnimalMap">
+		select *
+		from shelterAnimal
+		where desertion_no = #{ deserNo }
+	</select>
+	
 </mapper>
