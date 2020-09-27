@@ -2,7 +2,6 @@ package com.kh.petever.statis.controller;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -39,7 +38,7 @@ public class StatisController {
 		
 		DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
-		
+
 		try {
 			dBuilder = dbFactoty.newDocumentBuilder();
 			Document doc = dBuilder.parse(serviceKey);
@@ -113,10 +112,12 @@ public class StatisController {
 			@RequestParam(value="paramArea", required=false) String[] paramArea){
 		Map<String, int[]> map = new HashMap<>();
 		Map<String, String> search = new HashMap<>();
-		int[] adoptData = new int[25];
-		int[] euthanasiaData = new int[25];
+		int[] adoptData = new int[35];
+		int[] euthanasiaData = new int[35];
+		city = city.substring(0, 2);
+		province = province.substring(0, 2);
 		for(int i =0 ;i<paramArea.length;i++) {
-			String area = "%"+paramArea[i].substring(paramArea[i].indexOf("\"")+1, paramArea[i].lastIndexOf("\""))+"%";
+			String area = "%"+city+"-"+(paramArea[i].substring(paramArea[i].indexOf("\"")+1, paramArea[i].lastIndexOf("\""))).substring(0,2)+"%";
 			System.out.println(paramArea[i]);
 			System.out.println(area);
 			
@@ -126,8 +127,7 @@ public class StatisController {
 			adoptData[i] = adopt;
 			euthanasiaData[i] = euthanasia;
 		}
-
-		search.put("city", "%"+city+" "+province+"%");
+		search.put("city", "%"+city+"-"+province+"%");
 		search.put("startDay", startDay);
 		search.put("endDay", endDay);
 		
@@ -141,27 +141,35 @@ public class StatisController {
 		int donationCnt = statisService.donationCount(search);
 		
 		
-		int[] test = new int[8];
-		test[0] = allCnt;
-		test[1] = protectCnt;
-		test[2] = dismissCnt;
-		test[3] = returnCnt;
-		test[4] = deathCnt;
-		test[5] = euthanasiaCnt;
-		test[6] = radiateCnt;
-		test[7] = donationCnt;
-		map.put("test", test);
+		int[] areaResult = new int[8];
+		areaResult[0] = allCnt;
+		areaResult[1] = protectCnt;
+		areaResult[2] = dismissCnt;
+		areaResult[3] = returnCnt;
+		areaResult[4] = deathCnt;
+		areaResult[5] = euthanasiaCnt;
+		areaResult[6] = radiateCnt;
+		areaResult[7] = donationCnt;
+		map.put("areaResult", areaResult);
 
 		map.put("euthanasia", euthanasiaData);
 		map.put("adopt", adoptData);
-		
+
 		return map;
 	}
 	
-	
 	@GetMapping("/statis.do")
 	public ModelAndView statis(ModelAndView mav) {
-		DecimalFormat df = new DecimalFormat("###,###");
+		
+		mav.setViewName("statis/statis");
+		
+		return mav;
+	}
+	
+	@GetMapping("/loadStatis.do")
+	@ResponseBody
+	public Map<String, int[]> loadStatis() {
+		Map<String, int[]> map = new HashMap<>();
 		int allCnt = statisService.countStatis();
 		int protectCnt = statisService.protectCount();
 		int dismissCnt = statisService.dismissCount();
@@ -170,18 +178,20 @@ public class StatisController {
 		int euthanasiaCnt = statisService.euthanasiaCount();
 		int radiateCnt = statisService.radiateCount();
 		int donationCnt = statisService.donationCount();
-		
-		mav.addObject("allCnt",df.format(allCnt));
-		mav.addObject("protectCnt",protectCnt);
-		mav.addObject("dismissCnt",dismissCnt);
-		mav.addObject("returnCnt",returnCnt);
-		mav.addObject("deathCnt",deathCnt);
-		mav.addObject("euthanasiaCnt",euthanasiaCnt);
-		mav.addObject("radiateCnt",radiateCnt);
-		mav.addObject("donationCnt",donationCnt);
-		mav.setViewName("statis/statis");
-		
-		return mav;
+//		String[] s = {"서울","경기",""};
+//		mav.addObject("s", s);
+		int[] loadResult = new int[8];
+		loadResult[0] = allCnt;
+		loadResult[1] = protectCnt;
+		loadResult[2] = dismissCnt;
+		loadResult[3] = returnCnt;
+		loadResult[4] = deathCnt;
+		loadResult[5] = euthanasiaCnt;
+		loadResult[6] = radiateCnt;
+		loadResult[7] = donationCnt;
+		map.put("loadResult", loadResult);
+
+		return map;
 	}
 	
 }

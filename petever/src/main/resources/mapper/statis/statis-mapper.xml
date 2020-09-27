@@ -41,43 +41,43 @@
 	</select>
 
 	<select id="countStatisSearch" resultType="_int">
-		select count(*) from shelterAnimal where care_addr like #{ city } and 
+		select count(*) from shelterAnimal where notice_no like #{ city } and 
 		(happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
 	</select>
 	<select id="protectCountSearch" resultType="_int">
 		select count(*) from shelterAnimal where process_state like '%보호%' and 
-		care_addr like #{ city } and (happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
+		notice_no like #{ city } and (happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
 	</select>
 	<select id="dismissCountSearch" resultType="_int">
 		select count(*) from shelterAnimal where process_state like '%입양%' and 
-		care_addr like #{ city } and (happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
+		notice_no like #{ city } and (happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
 	</select>
 	<select id="returnCountSearch" resultType="_int">
 		select count(*) from shelterAnimal where process_state like '%반환%' and 
-		care_addr like #{ city } and (happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
+		notice_no like #{ city } and (happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
 	</select>
 	<select id="deathCountSearch" resultType="_int">
 		select count(*) from shelterAnimal where process_state like '%자연사%' and 
-		care_addr like #{ city } and (happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
+		notice_no like #{ city } and (happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
 	</select>
 	<select id="euthanasiaCountSearch" resultType="_int">
 		select count(*) from shelterAnimal where process_state like '%안락사%' and 
-		care_addr like #{ city } and (happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
+		notice_no like #{ city } and (happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
 	</select>
 	<select id="radiateCountSearch" resultType="_int">
 		select count(*) from shelterAnimal where process_state like '%방사%' and 
-		care_addr like #{ city } and (happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
+		notice_no like #{ city } and (happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
 	</select>
 	<select id="donationCountSearch" resultType="_int">
 		select count(*) from shelterAnimal where process_state like '%기증%' and 
-		care_addr like #{ city } and (happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
+		notice_no like #{ city } and (happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
 	</select>
 
 	<select id="euthanasia" resultType="_int">
-		select count(*) from shelterAnimal where care_addr like #{ area } and (process_state like '%안락사%' or process_state like '%자연사%')
+		select count(*) from shelterAnimal where notice_no like #{ area } and (process_state like '%안락사%' or process_state like '%자연사%')
 	</select>
 
 	<select id="adoptStatis" resultType="_int">
-		select count(*) from shelterAnimal where care_addr like #{ area } and (process_state like '%입양%'  or process_state like '%보호%')
+		select count(*) from shelterAnimal where notice_no like #{ area } and (process_state like '%입양%'  or process_state like '%보호%')
 	</select>
 </mapper>
