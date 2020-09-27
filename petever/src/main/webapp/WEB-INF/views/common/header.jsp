@@ -36,7 +36,7 @@
                 <a href="#">${loginUser.userId }</a>님, 환영합니다!
                 &nbsp;
                 
-                  <li><a href="${ pageContext.request.contextPath }/user/signup.do">로그아웃</li>
+                 <li><a href="${ pageContext.request.contextPath }/user/logout.do">로그아웃</li>
                 
                 </c:if>
                 <li><a href="${ pageContext.request.contextPath }/user/user.do">마이페이지</li>
@@ -50,7 +50,7 @@
             <li>사이트소개</li>
             <li><a href="${ pageContext.request.contextPath }/animalboard">유기동물</a></li>
             <li><a href="${ pageContext.request.contextPath }/shelterBoard/shelterBoard.do">보호소동물</a></li>
-            <li>입양후기</li>
+            <li><a href="${ pageContext.request.contextPath }/reviewBoard/reviewBoard.do">입양후기</a></li>
             <li>인식표</li>
             <li><a href=""></a>보호소</li>
             <li><a href="${ pageContext.request.contextPath }/statis/statis.do">통계</a></li>
