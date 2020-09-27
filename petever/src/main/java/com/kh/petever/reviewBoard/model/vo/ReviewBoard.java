@@ -1,0 +1,25 @@
+package com.kh.petever.reviewBoard.model.vo;
+
+import java.io.Serializable;
+import java.sql.Date;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class ReviewBoard implements Serializable {
+	
+	private String rewBoId;
+	private String userId;
+	private String rewBoTitle;
+	private String RewBoContent;
+	private Date RewBoRegDate;
+
+}

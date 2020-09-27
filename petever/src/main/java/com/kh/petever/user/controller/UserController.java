@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.petever.user.model.service.UserService;
@@ -131,13 +132,16 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-	/*	//로그인페이지연결
-	@GetMapping("/login.do")
-	public String login() {
+	//로그아웃 - 세션 무효화
+	@RequestMapping("/logout.do")
+	public String userLogout(SessionStatus sessionStatus) {
+		//@SessionAttribute를 통해 등록된 객체 무효화
+		if(sessionStatus.isComplete() == false)
+			sessionStatus.setComplete();
 		
-		System.out.println("접속");
-		return "user/login";
-*/
+		return "redirect:/";
+		
+	}
 	
 	//회원정보수정페이지 연결
 	@GetMapping("/user.do")
