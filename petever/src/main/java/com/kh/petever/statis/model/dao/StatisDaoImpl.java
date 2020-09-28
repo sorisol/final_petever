@@ -101,4 +101,14 @@ public class StatisDaoImpl implements StatisDao {
 		return session.selectOne("statis.donationCountSearch",search);
 	}
 
+	@Override
+	public int adoptStatis(String area) {
+		return session.selectOne("statis.adoptStatis",area);
+	}
+
+	@Override
+	public int euthanasia(String area) {
+		return session.selectOne("statis.euthanasia",area);
+	}
+
 }

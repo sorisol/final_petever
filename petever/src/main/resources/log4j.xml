@@ -40,7 +40,7 @@
 	</logger>
 	
 	<!-- Application Loggers -->
-	<logger name="com.kh.petever">
+	<logger name="com.kh.petever" additivity="true">
 		<level value="debug" />
 	</logger>
 	
@@ -65,6 +65,7 @@
 	<root>
 		<priority value="warn" />
 		<appender-ref ref="console" />
+		<appender-ref ref="fileLogger" />
 	</root>
 	
 </log4j:configuration>

@@ -98,3 +98,70 @@ aside .dep_2 li {
     background-color: #FFF3D9;
     border-top: 1px solid #d87439;
 }
+
+/* loading*/
+
+#svg-back{
+	width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    background: #E6BCB0;
+    opacity:0.8;
+    z-index: 1;
+    display:none;
+}
+svg {
+	width: 200px;
+	height: 400px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: auto;
+	animation: rotation 3.5s infinite ease-in-out;
+	animation-fill-mode: forwards;
+	transform-origin: bottom;
+	display:none;
+	position: fixed;
+    top: 0;
+    left: calc(50% - 100px);
+    z-index:2;
+}
+
+@keyframes rotation{
+    
+        0%{transform: rotate(0deg);}
+        100%{transform: rotate(720deg);}
+
+}
+.back-legs-front {
+	fill: #C8BFAE;
+}
+
+.back-legs-back {
+	fill: #C8BFAE;
+}
+
+.legs-front {
+	fill: #F5E9D4;
+}
+
+.body {
+	fill: #F5E9D4;
+}
+
+.tail {
+	fill: #F5E9D4;
+}
+
+.head {
+	fill: #F5E9D4;
+}
+
+.ear {
+	fill: #E8C9B0;
+}
+
+.mouth {
+	fill: #E5856F;
+}

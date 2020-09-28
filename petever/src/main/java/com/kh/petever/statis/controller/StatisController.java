@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -37,7 +38,7 @@ public class StatisController {
 		
 		DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
-		
+
 		try {
 			dBuilder = dbFactoty.newDocumentBuilder();
 			Document doc = dBuilder.parse(serviceKey);
@@ -100,60 +101,97 @@ public class StatisController {
 		return "null";
 	}
 
-
-	@GetMapping("/statis.do")
-	public ModelAndView statis(ModelAndView mav	,
+	@SuppressWarnings("null")
+	@GetMapping("/searchStatis.do")
+	@ResponseBody
+	public Map<String, int[]> searchStatis(
 			@RequestParam(value="city", required=false) String city,
 			@RequestParam(value="province", required=false) String province,
 			@RequestParam(value="startDay", required=false) String startDay,
-			@RequestParam(value="endDay", required=false) String endDay) {
-		DecimalFormat df = new DecimalFormat("###,###");
-		int allCnt;
-		int protectCnt;
-		int dismissCnt;
-		int returnCnt;
-		int deathCnt;
-		int euthanasiaCnt;
-		int radiateCnt;
-		int donationCnt;
-		System.out.println(city);
-		System.out.println(province);
-		System.out.println(startDay);
-		System.out.println(endDay);
+			@RequestParam(value="endDay", required=false) String endDay,
+			@RequestParam(value="paramArea", required=false) String[] paramArea){
+		Map<String, int[]> map = new HashMap<>();
 		Map<String, String> search = new HashMap<>();
-		search.put("city", "%"+city+" "+province+"%");
+		int[] adoptData = new int[35];
+		int[] euthanasiaData = new int[35];
+		city = city.substring(0, 2);
+		province = province.substring(0, 2);
+		for(int i =0 ;i<paramArea.length;i++) {
+			String area = "%"+city+"-"+(paramArea[i].substring(paramArea[i].indexOf("\"")+1, paramArea[i].lastIndexOf("\""))).substring(0,2)+"%";
+			System.out.println(paramArea[i]);
+			System.out.println(area);
+			
+			int adopt = statisService.adoptStatis(area);
+			int euthanasia = statisService.euthanasia(area);
+			
+			adoptData[i] = adopt;
+			euthanasiaData[i] = euthanasia;
+		}
+		search.put("city", "%"+city+"-"+province+"%");
 		search.put("startDay", startDay);
 		search.put("endDay", endDay);
-		if(city == null || province == null || startDay == null || endDay == null) {
-			allCnt = statisService.countStatis();
-			protectCnt = statisService.protectCount();
-			dismissCnt = statisService.dismissCount();
-			returnCnt = statisService.returnCount();
-			deathCnt = statisService.deathCount();
-			euthanasiaCnt = statisService.euthanasiaCount();
-			radiateCnt = statisService.radiateCount();
-			donationCnt = statisService.donationCount();
-		}else{
-			allCnt = statisService.countStatis(search);
-			protectCnt = statisService.protectCount(search);
-			dismissCnt = statisService.dismissCount(search);
-			returnCnt = statisService.returnCount(search);
-			deathCnt = statisService.deathCount(search);
-			euthanasiaCnt = statisService.euthanasiaCount(search);
-			radiateCnt = statisService.radiateCount(search);
-			donationCnt = statisService.donationCount(search);
-		}
-		System.out.println(allCnt);
-		mav.addObject("allCnt",df.format(allCnt));
-		mav.addObject("protectCnt",protectCnt);
-		mav.addObject("dismissCnt",dismissCnt);
-		mav.addObject("returnCnt",returnCnt);
-		mav.addObject("deathCnt",deathCnt);
-		mav.addObject("euthanasiaCnt",euthanasiaCnt);
-		mav.addObject("radiateCnt",radiateCnt);
-		mav.addObject("donationCnt",donationCnt);
+		
+		int allCnt = statisService.countStatis(search);
+		int protectCnt = statisService.protectCount(search);
+		int dismissCnt = statisService.dismissCount(search);
+		int returnCnt = statisService.returnCount(search);
+		int deathCnt = statisService.deathCount(search);
+		int euthanasiaCnt = statisService.euthanasiaCount(search);
+		int radiateCnt = statisService.radiateCount(search);
+		int donationCnt = statisService.donationCount(search);
+		
+		
+		int[] areaResult = new int[8];
+		areaResult[0] = allCnt;
+		areaResult[1] = protectCnt;
+		areaResult[2] = dismissCnt;
+		areaResult[3] = returnCnt;
+		areaResult[4] = deathCnt;
+		areaResult[5] = euthanasiaCnt;
+		areaResult[6] = radiateCnt;
+		areaResult[7] = donationCnt;
+		map.put("areaResult", areaResult);
+
+		map.put("euthanasia", euthanasiaData);
+		map.put("adopt", adoptData);
+
+		return map;
+	}
+	
+	@GetMapping("/statis.do")
+	public ModelAndView statis(ModelAndView mav) {
+		
 		mav.setViewName("statis/statis");
+		
 		return mav;
 	}
+	
+	@GetMapping("/loadStatis.do")
+	@ResponseBody
+	public Map<String, int[]> loadStatis() {
+		Map<String, int[]> map = new HashMap<>();
+		int allCnt = statisService.countStatis();
+		int protectCnt = statisService.protectCount();
+		int dismissCnt = statisService.dismissCount();
+		int returnCnt = statisService.returnCount();
+		int deathCnt = statisService.deathCount();
+		int euthanasiaCnt = statisService.euthanasiaCount();
+		int radiateCnt = statisService.radiateCount();
+		int donationCnt = statisService.donationCount();
+//		String[] s = {"서울","경기",""};
+//		mav.addObject("s", s);
+		int[] loadResult = new int[8];
+		loadResult[0] = allCnt;
+		loadResult[1] = protectCnt;
+		loadResult[2] = dismissCnt;
+		loadResult[3] = returnCnt;
+		loadResult[4] = deathCnt;
+		loadResult[5] = euthanasiaCnt;
+		loadResult[6] = radiateCnt;
+		loadResult[7] = donationCnt;
+		map.put("loadResult", loadResult);
 
+		return map;
+	}
+	
 }
