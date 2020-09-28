@@ -158,7 +158,7 @@
 			method : "GET",
 			success : function(res){
 				var loadData = [res.loadResult[1], res.loadResult[2], res.loadResult[3], res.loadResult[4], res.loadResult[5], res.loadResult[6], res.loadResult[7]];
-				/* var ajaxLable = paramArea;
+				var ajaxLable = ["서울", "경기", "인천", "강원", "충남", "충북", "경북", "경남", "전남", "전북", "제주"];
 				var adoptSum = 0;
 				var euthanasiaSum = 0;
 				var adoptChartData = new Array();
@@ -171,9 +171,9 @@
 				for(var j = 0; j <(res.adopt).length; j++){
 					adoptChartData[j] = Math.round((res.adopt[j]/adoptSum)*10000)/100;
 					euthanasiaChartData[j] = Math.round((res.euthanasia[j]/euthanasiaSum)*10000)/100;
-				} */
+				}
 
-				$(".area").css("height","600px");
+				$(".area").css("height","500px");
 				
 				doughnutChart.data.datasets.forEach(function(dataset) {
 					dataset.data = loadData;
@@ -199,7 +199,6 @@
 
     var label = ["보호", "입양", "반환", "자연사", "안락사", "방사", "기증"];
     var back = ["#245EFF", "#3DD5FF", "#40F7B4", "#00C788", "#FFAA9D", "#FB5F83", "#BB4BEB"];
-	var data = [ 10,10,10,10,1,10,10];
 
 	function getColorRed(){
     	var colorData = [];
@@ -231,7 +230,6 @@
                 "data": {
                     "labels": label,
                     "datasets": [{
-                        "data": data,
                         "backgroundColor": back
                     }]
                 },
@@ -282,7 +280,6 @@
 
                 datasets: [{
                     label: "유기동물 현황(마리)",
-                    data: data,
                     backgroundColor: back
                 }]
             },
@@ -311,7 +308,6 @@
                     barThickness: 15,
                     maxBarThickness: 15,
                     minBarLength: 2,
-                    data: data,
                     backgroundColor: getColorBlue()
                 }]
             },
@@ -363,7 +359,6 @@
                     barThickness: 15,
                     maxBarThickness: 15,
                     minBarLength: 2,
-                    data: data,
                     backgroundColor: getColorRed()
                 }]
             },
@@ -479,7 +474,7 @@
 				doughnutChart.update();
 				barChartTop.update();
 
-				$(".totalStatis").text("총 "+ res.areaResult[0]+" 마리");
+				$(".totalStatis").text("총 "+ numberWithCommas(res.areaResult[0])+" 마리");
 				$("#area").text($("select[name=city]").val()+" "+$("select[name=province]").val());
 			},
 			error : function(xhr, status, err){

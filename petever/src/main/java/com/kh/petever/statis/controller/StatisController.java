@@ -1,7 +1,9 @@
 package com.kh.petever.statis.controller;
 
-import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -22,6 +24,7 @@ import org.w3c.dom.NodeList;
 
 import com.kh.petever.shelterBoard.model.vo.ShelterAnimal;
 import com.kh.petever.statis.model.service.StatisService;
+import com.kh.petever.statis.model.vo.StatisList;
 
 import lombok.extern.slf4j.Slf4j;
 @Controller
@@ -131,25 +134,18 @@ public class StatisController {
 		search.put("startDay", startDay);
 		search.put("endDay", endDay);
 		
-		int allCnt = statisService.countStatis(search);
-		int protectCnt = statisService.protectCount(search);
-		int dismissCnt = statisService.dismissCount(search);
-		int returnCnt = statisService.returnCount(search);
-		int deathCnt = statisService.deathCount(search);
-		int euthanasiaCnt = statisService.euthanasiaCount(search);
-		int radiateCnt = statisService.radiateCount(search);
-		int donationCnt = statisService.donationCount(search);
-		
-		
+		List<StatisList> list = statisService.selectList(search);
 		int[] areaResult = new int[8];
-		areaResult[0] = allCnt;
-		areaResult[1] = protectCnt;
-		areaResult[2] = dismissCnt;
-		areaResult[3] = returnCnt;
-		areaResult[4] = deathCnt;
-		areaResult[5] = euthanasiaCnt;
-		areaResult[6] = radiateCnt;
-		areaResult[7] = donationCnt;
+		for (StatisList statisList : list) {
+			areaResult[0]+=statisList.getCnt();
+		}
+			areaResult[1] = listGetCnt(list, 0);
+			areaResult[7] = listGetCnt(list,1); 
+			areaResult[3] = listGetCnt(list,2); 
+			areaResult[6] = listGetCnt(list,3);
+			areaResult[5] = listGetCnt(list,4);
+			areaResult[2] = listGetCnt(list,5); 
+			areaResult[4] = listGetCnt(list,6); 
 		map.put("areaResult", areaResult);
 
 		map.put("euthanasia", euthanasiaData);
@@ -160,9 +156,8 @@ public class StatisController {
 	
 	@GetMapping("/statis.do")
 	public ModelAndView statis(ModelAndView mav) {
-		
+
 		mav.setViewName("statis/statis");
-		
 		return mav;
 	}
 	
@@ -170,28 +165,50 @@ public class StatisController {
 	@ResponseBody
 	public Map<String, int[]> loadStatis() {
 		Map<String, int[]> map = new HashMap<>();
-		int allCnt = statisService.countStatis();
-		int protectCnt = statisService.protectCount();
-		int dismissCnt = statisService.dismissCount();
-		int returnCnt = statisService.returnCount();
-		int deathCnt = statisService.deathCount();
-		int euthanasiaCnt = statisService.euthanasiaCount();
-		int radiateCnt = statisService.radiateCount();
-		int donationCnt = statisService.donationCount();
-//		String[] s = {"서울","경기",""};
-//		mav.addObject("s", s);
+		String[] area = {"%서울%", "%경기%", "%인천%", "%강원%", "%충청남도%", "%충청북도%", "%경상북도%", "%경상남도%", "%전라남도%", "%전라북도%", "%제주%"};
+		List<String> areaArr = new ArrayList<>(Arrays.asList(area));
+		int[] adoptData = new int[11];
+		int[] euthanasiaData = new int[11];
+		int euthanasia = statisService.euthanasia(areaArr);
+		int adopt = statisService.adoptStatis(areaArr);
+		System.out.println(euthanasia);	
+//		adoptData[i] = adopt;
+//		euthanasiaData[i] = euthanasia;
+		
+		List<StatisList> list = statisService.selectList();
 		int[] loadResult = new int[8];
-		loadResult[0] = allCnt;
-		loadResult[1] = protectCnt;
-		loadResult[2] = dismissCnt;
-		loadResult[3] = returnCnt;
-		loadResult[4] = deathCnt;
-		loadResult[5] = euthanasiaCnt;
-		loadResult[6] = radiateCnt;
-		loadResult[7] = donationCnt;
+		for (StatisList statisList : list) {
+			loadResult[0]+=statisList.getCnt();
+		}
+			loadResult[1] = listGetCnt(list, 0);
+			loadResult[2] = listGetCnt(list,5); 
+			loadResult[3] = listGetCnt(list,2); 
+			loadResult[4] = listGetCnt(list,6);
+			loadResult[5] = listGetCnt(list,4);
+			loadResult[6] = listGetCnt(list,3); 
+			loadResult[7] = listGetCnt(list,1); 
 		map.put("loadResult", loadResult);
+		
+		map.put("euthanasia", euthanasiaData);
+		map.put("adopt", adoptData);
 
 		return map;
+	}
+	
+	@SuppressWarnings("unused")
+	public int listGetCnt(List<StatisList> list, int i) {
+		String[] state = {"보호중", "종료(기증)", "종료(반환)", "종료(방사)", "종료(안락사)", "종료(입양)", "종료(자연사)"};
+		List<String> stateArr = new ArrayList<>(Arrays.asList(state));
+		System.out.println(i);
+			for(;i<stateArr.size();i++) {
+				for(int j =0;j<list.size();j++) {
+				if(list.get(j).getState().contains(stateArr.get(i))) {
+					return list.get(j).getCnt();
+				}
+			}
+			return 0;
+		}
+		return 0;
 	}
 	
 }
