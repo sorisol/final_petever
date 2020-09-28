@@ -14,70 +14,33 @@
 			#{ chargeNm }, #{ officetel }
 		)
 	</insert>
-	
-	<select id="countStatis" resultType="_int">
-		select count(*) from shelterAnimal
-	</select>
-	<select id="protectCount" resultType="_int">
-		select count(*) from shelterAnimal where process_state like '%보호%'
-	</select>
-	<select id="dismissCount" resultType="_int">
-		select count(*) from shelterAnimal where process_state like '%입양%'
-	</select>
-	<select id="returnCount" resultType="_int">
-		select count(*) from shelterAnimal where process_state like '%반환%'
-	</select>
-	<select id="deathCount" resultType="_int">
-		select count(*) from shelterAnimal where process_state like '%자연사%'
-	</select>
-	<select id="euthanasiaCount" resultType="_int">
-		select count(*) from shelterAnimal where process_state like '%안락사%'
-	</select>
-	<select id="radiateCount" resultType="_int">
-		select count(*) from shelterAnimal where process_state like '%방사%'
-	</select>
-	<select id="donationCount" resultType="_int">
-		select count(*) from shelterAnimal where process_state like '%기증%'
+
+	<select id="countStatisSearch" resultMap="statisList">
+		select count(*),process_state from shelterAnimal where notice_no like #{ city } and 
+		(happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay}) group by process_state having process_state not like '%미포획%'
+		order by process_state
 	</select>
 
-	<select id="countStatisSearch" resultType="_int">
-		select count(*) from shelterAnimal where notice_no like #{ city } and 
-		(happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
-	</select>
-	<select id="protectCountSearch" resultType="_int">
-		select count(*) from shelterAnimal where process_state like '%보호%' and 
-		notice_no like #{ city } and (happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
-	</select>
-	<select id="dismissCountSearch" resultType="_int">
-		select count(*) from shelterAnimal where process_state like '%입양%' and 
-		notice_no like #{ city } and (happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
-	</select>
-	<select id="returnCountSearch" resultType="_int">
-		select count(*) from shelterAnimal where process_state like '%반환%' and 
-		notice_no like #{ city } and (happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
-	</select>
-	<select id="deathCountSearch" resultType="_int">
-		select count(*) from shelterAnimal where process_state like '%자연사%' and 
-		notice_no like #{ city } and (happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
-	</select>
-	<select id="euthanasiaCountSearch" resultType="_int">
-		select count(*) from shelterAnimal where process_state like '%안락사%' and 
-		notice_no like #{ city } and (happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
-	</select>
-	<select id="radiateCountSearch" resultType="_int">
-		select count(*) from shelterAnimal where process_state like '%방사%' and 
-		notice_no like #{ city } and (happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
-	</select>
-	<select id="donationCountSearch" resultType="_int">
-		select count(*) from shelterAnimal where process_state like '%기증%' and 
-		notice_no like #{ city } and (happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay})
-	</select>
-
-	<select id="euthanasia" resultType="_int">
-		select count(*) from shelterAnimal where notice_no like #{ area } and (process_state like '%안락사%' or process_state like '%자연사%')
+	<select id="euthanasia" resultType="list">
+		select 
+		<foreach collection="areaArr" item="item" open="count(case when org_nm like'" close="' then 1 end)" separator="' then 1 end), count(case when org_nm like'">
+		    #{item}
+		   
+		</foreach>
+		from shelterAnimal
+		where process_state like '%안락사%' or process_state like '%자연사%';
 	</select>
 
 	<select id="adoptStatis" resultType="_int">
 		select count(*) from shelterAnimal where notice_no like #{ area } and (process_state like '%입양%'  or process_state like '%보호%')
 	</select>
+	<select id="selectList" resultMap="statisList">
+		select count(*),process_state from shelterAnimal group by process_state having process_state not like '%미포획%'
+		order by process_state
+	</select>
+	
+	<resultMap id="statisList" type="StatisList">
+		<id column="count(*)" property="cnt"></id>
+		<result column="process_state" property="state" jdbcType="VARCHAR" javaType="java.lang.String"></result>
+	</resultMap>
 </mapper>
