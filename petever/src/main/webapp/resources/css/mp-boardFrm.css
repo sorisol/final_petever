@@ -44,9 +44,8 @@ form textarea {
     height: 550px;
 }
 table {
-    width: 1000px;
+    width: 500px;
     text-align: left;
-    border-bottom: 1px solid lightgray;
     margin-bottom: 10px;
 }
 table th {
@@ -54,4 +53,7 @@ table th {
 }
 table td,th {
     padding: 2px;
+}
+.button-wrap {
+	height: 40px;
 }

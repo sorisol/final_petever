@@ -17,13 +17,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.petever.animalboard.model.service.AnimalBoardService;
 import com.kh.petever.animalboard.model.vo.AnimalAttach;
 import com.kh.petever.animalboard.model.vo.AnimalBoard;
+import com.kh.petever.animalboard.model.vo.AnimalComment;
 import com.kh.petever.animalboard.model.vo.Photo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -32,18 +36,43 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AnimalBoardController {
 	
-	private Map<String, String> fileNameMap = new HashMap<>();
+	List<Map> fileNameList = new ArrayList<>();
 	
 	@Autowired
 	private AnimalBoardService service;
 	
 	@GetMapping("/animalboard")
-	public String animalboardList() {
-		return "animalBoard/mp-board";
+	public ModelAndView animalboardListView(ModelAndView mav, @RequestParam(defaultValue="1", value="cPage") int cPage) {
+		final int limit = 16;
+		int offset = (cPage-1)*limit;
+		
+		//전체 게시글 조회
+		List<AnimalBoard> boardList = service.selectBoardList(limit, offset);
+		log.debug("boardList = {}", boardList);
+		//첨부파일조회
+		List<AnimalAttach> attachList = service.selectAttachList();
+		mav.addObject("boardList", boardList);
+		mav.addObject("attachList", attachList);
+		
+		mav.setViewName("animalBoard/mp-board");
+		return mav;
 	}
 	
 	@GetMapping("/animalboard/boardView")
-	public String animalboardView() {
+	public String animalboardView(@RequestParam int no, Model model) {
+		log.debug("{}번 게시글 조회", no);
+		
+		//no번 게시글 조회
+		AnimalBoard animalBoard = service.selectOneBoard(no);
+		model.addAttribute("animalBoard", animalBoard);
+		log.debug("animalBoard = {}", animalBoard);
+		
+		//no번 게시글의 댓글
+		int totalComment = service.totalComment(no);
+		model.addAttribute("totalComment", totalComment);
+		List<AnimalComment> commentList = service.selectCommentList(no);
+		model.addAttribute("commentList", commentList);
+		
 		return "animalBoard/mp-board-view";
 	}
 	
@@ -57,14 +86,17 @@ public class AnimalBoardController {
 		//로그인한 사용자 아이디
 		animal.setUserId("honggd");
 		log.debug("animal = {}", animal);
-		log.debug("map = {}", fileNameMap);
 		
 		List<AnimalAttach> boardAttachList = new ArrayList<>();
 		//파일 이름을 AnimalAttach vo에저장
-		for(int i=0; i<fileNameMap.size(); i++) {
+		//List에서 Map꺼내기
+		//map의 aniAtOriginalName을 attach.aniAtOriginalName에 set
+		//map의aniAtRenamedName을 attach.aniAtRenamedName에 set
+		for(int i=0; i<fileNameList.size(); i++) {
 			AnimalAttach attach = new AnimalAttach();
-			attach.setAniAtOriginalName(fileNameMap.get("aniAtOriginalName"));
-			attach.setAniAtRenamedName(fileNameMap.get("aniAtRenamedName"));
+//			log.debug("insertBoard.aniAtOriginalName={}", fileNameList.get(i).get("aniAtOriginalName").toString());
+			attach.setAniAtOriginalName(fileNameList.get(i).get("aniAtOriginalName").toString());
+			attach.setAniAtRenamedName(fileNameList.get(i).get("aniAtRenamedName").toString());
 			//리스트로 만들기
 			boardAttachList.add(attach);
 		}
@@ -72,7 +104,6 @@ public class AnimalBoardController {
 		
 		//animalBoard vo에 list로 넣기
 		animal.setAttachList(boardAttachList);
-		
 		
 		try {
 			int result = service.insertBoard(animal);
@@ -145,6 +176,7 @@ public class AnimalBoardController {
 			String sFileInfo = "";
 			//파일명을 받는다 - 일반 원본파일명
 			String filename = request.getHeader("file-name");
+//			System.out.println(filename);
 			//파일 확장자
 			String filename_ext = filename.substring(filename.lastIndexOf(".")+1);
 			//확장자를소문자로 변경
@@ -169,7 +201,7 @@ public class AnimalBoardController {
 				//파일 기본경로
 				String filePath = request.getServletContext().getRealPath("/resources/editor/multiupload/");
 //				String dftFilePath1 = request.getSession().getServletContext().getRealPath("/");
-				log.debug("filePath = {} ", filePath);
+//				log.debug("filePath = {} ", filePath);
 //				
 				//방법2
 //				@Autowired
@@ -192,9 +224,12 @@ public class AnimalBoardController {
 				String today= formatter.format(new java.util.Date());
 				realFileNm = today+UUID.randomUUID().toString() + filename.substring(filename.lastIndexOf("."));
 				String rlFileNm = filePath + realFileNm;
+//				System.out.println(realFileNm);
+//				System.out.println(rlFileNm);
+				
 				//////////////// 서버에 파일쓰기 /////////////////
 				InputStream is = request.getInputStream();
-				OutputStream os=new FileOutputStream(rlFileNm);
+				OutputStream os = new FileOutputStream(rlFileNm);
 				int numRead;
 				byte b[] = new byte[Integer.parseInt(request.getHeader("file-size"))];
 				while((numRead = is.read(b,0,b.length)) != -1){
@@ -212,23 +247,27 @@ public class AnimalBoardController {
 				// img 태그의 title 속성을 원본파일명으로 적용시켜주기 위함 
 				sFileInfo += "&sFileName="+ filename; 
 				sFileInfo += "&sFileURL="+"/petever/resources/editor/multiupload/"+realFileNm;
+				
 				log.debug("sFileInfo = {}", sFileInfo);
+				
+				Map<String, String> fileNameMap = new HashMap<>();
+				
+				fileNameMap.put("aniAtOriginalName", filename);
+				fileNameMap.put("aniAtRenamedName", realFileNm);
+				fileNameList.add(fileNameMap);
+				
+				log.debug("filename = " + filename);
+				log.debug("rfilename = " + realFileNm);
+				
 				PrintWriter print = response.getWriter();
 				print.print(sFileInfo);
 				print.flush();
 				print.close();
-				
-//				log.debug("filename = " + filename);
-//				log.debug("rfilename = " + realFileNm);
-				
-				fileNameMap.put("aniAtOriginalName", filename);
-				fileNameMap.put("aniAtRenamedName", realFileNm);
 
+				log.debug("list={}", fileNameList);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-//		Map<String, String> fileNameMap = new HashMap<>();
-//		return fileNameMap;
 	}
 }
