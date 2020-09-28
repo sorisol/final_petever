@@ -15,10 +15,10 @@
         <div class="signup">
             <form action="">
                 <label for="">아이디</label>
-                <input type="text" name="" id="" value="honggd" disabled>
+                <input type="text" class="form-control" name="userId" id=""  value="${loginUser.userId}" readonly required>
                 <label for="">이메일</label>
-                <input type="text" name="" id="email-id" class="email" value="honggd"> @
-                <input type="text" name="" id="email" class="email" value="naver.com">
+                <input type="email" class="form-control" name="userEmail" id="email" value="${loginUser.userEmail}" required>
+                <input type=text name="userPwd" id="" value="01058055778">
                 <label for="">전화번호</label>
                 <input type="tel" name="" id="" value="01058055778">
                 <label for="">주소</label>

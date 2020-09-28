@@ -1,5 +1,6 @@
 package com.kh.petever.user.controller;
 
+import java.security.Principal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
@@ -21,7 +22,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.FlashMap;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.kh.petever.user.model.service.UserService;
 import com.kh.petever.user.model.vo.User;
@@ -143,16 +147,52 @@ public class UserController {
 		
 	}
 	
-	//회원정보수정페이지 연결
+	@RequestMapping("/userDetail.do")
+	public String userDetail(Principal principal, Model model) {
+		log.debug("principal = {}", principal);
+		model.addAttribute("loginUser", principal);
+		return "user/userDetail";
+	}
+	
+		@RequestMapping(value = "/userUpdate.do",
+				method = RequestMethod.POST)
+	public ModelAndView userUpdate(User user,
+								 HttpServletRequest request){
+	//파라미터로 전달받지 않고 직접 객체 생성 또한 가능
+	//viewName 생성자에 전달 가능
+	ModelAndView mav = new ModelAndView("redirect:/user/userDetail.do");
+	log.debug("user = {}", user);
+	
+	//1.비지니스로직 실행
+	int result = userService.updateUser(user);
+	
+	//2.처리결과에 따라 view단 분기처리
+	String msg = "";
+	if(result>0){ 
+		msg="회원정보수정성공!";
+		User updatedUser = userService.selectOneUser(user.getUserId());
+		mav.addObject("loginUser", updatedUser);
+	}
+	else 
+		msg="회원정보수정실패!";
+	
+	//리다이렉트시 값전달하기
+	//RedirectAttributes와 동일하다.
+	FlashMap flashMap = RequestContextUtils.getOutputFlashMap(request);
+	flashMap.put("msg", msg);
+	
+	return mav;
+	}
+	
+	
+	/*//회원정보수정페이지 연결
 	@GetMapping("/user.do")
 	public String user() {
 		
 		System.out.println("접속");
-		return "user/user";
+		return "user/user";*/
 
 		}
 
 
-	}
-
-
+	

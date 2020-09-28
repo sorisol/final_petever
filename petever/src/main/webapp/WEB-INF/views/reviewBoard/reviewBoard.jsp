@@ -5,7 +5,14 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/.css">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+<style>
+/*글쓰기버튼*/
+input#btn-add{float:right; margin: 0 0 15px;}
 
+tr[data-board-no] {
+	cursor: pointer;
+}
+</style>
 <!DOCTYPE html>
 <html>
 
@@ -54,7 +61,54 @@
             <h1>입양하기</h1>
             <p>펫에버에서는 이러한 일들을 합니다.</p>
             <div class="content">
-                <!-- 여기서 부터 작성 !-->
+                
+<script>
+function goBoardForm(){
+	location.href = "${pageContext.request.contextPath}/board/boardForm.do";
+}
+
+$(function(){
+
+	$("tr[data-board-no]").click(function(){
+		var no = $(this).attr("data-board-no");
+		location.href = "${ pageContext.request.contextPath }/board/boardDetail.do?no=" + no;
+	});
+	
+});
+
+</script>
+<section id="board-container" class="container">
+	<p>총 ${ totalContents }건의 게시물이 있습니다.</p>
+	<input type="button" value="글쓰기" id="btn-add" class="btn btn-outline-success" onclick="goBoardForm();"/>
+	<table id="tbl-board" class="table table-striped table-hover">
+		<tr>
+			<th>번호</th>
+			<th>제목</th>
+			<th>작성자</th>
+			<th>작성일</th>
+			<th>첨부파일</th> <!-- 첨푸파일 있을 경우, /resources/images/file.png 표시 -->
+			<th>조회수</th>
+		</tr>
+		<c:forEach items="${ list }" var="b">
+		<tr data-board-no="${ b.no }">
+			<td>${ b.no }</td>
+			<td>${ b.title }</td>
+			<td>${ b.memberId }</td>
+			<td><fmt:formatDate value="${ b.regDate }" type="both"/></td>
+			<td align="center">
+				<c:if test="${ b.attachmentCount > 0 }">
+					<img alt="첨부파일"
+					 	 src="${ pageContext.request.contextPath }/resources/images/file.png"
+						 width="16px">
+				</c:if>
+			</td>
+			<td>${ b.readCount }</td>
+		</tr>
+		</c:forEach>
+	</table>
+</section> 
+                
+                
             </div>
         </section>
 
