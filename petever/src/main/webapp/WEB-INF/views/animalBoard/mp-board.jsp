@@ -1,3 +1,4 @@
+<%@page import="com.kh.petever.animalboard.model.vo.AnimalAttach"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -5,7 +6,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:requestEncoding value="utf-8"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mp-board.css">
     <div id="main-wrap">
         <section class="main">
@@ -134,7 +134,12 @@
                     <c:forEach items="${boardList}" var="b">
                     	<a href="${ pageContext.request.contextPath }/animalboard/boardView?no=${b.aniBoId}">
 	                        <div class="post">
-	                            <img src="${pageContext.request.contextPath}/resources/editor/multiupload/">
+	                    	<c:forEach items="${attachList}" var="a" varStatus="v">
+	                        	<c:if test="${ a.aniBoId.equals(b.aniBoId)}">
+		                        	<!-- 2개 이상이면 aniAtId가 작은 한개만 출력 -->
+	                            	<img src="${pageContext.request.contextPath}/resources/editor/multiupload/${a.aniAtRenamedName}">
+	                        	</c:if>
+	                    	</c:forEach>
 	                            <br>
 	                            <span class="tag">[${b.aniBoTag }]</span>
 	                            <span>${b.aniBoTitle}</span>

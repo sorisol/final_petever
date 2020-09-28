@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.petever.animalboard.model.vo.AnimalAttach;
 import com.kh.petever.animalboard.model.vo.AnimalBoard;
+import com.kh.petever.animalboard.model.vo.AnimalComment;
 
 @Repository
 public class AnimalBoardDAOImpl implements AnimalBoardDAO {
@@ -37,4 +38,19 @@ public class AnimalBoardDAOImpl implements AnimalBoardDAO {
 		return sqlSession.selectOne("animalBoard.selectOneBoard", no);
 	}
 
+	@Override
+	public List<AnimalAttach> selectAttachList() {
+		return sqlSession.selectList("animalBoard.selectAttachList");
+	}
+
+	@Override
+	public List<AnimalComment> selectCommentList(int no) {
+		return sqlSession.selectList("animalBoard.selectCommentList", no);
+	}
+	
+	@Override
+	public int totalComment(int no) {
+		return sqlSession.selectOne("animalBoard.totalComment", no);
+	}
+	
 }

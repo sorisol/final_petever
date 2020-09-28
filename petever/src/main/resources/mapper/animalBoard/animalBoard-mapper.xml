@@ -49,8 +49,7 @@
 		select
 			* 
 		from
-			animal_board left join animal_attach
-                         using(ani_bo_id)
+			animal_board
 		order by
 			ani_bo_id desc
 	</select>
@@ -64,5 +63,32 @@
 			ani_bo_id = #{no}
 	</select>
 	
+	<select id="selectAttachList" resultMap="animalAttachMap">
+		select
+			*
+		from
+			animal_attach
+	</select>
+	
+	<select id="selectCommentList" resultMap="animalCommentMap">
+		select
+			*
+		from
+			animal_comment
+		where
+			ani_bo_id = #{no}
+	</select>
+	
+	<select id="totalComment" resultType="_int">
+		select
+			count(*)
+		from
+			animal_comment
+		where
+			ani_bo_id = #{no}
+	</select>
+	
 	<resultMap id="animalBoardMap" type="animalBoard"></resultMap>
+	<resultMap id="animalAttachMap" type="animalAttach"></resultMap>
+	<resultMap id="animalCommentMap" type="animalComment"></resultMap>
 </mapper>
