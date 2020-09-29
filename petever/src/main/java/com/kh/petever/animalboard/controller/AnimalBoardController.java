@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -109,10 +110,67 @@ public class AnimalBoardController {
 			int result = service.insertBoard(animal);
 			redirectAttr.addFlashAttribute("msg", "게시글 등록 성공");
 		} catch(Exception e) {
-			log.error("게시물 등록 오류", e);
+			log.error("게시글 등록 오류", e);
 			redirectAttr.addFlashAttribute("msg", "게시글 등록 실패");
 		}
 		return "redirect:/animalboard";
+	}
+	
+	@GetMapping("/animalboard/deleteBoard")
+	public String deleteBoard(@RequestParam("no") int no, RedirectAttributes redirectAttr) {
+//		log.debug("no = {}", no);
+		try {
+			int result = service.deleteBoard(no);
+			redirectAttr.addFlashAttribute("msg", "게시글 삭제 완료");
+		} catch(Exception e) {
+			log.error("게시글 삭제 오류", e);
+			redirectAttr.addFlashAttribute("msg", "게시글 삭제 실패");
+		}
+		return "redirect:/animalboard";
+	}
+	
+	@PostMapping("/animalboard/insertComment")
+	public String insertComment(AnimalComment aniComment, RedirectAttributes redirectAttr) {
+		log.debug("aniC = {}", aniComment);
+		
+		try {
+			int result = service.insertComment(aniComment);
+			redirectAttr.addFlashAttribute("msg", "댓글 등록 성공");
+		} catch(Exception e) {
+			log.error("댓글 등록 오류", e);
+			redirectAttr.addFlashAttribute("msg", "댓글 등록 실패");
+		}
+		
+		return "redirect:/animalboard/boardView?no="+aniComment.getAniBoId();
+	}
+	
+	@GetMapping("/animalboard/deleteComment")
+	public String deleteComment(@RequestParam("no") int no,@RequestParam("commentNo") int commentNo, RedirectAttributes redirectAttr) {
+		log.debug("no = {}, boardId={}", no, commentNo);
+		
+		try {
+			int result = service.deleteComment(commentNo);
+			redirectAttr.addFlashAttribute("msg", "댓글 삭제 완료");
+		} catch(Exception e) {
+			log.error("댓글 삭제 오류", e);
+			redirectAttr.addFlashAttribute("msg", "댓글 삭제 실패");
+		}
+		
+		return "redirect:/animalboard/boardView?no="+no;
+	}
+	
+	@PostMapping("/animalboard/editComment")
+	public String editComment(AnimalComment aniComment, RedirectAttributes redirectAttr) {
+		log.debug("aniComment = {}", aniComment);
+		
+		try {
+			int result = service.editComment(aniComment);
+			redirectAttr.addFlashAttribute("msg", "댓글 수정 완료");
+		} catch(Exception e) {
+			log.error("댓글 수정 오류", e);
+			redirectAttr.addFlashAttribute("msg", "댓글 수정 실패");
+		}
+		return "redirect:/animalboard/boardView?no="+aniComment.getAniBoId();
 	}
 	
 	//이 아래로는 파일 관련

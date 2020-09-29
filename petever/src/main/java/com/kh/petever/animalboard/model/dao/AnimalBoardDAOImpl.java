@@ -52,5 +52,25 @@ public class AnimalBoardDAOImpl implements AnimalBoardDAO {
 	public int totalComment(int no) {
 		return sqlSession.selectOne("animalBoard.totalComment", no);
 	}
+
+	@Override
+	public int insertComment(AnimalComment aniComment) {
+		return sqlSession.insert("animalBoard.insertComment", aniComment);
+	}
+
+	@Override
+	public int deleteBoard(int no) {
+		return sqlSession.delete("animalBoard.deleteBoard", no);
+	}
+
+	@Override
+	public int deleteComment(int commentNo) {
+		return sqlSession.delete("animalBoard.deleteComment", commentNo);
+	}
+
+	@Override
+	public int editComment(AnimalComment aniComment) {
+		return sqlSession.update("animalBoard.editComment", aniComment);
+	}
 	
 }
