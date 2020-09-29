@@ -1,5 +1,6 @@
 package com.kh.petever.statis.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import com.kh.petever.statis.model.vo.StatisList;
 import lombok.extern.slf4j.Slf4j;
 
 @Repository
+@Slf4j
 public class StatisDaoImpl implements StatisDao {
 
 	@Autowired
@@ -24,13 +26,17 @@ public class StatisDaoImpl implements StatisDao {
 	}
 
 	@Override
-	public int adoptStatis(List<String> areaArr) {
-		return session.selectOne("statis.adoptStatis",areaArr);
+	public List<StatisList> adoptStatis(List<String> areaArr) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("areaArr",areaArr);
+		return session.selectList("statis.adoptStatis",map);
 	}
 
 	@Override
-	public int euthanasia(List<String> areaArr) {
-		return session.selectOne("statis.euthanasia",areaArr);
+	public List<StatisList> euthanasia(List<String> areaArr) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("areaArr",areaArr);
+		return session.selectList("statis.euthanasia",map);
 	}
 
 	@Override
@@ -41,6 +47,20 @@ public class StatisDaoImpl implements StatisDao {
 	@Override
 	public List<StatisList> selectList(Map<String, String> search) {
 		return session.selectList("statis.countStatisSearch",search);
+	}
+
+	@Override
+	public List<StatisList> euthanasiaSearch(List<String> areaArr) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("areaArr",areaArr);
+		return session.selectList("statis.euthanasiaSearch",map);
+	}
+
+	@Override
+	public List<StatisList> adoptStatisSearch(List<String> areaArr) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("areaArr",areaArr);
+		return session.selectList("statis.adoptStatisSearch",map);
 	}
 
 }

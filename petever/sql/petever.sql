@@ -231,8 +231,8 @@ COUNT(CASE WHEN org_nm='%경기%' THEN 1 END AND CASE WHEN process_state like '%
 FROM expenditure;
 
 select 
-    count(case when org_nm like '%서울%' then 1 end) as a,
-    count(case when org_nm like '%경기%' then 1 end) as b,
+    count(case when org_nm like '%서울%' then 1 end) ,
+    count(case when org_nm like '%경기%' then 1 end),
     count(case when org_nm like '%인천%' then 1 end) as c,
     count(case when org_nm like '%강원%' then 1 end) as d,
     count(case when org_nm like '%충청남도%' then 1 end) as e,
