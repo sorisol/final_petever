@@ -33,10 +33,27 @@ $(function () {
         $selectCity = $(this);
         $selectCity.append("<option value=>시/도 선택</option>");
         $.each(eval(area0), function () {
-            $selectCity.append("<option value="+this+">" + this + "</option>");
+        	$selectCity.append("<option value=" + this + " "+ (this == '${param.sido}' ? 'selected' : '') + ">" + this + "</option>");
         })
         $selectCity.parent().next().children().append("<option value=''>구/군 선택</option>");
+    });
 
+	//시도 선택시 시구군 select
+    $("select[name=sido]").each(function () {
+        var area = "area" + $("option", $(this)).index($("option:selected", $(this))); //선택지역의 구군 Array
+        console.log(area);
+        var $province = $(this).parent().next().children(); //선택영역 구군 객체
+        // console.log($gugun);
+        $("option", $province).remove();
+
+        if (area == "area0") {
+            $province.append("<option value=''>구/군 선택</option>");
+        } else {
+        	$province.append("<option value=''>구/군 선택</option>");
+            $.each(eval(area), function () {
+                $province.append("<option value=" + this + " "+ (this == '${param.sigugun}' ? 'selected' : '') + ">" + this + "</option>");
+            });
+        }
     });
 
 	//시도 선택시 시구군 select
@@ -58,12 +75,12 @@ $(function () {
     });
 
     //체크박스 중복 체크 X
-	$("input[name=kind]").click(function() {
+/* 	$("input[name=kind]").click(function() {
 		if($(this).prop('checked')) {
 			$("input[name=kind]").prop('checked', false);
 			$(this).prop('checked', true);
 		}
-	});
+	}); */
 
 	$("input[name=gender]").click(function() {
 		if($(this).prop('checked')) {

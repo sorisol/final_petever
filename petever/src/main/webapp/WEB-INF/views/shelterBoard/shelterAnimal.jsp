@@ -6,23 +6,14 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/shelterAnimal.css">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
-<script>
-
-$(function () {
-    
-
-    
-});
-
-</script>
-
     <div id="main-wrap">
         <section class="main">
 
         </section>
         <section class="content-wrap">
-            <h1>유기동물 게시판</h1>
-            <p>남은 겨울이 라이너 별 어머니, 불러 덮어 이름과, 까닭입니다.</p>
+            <h1>보호소동물 게시판</h1>
+            <p>보호중인 동물들은 상시로 공고하고 있습니다.</p>
+            <p></p>
             <div class="content">
                 <div class="border">
                     <table class="preference">
@@ -31,18 +22,65 @@ $(function () {
                     <hr style="height: 1px; border:none; background-color: #373b44; width: 860px; margin: 35px 50px;">
 
                     <div class="post-wrap">
-                    	<c:forEach items="${ shelterBoardList }" var="sbl">
-                    		<div class="post">
-                    			<img src="${ sbl.popfile }" alt="" />
-                    			<br />
-                    			<p>종류 : <b>${ sbl.kindCd }</b></p>
-                    			<p>지역 : <b>${ sbl.orgNm }</b></p>
-                    			<p>나이 : <b>${ sbl.age }</b></p>
-                    			<button id="ani-search-detail" onclick="shelterAnidetail('${ sbl.desertionNo }')">조회</button>
-                    			<hr />
-                    			<span>공고번호 : ${ sbl.noticeNo }</span>
-                    		</div>
+                    	<c:forEach items="${ aniList }" var="al">
+                    		<table class="shelter-animal">
+				                <tr>
+				                	<th>공고번호</th>
+				                	<td colspan="2">${ al.noticeNo }</td>
+				                	<td colspan="5" rowspan="8" style="text-align:center;"><img src="${ al.popfile }" alt="" /></td>
+				                </tr>
+				                <tr>
+				                	<th>품종</th>
+				                	<td colspan="2">${ al.kindCd }</td>
+				                </tr>
+				                <tr>
+				                	<th>색상</th>
+				                	<td colspan="2">${ al.colorCd }</td>
+				                </tr>
+				                <tr>
+				                	<th>성별</th>
+				                	<td colspan="2">${ al.genderCd }</td>
+				                </tr>
+				                <tr>
+				                	<th>나이</th>
+				                	<td colspan="2">${ al.age }</td>
+				                </tr>
+				                <tr>
+				                	<th>체중</th>
+				                	<td colspan="2">${ al.weight !=null? al.weight:'-' }</td>
+				                </tr>
+				                <tr>
+				                	<th>중성화여부</th>
+				                	<td colspan="2">${ al.neuterYn == null? '-' : al.neuterYn == 'Y' ? '실시' : al.neuterYn == 'N'? '미실시' : '확인필요' }</td>
+				                </tr>
+				                <tr>
+				                	<th>특이사항</th>
+				                	<td colspan="2">${ al.specialMark }</td>
+				                </tr>
+				                <tr>
+				                	<th>보호소이름</th>
+				                	<td colspan="2">${ al.careNm }</td>
+				                	<th>상태</th>
+				                	<td colspan="3">${ al.processState }</td>
+				                </tr>
+				                <tr>
+				                	<th>보호장소</th>
+				                	<td colspan="2">${ al.careAddr }</td>
+				                	<th>보호소 전화번호</th>
+				                	<td colspan="3">${ al.careTel }</td>
+				                	
+				                </tr>
+				                <tr>
+				                	<th>보호기관</th>
+				                	<td colspan="2">${ al.orgNm }</td>
+				                	<th>담당자</th>
+				                	<td colspan="1" style="width:70px;">${ al.chargeNm }</td>
+				                	<th>담당자 연락처</th>
+				                	<td colspan="1" style="width:90px;">${ al.officetel }</td>
+				                </tr>
+                    		</table>
                     	</c:forEach>
+                    		<button id="btn-back" onclick="history.back();">목록</button>
                     </div>
                 </div>
             </div>
