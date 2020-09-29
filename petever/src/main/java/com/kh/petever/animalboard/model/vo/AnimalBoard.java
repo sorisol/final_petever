@@ -21,7 +21,7 @@ public class AnimalBoard  implements Serializable{
 	private String userId;
 	private String aniBoTitle;
 	private String aniBoContent;
-	private Date aniBoDate;
+	private String aniBoDate;
 	private String aniBoTag;
 	private String aniBoLocal;
 	private String aniBoType;
@@ -32,7 +32,7 @@ public class AnimalBoard  implements Serializable{
 	private String aniBoHair;
 	private String aniBoColor;
 	private String aniBoCha;
-	private Date aniBoMissDate;
+	private String aniBoMissDate;
 	
 	private List<AnimalAttach> attachList;
 }

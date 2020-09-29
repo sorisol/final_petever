@@ -1,3 +1,4 @@
+<%@page import="com.kh.petever.animalboard.model.vo.AnimalAttach"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -5,7 +6,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:requestEncoding value="utf-8"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mp-board.css">
     <div id="main-wrap">
         <section class="main">
@@ -128,9 +128,33 @@
                         </tr>
                     </table>
 
-                    <hr style="height: 1px; border:none; background-color: lightgray; width: 860px; margin: 30px 50px;">
+                    <hr style="height: 1px; border:none; background-color: lightgray; width: 1000px; margin: 30px 50px;">
 					
                     <div class="post-wrap">
+                    <c:forEach items="${boardList}" var="b">
+                    	<a href="${ pageContext.request.contextPath }/animalboard/boardView?no=${b.aniBoId}">
+	                        <div class="post">
+	                    	<c:forEach items="${attachList}" var="a" varStatus="v">
+	                        	<c:if test="${ a.aniBoId.equals(b.aniBoId)}">
+		                        	<!-- 2개 이상이면 aniAtId가 작은 한개만 출력 -->
+	                            	<img src="${pageContext.request.contextPath}/resources/editor/multiupload/${a.aniAtRenamedName}">
+	                        	</c:if>
+	                    	</c:forEach>
+	                            <br>
+	                            <span class="tag">[${b.aniBoTag }]</span>
+	                            <span>${b.aniBoTitle}</span>
+	                            <p>종류 : <b>${b.aniBoType}</b></p>
+	                            <p>지역 : <b>${b.aniBoLocal}</b></p>
+	                            <hr>
+	                            <span>${b.userId}</span>
+	                            <span>
+	                            <!-- String -> Date -> yyy.MM.dd형식으로 바꾸기 -->
+	                            <fmt:parseDate value="${b.aniBoDate}" var="aniBoDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+								<fmt:formatDate value="${aniBoDate}" pattern="yyyy.MM.dd"/>
+	                            </span>
+	                        </div>
+	                    </a>
+                    </c:forEach>
                     <a href="${ pageContext.request.contextPath }/animalboard/boardView">
                         <div class="post">
                             <img src="${pageContext.request.contextPath}/resources/images/dog8.jpg" alt="">
@@ -204,5 +228,20 @@
             </div>
         </section>
     </div>
+    <script>
+		$(function() {
+			var tag = document.getElementsByClassName("tag");
+			for(var i=0; i<tag.length; i++) {
+	            if(tag[i].innerHTML == '[실종]'){
+	                tag[i].setAttribute('class', 'tag missing');
+		        }
+	            else if(tag[i].innerHTML == '[목격]')
+	                tag[i].setAttribute('class', 'tag sighting');
+	            else if(tag[i].innerHTML == '[보호]')
+	                tag[i].setAttribute('class', 'tag protect');
+	            
+	        }
+		});
+    </script>
 	
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

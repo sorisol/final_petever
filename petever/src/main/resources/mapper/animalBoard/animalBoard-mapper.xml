@@ -23,7 +23,7 @@
 			#{aniBoHair},
 			#{aniBoColor},
 			#{aniBoCha},
-			#{aniBoMissDate}
+			to_date(#{aniBoMissDate}, 'yyyy-MM-dd')
 		)
 		<selectKey keyProperty="aniBoId" resultType="_int" order="AFTER">
 			select
@@ -45,4 +45,50 @@
 		)
 	</insert>
 	
+	<select id="selectBoardList" resultMap="animalBoardMap">
+		select
+			* 
+		from
+			animal_board
+		order by
+			ani_bo_id desc
+	</select>
+	
+	<select id="selectOneBoard" resultMap="animalBoardMap">
+		select
+			*
+		from
+			animal_board
+		where
+			ani_bo_id = #{no}
+	</select>
+	
+	<select id="selectAttachList" resultMap="animalAttachMap">
+		select
+			*
+		from
+			animal_attach
+	</select>
+	
+	<select id="selectCommentList" resultMap="animalCommentMap">
+		select
+			*
+		from
+			animal_comment
+		where
+			ani_bo_id = #{no}
+	</select>
+	
+	<select id="totalComment" resultType="_int">
+		select
+			count(*)
+		from
+			animal_comment
+		where
+			ani_bo_id = #{no}
+	</select>
+	
+	<resultMap id="animalBoardMap" type="animalBoard"></resultMap>
+	<resultMap id="animalAttachMap" type="animalAttach"></resultMap>
+	<resultMap id="animalCommentMap" type="animalComment"></resultMap>
 </mapper>

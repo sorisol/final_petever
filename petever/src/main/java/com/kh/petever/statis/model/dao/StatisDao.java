@@ -1,48 +1,22 @@
 package com.kh.petever.statis.model.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import com.kh.petever.shelterBoard.model.vo.ShelterAnimal;
+import com.kh.petever.statis.model.vo.StatisList;
 
 public interface StatisDao {
 
 
 	int insertXml(ShelterAnimal statis);
 
-	int countStatis();
+	int adoptStatis(List<String> areaArr);
 
-	int protectCount();
+	int euthanasia(List<String> areaArr);
 
-	int dismissCount();
+	List<StatisList> selectList();
 
-	int returnCount();
-
-	int deathCount();
-
-	int euthanasiaCount();
-
-	int radiateCount();
-
-	int donationCount();
-
-	int countStatis(Map<String, String> search);
-
-	int protectCount(Map<String, String> search);
-
-	int returnCount(Map<String, String> search);
-
-	int dismissCount(Map<String, String> search);
-
-	int deathCount(Map<String, String> search);
-
-	int euthanasiaCount(Map<String, String> search);
-
-	int radiateCount(Map<String, String> search);
-
-	int donationCount(Map<String, String> search);
-
-	int adoptStatis(String area);
-
-	int euthanasia(String area);
+	List<StatisList> selectList(Map<String, String> search);
 
 }

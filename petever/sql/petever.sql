@@ -201,22 +201,46 @@ create table shelterAnimal(
     officetel varchar2(14),
     constraint pk_desertion_no primary key(desertion_no)
 );
- 
-select * from shelterAnimal;
-
-select count(*) from shelterAnimal where notice_no like '%의왕%';
+ select count(*) from shelterAnimal where process_state like '%입양%'  or process_state like '%보호%';
+select * from shelterAnimal where process_state like '%미포획%';
+select count(*) from shelterAnimal where notice_no like '%서대%' or notice_no like '%강서%' group by notice_no having notice_no like '%서대%' or notice_no like '%강서%';
+select count(*),org_nm from shelterAnimal group by org_nm;
+select count(*),process_state from shelterAnimal group by process_state having process_state not like '%미포획%';
 and process_state like '%자연사%';
+select count(*), process_state from shelterAnimal where notice_no like '%강서%' and 
+		(happen_dt >= '20170808' and happen_dt <= '20200921') group by process_state having process_state not like '%미포획%' order by process_state;
 select count(*)
- from shelterAnimal
+ from shelterAnimal;
  where process_state like '%보호%'
  and 
 		care_addr like '%서울특별시 강남구%'
  and (happen_dt   >=    '2017-01-01'
  and happen_dt   <=     '2019-09-21');
-delete from shelterAnimal;
 
-drop TABLE shelterAnimal;
 
 commit;
+select count(*) from shelterAnimal where (org_nm like '%서울%' and (process_state like '%안락사%' or process_state like '%자연사%')) or (org_nm like '%경기%' and (process_state like '%안락사%' or process_state like '%자연사%'));
+        
+		select count(*),notice_no from shelterAnimal where notice_no like '%서울%' or notice_no like '%경기%' and (process_state like '%안락사%' or process_state like '%자연사%') group by notice_no;
+SELECT 
+    COUNT(CASE 
+        WHEN org_nm='%서울%' 
+            THEN 1 END AND 
+        CASE WHEN process_state like '%안락사%' or process_state like '%자연사%' THEN 1 END) AS sCnt, 
+COUNT(CASE WHEN org_nm='%경기%' THEN 1 END AND CASE WHEN process_state like '%안락사%' or process_state like '%자연사%' THEN 1 END) AS samsamCnt
+FROM expenditure;
 
-        drop table shelterAnimal;
+select 
+    count(case when org_nm like '%서울%' then 1 end) as a,
+    count(case when org_nm like '%경기%' then 1 end) as b,
+    count(case when org_nm like '%인천%' then 1 end) as c,
+    count(case when org_nm like '%강원%' then 1 end) as d,
+    count(case when org_nm like '%충청남도%' then 1 end) as e,
+    count(case when org_nm like '%충청북도%' then 1 end) as f,
+    count(case when org_nm like '%경상남도%' then 1 end) as g,
+    count(case when org_nm like '%경상북도%' then 1 end) as h,
+    count(case when org_nm like '%전라남도%' then 1 end) as j,
+    count(case when org_nm like '%전라북도%' then 1 end) as k,
+    count(case when org_nm like '%제주%' then 1 end) as l
+from shelterAnimal
+where process_state like '%안락사%' or process_state like '%자연사%';

@@ -39,7 +39,7 @@
                  <li><a href="${ pageContext.request.contextPath }/user/logout.do">로그아웃</li>
                 
                 </c:if>
-                <li><a href="${ pageContext.request.contextPath }/user/user.do">마이페이지</li>
+                <li><a href="${ pageContext.request.contextPath }/user/userDetail.do">마이페이지</li>
                 <li>고객센터</li>
             </ul>
         </div>
