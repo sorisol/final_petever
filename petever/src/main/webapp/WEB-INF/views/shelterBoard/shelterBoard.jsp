@@ -33,10 +33,27 @@ $(function () {
         $selectCity = $(this);
         $selectCity.append("<option value=>시/도 선택</option>");
         $.each(eval(area0), function () {
-            $selectCity.append("<option value="+this+">" + this + "</option>");
+        	$selectCity.append("<option value=" + this + " "+ (this == '${param.sido}' ? 'selected' : '') + ">" + this + "</option>");
         })
         $selectCity.parent().next().children().append("<option value=''>구/군 선택</option>");
+    });
 
+	//시도 선택시 시구군 select
+    $("select[name=sido]").each(function () {
+        var area = "area" + $("option", $(this)).index($("option:selected", $(this))); //선택지역의 구군 Array
+        console.log(area);
+        var $province = $(this).parent().next().children(); //선택영역 구군 객체
+        // console.log($gugun);
+        $("option", $province).remove();
+
+        if (area == "area0") {
+            $province.append("<option value=''>구/군 선택</option>");
+        } else {
+        	$province.append("<option value=''>구/군 선택</option>");
+            $.each(eval(area), function () {
+                $province.append("<option value=" + this + " "+ (this == '${param.sigugun}' ? 'selected' : '') + ">" + this + "</option>");
+            });
+        }
     });
 
 	//시도 선택시 시구군 select
@@ -58,12 +75,12 @@ $(function () {
     });
 
     //체크박스 중복 체크 X
-	$("input[name=kind]").click(function() {
+/* 	$("input[name=kind]").click(function() {
 		if($(this).prop('checked')) {
 			$("input[name=kind]").prop('checked', false);
 			$(this).prop('checked', true);
 		}
-	});
+	}); */
 
 	$("input[name=gender]").click(function() {
 		if($(this).prop('checked')) {
@@ -217,16 +234,21 @@ $(function () {
                     <hr style="height: 1px; border:none; background-color: #373b44; width: 860px; margin: 35px 50px;">
 
                     <div class="post-wrap">
-                    	<c:forEach items="${ shelterBoardList }" var="sbl">
-                    		<div class="post">
+                    	<c:forEach items="${ shelterBoardList }" var="sbl" >
+                    		<div class="post" onclick="shelterAnidetail('${ sbl.desertionNo }')">
                     			<img src="${ sbl.popfile }" alt="" />
                     			<br />
                     			<p>종류 : <b>${ sbl.kindCd }</b></p>
-                    			<p>지역 : <b>${ sbl.orgNm }</b></p>
-                    			<p>나이 : <b>${ sbl.age }</b></p>
-                    			<button id="ani-search-detail" onclick="shelterAnidetail('${ sbl.desertionNo }')">조회</button>
+
+                    			<c:if test="${ sbl.age eq '0' }">
+                    			<p>나이 : <b>1년 미만</b></p>
+                    			</c:if>
+                    			<c:if test="${ sbl.age >= '1' }">
+                    			<p>나이 : <b>${ sbl.age } 살</b></p>
+                    			</c:if>
                     			<hr />
-                    			<span>공고번호 : ${ sbl.noticeNo }</span>
+                    			<p><b>${ sbl.processState }</b></p>
+                    			<p><b>${ sbl.careNm }</b></p>
                     		</div>
                     	</c:forEach>
                     </div>

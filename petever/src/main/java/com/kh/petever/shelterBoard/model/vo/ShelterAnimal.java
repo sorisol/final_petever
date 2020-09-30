@@ -1,6 +1,7 @@
 package com.kh.petever.shelterBoard.model.vo;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,15 +18,15 @@ public class ShelterAnimal implements Serializable {
 	
 	private String desertionNo; // 유기번호 
 	private String fileName; //Thumbnail Image;
-	private String happenDt; //접수일 (YYYYMMDD)
+	private Date happenDt; //접수일 (YYYYMMDD)
 	private String happenPlace; //발견장소
 	private String kindCd; //품종
 	private String colorCd; //동물 색상
 	private String age; //나이
 	private String weight; //무게
 	private String noticeNo; //공고번호
-	private String noticeSdt; //공고 시작일 (YYYYMMDD)
-	private String noticeEdt; //공고 종료일 (YYYYMMDD)
+	private Date noticeSdt; //공고 시작일 (YYYYMMDD)
+	private Date noticeEdt; //공고 종료일 (YYYYMMDD)
 	private String popfile; //image
 	private String processState; //상태
 	private String genderCd; //성별 M:수컷, F:암컷, Q:미상
