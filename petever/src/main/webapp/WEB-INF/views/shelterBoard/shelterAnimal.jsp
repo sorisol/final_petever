@@ -39,11 +39,11 @@
 				                </tr>
 				                <tr>
 				                	<th>성별</th>
-				                	<td colspan="2">${ al.genderCd }</td>
+				                	<td colspan="2">${ al.genderCd eq 'M' ? '수컷' : al.genderCd eq 'F' ? '암컷' : '미상' }</td>
 				                </tr>
 				                <tr>
 				                	<th>나이</th>
-				                	<td colspan="2">${ al.age }</td>
+				                	<td colspan="2">${ al.age } 살</td>
 				                </tr>
 				                <tr>
 				                	<th>체중</th>

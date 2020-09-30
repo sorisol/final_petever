@@ -51,6 +51,7 @@
 		order by happen_dt desc, notice_no desc
 	</select>
 	<resultMap type="ShelterAnimal" id="shelterAnimalMap">
+		<result column="ani_age" property="age"></result>
 	</resultMap>
 	
 	<select id="shelterAnimalCount" resultType="_int">
@@ -92,7 +93,8 @@
 	
 	<select id="shelterSelectOne" resultMap="shelterAnimalMap">
 		select *
-		from shelterAnimal
+		from (select S.*, to_number(extract(year from sysdate)-extract(year from to_date(substr(nvl(regexp_replace(substr(S.age, 0, instr(S.age, '(', 1)-1), ' |-|`', ''),0), 0, 4), 'rrrr'))) ani_age 
+	    	from shelterAnimal S)
 		where desertion_no = #{ deserNo }
 	</select>
 	

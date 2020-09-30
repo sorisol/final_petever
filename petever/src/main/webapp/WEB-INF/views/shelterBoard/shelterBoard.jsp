@@ -234,16 +234,21 @@ $(function () {
                     <hr style="height: 1px; border:none; background-color: #373b44; width: 860px; margin: 35px 50px;">
 
                     <div class="post-wrap">
-                    	<c:forEach items="${ shelterBoardList }" var="sbl">
-                    		<div class="post">
+                    	<c:forEach items="${ shelterBoardList }" var="sbl" >
+                    		<div class="post" onclick="shelterAnidetail('${ sbl.desertionNo }')">
                     			<img src="${ sbl.popfile }" alt="" />
                     			<br />
                     			<p>종류 : <b>${ sbl.kindCd }</b></p>
-                    			<p>지역 : <b>${ sbl.orgNm }</b></p>
-                    			<p>나이 : <b>${ sbl.age }</b></p>
-                    			<button id="ani-search-detail" onclick="shelterAnidetail('${ sbl.desertionNo }')">조회</button>
+
+                    			<c:if test="${ sbl.age eq '0' }">
+                    			<p>나이 : <b>1년 미만</b></p>
+                    			</c:if>
+                    			<c:if test="${ sbl.age >= '1' }">
+                    			<p>나이 : <b>${ sbl.age } 살</b></p>
+                    			</c:if>
                     			<hr />
-                    			<span>공고번호 : ${ sbl.noticeNo }</span>
+                    			<p><b>${ sbl.processState }</b></p>
+                    			<p><b>${ sbl.careNm }</b></p>
                     		</div>
                     	</c:forEach>
                     </div>

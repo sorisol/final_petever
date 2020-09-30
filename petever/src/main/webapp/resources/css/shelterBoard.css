@@ -23,6 +23,10 @@
     overflow: hidden;
 }
 
+.post {
+	cursor: pointer;
+}
+
 .content .post {
     width: 200px;
     float: left;
@@ -43,11 +47,6 @@
     font-size: 13px;
 }
 
-/*게시글 제목 밑에 간격*/
-.post :nth-child(5) {
-    margin-top: 10px;
-}
-
 .post p,
 span {
     font-size: 12px;
@@ -55,7 +54,7 @@ span {
 
 hr {
     width: 200px;
-    margin: 10px auto;
+    margin: 5px auto;
 }
 
 .tag+span {
@@ -66,6 +65,10 @@ hr {
 .post span:last-child {
     float: right;
     margin-right: 10px;
+}
+
+.post p:last-child {
+    float: right;
 }
 
 /*상단 검색부분*/
