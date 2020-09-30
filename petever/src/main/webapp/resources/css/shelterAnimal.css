@@ -11,16 +11,11 @@
     width: 980px;
 }
 
-.content-wrap .content img {
-    width: 200px;
-    height: 180px;
-    border-radius: 40px 0 40px 0;
-}
-
 .post-wrap {
     width: 980px;
     margin: 0 auto;
     overflow: hidden;
+    text-align: center;
 }
 
 .content .post {
@@ -29,43 +24,52 @@
     margin: 10px;
 }
 
-.post:nth-child(4n+1) {
-    margin-left: 50px;
+.shelter-animal{
+	width: 850px;
+	margin: 0 auto;
+	font-size: 13px;
+	border-collapse: collapse;
 }
 
-.post:nth-child(4n+1) {
-    margin-left: 50px;
+.shelter-animal img {
+    width: 300px;
+    height: 300px;
+    border-radius: 40px 0 40px 0;
+}
+.shelter-animal tr{
+	border: 1px solid lightgray;
+	height: 40px;
+}
+.shelter-animal th{
+	border: 1px solid lightgray;
+	font-color: #373b44;
+	background-color: #FFFBF3;
+}
+.shelter-animal td{
+	border: 1px solid lightgray;
 }
 
 
-/*게시글 말머리*/
-.post :nth-child(3) {
-    font-size: 13px;
+.shelter-animal tr th {
+	width: 105px;
 }
 
-/*게시글 제목 밑에 간격*/
-.post :nth-child(5) {
-    margin-top: 10px;
+.shelter-animal tr :nth-child(1) {
+	border-left: 1px solid white;
 }
 
-.post p,
-span {
+.shelter-animal tr :nth-last-child(1) {
+	border-right: 1px solid white;
+}
+
+#btn-back {
+	padding: 3px;
     font-size: 12px;
-}
-
-hr {
-    width: 200px;
-    margin: 10px auto;
-}
-
-.tag+span {
-    font-size: 18px;
-}
-
-/*게시글 작성 날짜*/
-.post span:last-child {
-    float: right;
-    margin-right: 10px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 35px;
+    width: 50px;
+    height: 30px;
 }
 
 /*상단 검색부분*/

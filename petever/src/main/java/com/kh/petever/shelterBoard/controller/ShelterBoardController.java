@@ -116,6 +116,8 @@ public class ShelterBoardController {
 		final int limit = 16;
 		int offset = (cPage - 1) * limit;
 		RowBounds rowBounds = new RowBounds(offset,limit);
+		String[] vlaues = request.getParameterValues("kind");
+		
 		
 		//조회 DATA 확인
 		Map<String, Object> map = new HashMap<>();
