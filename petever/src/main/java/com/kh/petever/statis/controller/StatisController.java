@@ -117,19 +117,40 @@ public class StatisController {
 		Map<String, String> search = new HashMap<>();
 		int[] adoptData = new int[35];
 		int[] euthanasiaData = new int[35];
-		city = city.substring(0, 2);
-		province = province.substring(0, 2);
-		for(int i =0 ;i<paramArea.length;i++) {
-			String area = "%"+city+"-"+(paramArea[i].substring(paramArea[i].indexOf("\"")+1, paramArea[i].lastIndexOf("\""))).substring(0,2)+"%";
-			System.out.println(paramArea[i]);
-			System.out.println(area);
-			
-			int adopt = statisService.adoptStatis(area);
-			int euthanasia = statisService.euthanasia(area);
-			
-			adoptData[i] = adopt;
-			euthanasiaData[i] = euthanasia;
+		String searchCity = city;
+		if(city.length()==4){
+			char cityChar1 = city.charAt(0);
+			char cityChar2 = city.charAt(2);
+			city=cityChar1+""+cityChar2;
+		}else {
+			city = city.substring(0, 2);
 		}
+		province = province.substring(0, 2);
+		String[] areaArrPer = paramArea;
+		for(int p=0; p<paramArea.length;p++) {
+			paramArea[p] = paramArea[p].substring(paramArea[p].indexOf("\"")+1, paramArea[p].lastIndexOf("\""));
+			if(city.equals(searchCity)) {
+				areaArrPer[p] = "%"+paramArea[p]+"%";
+			}else {
+				areaArrPer[p] = "%"+searchCity+" "+paramArea[p]+"%";  
+			}
+		}
+		List<String> areaArr = new ArrayList<>(Arrays.asList(areaArrPer));
+		List<StatisList> euthanasia = statisService.euthanasiaSearch(areaArr);
+		List<StatisList> adopt = statisService.adoptStatisSearch(areaArr);
+
+		for(int i =0; i<areaArrPer.length;i++) {
+			areaArrPer[i] = areaArrPer[i].substring(areaArrPer[i].indexOf("%")+1, areaArrPer[i].lastIndexOf("%"));
+			for(int j =0;j<euthanasia.size();j++) {
+				if(areaArrPer[i].equals(euthanasia.get(j).getState())) {
+					euthanasiaData[i] = euthanasia.get(j).getCnt();
+				}
+				if(areaArrPer[i].equals(adopt.get(j).getState())){
+					adoptData[i] = adopt.get(j).getCnt();
+				}
+			}
+		}
+		
 		search.put("city", "%"+city+"-"+province+"%");
 		search.put("startDay", startDay);
 		search.put("endDay", endDay);
@@ -169,11 +190,19 @@ public class StatisController {
 		List<String> areaArr = new ArrayList<>(Arrays.asList(area));
 		int[] adoptData = new int[11];
 		int[] euthanasiaData = new int[11];
-		int euthanasia = statisService.euthanasia(areaArr);
-		int adopt = statisService.adoptStatis(areaArr);
-		System.out.println(euthanasia);	
-//		adoptData[i] = adopt;
-//		euthanasiaData[i] = euthanasia;
+		List<StatisList> euthanasia = statisService.euthanasia(areaArr);
+		List<StatisList> adopt = statisService.adoptStatis(areaArr);
+		String[] order = {"서울특", "경기도", "인천광", "강원도", "충청남", "충청북", "경상북", "경상남", "전라남", "전라북", "제주특"};
+		for(int i =0; i<order.length;i++) {
+			for(int j =0;j<euthanasia.size();j++) {
+				if(order[i].equals(euthanasia.get(j).getState())) {
+					euthanasiaData[i] = euthanasia.get(j).getCnt();
+				}
+				if(order[i].equals(adopt.get(j).getState())){
+					adoptData[i] = adopt.get(j).getCnt();
+				}
+			}
+		}
 		
 		List<StatisList> list = statisService.selectList();
 		int[] loadResult = new int[8];
@@ -199,7 +228,6 @@ public class StatisController {
 	public int listGetCnt(List<StatisList> list, int i) {
 		String[] state = {"보호중", "종료(기증)", "종료(반환)", "종료(방사)", "종료(안락사)", "종료(입양)", "종료(자연사)"};
 		List<String> stateArr = new ArrayList<>(Arrays.asList(state));
-		System.out.println(i);
 			for(;i<stateArr.size();i++) {
 				for(int j =0;j<list.size();j++) {
 				if(list.get(j).getState().contains(stateArr.get(i))) {

@@ -22,12 +22,12 @@ public class StatisServiceImpl implements StatisService {
 	}
 
 	@Override
-	public int adoptStatis(List<String> areaArr) {
+	public List<StatisList> adoptStatis(List<String> areaArr) {
 		return statisDao.adoptStatis(areaArr);
 	}
 
 	@Override
-	public int euthanasia(List<String> areaArr) {
+	public List<StatisList> euthanasia(List<String> areaArr) {
 		return statisDao.euthanasia(areaArr);
 	}
 
@@ -39,6 +39,16 @@ public class StatisServiceImpl implements StatisService {
 	@Override
 	public List<StatisList> selectList(Map<String, String> search) {
 		return statisDao.selectList(search);
+	}
+
+	@Override
+	public List<StatisList> euthanasiaSearch(List<String> areaArr) {
+		return statisDao.euthanasiaSearch(areaArr);
+	}
+
+	@Override
+	public List<StatisList> adoptStatisSearch(List<String> areaArr) {
+		return statisDao.adoptStatisSearch(areaArr);
 	}
 
 }

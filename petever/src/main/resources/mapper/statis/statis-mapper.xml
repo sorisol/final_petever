@@ -21,19 +21,58 @@
 		order by process_state
 	</select>
 
-	<select id="euthanasia" resultType="list">
+	<select id="euthanasia" resultMap="statisCnt">
 		select 
-		<foreach collection="areaArr" item="item" open="count(case when org_nm like'" close="' then 1 end)" separator="' then 1 end), count(case when org_nm like'">
-		    #{item}
-		   
-		</foreach>
+		count(*),
+        SUBSTR(org_nm,1,3) as org_nm
 		from shelterAnimal
-		where process_state like '%안락사%' or process_state like '%자연사%';
+		where
+	  <foreach item="item" collection="areaArr" open="(org_nm like " separator=" and (process_state like '%안락사%' or process_state like '%자연사%')) or
+                    (org_nm like " close=" and (process_state like '%안락사%' or process_state like '%자연사%'))">
+		 #{item}
+      </foreach>
+      group by SUBSTR(org_nm,1,3)
 	</select>
 
-	<select id="adoptStatis" resultType="_int">
-		select count(*) from shelterAnimal where notice_no like #{ area } and (process_state like '%입양%'  or process_state like '%보호%')
+	<select id="adoptStatis" resultMap="statisCnt">
+		select 
+		count(*),
+        SUBSTR(org_nm,1,3) as org_nm
+		from shelterAnimal
+		where
+	  <foreach item="item" collection="areaArr" open="(org_nm like " separator=" and (process_state like '%입양%' or process_state like '%보호%')) or
+                    (org_nm like " close=" and (process_state like '%입양%' or process_state like '%보호%'))">
+		 #{item}
+      </foreach>
+      group by SUBSTR(org_nm,1,3)
 	</select>
+	
+	<select id="euthanasiaSearch" resultMap="statisCnt">
+		select 
+		count(*),
+        org_nm
+		from shelterAnimal
+		where
+	  <foreach item="item" collection="areaArr" open="(org_nm like " separator=" and (process_state like '%안락사%' or process_state like '%자연사%')) or
+                    (org_nm like " close=" and (process_state like '%안락사%' or process_state like '%자연사%'))">
+		 #{item}
+      </foreach>
+      group by org_nm
+	</select>
+
+	<select id="adoptStatisSearch" resultMap="statisCnt">
+		select 
+		count(*),
+        org_nm
+		from shelterAnimal
+		where
+	  <foreach item="item" collection="areaArr" open="(org_nm like " separator=" and (process_state like '%입양%' or process_state like '%보호%')) or
+                    (org_nm like " close=" and (process_state like '%입양%' or process_state like '%보호%'))">
+		 #{item}
+      </foreach>
+      group by org_nm
+	</select>
+	
 	<select id="selectList" resultMap="statisList">
 		select count(*),process_state from shelterAnimal group by process_state having process_state not like '%미포획%'
 		order by process_state
@@ -42,5 +81,10 @@
 	<resultMap id="statisList" type="StatisList">
 		<id column="count(*)" property="cnt"></id>
 		<result column="process_state" property="state" jdbcType="VARCHAR" javaType="java.lang.String"></result>
+	</resultMap>
+	
+	<resultMap id="statisCnt" type="StatisList">
+		<id column="count(*)" property="cnt"></id>
+		<result column="org_nm" property="state" jdbcType="VARCHAR" javaType="java.lang.String"></result>
 	</resultMap>
 </mapper>

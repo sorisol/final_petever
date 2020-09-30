@@ -20,6 +20,7 @@ public class AnimalComment implements Serializable {
 	private String userId;
 	private String aniCoContent;
 	private int aniCoLevel;
+	private int aniCoRef;
 	private String aniCoDate;
 	
 }

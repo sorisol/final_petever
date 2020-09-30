@@ -134,9 +134,8 @@
                     <c:forEach items="${boardList}" var="b">
                     	<a href="${ pageContext.request.contextPath }/animalboard/boardView?no=${b.aniBoId}">
 	                        <div class="post">
-	                    	<c:forEach items="${attachList}" var="a" varStatus="v">
+	                    	<c:forEach items="${attachList}" var="a">
 	                        	<c:if test="${ a.aniBoId.equals(b.aniBoId)}">
-		                        	<!-- 2개 이상이면 aniAtId가 작은 한개만 출력 -->
 	                            	<img src="${pageContext.request.contextPath}/resources/editor/multiupload/${a.aniAtRenamedName}">
 	                        	</c:if>
 	                    	</c:forEach>

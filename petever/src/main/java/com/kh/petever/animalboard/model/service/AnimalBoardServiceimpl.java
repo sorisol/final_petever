@@ -73,5 +73,26 @@ public class AnimalBoardServiceimpl implements AnimalBoardService {
 	public int totalComment(int no) {
 		return dao.totalComment(no);
 	}
+
+	@Override
+	public int insertComment(AnimalComment aniComment) {
+		return dao.insertComment(aniComment);
+	}
+
+	@Override
+	public int deleteBoard(int no) {
+		return dao.deleteBoard(no);
+	}
+
+	@Override
+	public int deleteComment(int commentNo) {
+		return dao.deleteComment(commentNo);
+	}
+
+	@Override
+	public int editComment(AnimalComment aniComment) {
+		return dao.editComment(aniComment);
+	}
+	
 	
 }

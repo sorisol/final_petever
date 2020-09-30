@@ -9,7 +9,7 @@
 .board-container {
     width: 1000px;
     border: 1px solid lightgray;
-    margin: 50px auto;
+    margin: 50px auto 10px;
     padding: 30px;
 }
 
@@ -102,6 +102,7 @@
     border: 1px solid lightgray;
     border-radius: 5px;
     padding: 20px;
+    margin-bottom: 20px;
 }
 
 .comment_inbox_text {
@@ -111,15 +112,14 @@
     overflow: visible;
     resize: none;
     max-height: 500px;
-    width: 910px;
+    width: 890px;
 }
 
 .comment_inbox_text:focus {
     outline: none;
 }
 
-.comment-reg-btn,
-.comment-cancle-btn {
+button {
     border: none;
     background-color: #ffdd93;
     color: white;
@@ -139,22 +139,22 @@
     border-radius: 5px;
     padding: 10px;
     margin-left: 50px;
-    /* display: none; */
+}
+form span {
+	font-weight: bold;
 }
 
-.comment-reply-write>textarea {
-    width: 860px;
+.comment-reply-write form textarea {
+    width: 850px;
 }
 
 .writer-menu {
     margin-left: 20px;
     margin-top: 4px;
-    /* z-index: 1220; */
     overflow-y: auto;
     position: absolute;
     top: auto;
     left: 0;
-    /* z-index: 1; */
     max-height: 416px;
     padding: 10px 0;
     border: 1px solid rgba(0, 0, 0, .06);
@@ -189,4 +189,73 @@
     background-color: #ffebbf;
     /* color: orange; */
     border-radius: 3px;
+}
+
+.reply-btn {
+	border: none;
+    background-color: white;
+}
+.reply-btn:focus {
+	outline: none;
+}
+
+.reply-btn:hover, .writer:hover {
+	cursor: pointer;
+}
+/*하단 수정삭제 버튼*/
+.board-delete-btn, .board-edit-btn{
+	float: right;
+	margin: 0px 0px 0px 10px;
+}
+
+button:hover {
+	cursor: pointer;
+}
+.btn-wrap {
+	width: 1060px;
+	margin: auto;
+}
+.icon {
+	float: right;
+}
+.icon:hover {
+	cursor: pointer;
+}
+.id-box {
+	display: inline-block;
+	margin-bottom: 5px;
+}
+.comment-menu {
+	width: 50px;
+    margin-top: 4px;
+    float: right;
+    overflow-y: auto;
+    position: absolute;
+    top: auto;
+    right: 328px;
+    padding: 8px 0;
+    border: 1px solid rgba(0, 0, 0, .06);
+    border-radius: 6px;
+    box-shadow: 0 1px 12px 0 rgba(0, 0, 0, .06);
+    background-color: #fff;
+    box-sizing: border-box;
+    color: #000;
+    font-size: 14px;
+    text-align: center;
+    display: none;
+}
+.comment-menu>ul>li:hover {
+	background-color: #f5f6f8;
+	cursor: pointer;
+}
+.edit {
+	margin-top: 10px;
+	border-radius: 10px;
+	border: 1px solid lightgray;
+}
+
+.comment-edit-btn {
+	float: right;
+    padding: 5px;
+    margin-right: 27px;	
 }

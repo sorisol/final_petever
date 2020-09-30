@@ -86,23 +86,28 @@ CREATE TABLE animal_attach (
 );
 
 
-
+--drop table animal_comment;
 CREATE TABLE animal_comment (
 	ani_co_id	NUMBER	NOT NULL	,
 	ani_bo_id	NUMBER	NOT NULL	,
 	user_id	VARCHAR2(30)	NOT NULL	,
 	ani_co_content	VARCHAR(1000)	NOT NULL	,
 	ani_co_level 	NUMBER default 1	NOT NULL	,
+    ani_co_ref number,  --대댓글인 경우: 댓글번호 | 댓글인 경우 : null
 	ani_co_date	 DATE default sysdate,
-    constraints pk_ani_co_id primary key(ani_co_id,ani_bo_id),
+    constraints pk_ani_co_id primary key(ani_co_id),
     constraints fk_co_ani_bo_id foreign key(ani_bo_id)
                                     references animal_board(ani_bo_id)
                                     on delete cascade,
     constraints fk_co_user_id foreign key(user_id)
                                     references tb_user(user_id)
                                     on delete cascade,
-    constraints ck_ani_co_level check (ani_co_level in('1','2'))
+    constraints ck_ani_co_level check (ani_co_level in('1','2')),
+    constraints fk_ani_co_ref foreign key(ani_co_ref)
+                                            references animal_comment(ani_co_id)
+                                            on delete cascade
 );
+
 
 CREATE TABLE animal_tag (
 	tag_ID NUMBER,
@@ -231,8 +236,8 @@ COUNT(CASE WHEN org_nm='%경기%' THEN 1 END AND CASE WHEN process_state like '%
 FROM expenditure;
 
 select 
-    count(case when org_nm like '%서울%' then 1 end) as a,
-    count(case when org_nm like '%경기%' then 1 end) as b,
+    count(case when org_nm like '%서울%' then 1 end) ,
+    count(case when org_nm like '%경기%' then 1 end),
     count(case when org_nm like '%인천%' then 1 end) as c,
     count(case when org_nm like '%강원%' then 1 end) as d,
     count(case when org_nm like '%충청남도%' then 1 end) as e,
