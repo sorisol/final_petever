@@ -13,7 +13,6 @@
 
 <body>
     <section>
-        <div class="logo"></div>
         <div class="signup">
      	   <form name="userUpdateFrm" action="${pageContext.request.contextPath}/user/userUpdate.do" method="post">
             <form action="">
@@ -22,13 +21,13 @@
                 <label for="">이메일</label>
                 <input type="text" class="form-control" name="userEmail" id="userEmail" value="${loginUser.userEmail}" required>
                 <label for="">생년월일</label>
-                <input type="date" class="form-control" name="userBirth" id="userBirth" value="${loginUser.userBirth}">
+                <input type="date" class="form-control" name="userBirth" id="userBirth" value="${loginUser.userBirth}" required>
 	 	  		<label for="">전화번호</label>
                 <input type="tel" class="form-control" placeholder="전화번호 (예:01012345678)" name="userPhone" id="userPhone" maxlength="11" value="${loginUser.userPhone}" required>
                 <label for="">주소</label>
-             <%--    <input type="text" class="form-control" placeholder="주소" name="userLocal" value="${loginUser.userLocal}" id="userLocal">
-             --%>
-             <div class="form-group">                   
+                <input type="text" class="form-control" placeholder="주소" name="userLocal" value="${loginUser.userLocal}" id="userLocal">
+              
+          <!--     <div class="form-group">                   
 			<input class="form-control" placeholder="우편번호" name="addr1" id="addr1" type="text" readonly="readonly" >
 			    <button type="button" class="btn btn-default" onclick="execPostCode();"><i class="fa fa-search"></i> 우편번호 찾기</button>                               
 			</div>
@@ -37,9 +36,9 @@
 			</div>
 			<div class="form-group">
 			    <input class="form-control" placeholder="상세주소" name="addr3" id="addr3" type="text"  />
-			</div>
+			</div> -->
              
-                <button>회원정보수정</button>
+                <button type = "submit" class="btn btn-outline-success" >회원정보수정</button>
             </form>
         </div>
     </section>

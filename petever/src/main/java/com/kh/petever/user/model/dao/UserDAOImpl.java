@@ -30,4 +30,11 @@ public class UserDAOImpl implements UserDAO {
 	public int updateUser(User user) {
 		return sqlSession.update("user.updateUser", user);
 	}
+
+	@Override
+	public int userDelete(User user) {
+		return sqlSession.delete("user.userDelete", user);
+	
+		
+	}
 }

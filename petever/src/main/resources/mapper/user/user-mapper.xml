@@ -27,6 +27,9 @@
 		</select>
 	
 		<resultMap type="user" id="userMapppp">
+	
+		</resultMap>
+<!-- 		<resultMap type="user" id="userMapppp">
 			<id column="user_id" property="userId"/>
 			<result column="user_pwd" property="userPwd"/> 
 			<result column="user_eamil" property="userEmail"/> 
@@ -34,16 +37,14 @@
 			<result column="user_phone" property="userPhone"/>
 			<result column="user_local" property="userLocal"/>
 			<result column="user_role" property="userRole"/>
-		</resultMap>
-		
- 		<resultMap type="user" id="userMap">
-		</resultMap>
+		</resultMap> -->
 	
+	
+		<!-- 회원정보 수정 -->
 		<update id="updateUser">
 		update 
 			tb_user
 		set 
-			user_pwd = #{ userPwd },
 			user_email = #{ userEmail },
 			user_birth_date = #{ userBirth },
 			user_phone = #{ userPhone },
@@ -51,6 +52,15 @@
 		where 
 			user_id = #{ userId }
 		</update>
+		
+		<!-- 회원탈퇴 -->
+		<delete id="userDelete">
+			delete from tb_user
+			where
+			user_id = #{ userId }
+			and user_pwd = #{ userPwd }		
+		</delete>
+		
 		
 	</mapper>
 	

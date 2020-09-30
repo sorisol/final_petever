@@ -8,8 +8,9 @@ public interface UserService {
 	
 	User selectOneUser(String userId);
 	
-
 	int updateUser(User user);
+	
+	int userDelete(User user);
 
 
 

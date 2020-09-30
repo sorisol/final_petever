@@ -40,6 +40,8 @@
                 
                 </c:if>
                 <li><a href="${ pageContext.request.contextPath }/user/userDetail.do">마이페이지</li>
+                <li><a href="${ pageContext.request.contextPath }/user/userDelete.do">회원탈퇴</li>
+               
                 <li>고객센터</li>
             </ul>
         </div>

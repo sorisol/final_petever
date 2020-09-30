@@ -13,9 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,6 +43,8 @@ public class UserController {
 	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
+
+	private UserService service;
 	
 	@RequestMapping(value = "/signup.do",
 			method = RequestMethod.GET)
@@ -98,6 +100,7 @@ public class UserController {
 		return "user/login";
 	}
 	
+	
 	@RequestMapping(value = "/login.do",
 					method = RequestMethod.POST)
 	public String userLogin(@RequestParam String userId,
@@ -137,6 +140,8 @@ public class UserController {
 	}
 	
 	//로그아웃 - 세션 무효화
+	
+	
 	@RequestMapping("/logout.do")
 	public String userLogout(SessionStatus sessionStatus) {
 		//@SessionAttribute를 통해 등록된 객체 무효화
@@ -147,6 +152,8 @@ public class UserController {
 		
 	}
 	
+	
+	//회원정보보기, 수정
 	@RequestMapping("/userDetail.do")
 	public String userDetail(Principal principal, Model model) {
 		log.debug("principal = {}", principal);
@@ -154,7 +161,7 @@ public class UserController {
 		return "user/userDetail";
 	}
 	
-		@RequestMapping(value = "/userUpdate.do",
+	@RequestMapping(value = "/userUpdate.do",
 				method = RequestMethod.POST)
 	public ModelAndView userUpdate(User user,
 								 HttpServletRequest request){
@@ -183,16 +190,37 @@ public class UserController {
 	
 	return mav;
 	}
-	
-	
-	/*//회원정보수정페이지 연결
-	@GetMapping("/user.do")
-	public String user() {
 		
-		System.out.println("접속");
-		return "user/user";*/
-
+		
+	// 회원 탈퇴 get
+		@RequestMapping(value="/userDelete", method = RequestMethod.GET)
+		public String userDelete() throws Exception{
+			return "user/userDelete";
 		}
+		
+		// 회원 탈퇴 post
+		@RequestMapping(value="/userDelete", method = RequestMethod.POST)
+		public String userDelete(User user, HttpSession session, RedirectAttributes rttr) throws Exception{
+			
+					
+			User userDelete = (User) session.getAttribute("user");
+			// 세션에있는 비밀번호
+			String sessionPass = user.getUserPwd();
+			// vo로 들어오는 비밀번호
+			String voPass = user.getUserPwd();
+			
+			if(!(sessionPass.equals(voPass))) {
+				rttr.addFlashAttribute("msg", false);
+				return "redirect:/user/userDelete";
+			}
+			service.userDelete(user);
+			session.invalidate();
+			return "redirect:/";
+		}
+	
+}
+	
+
 
 
 	
