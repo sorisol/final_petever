@@ -88,6 +88,48 @@
 			ani_bo_id = #{no}
 	</select>
 	
+	<insert id="insertComment">
+		insert into
+				animal_comment
+		values(
+			seq_animal_comment_id.nextval,
+			#{aniBoId},
+			#{userId},
+			#{aniCoContent},
+			#{aniCoLevel},
+			<if test="aniCoRef == 0">
+			null,
+			</if>
+			<if test="aniCoRef != 0">
+			#{aniCoRef},
+			</if>
+			default
+		)
+	</insert>
+	
+	<delete id="deleteBoard">
+		delete from
+			animal_board
+		where
+			ani_bo_id = #{no}
+	</delete>
+	
+	<delete id="deleteComment">
+		delete from
+			animal_comment
+		where
+			ani_co_id = #{commentNo}
+	</delete>
+	
+	<update id="editComment">
+		update
+			animal_comment
+		set
+			ani_co_content = #{aniCoContent}
+		where
+			ani_co_id = #{aniCoId}
+	</update>
+	
 	<resultMap id="animalBoardMap" type="animalBoard"></resultMap>
 	<resultMap id="animalAttachMap" type="animalAttach"></resultMap>
 	<resultMap id="animalCommentMap" type="animalComment"></resultMap>

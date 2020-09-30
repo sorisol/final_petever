@@ -20,4 +20,12 @@ public interface AnimalBoardService {
 
 	int totalComment(int no);
 
+	int insertComment(AnimalComment aniComment);
+
+	int deleteBoard(int no);
+
+	int deleteComment(int commentNo);
+
+	int editComment(AnimalComment aniComment);
+
 }

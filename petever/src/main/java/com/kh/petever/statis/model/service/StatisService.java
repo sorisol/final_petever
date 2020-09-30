@@ -10,12 +10,16 @@ public interface StatisService {
 
 	int insertXml(ShelterAnimal statis);
 
-	int adoptStatis(List<String> areaArr);
+	List<StatisList> adoptStatis(List<String> areaArr);
 
-	int euthanasia(List<String> areaArr);
+	List<StatisList> euthanasia(List<String> areaArr);
 
 	List<StatisList> selectList();
 
 	List<StatisList> selectList(Map<String, String> search);
+
+	List<StatisList> euthanasiaSearch(List<String> areaArr);
+
+	List<StatisList> adoptStatisSearch(List<String> areaArr);
 
 }
