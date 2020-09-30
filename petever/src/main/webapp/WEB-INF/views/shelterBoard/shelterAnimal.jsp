@@ -43,7 +43,12 @@
 				                </tr>
 				                <tr>
 				                	<th>나이</th>
+				                	<c:if test="${ al.age eq '0' }">
+				                	<td colspan="2">1년 미만</td>
+	                    			</c:if>
+	                    			<c:if test="${ al.age >= '1' }">
 				                	<td colspan="2">${ al.age } 살</td>
+	                    			</c:if>
 				                </tr>
 				                <tr>
 				                	<th>체중</th>
@@ -77,6 +82,12 @@
 				                	<td colspan="1" style="width:70px;">${ al.chargeNm }</td>
 				                	<th>담당자 연락처</th>
 				                	<td colspan="1" style="width:90px;">${ al.officetel }</td>
+				                </tr>
+				                <tr>
+				                	<th>공고시작일</th>
+				                	<td colspan="2"><fmt:formatDate value="${ al.noticeSdt }" pattern="yyyy-MM-dd"/></td>
+				                	<th>공고종료일</th>
+				                	<td colspan="3"><fmt:formatDate value="${ al.noticeEdt }" pattern="yyyy-MM-dd"/></td>
 				                </tr>
                     		</table>
                     	</c:forEach>
