@@ -11,9 +11,8 @@
 
 
     <section>
-        <div class="logo"></div>
         <div class="signup">
-            <form id="userSignupFrm" action="signup.do" method="post">>
+            <form id="userSignupFrm" action="signup.do" method="post">
                 <label for="">아이디 <span class="id-check">중복확인</span></label>
                 <input type="text" name="userId" id="" placeholder="4자리 이상">
                 <label for="">비밀번호</label>
