@@ -12,7 +12,7 @@ form[name=boardFrm] {
 .title {
     margin: 20px auto;
 }
-.title > select {
+.title select {
     width: 120px;
     height: 36px;
     border: 1px solid #ebecef;
@@ -22,9 +22,10 @@ form[name=boardFrm] {
     float: right;
     padding: 0 10px;
     height: 34px;
-    width: 850px;
+    width: 840px;
     font-size: 15px;
     border: 1px solid #ebecef;
+    margin-right: 10px;
 }
 .title :focus{
     border: 1px solid #FFDD93;
@@ -44,16 +45,40 @@ form textarea {
     height: 550px;
 }
 table {
-    width: 500px;
+    width: 700px;
     text-align: left;
     margin-bottom: 10px;
+    margin: 10px 0px;
 }
 table th {
     padding-right: 10px;
 }
 table td,th {
-    padding: 2px;
+   width: 160px;
+   padding: 5px;
 }
 .button-wrap {
 	height: 40px;
+}
+.pet-info select {
+    padding: 0px 10px;
+    width: 160px;
+    height: 32px;
+    border: 1px solid #ebecef;
+}
+.pet-info input[type=text] {
+    height: 30px;
+    width: 400px;
+    padding: 0 10px;
+    border: 1px solid #ebecef;
+}
+.pet-info input[type=date] {
+    padding: 0 10px;
+    height: 30px;
+    width: 138px;
+    border: 1px solid #ebecef;
+}
+.pet-info input:focus, select:focus {
+    outline: none;
+    border: 1px solid #FFDD93;
 }
