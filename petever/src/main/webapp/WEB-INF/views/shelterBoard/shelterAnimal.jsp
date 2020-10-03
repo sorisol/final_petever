@@ -52,7 +52,13 @@
 				                </tr>
 				                <tr>
 				                	<th>체중</th>
-				                	<td colspan="2">${ al.weight !=null? al.weight:'-' }</td>
+				                	<%-- <td colspan="2">${ al.weight == null? '-' : al.weight } kg</td> --%>
+				                	<c:if test="${ al.weight < '1' }">
+				                		<td colspan="2">0${ al.weight } kg</td>
+				                	</c:if>
+				                	<c:if test="${ al.weight >= '1' }">
+				                		<td colspan="2">${ al.weight } kg</td>
+				                	</c:if>
 				                </tr>
 				                <tr>
 				                	<th>중성화여부</th>
