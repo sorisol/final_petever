@@ -253,20 +253,4 @@ select
 from shelterAnimal
 where process_state like '%안락사%' or process_state like '%자연사%';
 
-select * from tb_user;
-
-insert into 
-    tb_user
-values (
-    'honggd1',
-    '1234',
-    'honggd@naver.com',
-    '20/10/01',
-     '01012341234',
-    '서울시 강남구 테헤란로',
-    default
-);
-
-select * from tb_user;
-
 commit;
