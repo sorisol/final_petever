@@ -36,6 +36,9 @@ CREATE TABLE tb_user (
     constraints pk_user_id primary key(user_id),
     constraints ck_user_role check(user_role in ('U','A')) 
 );
+--컬럼길이수정
+alter table tb_user modify (user_local varchar2(100));
+commit;
 
 
 --CREATE TABLE message (
@@ -249,3 +252,21 @@ select
     count(case when org_nm like '%제주%' then 1 end) as l
 from shelterAnimal
 where process_state like '%안락사%' or process_state like '%자연사%';
+
+select * from tb_user;
+
+insert into 
+    tb_user
+values (
+    'honggd1',
+    '1234',
+    'honggd@naver.com',
+    '20/10/01',
+     '01012341234',
+    '서울시 강남구 테헤란로',
+    default
+);
+
+select * from tb_user;
+
+commit;

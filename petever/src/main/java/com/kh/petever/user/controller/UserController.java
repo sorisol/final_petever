@@ -56,6 +56,7 @@ public class UserController {
 	@RequestMapping(value ="/signup.do",
 					method = RequestMethod.POST)
 	public String userSignup(User user,
+						HttpServletRequest req,
 						RedirectAttributes redirectAttr) {
 		
 		log.debug("user@controller = {}", user);
@@ -65,6 +66,13 @@ public class UserController {
 		user.setUserPwd(encryptPassword);
 		System.out.println("rawPassword@controller = " + rawPassword);
 		System.out.println("encryptPassword@controller = " + encryptPassword);
+		
+		//주소
+		String addr2 = req.getParameter("addr2");
+		String addr3 = req.getParameter("addr3");
+		
+		user.setUserLocal(addr2 + " " + addr3);
+		System.out.println(user);
 
 		//1.비지니스로직 실행
 		int result = userService.insertUser(user);
@@ -78,32 +86,6 @@ public class UserController {
 		
 	}
 
-	// 회원가입 폼을 제출했을때 처리할 핸들러
-	/*
-	 * @RequestMapping(value = "/signup.do", method = RequestMethod.POST) public
-	 * String userSignup(User user, RedirectAttributes redirectAttr) {
-	 * 
-	 * log.debug("user@controller = {}", user);
-	 * 
-	 * String rawPassword = user.getUserPwd(); String encryptPassword =
-	 * bcryptPasswordEncoder.encode(rawPassword); user.setUserPwd(encryptPassword);
-	 * System.out.println("rawPassword@controller = " + rawPassword);
-	 * System.out.println("encryptPassword@controller = " + encryptPassword);
-	 * 
-	 * // 1.비지니스로직 실행 int result = userService.insertUser(user);
-	 * 
-	 * // 2.RedirectAttributes를 통한 사용자 알림처리 String msg = (result > 0) ? "회원가입성공!" :
-	 * "회원가입성공!"; System.out.println("msg@controller = " + msg);
-	 * redirectAttr.addFlashAttribute("msg", msg);
-	 * 
-	 * return "redirect:/";
-	 * 
-	 * }
-	 */
-
-	/**
-	 * 사용자요청을 command vo에 바인딩할 때 세부설정함
-	 */
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -200,7 +182,7 @@ public class UserController {
 	}
 
 		
-	
+
 	// 회원 탈퇴 get
 	@RequestMapping(value="/userDelete", method = RequestMethod.GET)
 	public String userDelete() {
@@ -209,21 +191,25 @@ public class UserController {
 	
 	// 회원 탈퇴 post
 	@RequestMapping(value="/userDelete", method = RequestMethod.POST)
-	public String userDelete(User user, HttpSession session, RedirectAttributes rttr) {
-		
+	public String userDelete(User user, HttpSession session, RedirectAttributes rttr, SessionStatus sessionStatus) {
 		//세션에 있는 user를 가져와 userDelete변수에 넣어준다. 
-		User userDelete = (User) session.getAttribute("user");
+		User u = (User) session.getAttribute("user");
+		
 		// 세션에있는 비밀번호
 		String sessionPass = user.getUserPwd();
 		// vo로 들어오는 비밀번호
-		String voPass = user.getUserPwd();
-		
-		if(!(sessionPass.equals(voPass))) {
+		String voPass = bcryptPasswordEncoder.encode(user.getUserPwd());
+
+		if(!(bcryptPasswordEncoder.matches(sessionPass, voPass))) {
 			rttr.addFlashAttribute("msg", false);
 			return "redirect:/user/userDelete";
 		}
-		userService.userDelete(user);
-		session.invalidate();
+		int result = userService.userDelete(user);
+		if(result == 0) {
+			rttr.addFlashAttribute("msg", "회원탈퇴 실패");
+		}
+		//session.invalidate();
+		userLogout(sessionStatus);
 		return "redirect:/";
 	}
 	
