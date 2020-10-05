@@ -1,38 +1,51 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&family=Sunflower:wght@500&display=swap"
-        rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/tag.css">
+<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&family=Sunflower:wght@500&display=swap" rel="stylesheet">
     <script>
         $(function () {
             $("[name=color]").change(function () {
                 var $color = $(this);
                 console.log($color.val());
 
-                $("#ani-info-tag1").css('background-image', 'url(img/animalTag.png)');
-                $("#ani-info-tag2").css('background-image', 'url(img/animalTag.png)');
 
                 var realColor;
                 if ($color.val() == 'green') {
+	                $("#ani-info-tag1").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/animalTag_green1.png)');
+	                $("#ani-info-tag2").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/animalTag_green1.png)');
                     realColor = '#659976';
                 } else if ($color.val() == 'blue') {
+	                $("#ani-info-tag1").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/animalTag_blue1.png)');
+	                $("#ani-info-tag2").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/animalTag_blue1.png)');
                     realColor = '#006699';
                 } else if ($color.val() == 'ivory') {
+	                $("#ani-info-tag1").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/animalTag_beige1.png)');
+	                $("#ani-info-tag2").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/animalTag_beige1.png)');
                     realColor = '#EBE7DD';
                 } else if ($color.val() == 'pink') {
+	                $("#ani-info-tag1").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/animalTag_pink1.png)');
+	                $("#ani-info-tag2").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/animalTag_pink1.png)');
                     realColor = '#D35F5F';
                 } else if ($color.val() == 'brown') {
+	                $("#ani-info-tag1").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/animalTag_brown.png)');
+	                $("#ani-info-tag2").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/animalTag_brown.png)');
                     realColor = '#CB9661';
                 }
 
 
-                $("#ani-info-tag1").css('background-color', realColor);
-                $("#ani-info-tag2").css('background-color', realColor);
+               // $("#ani-info-tag1").css('background-color', realColor);
+               // $("#ani-info-tag2").css('background-color', realColor);
 
             });
 
             $("[name=font]").change(function () {
                 var $font = $(this);
-                // console.log($font.val());
-                $(".animal-tag-font").css("font-family", $font.val());
+                //console.log($font.val());
+                $(".animal-tag-font").attr('style', 'font-family : '+ $font.val() +'!important');
             });
             //동물이름
             $("#ani-name").keyup(function () {
@@ -70,6 +83,87 @@
                 // console.log($personPhone.val());
                 $("#preview-person-phone").text($personPhone.val());
             });
+
+            //slide-wrap
+            var slideWrapper = document.getElementById('slider-wrap');
+            //current slideIndexition
+            var slideIndex = 0;
+            //items
+            var slides = document.querySelectorAll('#slider-wrap ul li');
+            //number of slides
+            var totalSlides = slides.length;
+            //get the slide width
+            var sliderWidth = slideWrapper.clientWidth;
+            //set width of items
+            slides.forEach(function (element) {
+                element.style.width = sliderWidth + 'px';
+            })
+            //set width to be 'x' times the number of slides
+            var slider = document.querySelector('#slider-wrap ul#slider');
+            slider.style.width = sliderWidth * totalSlides + 'px';
+
+            // next, prev
+            var nextBtn = document.getElementById('next');
+            var prevBtn = document.getElementById('previous');
+            nextBtn.addEventListener('click', function () {
+                plusSlides(1);
+            });
+            prevBtn.addEventListener('click', function () {
+                plusSlides(-1);
+            });
+
+            // hover
+            slideWrapper.addEventListener('mouseover', function () {
+                this.classList.add('active');
+                clearInterval(autoSlider);
+            });
+            slideWrapper.addEventListener('mouseleave', function () {
+                this.classList.remove('active');
+                autoSlider = setInterval(function () {
+                    plusSlides(1);
+                }, 3000);
+            });
+
+
+            function plusSlides(n) {
+                showSlides(slideIndex += n);
+            }
+
+            function currentSlides(n) {
+                showSlides(slideIndex = n);
+            }
+
+            function showSlides(n) {
+                slideIndex = n;
+                if (slideIndex == -1) {
+                    slideIndex = totalSlides - 1;
+                } else if (slideIndex === totalSlides) {
+                    slideIndex = 0;
+                }
+
+                slider.style.left = -(sliderWidth * slideIndex) + 'px';
+                pagination();
+            }
+
+            //pagination
+            slides.forEach(function () {
+                var li = document.createElement('li');
+                document.querySelector('#slider-pagination-wrap ul').appendChild(li);
+            })
+
+            function pagination() {
+                var dots = document.querySelectorAll('#slider-pagination-wrap ul li');
+                dots.forEach(function (element) {
+                    element.classList.remove('active');
+                });
+                dots[slideIndex].classList.add('active');
+            }
+
+            pagination();
+            var autoSlider = setInterval(function () {
+                plusSlides(1);
+            }, 3000);
+            
         });
 
         function previewReset() {
@@ -83,6 +177,10 @@
             $("#preview-person-name").text('');
             $("#preview-person-phone").text('');
         }
+
+		
+
+        
     </script>
     <div id="main-wrap">
         <section class="main"></section>
@@ -155,10 +253,45 @@
                             <input class="btn" type="reset" value="초기화" onclick="previewReset();">
                         </form>
                     </div>
-                    <img src="img/tag1.jpg" alt="" width="900px">
-                    <img src="img/tag2.jpg" alt="">
-                    <img src="img/tag3.jpg" alt="" width="900px">
                 </div>
+                
+                <div id="slider-wrap">
+				    <ul id="slider">
+				        <li>
+				            <div>
+				                <h3>제품이미지</h3>
+				                <span></span>
+				            </div>
+				            <img src="${pageContext.request.contextPath}/resources/images/tag1.jpg" alt="">
+				        </li>
+				
+				        <li>
+				            <div>
+				                <h3>사용예시#1</h3>
+				                <span></span>
+				            </div>
+				            <img src="${pageContext.request.contextPath}/resources/images/tag3.jpg" alt="">
+				        </li>
+				
+				        <li>
+				            <div>
+				                <h3>사용예시#2</h3>
+				                <span></span>
+				            </div>
+				            <img src="${pageContext.request.contextPath}/resources/images/tag2.jpg" alt="">
+				        </li>
+				    </ul>
+				
+				    <div class="slider-btns" id="next"><span>▶</span></div>
+				    <div class="slider-btns" id="previous"><span>◀</span></div>
+				
+				    <div id="slider-pagination-wrap">
+				        <ul>
+				        </ul>
+				    </div>
+				</div>
+                
             </div>
         </section>
     </div>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
