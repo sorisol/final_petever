@@ -25,7 +25,7 @@
                 <label for="">비밀번호</label>
                 <input type="password" name="userPwd" maxlength='12' id="userPwd1" required>
                 <label for="">비밀번호 확인</label>
-                <input type="password" name="userPwd" maxlength='12' id="userPwd2" required>
+                <input type="password" name="userPwd2" maxlength='12' id="userPwd2" required>
                 <label for="">이메일</label>
                 <input type="email" name="userEmail" id="userEmail" required>
                 <label for="">생년월일</label>
@@ -33,18 +33,18 @@
                 <label for="">전화번호</label>
                 <input type="tel" name="userPhone" id="" required>
                 <label for="">주소</label>
-                <input type="text" name="userLocal" id="" required>
-                <div class="form-group">                   
-              
-<!-- 				<input class="form-control" placeholder="우편번호" name="userLocal" id="addr1" type="text" readonly="readonly" >
-				    <button type="button" class="btn btn-default" onclick="execPostCode();"><i class="fa fa-search"></i> 우편번호 찾기</button>                               
-				</div>
-				<div class="form-group">
-				    <input class="form-control" placeholder="도로명 주소" name="userLocal" id="addr2" type="text" readonly="readonly" />
-				</div>
-				<div class="form-group">
-				    <input class="form-control" placeholder="상세주소" name="userLocal" id="addr3" type="text"  />
-				</div> -->
+             <!--    <input type="text" name="userLocal" id="" required> -->
+           
+            <div class="form-group">                   
+			<!-- <input class="form-control" placeholder="우편번호" name="addr1" id="addr1" type="text" readonly="readonly" > -->
+			    <button type="button" class="btn btn-default" onclick="execPostCode();"><i class="fa fa-search"></i> 우편번호 찾기</button>                               
+			</div>
+			<div class="form-group">
+			    <input class="form-control"placeholder="도로명 주소" name="addr2" id="addr2" type="text" readonly="readonly" />
+			</div>
+			<div class="form-group">
+			    <input class="form-control" placeholder="상세주소" name="addr3" id="addr3" type="text"  />
+			</div> 
                 
                 <button class="addr-search" >검색</button> 
                 <input type="submit" value="회원가입" onclick="button1_click();" onsubmit ="return CheckAll()">
@@ -96,7 +96,6 @@
                 console.log(fullRoadAddr);
                 
                 
-                $("[name=addr1]").val(data.zonecode);
                 $("[name=addr2]").val(fullRoadAddr);
                 
                 /* document.getElementById('signUpUserPostNo').value = data.zonecode; //5자리 새우편번호 사용
