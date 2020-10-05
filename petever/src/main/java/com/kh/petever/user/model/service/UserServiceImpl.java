@@ -32,4 +32,11 @@ public class UserServiceImpl implements UserService {
 	public int userDelete(User user) {
 		return userDAO.userDelete(user);
 	}
+
+	// 아이디 중복 체크
+	@Override
+	public int idChk(User user) {
+		return userDAO.idChk(user);
+	
+	}
 }
