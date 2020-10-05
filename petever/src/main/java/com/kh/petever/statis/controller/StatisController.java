@@ -239,4 +239,73 @@ public class StatisController {
 		return 0;
 	}
 	
+	@GetMapping("/mainStatis.do")
+	@ResponseBody
+	public Map<String, int[]> mainStatis(@RequestParam(value="area", required=false) String area) {
+		Map<String, int[]> map = new HashMap<>();
+		
+		List<String> searchArea = null;
+
+		switch (area) {
+			case "서울특별시": searchArea = new ArrayList<>(Arrays.asList("%서울%","%경기%","%인천%"));
+				break;
+			case "강원도": searchArea = new ArrayList<>(Arrays.asList("%강원%"));
+			break;
+			case "충청북도": searchArea = new ArrayList<>(Arrays.asList("%충청북도%","%세종%"));
+			break;
+			case "충청남도": searchArea = new ArrayList<>(Arrays.asList("%충청남도%","%대전%"));
+			break;
+			case "경상북도": searchArea = new ArrayList<>(Arrays.asList("%경상북도%","%대구%"));
+			break;
+			case "경상남도": searchArea = new ArrayList<>(Arrays.asList("%경상남도%","%부산%","%울산%"));
+			break;
+			case "전라북도": searchArea = new ArrayList<>(Arrays.asList("%전라북도%","%광주%"));
+			break;
+			case "전라남도": searchArea = new ArrayList<>(Arrays.asList("%전라남도%"));
+			break;
+			case "제주특별자치도": searchArea = new ArrayList<>(Arrays.asList("%제주%"));
+			break;
+		}
+
+		List<StatisList> list = statisService.selectList(searchArea);
+		int[] loadResult = new int[8];
+		for (StatisList statisList : list) {
+			loadResult[0]+=statisList.getCnt();
+		}
+			loadResult[1] = listGetCnt(list, 0);
+			loadResult[2] = listGetCnt(list,5); 
+			loadResult[3] = listGetCnt(list,2); 
+			loadResult[4] = listGetCnt(list,6);
+			loadResult[5] = listGetCnt(list,4);
+			loadResult[6] = listGetCnt(list,3); 
+			loadResult[7] = listGetCnt(list,1); 
+		map.put("loadResult", loadResult);
+
+		return map;
+	}
+	
+	@GetMapping("/btnStatis.do")
+	@ResponseBody
+	public Map<String, int[]> btnStatis(@RequestParam(value="kind") String kind) {
+		Map<String, int[]> map = new HashMap<>();
+		
+		kind = "%"+kind+"%";
+
+		List<StatisList> list = statisService.selectList(kind);
+		int[] loadResult = new int[8];
+		for (StatisList statisList : list) {
+			loadResult[0]+=statisList.getCnt();
+		}
+			loadResult[1] = listGetCnt(list, 0);
+			loadResult[2] = listGetCnt(list,5); 
+			loadResult[3] = listGetCnt(list,2); 
+			loadResult[4] = listGetCnt(list,6);
+			loadResult[5] = listGetCnt(list,4);
+			loadResult[6] = listGetCnt(list,3); 
+			loadResult[7] = listGetCnt(list,1); 
+		map.put("loadResult", loadResult);
+
+		return map;
+	}
+	
 }
