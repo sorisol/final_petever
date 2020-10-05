@@ -63,4 +63,16 @@ public class StatisDaoImpl implements StatisDao {
 		return session.selectList("statis.adoptStatisSearch",map);
 	}
 
+	@Override
+	public List<StatisList> selectList(List<String> searchArea) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("searchArea",searchArea);
+		return session.selectList("statis.selectListMain",map);
+	}
+
+	@Override
+	public List<StatisList> selectList(String kind) {
+		return session.selectList("statis.selectListKind",kind);
+	}
+
 }
