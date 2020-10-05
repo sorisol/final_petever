@@ -1,6 +1,7 @@
 package com.kh.petever.animalboard.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.petever.animalboard.model.vo.AnimalAttach;
 import com.kh.petever.animalboard.model.vo.AnimalBoard;
@@ -29,5 +30,7 @@ public interface AnimalBoardDAO {
 	int deleteComment(int commentNo);
 
 	int editComment(AnimalComment aniComment);
+
+	List<AnimalBoard> searchBoardList(AnimalBoard animal);
 
 }

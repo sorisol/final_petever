@@ -16,201 +16,276 @@
             <p>남은 겨울이 라이너 별 어머니, 불러 덮어 이름과, 까닭입니다.</p>
             <div class="content">
                 <div class="border">
-                    <table class="pet-info">
-                        <tr>
-                            <th>동물종류</th>
-                            <td>
-                                <input type="checkbox" name="kind" id="kind-dog" value="개" ${ param.kind eq '개' ? 'checked' : ''}>
-                                <label for="kind-dog">강아지</label>
-                            </td>
-                            <td>
-                                <input type="checkbox" name="kind" id="kind-cat" value="고양이" ${ param.kind eq '고양이' ? 'checked' : ''}>
-                                <label for="kind-cat">고양이</label>
-                            </td>
-                            <td style="padding-right: 20px;">
-                                <input type="checkbox" name="kind" id="kind-etc" value="기타" ${ param.kind eq '기타' ? 'checked' : ''}>
-                                <label for="kind-etc">기타</label>
-                            </td>
-                            <th>성별</th>
-                            <td>
-                                <input type="checkbox" name="gender" id="gender-f" value="F" ${ param.gender eq 'F' ? 'checked' : ''}>
-                                <label for="gender-f">암컷</label>
-                            </td>
-                            <td>
-                                <input type="checkbox" name="gender" id="gender-m" value="M" ${ param.gender eq 'M' ? 'checked' : ''}>
-                                <label for="gender-m">수컷</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>나이</th>
-                            <td>
-                                <input type="checkbox" name="age" id="age-3" value="3" ${ param.age eq '3' ? 'checked' : ''}>
-                                <label for="age-3">0~3</label>
-                            </td>
-                            <td>
-                                <input type="checkbox" name="age" id="age-7" value="7" ${ param.age eq '7' ? 'checked' : ''}>
-                                <label for="age-7">4~7</label>
-                            </td>
-                            <td>
-                                <input type="checkbox" name="age" id="age-8" value="8" ${ param.age eq '8' ? 'checked' : ''}>
-                                <label for="age-8">8살이상</label>
-                            </td>
-                            <th>색상</th>
-                            <td>
-                                <input type="checkbox" name="color" id="color-black" value="검" ${ param.color eq '검' ? 'checked' : ''}>
-                                <label for="color-black">블랙</label>
-                            </td>
-                            <td>
-                                <input type="checkbox" name="color" id="color-white" value="흰" ${ param.color eq '흰' ? 'checked' : ''}>
-                                <label for="color-white">화이트</label>
-                            </td>
-                            <td>
-                                <input type="checkbox" name="color" id="color-brown" value="갈" ${ param.color eq '갈' ? 'checked' : ''}>
-                                <label for="color-brown">브라운</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>무게</th>
-                            <td>
-                                <input type="checkbox" name="weight" id="weight-5" value="5" ${ param.weight eq '5' ? 'checked' : ''}>
-                                <label for="weight-5">5kg 미만</label>
-                            </td>
-                            <td>
-                                <input type="checkbox" name="weight" id="weight-10" value="9" ${ param.weight eq '9' ? 'checked' : ''}>
-                                <label for="weight-10">5~9kg</label>
-                            </td>
-                            <td>
-                                <input type="checkbox" name="weight" id="weight-15" value="10" ${ param.weight eq '10' ? 'checked' : ''}>
-                                <label for="weight-15">10kg 이상</label>
-                            </td>
-                            <th>상태</th>
-                            <td>
-                                <input type="checkbox" name="state" id="state-ing" value="보호" ${ param.state eq '보호' ? 'checked' : ''}>
-                                <label for="state-ing">보호중</label>
-                            </td>
-                            <td>
-                                <input type="checkbox" name="state" id="stage-end" value="종료" ${ param.state eq '종료' ? 'checked' : ''}>
-                                <label for="stage-end">종료</label>
-                            </td>
-                        </tr>
-                        <tr>
-                        	<th>지역</th>
-                        	<td>
-                        		<select class="org" name="sido" id="sido"></select>
-                        	</td>
-                        	<td>
-                        		<select class="org" name="sigugun" id="sigugun"></select>
-                        	</td>
-                        	<td></td>
-                        	<td></td>
-                        	<td></td>
-                        	<td colspan="2">
-                        		<input type="submit" value="조회"/>
-                        	</td>
-                        </tr>
-                    </table>
-
-                    <hr style="height: 1px; border:none; background-color: lightgray; width: 1000px; margin: 30px 50px;">
-					
-                    <div class="post-wrap">
-                    <c:forEach items="${boardList}" var="b">
-                    	<a href="${ pageContext.request.contextPath }/animalboard/boardView?no=${b.aniBoId}">
+                    <form id="searchFrm">
+	                    <table class="pet-info">
+	                        <tr>
+	                            <th>동물종류</th>
+	                            <td>
+	                                <input type="checkbox" name="aniBoType" id="kind-dog" value="개">
+	                                <label for="kind-dog">강아지</label>
+	                            </td>
+	                            <td>
+	                                <input type="checkbox" name="aniBoType" id="kind-cat" value="고양이">
+	                                <label for="kind-cat">고양이</label>
+	                            </td>
+	                            <td style="padding-right: 20px;">
+	                                <input type="checkbox" name="aniBoType" id="kind-etc" value="기타">
+	                                <label for="kind-etc">기타</label>
+	                            </td>
+	                            <th>성별</th>
+	                            <td>
+	                                <input type="checkbox" name="aniBoGender" id="gender-f" value="암컷">
+	                                <label for="gender-f">암컷</label>
+	                            </td>
+	                            <td>
+	                                <input type="checkbox" name="aniBoGender" id="gender-m" value="수컷">
+	                                <label for="gender-m">수컷</label>
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <th>나이</th>
+	                            <td>
+	                                <input type="checkbox" name="aniBoAge" id="age-3" value="3">
+	                                <label for="age-3">0~3</label>
+	                            </td>
+	                            <td>
+	                                <input type="checkbox" name="aniBoAge" id="age-7" value="7">
+	                                <label for="age-7">4~7</label>
+	                            </td>
+	                            <td>
+	                                <input type="checkbox" name="aniBoAge" id="age-8" value="8">
+	                                <label for="age-8">8살이상</label>
+	                            </td>
+	                            <th>색상</th>
+	                            <td>
+	                                <input type="checkbox" name="aniBoColor" id="color-black" value="검">
+	                                <label for="color-black">블랙</label>
+	                            </td>
+	                            <td>
+	                                <input type="checkbox" name="aniBoColor" id="color-white" value="흰">
+	                                <label for="color-white">화이트</label>
+	                            </td>
+	                            <td>
+	                                <input type="checkbox" name="aniBoColor" id="color-brown" value="갈">
+	                                <label for="color-brown">브라운</label>
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <th>무게</th>
+	                            <td>
+	                                <input type="checkbox" name="aniBoSize" id="weight-5" value="5">
+	                                <label for="weight-5">5kg 미만</label>
+	                            </td>
+	                            <td>
+	                                <input type="checkbox" name="aniBoSize" id="weight-10" value="9">
+	                                <label for="weight-10">5~9kg</label>
+	                            </td>
+	                            <td>
+	                                <input type="checkbox" name="aniBoSize" id="weight-15" value="10">
+	                                <label for="weight-15">10kg 이상</label>
+	                            </td>
+	                            <th>상태</th>
+	                            <td>
+	                                <input type="checkbox" name="state" id="state-ing" value="보호">
+	                                <label for="state-ing">보호중</label>
+	                            </td>
+	                            <td>
+	                                <input type="checkbox" name="state" id="stage-end" value="종료">
+	                                <label for="stage-end">종료</label>
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                        	<th>지역</th>
+	                        	<td>
+	                        		<select class="org" name="sido" id="sido"></select>
+	                        	</td>
+	                        	<td>
+	                        		<select class="org" name="sigugun" id="sigugun"></select>
+	                        	</td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td colspan="2">
+	                        		<button type="button" id="top-search-btn" onclick="searchFunc();">조회</button>
+	                        	</td>
+	                        </tr>
+	                    </table>
+	
+	                    <hr style="height: 1px; border:none; background-color: lightgray; width: 1000px; margin: 30px 50px;">
+						
+	                    <div class="post-wrap">
+	                    <c:forEach items="${boardList}" var="b">
 	                        <div class="post">
-	                    	<c:forEach items="${attachList}" var="a">
-	                        	<c:if test="${ a.aniBoId.equals(b.aniBoId)}">
-	                            	<img src="${pageContext.request.contextPath}/resources/editor/multiupload/${a.aniAtRenamedName}">
-	                        	</c:if>
-	                    	</c:forEach>
-	                            <br>
-	                            <span class="tag">[${b.aniBoTag }]</span>
-	                            <span>${b.aniBoTitle}</span>
-	                            <p>종류 : <b>${b.aniBoType}</b></p>
-	                            <p>지역 : <b>${b.aniBoLocal}</b></p>
-	                            <hr>
-	                            <span>${b.userId}</span>
-	                            <span>
-	                            <!-- String -> Date -> yyy.MM.dd형식으로 바꾸기 -->
-	                            <fmt:parseDate value="${b.aniBoDate}" var="aniBoDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-								<fmt:formatDate value="${aniBoDate}" pattern="yyyy.MM.dd"/>
-	                            </span>
+	                    		<a href="${ pageContext.request.contextPath }/animalboard/boardView?no=${b.aniBoId}">
+		                    	<c:forEach items="${attachList}" var="a">
+		                        	<c:if test="${ a.aniBoId.equals(b.aniBoId)}">
+		                            	<img src="${pageContext.request.contextPath}/resources/editor/multiupload/${a.aniAtRenamedName}">
+		                        	</c:if>
+		                    	</c:forEach>
+		                            <br>
+		                            <span class="tag">[${b.aniBoTag }]</span>
+		                            <span>${b.aniBoTitle}</span>
+		                            <p>종류 : <strong>
+		                   				<c:forEach items="${b.aniBoType}" var="t">
+		                            		${t}
+		                    			</c:forEach>
+		                            </strong></p>
+		                            <p>지역 : <strong>${b.aniBoLocal}</strong></p>
+		                            <hr>
+		                            <span>${b.userId}</span>
+		                            <span>
+		                            <!-- String -> Date -> yyy.MM.dd형식으로 바꾸기 -->
+		                            <fmt:parseDate value="${b.aniBoDate}" var="aniBoDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+									<fmt:formatDate value="${aniBoDate}" pattern="yyyy.MM.dd"/>
+		                            </span>
+		                    	</a>
 	                        </div>
-	                    </a>
-                    </c:forEach>
-                    <a href="${ pageContext.request.contextPath }/animalboard/boardView">
-                        <div class="post">
-                            <img src="${pageContext.request.contextPath}/resources/images/dog8.jpg" alt="">
-                            <br>
-                            <span class="tag missing">[실종]</span>
-                            <span>찾습니다</span>
-                            <p>종류 : <b>강아지</b></p>
-                            <p>지역 : <b>서울시 강남구</b></p>
-                            <hr>
-                            <span>hoggd</span>
-                            <span>2020.09.13</span>
-                        </div>
-                    </a>
-                        <div class="post">
-                            <img src="${pageContext.request.contextPath}/resources/images/dog2.jpg" alt="">
-                            <br>
-                            <span class="tag protect">[보호]</span>
-                            <span>제목</span>
-                            <p>종류 : <b>강아지</b></p>
-                            <p>지역 : <b>서울시 강남구</b> </p>
-                            <hr>
-                            <span>hoggd</span>
-                            <span>2020.09.13</span>
-                        </div>
-                        <div class="post">
-                            <img src="${pageContext.request.contextPath}/resources/images/dog7.jpg" alt="">
-                            <br>
-                            <span class="tag missing">[실종]</span>
-                            <span>제목</span>
-                            <p>종류 : <b>강아지</b></p>
-                            <p>지역 : <b>서울시 강남구</b> </p>
-                            <hr>
-                            <span>hoggd</span>
-                            <span>2020.09.13</span>
-                        </div>
-                        <div class="post">
-                            <img src="${pageContext.request.contextPath}/resources/images/dog4.jpg" alt="">
-                            <br>
-                            <span class="tag missing">[실종]</span>
-                            <span>제목</span>
-                            <p>종류 : <b>강아지</b></p>
-                            <p>지역 : <b>서울시 강남구</b> </p>
-                            <hr>
-                            <span>hoggd</span>
-                            <span>2020.09.13</span>
-                        </div>
-                        <div class="post">
-                            <img src="${pageContext.request.contextPath}/resources/images/dog5.jpg" alt="">
-                            <br>
-                            <span class="tag missing">[실종]</span>
-                            <span>제목</span>
-                            <p>종류 : <b>강아지</b></p>
-                            <p>지역 : <b>서울시 강남구</b> </p>
-                            <hr>
-                            <span>hoggd</span>
-                            <span>2020.09.13</span>
-                        </div>
-                    </div>
-                    <hr style="height: 1px; border:none; background-color: lightgray; width: 860px; margin: 35px 50px 10px 50px;">
-                    <button onclick="location.href='${pageContext.request.contextPath}/animalboard/boardFrm'" class="write-btn">글쓰기</button>
-                    <div class="search">
-                        <select name="" id="">
-                            <option value="">제목</option>
-                            <option value="">내용</option>
-                            <option value="">날짜</option>
-                        </select>
-                        <input type="text" name="" id="">
-                        <button>검색</button>
-                    </div>
+	                    </c:forEach>
+	                   		<div class="post">
+	       		            	<a href="${ pageContext.request.contextPath }/animalboard/boardView">
+		                            <img src="${pageContext.request.contextPath}/resources/images/dog8.jpg" alt="">
+		                            <br>
+		                            <span class="tag missing">[실종]</span>
+		                            <span>찾습니다</span>
+		                            <p>종류 : <b>강아지</b></p>
+		                            <p>지역 : <b>서울시 강남구</b></p>
+		                            <hr>
+		                            <span>hoggd</span>
+		                            <span>2020.09.13</span>
+		                    	</a>
+	                   		</div>
+	                        <div class="post">
+	                        	<a href="${ pageContext.request.contextPath }/animalboard/boardView">
+		                            <img src="${pageContext.request.contextPath}/resources/images/dog2.jpg" alt="">
+		                            <br>
+		                            <span class="tag protect">[보호]</span>
+		                            <span>제목</span>
+		                            <p>종류 : <b>강아지</b></p>
+		                            <p>지역 : <b>서울시 강남구</b> </p>
+		                            <hr>
+		                            <span>hoggd</span>
+		                            <span>2020.09.13</span>
+		                    	</a>
+	                        </div>
+	                        <div class="post">
+	                            <img src="${pageContext.request.contextPath}/resources/images/dog7.jpg" alt="">
+	                            <br>
+	                            <span class="tag missing">[실종]</span>
+	                            <span>제목</span>
+	                            <p>종류 : <b>강아지</b></p>
+	                            <p>지역 : <b>서울시 강남구</b> </p>
+	                            <hr>
+	                            <span>hoggd</span>
+	                            <span>2020.09.13</span>
+	                        </div>
+	                        <div class="post">
+	                            <img src="${pageContext.request.contextPath}/resources/images/dog4.jpg" alt="">
+	                            <br>
+	                            <span class="tag missing">[실종]</span>
+	                            <span>제목</span>
+	                            <p>종류 : <b>강아지</b></p>
+	                            <p>지역 : <b>서울시 강남구</b> </p>
+	                            <hr>
+	                            <span>hoggd</span>
+	                            <span>2020.09.13</span>
+	                        </div>
+	                        <div class="post">
+	                            <img src="${pageContext.request.contextPath}/resources/images/dog5.jpg" alt="">
+	                            <br>
+	                            <span class="tag missing">[실종]</span>
+	                            <span>제목</span>
+	                            <p>종류 : <b>강아지</b></p>
+	                            <p>지역 : <b>서울시 강남구</b> </p>
+	                            <hr>
+	                            <span>hoggd</span>
+	                            <span>2020.09.13</span>
+	                        </div>
+	                    </div>
+	                    <hr style="height: 1px; border:none; background-color: lightgray; width: 860px; margin: 35px 50px 10px 50px;">
+	                    <button type="button" onclick="location.href='${pageContext.request.contextPath}/animalboard/boardFrm'" class="write-btn">글쓰기</button>
+	                    <div class="search-wrap">
+	                        <select name="search" id="search">
+	                            <option value="ani_bo_title">제목</option>
+	                            <option value="ani_bo_content">내용</option>
+	                            <option value="ani_bo_date">날짜</option>
+	                            <option value="ani_bo_tag">말머리</option>
+	                        </select>
+	                        <input type="text" name="query" id="query">
+	                        <button type="button" id="bottom-search-btn" onclick="searchFunc();">검색</button>
+		                </div>
+                    </form>
                 </div>
             </div>
         </section>
     </div>
 <script>
-$(function() {
+function searchFunc() {
+	var formData = $("#searchFrm").serialize();
+	//var formData = $("form[name=searchFrm]").serialize();
+	console.log(formData);
+	$.ajax({
+		url: '${pageContext.request.contextPath}/animalboard/search',
+		dataType: 'json',
+		method: 'post',
+		data: formData,
+		success: function(data) {
+			var $post = $('.post-wrap');
+			$post.html('');
+			var html = '';
+			if(data.boardList == null || data.boardList.length == 0) {
+				html += '<p align="center">조회된 게시물이 없습니다.</p>';		
+			}
+			else {
+				/* console.log(data);
+				console.log(data.fileList); */
+				for(var i in data.boardList) {
+					var b = data.boardList[i];
+					html += '<div class="post">';
+					html += '<a href="${ pageContext.request.contextPath }/animalboard/boardView?no='+b.aniBoId+'">';
+
+					//사진
+            		for(var j in data.fileList) {
+						var f = data.fileList[j];
+						if(b.aniBoId == f.aniBoId) {
+							html += '<img src="${pageContext.request.contextPath}/resources/editor/multiupload/'+f.aniAtRenamedName+'">';
+						}
+                    }
+					if(b.aniBoTag == '실종')
+						html += '<br><span class="tag missing">['+b.aniBoTag+']</span>';
+					else if(b.aniBoTag == '목격')
+						html += '<br><span class="tag sight">['+b.aniBoTag+']</span>';
+					else if(b.aniBoTag == '보호')
+						html += '<br><span class="tag protect">['+b.aniBoTag+']</span>';
+					else
+						html += '<br><span class="tag">['+b.aniBoTag+']</span>';
+					html += '<span>'+b.aniBoTitle+'</span>';
+					html += '<p>종류 : <strong>'+b.aniBoType+'</strong></p>';
+					html += '<p>지역 : <strong>'+b.aniBoLocal+'</strong></p><hr>';
+					html += '<span>'+b.userId+'</span>';
+					html += '<span>'+b.aniBoDate.substring(0, 10).replaceAll('-', '.')+'</span>';
+					html += '</a></div>';
+				}
+			}
+			$post.html(html);
+		},
+		error: function(xhr, status, err) {
+			console.log("처리실패", xhr, status, err);
+		}
+	});
+}
+
+$(function() {	
+	$("#search").on("change", function() {
+		console.log($("#search").next().html());
+		if($("#search").val() == '말머리') {
+			$("#query").replaceWith('<select name="aniBoTag"><option value="실종">실종</option></select>');
+			//$("#query").hide();
+			/* $("#search").next().append('<option value="실종">실종</option>');
+			$("#search").next().append('<option value="목격">목격</option>');
+			$("#search").next().append('<option value="보호">보호</option>');
+			$("#search").next().append('<option value="완료">완료</option>'); */
+		}
+	});
 	var tag = document.getElementsByClassName("tag");
 	for(var i=0; i<tag.length; i++) {
            if(tag[i].innerHTML == '[실종]'){
@@ -243,7 +318,6 @@ $(function() {
 
 	//page load시 시도 select
     $("select[name=sido]").each(function () {
-        console.log(this);
         $selectCity = $(this);
         $selectCity.append("<option value=>시/도 선택</option>");
         $.each(eval(area0), function () {
@@ -255,9 +329,7 @@ $(function() {
 	//시도 선택시 시구군 select
     $("select[name=sido]").each(function () {
         var area = "area" + $("option", $(this)).index($("option:selected", $(this))); //선택지역의 구군 Array
-        console.log(area);
         var $province = $(this).parent().next().children(); //선택영역 구군 객체
-        // console.log($gugun);
         $("option", $province).remove();
 
         if (area == "area0") {
@@ -273,7 +345,6 @@ $(function() {
 	//시도 선택시 시구군 select
     $("select[name=sido]").change(function () {
         var area = "area" + $("option", $(this)).index($("option:selected", $(this))); //선택지역의 구군 Array
-        console.log(area);
         var $province = $(this).parent().next().children(); //선택영역 구군 객체
         // console.log($gugun);
         $("option", $province).remove();

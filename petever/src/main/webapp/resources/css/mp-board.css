@@ -51,7 +51,7 @@ span {
 }
 
 /*첫번째 이미지만 보여주기*/
-.post > img:first-child {
+.post> a> img:first-child {
 	display: block;
 }
 .post img {
@@ -90,8 +90,8 @@ td {
 }
 
 /*하단 검색부분*/
-.content .search {
-    width: 400px;
+.content .search-wrap {
+    width: 420px;
     margin: 50px auto;
     text-align: center;
     overflow: hidden;
@@ -101,8 +101,8 @@ td {
     float: left;
 }
 
-.search select {
-    width: 80px;
+.search-wrap select {
+    width: 100px;
     height: 36px;
     padding: 0px 12px;
     font-size: 16px;
@@ -110,12 +110,12 @@ td {
     border: 1px solid #ebecef;
 }
 
-.search select:focus {
+.search-wrap select:focus {
     border: 1px solid #FFDD93;
     outline-color: #FFDD93;
 }
 
-.search input {
+.search-wrap input {
     width: 200px;
     height: 32px;
     padding: 0px 12px;
@@ -123,7 +123,7 @@ td {
     border: 1px solid #ebecef;
 }
 
-.search input:focus {
+.search-wrap input:focus {
     width: 202px;
     height: 34px;
     padding: 0px 12px;
@@ -131,7 +131,7 @@ td {
     outline-color: #FFDD93;
 }
 
-.search button {
+.search-wrap button {
     width: 56px;
     height: 36px;
     border: 1px solid #FFDD93;

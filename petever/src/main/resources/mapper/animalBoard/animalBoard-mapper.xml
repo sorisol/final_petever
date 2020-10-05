@@ -130,6 +130,86 @@
 			ani_co_id = #{aniCoId}
 	</update>
 	
+	<select id="searchBoardList" resultMap="animalBoardMap">
+		select
+			*
+		from
+			animal_board
+		<where>
+	        <if test="aniBoTitle != null and aniBoTitle != ''">
+	            ani_bo_title like '%'||#{aniBoTitle}||'%'
+	        </if>
+	        <if test="aniBoContent != null and aniBoContent != ''">
+	            ani_bo_content like '%'||#{aniBoContent}||'%'
+	        </if>
+	        <if test="aniBoTag != null and aniBoTag != ''">
+	            ani_bo_tag like '%'||#{aniBoTag}||'%'
+	        </if>
+	        <if test="aniBoLocal != null and aniBoLocal != ''">
+	            ani_bo_local like '%'||#{aniBoLocal}||'%'
+	        </if>
+	        <if test="aniBoType != null and aniBoType != ''">
+	        	ani_bo_type in
+	        	<foreach collection="aniBoType" separator="," open="(" close=")">
+	        		#{aniBoType}
+	        	</foreach>
+	        </if>
+	        <if test="aniBoKind != null and aniBoKind != ''">
+	            ani_bo_kind like '%'||#{aniBoKind}||'%'
+	        </if>
+	        <if test="aniBoGender != null and aniBoGender != ''">
+	            ani_bo_gender in
+	        	<foreach collection="aniBoGender" separator="," open="(" close=")">
+	        		#{aniBoGender}
+	        	</foreach>
+	        </if>
+	        <if test="aniBoAge != null and aniBoAge != ''">
+	        	<foreach collection="aniBoAge" item="age" separator=",">
+		            <if test="age == 3">
+		    			and ani_bo_age between 0 and 3
+		    		</if>
+		    		<if test="age == 7">
+		    			and ani_bo_age between 4 and 7
+		    		</if>
+		    		<if test="age == 8">
+		    			and ani_bo_age >= 8
+		    		</if>
+	        	</foreach>
+	        </if>
+	        <if test="aniBoSize != null and aniBoSize != ''">
+		        	<foreach collection="aniBoSize" item="size" separator=",">
+		            <if test="size == 5">
+		    		and ani_bo_size between 0 and 4.99
+		    		</if>
+		    		<if test="size == 9">
+		    		and ani_bo_size between 5 and 9.99
+		    		</if>
+		    		<if test="size == 10">
+		    		and ani_bo_size >= 10
+			        </if>
+	        	</foreach>
+	        </if>
+	        <if test="aniBoHair != null and aniBoHair != ''">
+	            ani_bo_hair in
+	        	<foreach collection="aniBoHair" separator="," open="(" close=")">
+	        		#{aniBoHair}
+	        	</foreach>
+	        </if>
+	        <if test="aniBoColor != null and aniBoColor != ''">
+	            ani_bo_color in
+	        	<foreach collection="aniBoColor" separator="," open="(" close=")">
+	        		#{aniBoColor}
+	        	</foreach>
+	        </if>
+	        <if test="aniBoCha != null and aniBoCha != ''">
+	            ani_bo_cha in
+	        	<foreach collection="aniBoCha" separator="," open="(" close=")">
+	        		#{aniBoCha}
+	        	</foreach>
+	        </if>
+    	</where>
+	</select>
+	
 	<resultMap id="animalBoardMap" type="animalBoard"></resultMap>
 	<resultMap id="animalAttachMap" type="animalAttach"></resultMap>
 	<resultMap id="animalCommentMap" type="animalComment"></resultMap>

@@ -30,7 +30,7 @@
                         </select>
                         <input type="text" placeholder="제목을 입력해 주세요." name="aniBoTitle">
                     </div>
-                    <textarea id="board-content" name="aniBoContent" rows="50" style="minwidth=''"></textarea>
+                    <textarea id="board-content" name="aniBoContent" rows="50"></textarea>
                         <div class="pet-info">
                             <table class="pet-info">
                            		<tr>
@@ -91,15 +91,15 @@
                                 <tr>
                                     <th>나이</th>
                                     <td>
-                                        <input type="checkbox" name="aniBoAge" id="0~3" value="0~3">
+                                        <input type="checkbox" name="aniBoAge" id="0~3" value="3">
                                         <label for="0~3">0~3</label>
                                     </td>
                                     <td>
-                                        <input type="checkbox" name="aniBoAge" id="4~7" value="4~7">
+                                        <input type="checkbox" name="aniBoAge" id="4~7" value="7">
                                         <label for="4~7">4~7</label>
                                     </td>
                                     <td>
-                                        <input type="checkbox" name="aniBoAge" id="8~" value="8이상">
+                                        <input type="checkbox" name="aniBoAge" id="8~" value="8">
                                         <label for="8~">8 이상</label>
                                     </td>
                                 </tr>
@@ -118,15 +118,15 @@
                                 <tr>
                                     <th>무게(kg)</th>
                                     <td>
-                                        <input type="checkbox" name="aniBoSize" id="~5" value="5미만">
+                                        <input type="checkbox" name="aniBoSize" id="~5" value="5">
                                         <label for="~5">5 미만</label>
                                     </td>
                                     <td>
-                                        <input type="checkbox" name="aniBoSize" id="5~9" value="5~9">
+                                        <input type="checkbox" name="aniBoSize" id="5~9" value="9">
                                         <label for="5~9">5~9</label>
                                     </td>
                                     <td>
-                                        <input type="checkbox" name="aniBoSize" id="10~" value="10이상">
+                                        <input type="checkbox" name="aniBoSize" id="10~" value="10">
                                         <label for="10~">10이상</label>
                                     </td>
                                 </tr>

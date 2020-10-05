@@ -1,6 +1,7 @@
 package com.kh.petever.animalboard.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.petever.animalboard.model.vo.AnimalAttach;
 import com.kh.petever.animalboard.model.vo.AnimalBoard;
@@ -27,5 +28,7 @@ public interface AnimalBoardService {
 	int deleteComment(int commentNo);
 
 	int editComment(AnimalComment aniComment);
+
+	List<AnimalBoard> searchBoardList(AnimalBoard animal);
 
 }

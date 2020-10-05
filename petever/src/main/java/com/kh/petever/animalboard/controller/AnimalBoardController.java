@@ -17,11 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -60,21 +60,22 @@ public class AnimalBoardController {
 	}
 	
 	@GetMapping("/animalboard/boardView")
-	public String animalboardView(@RequestParam int no, Model model) {
+	public ModelAndView animalboardView(@RequestParam int no, ModelAndView mav) {
 		log.debug("{}번 게시글 조회", no);
 		
 		//no번 게시글 조회
 		AnimalBoard animalBoard = service.selectOneBoard(no);
-		model.addAttribute("animalBoard", animalBoard);
+		mav.addObject("animalBoard", animalBoard);
 		log.debug("animalBoard = {}", animalBoard);
 		
 		//no번 게시글의 댓글
 		int totalComment = service.totalComment(no);
-		model.addAttribute("totalComment", totalComment);
+		mav.addObject("totalComment", totalComment);
 		List<AnimalComment> commentList = service.selectCommentList(no);
-		model.addAttribute("commentList", commentList);
+		mav.addObject("commentList", commentList);
 		
-		return "animalBoard/mp-board-view";
+		mav.setViewName("animalBoard/mp-board-view");
+		return mav;
 	}
 	
 	@GetMapping("/animalboard/boardFrm")
@@ -83,10 +84,14 @@ public class AnimalBoardController {
 	}
 	
 	@RequestMapping("/animalboard/insertBoard") 
-	public String insertBoard(AnimalBoard animal, RedirectAttributes redirectAttr){
+	public String insertBoard(AnimalBoard animal, RedirectAttributes redirectAttr, HttpServletRequest req){
 		//로그인한 사용자 아이디
 		animal.setUserId("honggd");
 		log.debug("animal = {}", animal);
+		
+		String sido = (String)req.getParameter("sido");
+		String sigugun = (String)req.getParameter("sigugun");
+		animal.setAniBoLocal(sido + " " + sigugun);
 		
 		List<AnimalAttach> boardAttachList = new ArrayList<>();
 		//파일 이름을 AnimalAttach vo에저장
@@ -171,6 +176,39 @@ public class AnimalBoardController {
 			redirectAttr.addFlashAttribute("msg", "댓글 수정 실패");
 		}
 		return "redirect:/animalboard/boardView?no="+aniComment.getAniBoId();
+	}
+	
+	//하단 검색 ajax
+	@PostMapping("/animalboard/search")
+	public @ResponseBody Map<String, Object> search(HttpServletRequest req, AnimalBoard animal) {
+		//사용자 입력값
+		String sido = (String)req.getParameter("sido");
+		String sigugun = (String)req.getParameter("sigugun");
+		if(sigugun != null && !"".equals(sigugun))
+			animal.setAniBoLocal(sido + " " + sigugun);
+
+		animal.setAniBoType(req.getParameterValues("aniBoType"));
+		animal.setAniBoGender(req.getParameterValues("aniBoGender"));
+		animal.setAniBoAge(req.getParameterValues("aniBoAge"));
+		animal.setAniBoSize(req.getParameterValues("aniBoSize"));
+		animal.setAniBoHair(req.getParameterValues("aniBoHair"));
+		animal.setAniBoColor(req.getParameterValues("aniBoColor"));
+		animal.setAniBoCha(req.getParameterValues("aniBoCha"));
+
+		log.debug("!!!!!animal={}", animal);
+		
+		//업무로직
+		List<AnimalBoard> boardList = service.searchBoardList(animal);
+		List<AnimalAttach> fileList = service.selectAttachList();
+//		log.debug("boardList = {}", boardList);
+//		log.debug("fileList = {}", fileList);
+
+		//뷰단 처리
+		Map<String, Object> result = new HashMap<>();
+		result.put("boardList", boardList);
+		result.put("fileList", fileList);
+		
+		return result;
 	}
 	
 	//이 아래로는 파일 관련

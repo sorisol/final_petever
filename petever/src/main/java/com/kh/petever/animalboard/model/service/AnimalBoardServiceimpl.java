@@ -1,6 +1,7 @@
 package com.kh.petever.animalboard.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -92,6 +93,11 @@ public class AnimalBoardServiceimpl implements AnimalBoardService {
 	@Override
 	public int editComment(AnimalComment aniComment) {
 		return dao.editComment(aniComment);
+	}
+
+	@Override
+	public List<AnimalBoard> searchBoardList(AnimalBoard animal) {
+		return dao.searchBoardList(animal);
 	}
 	
 	
