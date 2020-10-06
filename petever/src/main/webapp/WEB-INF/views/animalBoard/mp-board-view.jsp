@@ -112,7 +112,7 @@
                 <div class="btn-wrap">
 	                <button type="button" class="board-list-btn" onclick="location.href='${pageContext.request.contextPath}/animalboard'">글 목록</button>
 	                <button type="button" class="board-delete-btn">삭제</button>
-	                <button type="button"class="board-edit-btn">수정</button>
+	                <button type="button"class="board-edit-btn" onclick="location.href='${pageContext.request.contextPath}/animalboard/updateBoardFrm?no=${animalBoard.aniBoId}'">수정</button>
                 </div>
             </div>
         </section>
@@ -192,7 +192,6 @@
         
     });
     $(".comment-edit-btn").on("click", function() {
-		location
     });
 	//취소버튼눌렀을때
     function cancleBtn() {

@@ -1,6 +1,7 @@
 package com.kh.petever.animalboard.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -71,6 +72,21 @@ public class AnimalBoardDAOImpl implements AnimalBoardDAO {
 	@Override
 	public int editComment(AnimalComment aniComment) {
 		return sqlSession.update("animalBoard.editComment", aniComment);
+	}
+
+	@Override
+	public List<AnimalBoard> searchBoardList(AnimalBoard animal) {
+		return sqlSession.selectList("animalBoard.searchBoardList", animal);
+	}
+
+	@Override
+	public int deleteAttach(int aniBoId) {
+		return sqlSession.delete("animalBoard.deleteAttach", aniBoId);
+	}
+
+	@Override
+	public int updateBoard(AnimalBoard animal) {
+		return sqlSession.update("animalBoard.updateBoard", animal);
 	}
 	
 }

@@ -11,17 +11,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -36,8 +38,6 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 public class AnimalBoardController {
-	
-	List<Map> fileNameList = new ArrayList<>();
 	
 	@Autowired
 	private AnimalBoardService service;
@@ -60,21 +60,22 @@ public class AnimalBoardController {
 	}
 	
 	@GetMapping("/animalboard/boardView")
-	public String animalboardView(@RequestParam int no, Model model) {
+	public ModelAndView animalboardView(@RequestParam int no, ModelAndView mav) {
 		log.debug("{}번 게시글 조회", no);
 		
 		//no번 게시글 조회
 		AnimalBoard animalBoard = service.selectOneBoard(no);
-		model.addAttribute("animalBoard", animalBoard);
+		mav.addObject("animalBoard", animalBoard);
 		log.debug("animalBoard = {}", animalBoard);
 		
 		//no번 게시글의 댓글
 		int totalComment = service.totalComment(no);
-		model.addAttribute("totalComment", totalComment);
+		mav.addObject("totalComment", totalComment);
 		List<AnimalComment> commentList = service.selectCommentList(no);
-		model.addAttribute("commentList", commentList);
+		mav.addObject("commentList", commentList);
 		
-		return "animalBoard/mp-board-view";
+		mav.setViewName("animalBoard/mp-board-view");
+		return mav;
 	}
 	
 	@GetMapping("/animalboard/boardFrm")
@@ -83,21 +84,42 @@ public class AnimalBoardController {
 	}
 	
 	@RequestMapping("/animalboard/insertBoard") 
-	public String insertBoard(AnimalBoard animal, RedirectAttributes redirectAttr){
+	public String insertBoard(AnimalBoard animal, RedirectAttributes redirectAttr, HttpServletRequest req){
 		//로그인한 사용자 아이디
 		animal.setUserId("honggd");
 		log.debug("animal = {}", animal);
 		
+		String sido = (String)req.getParameter("sido");
+		String sigugun = (String)req.getParameter("sigugun");
+		animal.setAniBoLocal(sido + " " + sigugun);
+		
 		List<AnimalAttach> boardAttachList = new ArrayList<>();
-		//파일 이름을 AnimalAttach vo에저장
-		//List에서 Map꺼내기
-		//map의 aniAtOriginalName을 attach.aniAtOriginalName에 set
-		//map의aniAtRenamedName을 attach.aniAtRenamedName에 set
-		for(int i=0; i<fileNameList.size(); i++) {
+		
+		Pattern pattern  =  Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
+
+		Matcher match = pattern.matcher(animal.getAniBoContent());
+		
+		List<String> img = new ArrayList<>();
+		
+		//이미지 태그 추출 <img src=~~~~>
+		while(match.find()) {
+			img.add(match.group());
+		}
+		
+		for(String s : img) {
+			//서버에 저장될 파일이름
+			int startRname = s.indexOf("multiupload/");
+			int endRname = s.indexOf("\"", startRname);
+			String rName = s.substring(startRname+12, endRname);
+			
+			//사용자가 업로드한 파일이름
+			int startOname = s.indexOf("\"", endRname+1);
+			int endOname = s.lastIndexOf("\"");
+			String oName = s.substring(startOname+1, endOname);
+			
 			AnimalAttach attach = new AnimalAttach();
-//			log.debug("insertBoard.aniAtOriginalName={}", fileNameList.get(i).get("aniAtOriginalName").toString());
-			attach.setAniAtOriginalName(fileNameList.get(i).get("aniAtOriginalName").toString());
-			attach.setAniAtRenamedName(fileNameList.get(i).get("aniAtRenamedName").toString());
+			attach.setAniAtOriginalName(oName);
+			attach.setAniAtRenamedName(rName);
 			//리스트로 만들기
 			boardAttachList.add(attach);
 		}
@@ -127,6 +149,68 @@ public class AnimalBoardController {
 			redirectAttr.addFlashAttribute("msg", "게시글 삭제 실패");
 		}
 		return "redirect:/animalboard";
+	}
+	
+	@GetMapping("/animalboard/updateBoardFrm")
+	public ModelAndView updateBoardFrm(@RequestParam("no") int no, ModelAndView mav) {
+		AnimalBoard animalBoard = service.selectOneBoard(no);
+		
+		mav.addObject("animalBoard", animalBoard);
+		log.debug("animalBoard = {}", animalBoard);
+		
+		mav.setViewName("animalBoard/mp-board-updateFrm");
+		return mav;
+	}
+	
+	@PostMapping("/animalboard/updateBoard")
+	public ModelAndView updateBoard(ModelAndView mav, AnimalBoard animal, HttpServletRequest req, RedirectAttributes redirectAttr) {
+		log.debug("animal = {}", animal);
+		
+		//지역처리
+		String sido = req.getParameter("sido");
+		String sigugun = req.getParameter("sigugun");
+		animal.setAniBoLocal(sido + " " + sigugun);
+		
+		Pattern pattern  =  Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
+
+		Matcher match = pattern.matcher(animal.getAniBoContent());
+		
+		List<String> imgTag = new ArrayList<>();
+		List<AnimalAttach> fileList = new ArrayList<>();
+		
+		//게시물 내용에서 img태그 추출
+		while(match.find()) {
+			imgTag.add(match.group());
+		}
+		
+		for(String s : imgTag) {
+			//img태그에서 서버에 저장된 파일이름
+			int startRname = s.indexOf("multiupload/");
+			int endRname = s.indexOf("\"", startRname);
+			String rName = s.substring(startRname+12, endRname);
+			//사용자가 올린 파일이름
+			int startOname = s.indexOf("\"", endRname+1);
+			int endOname = s.lastIndexOf("\"");
+			String oName = s.substring(startOname+1, endOname);
+			AnimalAttach attach = new AnimalAttach();
+			attach.setAniAtOriginalName(oName);
+			attach.setAniAtRenamedName(rName);
+			fileList.add(attach);
+		}
+		//animalBoard vo에 list로 넣기
+		animal.setAttachList(fileList);
+		try {
+			//기존파일지우고 다시쓰기....
+			int result1 = service.deleteAttach(animal.getAniBoId());
+			int result2 = service.updateBoard(animal);
+			redirectAttr.addFlashAttribute("msg", "게시글 수정 성공");
+		} catch(Exception e) {
+			log.error("게시글 수정 오류", e);
+			redirectAttr.addFlashAttribute("msg", "게시글수정 실패");
+		}
+		
+		mav.setViewName("redirect:/animalboard/boardView?no="+animal.getAniBoId());
+		return mav;
 	}
 	
 	@PostMapping("/animalboard/insertComment")
@@ -171,6 +255,37 @@ public class AnimalBoardController {
 			redirectAttr.addFlashAttribute("msg", "댓글 수정 실패");
 		}
 		return "redirect:/animalboard/boardView?no="+aniComment.getAniBoId();
+	}
+	
+	//검색 ajax
+	@PostMapping("/animalboard/search")
+	public @ResponseBody Map<String, Object> search(HttpServletRequest req, AnimalBoard animal) {
+		//사용자 입력값
+		String sido = (String)req.getParameter("sido");
+		String sigugun = (String)req.getParameter("sigugun");
+		if(sigugun != null && !"".equals(sigugun))
+			animal.setAniBoLocal(sido + " " + sigugun);
+
+		animal.setAniBoGender(req.getParameterValues("aniBoGender"));
+		animal.setAniBoAge(req.getParameterValues("aniBoAge"));
+		animal.setAniBoSize(req.getParameterValues("aniBoSize"));
+		animal.setAniBoHair(req.getParameterValues("aniBoHair"));
+		animal.setAniBoColor(req.getParameterValues("aniBoColor"));
+
+		log.debug("animal={}", animal);
+		
+		//업무로직
+		List<AnimalBoard> boardList = service.searchBoardList(animal);
+		List<AnimalAttach> fileList = service.selectAttachList();
+//		log.debug("boardList = {}", boardList);
+//		log.debug("fileList = {}", fileList);
+
+		//뷰단 처리
+		Map<String, Object> result = new HashMap<>();
+		result.put("boardList", boardList);
+		result.put("fileList", fileList);
+		
+		return result;
 	}
 	
 	//이 아래로는 파일 관련
@@ -306,23 +421,10 @@ public class AnimalBoardController {
 				sFileInfo += "&sFileName="+ filename; 
 				sFileInfo += "&sFileURL="+"/petever/resources/editor/multiupload/"+realFileNm;
 				
-				log.debug("sFileInfo = {}", sFileInfo);
-				
-				Map<String, String> fileNameMap = new HashMap<>();
-				
-				fileNameMap.put("aniAtOriginalName", filename);
-				fileNameMap.put("aniAtRenamedName", realFileNm);
-				fileNameList.add(fileNameMap);
-				
-				log.debug("filename = " + filename);
-				log.debug("rfilename = " + realFileNm);
-				
 				PrintWriter print = response.getWriter();
 				print.print(sFileInfo);
 				print.flush();
 				print.close();
-
-				log.debug("list={}", fileNameList);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

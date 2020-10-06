@@ -1,6 +1,7 @@
 package com.kh.petever.animalboard.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,8 +29,8 @@ public class AnimalBoardServiceimpl implements AnimalBoardService {
 		//1.board 테이블에 insert
 		result = dao.insertBoard(animal);
 		log.debug("result = {}", result);
-//		if(result == 0)
-//			throw new Exception("게시글 등록 오류");
+		if(result == 0)
+			throw new RuntimeException("게시글 등록 오류");
 		
 //		2.attachment 테이블에 insert
 		//첨부파일 수 만큼 행추가
@@ -41,8 +42,8 @@ public class AnimalBoardServiceimpl implements AnimalBoardService {
 				log.debug("attach = {}", attach);
 				result = dao.insertAttachment(attach);
 				
-//				if(result == 0)
-//					throw new Exception("첨부파일 등록 오류");
+				if(result == 0)
+					throw new RuntimeException("첨부파일 등록 오류");
 			}
 		}
 		
@@ -92,6 +93,44 @@ public class AnimalBoardServiceimpl implements AnimalBoardService {
 	@Override
 	public int editComment(AnimalComment aniComment) {
 		return dao.editComment(aniComment);
+	}
+
+	@Override
+	public List<AnimalBoard> searchBoardList(AnimalBoard animal) {
+		return dao.searchBoardList(animal);
+	}
+	
+	@Override
+	public int deleteAttach(int aniBoId) {
+		return dao.deleteAttach(aniBoId);
+	}
+
+	@Override
+	public int updateBoard(AnimalBoard animal) {
+		int result = 0;
+		
+		//1.board 테이블에 update
+		result = dao.updateBoard(animal);
+		log.debug("result = {}", result);
+		if(result == 0)
+			throw new RuntimeException("게시글 수정 오류");
+		
+//		2.attachment 테이블에 update
+		//첨부파일 수 만큼 행추가
+		List<AnimalAttach> attachList = animal.getAttachList();
+		//첨부파일이 있는 경우
+		if(attachList != null) {
+			for(AnimalAttach attach : attachList) {
+				attach.setAniBoId(animal.getAniBoId());
+				log.debug("attach = {}", attach);
+				result = dao.insertAttachment(attach);
+				
+				if(result == 0)
+					throw new RuntimeException("첨부파일 등록 오류");
+			}
+		}
+		
+		return result;
 	}
 	
 	
