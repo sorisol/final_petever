@@ -19,7 +19,7 @@ drop table animal_board;
 drop table review_attach;
 drop table review_comment;
 drop table review_board;
-drop table tb_user;
+drop table user;
 ------------------------------
 
 ------------------------------ 
@@ -36,7 +36,15 @@ CREATE TABLE tb_user (
     constraints pk_user_id primary key(user_id),
     constraints ck_user_role check(user_role in ('U','A')) 
 );
-
+select 
+				*
+			from 
+				tb_user
+			where 
+				user_id = 'admin';
+select * from tb_user;
+INSERT INTO tb_user
+VALUES ('admin','1234','admin@naver.com','950609','01056549907','서울 강남구','A');
 
 --CREATE TABLE message (
 --	msg_num	NUMBER	NOT NULL,
