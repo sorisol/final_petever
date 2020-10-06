@@ -24,14 +24,14 @@ public class AnimalBoard  implements Serializable{
 	private String aniBoDate;
 	private String aniBoTag;
 	private String aniBoLocal;
-	private String[] aniBoType;
+	private String aniBoType;
 	private String aniBoKind;
 	private String[] aniBoGender;
 	private String[] aniBoAge;
 	private String[] aniBoSize;
 	private String[] aniBoHair;
 	private String[] aniBoColor;
-	private String[] aniBoCha;
+	private String aniBoCha;
 	private String aniBoMissDate;
 	
 	private List<AnimalAttach> attachList;

@@ -17,8 +17,8 @@
     border-radius: 40px 0 40px 0;
 }
 
-.post-wrap {
-    width: 980px;
+.content-wrap .post-wrap {
+    width: 915px;
     margin: 0 auto;
     overflow: hidden;
 }
@@ -77,16 +77,38 @@ hr {
 }
 
 /*상단 검색부분*/
-.preference {
+.pet-info {
     width: 883px;
     margin: 0 auto;
     text-align: left;
     border-collapse: collapse;
 }
 
-.preference th,
+.pet-info th,
 td {
     padding: 5px 10px;
+}
+.pet-info tr td select {
+    height: 36px;
+    border: 1px solid #ebecef;
+	
+}
+.pet-info tr td select:focus {
+    border: 1px solid #FFDD93;
+	outline: 1px solid #FFDD93;
+}
+#top-search-btn {
+	float: right;
+	width: 68px;
+    height: 36px;
+    border: 1px solid #FFDD93;
+    background-color: #FFDD93;
+    color: #373b44;
+    font-size: 16px;
+    font-weight: bold;
+}
+#top-search-btn:focus {
+	outline-color: #f2aa8a;	
 }
 
 /*하단 검색부분*/
@@ -138,11 +160,10 @@ td {
     background-color: #FFDD93;
     color: #373b44;
     font-size: 16px;
-    /* margin: 0px 0px 0px -5px; */
-    outline: none;
-    cursor: pointer;
     font-weight: bold;
-    
+}
+.search-wrap button:focus {
+	outline-color: #f2aa8a;	
 }
 .post .tag {
 	font-size: 20px;
@@ -170,5 +191,5 @@ td {
     font-weight: bold;
 }
 .write-btn:focus {
-	outline-color: #FFDD93;	
+	outline-color: #f2aa8a;	
 }

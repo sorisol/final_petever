@@ -78,5 +78,15 @@ public class AnimalBoardDAOImpl implements AnimalBoardDAO {
 	public List<AnimalBoard> searchBoardList(AnimalBoard animal) {
 		return sqlSession.selectList("animalBoard.searchBoardList", animal);
 	}
+
+	@Override
+	public int deleteAttach(int aniBoId) {
+		return sqlSession.delete("animalBoard.deleteAttach", aniBoId);
+	}
+
+	@Override
+	public int updateBoard(AnimalBoard animal) {
+		return sqlSession.update("animalBoard.updateBoard", animal);
+	}
 	
 }

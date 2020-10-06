@@ -84,17 +84,21 @@
 	                                <input type="checkbox" name="aniBoSize" id="weight-15" value="10">
 	                                <label for="weight-15">10kg 이상</label>
 	                            </td>
-	                            <th>상태</th>
+	                            <th>털길이</th>
 	                            <td>
-	                                <input type="checkbox" name="state" id="state-ing" value="보호">
-	                                <label for="state-ing">보호중</label>
+	                                <input type="checkbox" name="aniBoHair" id="hair-s" value="단모종">
+	                                <label for="hair-s">단모종</label>
 	                            </td>
 	                            <td>
-	                                <input type="checkbox" name="state" id="stage-end" value="종료">
-	                                <label for="stage-end">종료</label>
+	                                <input type="checkbox" name="aniBoHair" id="hair-l" value="장모종">
+	                                <label for="hair-l">장모종</label>
 	                            </td>
 	                        </tr>
 	                        <tr>
+	                        	<th>품종</th>
+	                        	<td colspan="3">
+	                        		<select name="aniBoKind" id="aniBoKind"></select>
+	                        	</td>
 	                        	<th>지역</th>
 	                        	<td>
 	                        		<select class="org" name="sido" id="sido"></select>
@@ -102,10 +106,7 @@
 	                        	<td>
 	                        		<select class="org" name="sigugun" id="sigugun"></select>
 	                        	</td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td colspan="2">
+	                        	<td>
 	                        		<button type="button" id="top-search-btn" onclick="searchFunc();">조회</button>
 	                        	</td>
 	                        </tr>
@@ -296,7 +297,49 @@ $(function() {
            else if(tag[i].innerHTML == '[보호]')
                tag[i].setAttribute('class', 'tag protect');
            
-       }
+   	}
+   	
+	//강아지, 고양이 별 종
+    $("input[name=aniBoType]").change(function() {
+		var $breed = $(this).val();
+		var $selectTag = $("#aniBoKind");
+		if($breed == '개'){
+			$selectTag.html('');
+			$selectTag.append('<option value="믹스견">믹스견</option>');
+			$selectTag.append('<option value="리트리버">리트리버</option>');
+			$selectTag.append('<option value="말티즈">말티즈</option>');
+			$selectTag.append('<option value="불독">불독</option>');
+			$selectTag.append('<option value="비숑프리제">비숑프리제</option>');
+			$selectTag.append('<option value="시츄">시츄</option>');
+			$selectTag.append('<option value="요크셔테리어">요크셔테리어</option>');
+			$selectTag.append('<option value="치와와">치와와</option>');
+			$selectTag.append('<option value="포메라니안">포메라니안</option>');
+			$selectTag.append('<option value="푸들">푸들</option>');
+		}
+		else if($breed == '고양이'){
+			$selectTag.html('');
+			$selectTag.append('<option value="코리안숏헤어">코리안숏헤어</option>');
+			$selectTag.append('<option value="노르웨이숲">노르웨이숲</option>');
+			$selectTag.append('<option value="러시안블루">러시안블루</option>');
+			$selectTag.append('<option value="렉돌">렉돌</option>');
+			$selectTag.append('<option value="먼치킨">먼치킨</option>');
+			$selectTag.append('<option value="뱅갈">뱅갈</option>');
+			$selectTag.append('<option value="브리티쉬숏헤어">브리티쉬숏헤어</option>');
+			$selectTag.append('<option value="샴">샴</option>');
+			$selectTag.append('<option value="스코티쉬폴드">스코티쉬폴드</option>');
+			$selectTag.append('<option value="터키쉬앙고라">터키쉬앙고라</option>');
+		}
+		else {
+			$selectTag.html('');
+		}
+    });
+    //동물종류 라디오버튼처럼 작동
+    $("[name=aniBoType]").on('change', function() {
+       	if($(this).prop('checked')) {
+       		$('[name=aniBoType]').prop('checked', false);
+			$(this).prop('checked', true);
+		} 
+    });
 		
     var area0 = ["서울특별시", "인천광역시", "대전광역시", "광주광역시", "대구광역시", "울산광역시", "부산광역시", "경기도", "강원도", "충청북도", "충청남도", "전라북도", "전라남도", "경상북도", "경상남도", "제주도"];
     var area1 = ["강남구", "강동구", "강북구", "강서구", "관악구", "광진구", "구로구", "금천구", "노원구", "도봉구", "동대문구", "동작구", "마포구", "서대문구", "서초구", "성동구", "성북구", "송파구", "양천구", "영등포구", "용산구", "은평구", "종로구", "중구", "중랑구"];

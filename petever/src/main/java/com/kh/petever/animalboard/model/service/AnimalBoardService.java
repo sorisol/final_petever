@@ -31,4 +31,8 @@ public interface AnimalBoardService {
 
 	List<AnimalBoard> searchBoardList(AnimalBoard animal);
 
+	int deleteAttach(int aniBoId);
+
+	int updateBoard(AnimalBoard animal);
+
 }
