@@ -140,8 +140,8 @@
 }
 
 .btn {
-    width: 180px;
-    height: 50px;
+    width: 150px;
+    height: 45px;
     float: left;
     background-color: #FFDD93;
     border: 1px solid #FFDD93;
@@ -163,6 +163,7 @@ input[type="submit"]{
     border: 1px solid #e8c2b7;
     border-bottom: 3px solid #e8c2b7;
     margin-right: 10px;
+    margin-left: 35px;
 }
 
 #ssg-addr-label {

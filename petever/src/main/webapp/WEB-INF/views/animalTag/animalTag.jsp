@@ -167,15 +167,22 @@
         });
 
         function previewReset() {
-            $(".ani-img").css('background-color', '');
-            $(".ani-img-2").css('background-color', '');
-            $(".animal-tag-font").css("font-family", '');
-            $("#preview-name").text('');
-            $("#preview-birth").text('');
-            $("#preview-gender").text('');
-            $("#preview-ssn").text('');
-            $("#preview-person-name").text('');
-            $("#preview-person-phone").text('');
+			var result = confirm("초기화 하시겠습니까??");
+			if(result){
+	            $("#ani-info-tag1").css('background-image', '');
+	            $("#ani-info-tag2").css('background-image', '');
+	            $(".animal-tag-font").css("font-family", '');
+	            $("#preview-name").text('');
+	            $("#preview-birth").text('');
+	            $("#preview-gender").text('');
+	            $("#preview-ssn").text('');
+	            $("#preview-person-name").text('');
+	            $("#preview-person-phone").text('');
+	            document.forms[0].reset();
+			} else {
+				return false;
+			}
+            
         }
 
 		
@@ -207,7 +214,7 @@
                         <label class="preview-label preview-back" for="">뒷면</label>
                     </div>
                     <div class="animal-tag-select">
-                        <form action="" method="POST">
+                        <form action="${ pageContext.request.contextPath }/animalTag/animalTag.do" method="POST" >
                             <h4>색상</h4>
                             <input type="radio" name="color" id="green" value="green">
                             <label class="ani-radio" for="green">그린</label>
@@ -254,20 +261,20 @@
                             
 							<h4>배송지 입력</h4>
 							<label for="ssg-name" class="ani-label ssg">이름</label>
-                            <input type="text" name="name" id="ssg-name" placeholder="받으실분 이름">
+                            <input type="text" name="ssg_name" id="ssg-name" placeholder="받으실분 이름">
                             <br />
 							<label for="ssg-tel" class="ani-label ssg">핸드폰번호</label>
-                            <input type="text" name="tel" id="ssg-tel" placeholder="받으실분 전화번호">
+                            <input type="text" name="ssg_tel" id="ssg-tel" placeholder="받으실분 전화번호">
                             <br />
 							<label for="ssg-addr" class="ani-label ssg" id="ssg-addr-label" >주소</label>
-                            <input type="text" name="addr1" id="ssg-addr1" placeholder="메인 주소">
+                            <input type="text" name="ssg_addr1" id="ssg-addr1" placeholder="메인 주소">
                             <button id="addr-search">주소찾기</button>
-                            <input type="text" name="addr2" id="ssg-addr2" placeholder="세부 주소">
+                            <input type="text" name="ssg_addr2" id="ssg-addr2" placeholder="세부 주소">
                             
 							
                             
                             <input class="btn" type="submit" value="구매">
-                            <input class="btn" type="reset" value="초기화" onclick="previewReset();">
+                            <input class="btn" type="button" value="초기화" onclick="previewReset();">
                         </form>
                     </div>
                 </div>

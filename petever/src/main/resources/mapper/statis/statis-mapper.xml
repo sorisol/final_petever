@@ -11,7 +11,7 @@
 			#{ colorCd }, #{ age }, #{ weight }, #{ noticeNo }, to_date(#{ noticeSdt }, 'yyyymmdd'),
 			to_date(#{ noticeEdt }, 'yyyymmdd'), #{ popfile }, #{ processState }, #{ genderCd }, #{ neuterYn },
 			#{ SpecialMark }, #{ careNm }, #{ careTel }, #{ careAddr }, #{ orgNm },
-			#{ chargeNm }, #{ officetel }
+			#{ chargeNm }, #{ officetel } , null, null
 		)
 	</insert>
 

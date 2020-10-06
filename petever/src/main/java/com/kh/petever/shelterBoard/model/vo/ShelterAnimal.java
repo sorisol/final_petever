@@ -18,6 +18,7 @@ public class ShelterAnimal implements Serializable {
 	
 	private String desertionNo; // 유기번호 
 	private String fileName; //Thumbnail Image;
+//	private String happenDt; //접수일 (YYYYMMDD)
 	private Date happenDt; //접수일 (YYYYMMDD)
 	private String happenPlace; //발견장소
 	private String kindCd; //품종
@@ -25,6 +26,8 @@ public class ShelterAnimal implements Serializable {
 	private String age; //나이
 	private String weight; //무게
 	private String noticeNo; //공고번호
+//	private String noticeSdt; //공고 시작일 (YYYYMMDD)
+//	private String noticeEdt; //공고 종료일 (YYYYMMDD)
 	private Date noticeSdt; //공고 시작일 (YYYYMMDD)
 	private Date noticeEdt; //공고 종료일 (YYYYMMDD)
 	private String popfile; //image
