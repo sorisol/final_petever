@@ -207,7 +207,7 @@
                         <label class="preview-label preview-back" for="">뒷면</label>
                     </div>
                     <div class="animal-tag-select">
-                        <form action="" method="GET">
+                        <form action="" method="POST">
                             <h4>색상</h4>
                             <input type="radio" name="color" id="green" value="green">
                             <label class="ani-radio" for="green">그린</label>
@@ -215,6 +215,7 @@
                             <label class="ani-radio" for="blue">블루</label>
                             <input type="radio" name="color" id="ivory" value="ivory">
                             <label class="ani-radio" for="ivory">아이보리</label>
+                            <br />
                             <input type="radio" name="color" id="pink" value="pink">
                             <label class="ani-radio" for="pink">핑크</label>
                             <input type="radio" name="color" id="brown" value="brown">
@@ -228,27 +229,43 @@
                             <input type="radio" name="font" id="font_Sunflower" value="Sunflower">
                             <label class="ani-radio font_Sunflower" for="font_Sunflower">선플라워체</label>
                             <br>
-                            <label for="ani-name" class="ani-label">동물이름</label>&nbsp;
-                            <input type="text" name="aniName" id="ani-name">
+                            <label for="ani-name" class="ani-label">동물이름</label>
+                            <input type="text" name="aniName" id="ani-name" placeholder="동물 이름">
                             <br>
-                            <label for="ani-birth" class="ani-label">동물생년월일</label>&nbsp;
+                            <label for="ani-birth" class="ani-label">동물생년월일</label>
                             <input type="date" name="aniBirth" id="ani-birth">
                             <br>
-                            <label for="ani-gender" class="ani-label">동물성별</label>&nbsp;
+                            <label for="ani-gender" class="ani-label">동물성별</label>
                             <input type="radio" name="aniGender" id="ani-gender-m">
                             <label class="ani-radio" for="ani-gender-m">수컷</label>
                             <input type="radio" name="aniGender" id="ani-gender-f">
                             <label class="ani-radio" for="ani-gender-f">암컷</label>
                             <br>
-                            <label for="ani-ssn" class="ani-label">동물등록번호</label>&nbsp;
-                            <input type="text" name="aniSsn" id="ani-ssn">
+                            <label for="ani-ssn" class="ani-label">동물등록번호</label>
+                            <input type="text" name="aniSsn" id="ani-ssn" placeholder="동물등록번호">
                             <br>
-                            <label for="person-name" class="ani-label">보호자 이름</label>&nbsp;
-                            <input type="text" name="personName" id="person-name">
+                            <label for="person-name" class="ani-label">보호자 이름</label>
+                            <input type="text" name="personName" id="person-name" placeholder="보호자 이름">
                             <br>
-                            <label for="person-phone" class="ani-label">보호자 전화번호</label>&nbsp;
-                            <input type="text" name="personPhone" id="person-phone">
-                            <br>
+                            <label for="person-phone" class="ani-label">보호자 전화번호</label>
+                            <input type="text" name="personPhone" id="person-phone" placeholder="보호자 전화번호">
+                            
+                            <hr/>
+                            
+							<h4>배송지 입력</h4>
+							<label for="ssg-name" class="ani-label ssg">이름</label>
+                            <input type="text" name="name" id="ssg-name" placeholder="받으실분 이름">
+                            <br />
+							<label for="ssg-tel" class="ani-label ssg">핸드폰번호</label>
+                            <input type="text" name="tel" id="ssg-tel" placeholder="받으실분 전화번호">
+                            <br />
+							<label for="ssg-addr" class="ani-label ssg" id="ssg-addr-label" >주소</label>
+                            <input type="text" name="addr1" id="ssg-addr1" placeholder="메인 주소">
+                            <button id="addr-search">주소찾기</button>
+                            <input type="text" name="addr2" id="ssg-addr2" placeholder="세부 주소">
+                            
+							
+                            
                             <input class="btn" type="submit" value="구매">
                             <input class="btn" type="reset" value="초기화" onclick="previewReset();">
                         </form>
@@ -259,7 +276,7 @@
 				    <ul id="slider">
 				        <li>
 				            <div>
-				                <h3>제품이미지</h3>
+				                <h3>제품이미지#1</h3>
 				                <span></span>
 				            </div>
 				            <img src="${pageContext.request.contextPath}/resources/images/tag1.jpg" alt="">
@@ -267,18 +284,39 @@
 				
 				        <li>
 				            <div>
-				                <h3>사용예시#1</h3>
+				                <h3>제품이미지#2</h3>
+				                <span></span>
+				            </div>
+				            <img src="${pageContext.request.contextPath}/resources/images/tag2.jpg" alt="">
+				        </li>
+				
+				        <li>
+				            <div>
+				                <h3>제품이미지#3</h3>
 				                <span></span>
 				            </div>
 				            <img src="${pageContext.request.contextPath}/resources/images/tag3.jpg" alt="">
 				        </li>
-				
+				        <li>
+				            <div>
+				                <h3>사용예시#1</h3>
+				                <span></span>
+				            </div>
+				            <img src="${pageContext.request.contextPath}/resources/images/tag4.jpg" alt="">
+				        </li>
 				        <li>
 				            <div>
 				                <h3>사용예시#2</h3>
 				                <span></span>
 				            </div>
-				            <img src="${pageContext.request.contextPath}/resources/images/tag2.jpg" alt="">
+				            <img src="${pageContext.request.contextPath}/resources/images/tag5.jpg" alt="">
+				        </li>
+				        <li>
+				            <div>
+				                <h3>사용예시#3</h3>
+				                <span></span>
+				            </div>
+				            <img src="${pageContext.request.contextPath}/resources/images/tag6.jpg" alt="">
 				        </li>
 				    </ul>
 				
