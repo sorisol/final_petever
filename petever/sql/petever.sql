@@ -36,6 +36,7 @@ CREATE TABLE tb_user (
     constraints pk_user_id primary key(user_id),
     constraints ck_user_role check(user_role in ('U','A')) 
 );
+<<<<<<< HEAD
 select 
 				*
 			from 
@@ -45,6 +46,12 @@ select
 select * from tb_user;
 INSERT INTO tb_user
 VALUES ('admin','1234','admin@naver.com','950609','01056549907','서울 강남구','A');
+=======
+--컬럼길이수정
+alter table tb_user modify (user_local varchar2(100));
+commit;
+
+>>>>>>> branch 'master' of https://github.com/rato12/petever.git
 
 --CREATE TABLE message (
 --	msg_num	NUMBER	NOT NULL,
@@ -257,3 +264,5 @@ select
     count(case when org_nm like '%제주%' then 1 end) as l
 from shelterAnimal
 where process_state like '%안락사%' or process_state like '%자연사%';
+
+commit;
