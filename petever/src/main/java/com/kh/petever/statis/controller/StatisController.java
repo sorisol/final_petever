@@ -37,7 +37,7 @@ public class StatisController {
 	@PostMapping("/statisXml.do")
 //	@RequestMapping(value="/statis.do" , method = {RequestMethod.GET, RequestMethod.POST})
 	public String statisXml(ShelterAnimal statis) {
-		String serviceKey = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/abandonmentPublic?bgnde=20190101&endde=20200925&pageNo=3&numOfRows=100000&ServiceKey=8K6TziMrpfFbxxnak21vb%2B1P77px04rGI6I5hJxhxlzk2pcZzthYznTc9ZfSOox93LUNH3Z1PbMaF%2FVk62rUjQ%3D%3D";
+		String serviceKey = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/abandonmentPublic?bgnde=20190101&endde=20201015&pageNo=3&numOfRows=100000&ServiceKey=8K6TziMrpfFbxxnak21vb%2B1P77px04rGI6I5hJxhxlzk2pcZzthYznTc9ZfSOox93LUNH3Z1PbMaF%2FVk62rUjQ%3D%3D";
 		
 		DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;

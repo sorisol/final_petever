@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&family=Sunflower:wght@500&display=swap');
+
 .main {
     width: 1440px;
     height: 716px;
-    background: url("img/sub2.jpg") no-repeat center;
+    background: url("../images/sub2.jpg") no-repeat center;
     background-size: 1440px;
     margin: 0 auto;
 }
@@ -18,45 +20,49 @@
 
 .animal-tag-preview {
     width: 390px;
-    height: 520px;
+    height: 850px;
     border: 1px solid #6d6e71;
     border-radius: 10px;
     float: left;
     padding: 20px;
     text-align: center;
+    background: url("../images/animalTag_back2.png") no-repeat bottom;
 }
 
 #ani-info-tag1 {
-    margin-left: auto;
-    margin-right: auto;
+/*     margin-left: auto;
+    margin-right: auto; */
+    margin: 15px auto;
     background-repeat: no-repeat;
     background-size: cover;
-    width: 210px;
-    height: 235px;
+	width: 200px;
+    height: 245px;
 }
 
 #ani-info-tag2 {
     margin-left: auto;
     margin-right: auto;
+    margin-top: 30px;
+/*     margin: 15px auto; */
     background-repeat: no-repeat;
     background-size: cover;
-    width: 210px;
-    height: 235px;
+    width: 200px;
+    height: 245px;
 }
 
 .animal-tag-font {
     display: inline-block;
-    text-shadow: 1px 1px 0 darkgrey;
+    text-shadow: 0px 0px 2px black;
     font-size: 18px;
 }
 
 #preview-name {
-    margin-top: 110px;
+    margin-top: 120px;
     font-size: 25px;
 }
 
 #preview-person-name {
-    margin-top: 135px;
+    margin-top: 140px;
     font-size: 25px;
 }
 
@@ -72,7 +78,7 @@
 
 .animal-tag-select {
     width: 390px;
-    height: 520px;
+    height: 850px;
     border: 1px solid #6d6e71;
     border-radius: 10px;
     float: left;
@@ -82,16 +88,38 @@
 
 .animal-tag-select h4 {
     margin-bottom: 10px;
+    margin-left: 25px;
 }
 
 .animal-tag-select input {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+}
+
+.animal-tag-select input[type=radio] {
+    width: 15px;
+    height: 15px;
+    margin-left: 35px;
+}
+
+.animal-tag-select input[type=text],
+.animal-tag-select input[type=date] {
+    width: 200px;
+    height: 35px;
+    border: solid 1px #dadada;
+    border-radius: 10px;
+    padding: 10px 14px 10px 14px;
+    box-sizing: border-box;
+    background: #fff;
+    margin-left: 5px;
+
 }
 
 .ani-label {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
-
+    width: 130px;
+    display: inline-block;
+    margin-left: 25px;
 }
 
 .ani-radio {
@@ -100,21 +128,20 @@
 }
 
 .font_DoHyeon {
-    font-family: 'Do Hyeon', sans-serif;
-
+    font-family: 'Do Hyeon', sans-serif !important;
 }
 
 .font_Jua {
-    font-family: 'Jua', sans-serif;
+    font-family: 'Jua', sans-serif !important;
 }
 
 .font_Sunflower {
-    font-family: 'Sunflower', sans-serif;
+    font-family: 'Sunflower', sans-serif !important;
 }
 
 .btn {
-    width: 180px;
-    height: 50px;
+    width: 150px;
+    height: 45px;
     float: left;
     background-color: #FFDD93;
     border: 1px solid #FFDD93;
@@ -136,4 +163,170 @@ input[type="submit"]{
     border: 1px solid #e8c2b7;
     border-bottom: 3px solid #e8c2b7;
     margin-right: 10px;
+    margin-left: 35px;
+}
+
+#ssg-addr-label {
+	display: block;
+    margin-bottom: 20px;
+}
+
+#ssg-addr1 {
+    margin-left: 25px;
+    width: 270px;
+}
+
+#ssg-addr2 {
+    margin-left: 25px;
+    width: 339px;
+}
+
+#addr-search {
+    height: 35px;
+    padding: 6px;
+    font-weight: 600;
+    border-radius: 10px;
+    background: beige;
+    border: solid 2px khaki;
+}
+
+hr {
+	margin-bottom: 20px;
+}
+
+
+/* slide */
+#slider-wrap {
+    width: 900px;
+    height: 600px;
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+#slider-wrap ul#slider {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#slider-wrap ul#slider li {
+    float: left;
+    position: relative;
+    width: 600px;
+    height: 600px;
+}
+
+#slider-wrap ul#slider li>div {
+    position: absolute;
+    top: 20px;
+    left: 35px;
+}
+
+#slider-wrap ul#slider li>div h3 {
+    font-size: 30px;
+    text-transform: uppercase;
+    font-family: Do Hyeon !important;
+}
+
+#slider-wrap ul#slider li>div span {
+    font-size: 21px;
+}
+
+#slider-wrap ul#slider li img {
+    display: block;
+    width: 900px;
+    height: 600px;
+}
+
+/*btns*/
+.slider-btns {
+    position: absolute;
+    width: 50px;
+    height: 60px;
+    top: 50%;
+    margin-top: -25px;
+    line-height: 57px;
+    text-align: center;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -ms-user-select: none;
+    -webkit-transition: all 0.1s ease;
+    -o-transition: all 0.1s ease;
+    transition: all 0.1s ease;
+}
+
+.slider-btns:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+#next {
+    right: -50px;
+    border-radius: 7px 0px 0px 7px;
+    color: #eee;
+}
+
+#previous {
+    left: -50px;
+    border-radius: 0px 7px 7px 7px;
+    color: #eee;
+}
+
+#slider-wrap.active #next {
+    right: 0px;
+}
+
+#slider-wrap.active #previous {
+    left: 0px;
+}
+
+/*bar*/
+#slider-pagination-wrap {
+    min-width: 20px;
+    margin-top: 560px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 15px;
+    position: relative;
+    text-align: center;
+}
+
+#slider-pagination-wrap ul {
+    width: 100%;
+}
+
+#slider-pagination-wrap ul li {
+    margin: 0 4px;
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #fff;
+    opacity: 0.5;
+    position: relative;
+    top: 0;
+}
+
+#slider-pagination-wrap ul li.active {
+    width: 12px;
+    height: 12px;
+    top: 3px;
+    opacity: 1;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.1) 1px 1px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 1px 0px;
+}
+
+/*ANIMATION*/
+#slider-wrap ul,
+#slider-pagination-wrap ul li {
+    -webkit-transition: all 0.3s cubic-bezier(1, .01, .32, 1);
+    -o-transition: all 0.3s cubic-bezier(1, .01, .32, 1);
+    transition: all 0.3s cubic-bezier(1, .01, .32, 1);
 }
