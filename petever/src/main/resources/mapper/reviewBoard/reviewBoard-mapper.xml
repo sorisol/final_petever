@@ -3,13 +3,20 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="reviewBoard">
-<!-- 	<select id="selectReviewBoard" resultMap="reviewBoardMap">
-
+<!-- <select id="selectReviewBoardList" resultMap="reviewBoardMap">
+	select 
+		rew_bo_id,
+		user_id,
+		rew_bo_title,
+		rew_bo_content,
+		rew_bo_reg_date
+	from review_board
+	order by rew_bo_id desc
 	</select>
 	
 	<resultMap id="reviewBoardMap" type="review">
 	
-	</resultMap> -->
-	
+	</resultMap>
+	 -->
 	
 </mapper>

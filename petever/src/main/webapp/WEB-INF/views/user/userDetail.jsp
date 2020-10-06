@@ -28,14 +28,14 @@
             <%--     <input type="text" class="form-control" placeholder="주소" name="userLocal" value="${loginUser.userLocal}" id="userLocal">
                --%>
             <div class="form-group">                   
-			<input class="form-control" placeholder="우편번호" name="addr1" id="addr1" type="text" readonly="readonly" >
-			    <button type="button" class="btn btn-default" onclick="execPostCode();"><i class="fa fa-search"></i> 우편번호 찾기</button>                               
+		<!-- 	<input class="form-control" placeholder="우편번호" name="addr1" id="addr1" type="text" readonly="readonly" >
+			 -->    <button type="button" class="btn btn-default" onclick="execPostCode();"><i class="fa fa-search"></i> 우편번호 찾기</button>                               
 			</div>
 			<div class="form-group">
-			    <input class="form-control"placeholder="도로명 주소" name="addr2" id="addr2" type="text" readonly="readonly" />
+			    <input class="form-control" name="addr2" id="addr2" type="text" value="${loginUser.userLocal}" readonly="readonly" />
 			</div>
 			<div class="form-group">
-			    <input class="form-control" placeholder="상세주소" name="addr3" id="addr3" type="text"  />
+			    <input class="form-control" name="addr3" id="addr3" type="text"  />
 			</div> 
              
                 <button type = "submit" class="btn btn-outline-success" >회원정보수정</button>
