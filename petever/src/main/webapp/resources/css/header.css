@@ -111,7 +111,7 @@ aside .dep_2 li {
     z-index: 1;
     display:none;
 }
-svg {
+#loading {
 	width: 200px;
 	height: 400px;
 	display: flex;

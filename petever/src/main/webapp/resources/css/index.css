@@ -147,3 +147,8 @@
             background-color: #55423B;
             color:white;
         }
+        
+        .stats-wrap ul li:hover{
+        	background-color: #55423B;
+            color:white;
+        }

@@ -87,4 +87,18 @@
 		<id column="count(*)" property="cnt"></id>
 		<result column="org_nm" property="state" jdbcType="VARCHAR" javaType="java.lang.String"></result>
 	</resultMap>
+	
+	<select id="selectListMain" resultMap="statisList">
+		select count(*),process_state from shelterAnimal
+		where
+	  <foreach item="item" collection="searchArea" open="org_nm like " separator=" or org_nm like " close="">
+		 #{item}
+      </foreach>
+      group by process_state having process_state not like '%미포획%'
+	</select>
+	
+	<select id="selectListKind" resultMap="statisList">
+		select count(*),process_state from shelterAnimal where kind_cd like #{kind} group by process_state having process_state not like '%미포획%'
+		order by process_state
+	</select>
 </mapper>

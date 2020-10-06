@@ -51,4 +51,14 @@ public class StatisServiceImpl implements StatisService {
 		return statisDao.adoptStatisSearch(areaArr);
 	}
 
+	@Override
+	public List<StatisList> selectList(List<String> searchArea) {
+		return statisDao.selectList(searchArea);
+	}
+
+	@Override
+	public List<StatisList> selectList(String kind) {
+		return statisDao.selectList(kind);
+	}
+
 }

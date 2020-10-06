@@ -34,7 +34,12 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public int userDelete(User user) {
 		return sqlSession.delete("user.userDelete", user);
-	
-		
 	}
+
+	@Override
+	public int idChk(User user) {
+		return sqlSession.selectOne("user.idChk", user);
+	}
+	
+	
 }

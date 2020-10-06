@@ -17,8 +17,8 @@
     border-radius: 40px 0 40px 0;
 }
 
-.post-wrap {
-    width: 980px;
+.content-wrap .post-wrap {
+    width: 915px;
     margin: 0 auto;
     overflow: hidden;
 }
@@ -51,7 +51,7 @@ span {
 }
 
 /*첫번째 이미지만 보여주기*/
-.post > img:first-child {
+.post> a> img:first-child {
 	display: block;
 }
 .post img {
@@ -77,21 +77,43 @@ hr {
 }
 
 /*상단 검색부분*/
-.preference {
+.pet-info {
     width: 883px;
     margin: 0 auto;
     text-align: left;
     border-collapse: collapse;
 }
 
-.preference th,
+.pet-info th,
 td {
     padding: 5px 10px;
 }
+.pet-info tr td select {
+    height: 36px;
+    border: 1px solid #ebecef;
+	
+}
+.pet-info tr td select:focus {
+    border: 1px solid #FFDD93;
+	outline: 1px solid #FFDD93;
+}
+#top-search-btn {
+	float: right;
+	width: 68px;
+    height: 36px;
+    border: 1px solid #FFDD93;
+    background-color: #FFDD93;
+    color: #373b44;
+    font-size: 16px;
+    font-weight: bold;
+}
+#top-search-btn:focus {
+	outline-color: #f2aa8a;	
+}
 
 /*하단 검색부분*/
-.content .search {
-    width: 400px;
+.content .search-wrap {
+    width: 420px;
     margin: 50px auto;
     text-align: center;
     overflow: hidden;
@@ -101,8 +123,8 @@ td {
     float: left;
 }
 
-.search select {
-    width: 80px;
+.search-wrap select {
+    width: 100px;
     height: 36px;
     padding: 0px 12px;
     font-size: 16px;
@@ -110,12 +132,12 @@ td {
     border: 1px solid #ebecef;
 }
 
-.search select:focus {
+.search-wrap select:focus {
     border: 1px solid #FFDD93;
     outline-color: #FFDD93;
 }
 
-.search input {
+.search-wrap input {
     width: 200px;
     height: 32px;
     padding: 0px 12px;
@@ -123,7 +145,7 @@ td {
     border: 1px solid #ebecef;
 }
 
-.search input:focus {
+.search-wrap input:focus {
     width: 202px;
     height: 34px;
     padding: 0px 12px;
@@ -131,18 +153,17 @@ td {
     outline-color: #FFDD93;
 }
 
-.search button {
+.search-wrap button {
     width: 56px;
     height: 36px;
     border: 1px solid #FFDD93;
     background-color: #FFDD93;
     color: #373b44;
     font-size: 16px;
-    /* margin: 0px 0px 0px -5px; */
-    outline: none;
-    cursor: pointer;
     font-weight: bold;
-    
+}
+.search-wrap button:focus {
+	outline-color: #f2aa8a;	
 }
 .post .tag {
 	font-size: 20px;
@@ -170,5 +191,5 @@ td {
     font-weight: bold;
 }
 .write-btn:focus {
-	outline-color: #FFDD93;	
+	outline-color: #f2aa8a;	
 }

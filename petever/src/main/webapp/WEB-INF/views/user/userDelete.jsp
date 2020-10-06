@@ -9,7 +9,8 @@
 	
 	
 		<section>
-			<form action="/user/userDelete" method="post">
+			<div class="signup">
+			<form action="userDelete.do" method="post">
 				<div class="form-group has-feedback">
 					<label class="control-label" for="userId">아이디</label>
 					<input type="text" class="form-control" name="userId" id="userId"  value="${loginUser.userId}" readonly required>

@@ -23,4 +23,8 @@ public interface StatisDao {
 
 	List<StatisList> adoptStatisSearch(List<String> areaArr);
 
+	List<StatisList> selectList(List<String> searchArea);
+
+	List<StatisList> selectList(String kind);
+
 }
