@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -154,11 +155,18 @@ public class UserController {
 	@RequestMapping(value = "/userUpdate.do",
 				method = RequestMethod.POST)
 	public ModelAndView userUpdate(User user,
-								 HttpServletRequest request){
+								 HttpServletRequest req){
 	//파라미터로 전달받지 않고 직접 객체 생성 또한 가능
 	//viewName 생성자에 전달 가능
 	ModelAndView mav = new ModelAndView("redirect:/user/userDetail.do");
 	log.debug("user = {}", user);
+	
+	//주소
+	String addr2 = req.getParameter("addr2");
+	String addr3 = req.getParameter("addr3");
+	
+	user.setUserLocal(addr2 + " " + addr3);
+	System.out.println(user);
 	
 	//1.비지니스로직 실행
 	int result = userService.updateUser(user);
@@ -174,8 +182,7 @@ public class UserController {
 		msg="회원정보수정실패!";
 	
 	//리다이렉트시 값전달하기
-	//RedirectAttributes와 동일하다.
-	FlashMap flashMap = RequestContextUtils.getOutputFlashMap(request);
+	FlashMap flashMap = RequestContextUtils.getOutputFlashMap(req);
 	flashMap.put("msg", msg);
 	
 	return mav;
@@ -208,17 +215,23 @@ public class UserController {
 		if(result == 0) {
 			rttr.addFlashAttribute("msg", "회원탈퇴 실패");
 		}
-		//session.invalidate();
 		userLogout(sessionStatus);
 		return "redirect:/";
 	}
 	
-	//아이디 중복 체크 
-	@ResponseBody
-	@RequestMapping(value="/idChk", method = RequestMethod.POST)
-	public int idChk(User user) {
-		int result = userService.idChk(user);
-		return result;
+	/*
+	 * // 아이디중복체크
+	 * 
+	 * @RequestMapping(value = "/checkIdDuplicate.do") public String idChk() {
+	 * return "user/checkIdDuplicate"; }
+	 */
+	
+	//회원정보수정페이지 연결
+	@GetMapping("/checkIdDuplicate.do")
+	public String idChk() {
+		System.out.println("접속");
+		return "user/checkIdDuplicate";
+
 	}
 
 }
