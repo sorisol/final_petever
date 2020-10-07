@@ -6,7 +6,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/login.css">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
    <section>
-        <div class="logo"></div>
         <div class="login">
             <form action="${pageContext.request.contextPath}/user/login.do" 
                   method="POST">

@@ -75,12 +75,12 @@ $(function () {
     });
 
     //체크박스 중복 체크 X
-/* 	$("input[name=kind]").click(function() {
+ 	$("input[name=kind]").click(function() {
 		if($(this).prop('checked')) {
 			$("input[name=kind]").prop('checked', false);
 			$(this).prop('checked', true);
 		}
-	}); */
+	});
 
 	$("input[name=gender]").click(function() {
 		if($(this).prop('checked')) {
@@ -247,7 +247,7 @@ $(function () {
                     			<p>나이 : <b>${ sbl.age } 살</b></p>
                     			</c:if>
                     			<hr />
-                    			<p><b>${ sbl.processState }</b></p>
+                    			<p style="float:left;"><b>${ sbl.processState }</b></p>
                     			<p><b>${ sbl.careNm }</b></p>
                     		</div>
                     	</c:forEach>

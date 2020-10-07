@@ -28,19 +28,19 @@
         <div class="main-bar">
             <ul>
             <c:if test="${ empty loginUser }">
-                <li><a href="${ pageContext.request.contextPath }/user/login.do">로그인</li>
+                <li><a href="${ pageContext.request.contextPath }/user/login.do">로그인</a></li>
                 &nbsp;
-                <li><a href="${ pageContext.request.contextPath }/user/signup.do">회원가입</li>
+                <li><a href="${ pageContext.request.contextPath }/user/signup.do">회원가입</a></li>
                 </c:if>
                 <c:if test="${not empty loginUser}">
                 <a href="#">${loginUser.userId }</a>님, 환영합니다!
                 &nbsp;
                 
-                 <li><a href="${ pageContext.request.contextPath }/user/logout.do">로그아웃</li>
+                 <li><a href="${ pageContext.request.contextPath }/user/logout.do">로그아웃</a></li>
                 
                 </c:if>
-                <li><a href="${ pageContext.request.contextPath }/user/userDetail.do">마이페이지</li>
-                <li><a href="${ pageContext.request.contextPath }/user/userDelete.do">회원탈퇴</li>
+                <li><a href="${ pageContext.request.contextPath }/user/userDetail.do">마이페이지</a></li>
+                <li><a href="${ pageContext.request.contextPath }/user/userDelete.do">회원탈퇴</a></li>
                
                 <li>고객센터</li>
                 <li><a href="${ pageContext.request.contextPath }/admin/adminUser.do">관리자</li>
@@ -54,7 +54,7 @@
             <li><a href="${ pageContext.request.contextPath }/animalboard">유기동물</a></li>
             <li><a href="${ pageContext.request.contextPath }/shelterBoard/shelterBoard.do">보호소동물</a></li>
             <li><a href="${ pageContext.request.contextPath }/reviewBoard/reviewBoard.do">입양후기</a></li>
-            <li>인식표</li>
+            <li><a href="${ pageContext.request.contextPath }/animalTag/animalTag.do">인식표</a></li>
             <li><a href=""></a>보호소</li>
             <li><a href="${ pageContext.request.contextPath }/statis/statis.do">통계</a></li>
         </ul>
