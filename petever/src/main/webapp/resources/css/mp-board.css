@@ -50,14 +50,6 @@ span {
     margin-top: 5px;
 }
 
-/*첫번째 이미지만 보여주기*/
-.post> a> img:first-child {
-	display: block;
-}
-.post img {
-	display: none;
-}
-
 hr {
     width: 200px;
     margin: 10px auto;
