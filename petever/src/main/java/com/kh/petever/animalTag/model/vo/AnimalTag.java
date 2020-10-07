@@ -21,7 +21,7 @@ public class AnimalTag implements Serializable {
 	private String tagColor;
 	private String tagFont;
 	private String tagAniName;
-	private Date tagAniBirth;
+	private String tagAniBirth;
 	private String tagAniGender;
 	private String tagAniSsn;
 	private String tagPersonName;

@@ -17,11 +17,14 @@
         <section class="content-wrap">
             <article class="content">
                 <p class="title">■ 실종 동물 / 보호</p>
-                <ul>
-                    <li>
+               	<div class="slidebanner">
+	                <ul class="bannerbox">
+	                </ul>
+               	</div>
+                    <%-- <li>
                         <img src="${pageContext.request.contextPath}/resources/images/dog1.jpg" alt="실종 및 보호 동물 사진">
-                    </li>
-                    <li>
+                    </li> --%>
+                    <%-- <li>
                         <img src="${pageContext.request.contextPath}/resources/images/dog2.jpg" alt="실종 및 보호 동물 사진">
                     </li>
                     <li>
@@ -41,8 +44,7 @@
                     </li>
                     <li>
                         <img src="${pageContext.request.contextPath}/resources/images/dog8.jpg" alt="실종 및 보호 동물 사진">
-                    </li>
-                </ul>
+                    </li> --%>
             </article>
             <article class="total-wrap">
 					<h1 class="totalStatis">총 ${ allCnt } 마리</h1>
@@ -209,13 +211,57 @@
         </svg>
 
 <script>
-    // Map관련
+// Map관련    
+   function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
     
-    function numberWithCommas(x) {
-	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+window.onload = function(){
+	$.ajax({
+		url : "${pageContext.request.contextPath}/animalboard/index",
+		method : "GET",
+		success : function(data){
+			console.log(data);
+			if(data.boardList != null) {
+				var $ul = $('.bannerbox');
+				
+				var html = '';
+				for(var i in data.boardList) {
+					var b = data.boardList[i];
+					for(var j in data.attachList) {
+						var a = data.attachList[j];
+						if(b.aniBoId == a.aniBoId){
+							html += '<li>';
+							html += '<a href="${ pageContext.request.contextPath }/animalboard/boardView?no='+b.aniBoId+'">';
+							html += '<img src="${pageContext.request.contextPath}/resources/editor/multiupload/'+a.aniAtRenamedName+'" alt="실종 및 보호 동물 사진">'
+						}
+					}
+				}
+			}
+			html += '</a></li>';
+			$ul.append(html);
+		},
+		error : function(xhr, status, err){
+			console.log("처리실패", xhr, status, err);
+		}
+	});
+	timer();
+	var current=0;
+	var $interval;
+
+	function timer(){
+	  var $interval=setInterval(function(){slide()},2000);                        
 	}
-    
-    window.onload = function(){
+
+	function slide(){
+	  $(".bannerbox").animate({left:"-=200px"},1000,function(){
+	    $(this).css({"left":0});
+	    $(".bannerbox").append( $(".bannerbox").children("li").eq(0) );
+	  });    
+	  current++;
+	  if(current==5)current=0;
+	}
+	
 		$.ajax({
 			url : "${ pageContext.request.contextPath}/statis/mainLoadStatis.do",
 			dataType:"json",

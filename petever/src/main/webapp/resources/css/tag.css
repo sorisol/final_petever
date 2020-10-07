@@ -158,7 +158,7 @@
     outline: none;
 }
 
-input[type="submit"]{
+input[id="submit"]{
     background-color: #e8c2b7;
     border: 1px solid #e8c2b7;
     border-bottom: 3px solid #e8c2b7;

@@ -132,6 +132,11 @@ public class AnimalBoardServiceimpl implements AnimalBoardService {
 		
 		return result;
 	}
+
+	@Override
+	public List<AnimalBoard> selectBoardListOneWeek() {
+		return dao.selectBoardListOneWeek();
+	}
 	
 	
 }
