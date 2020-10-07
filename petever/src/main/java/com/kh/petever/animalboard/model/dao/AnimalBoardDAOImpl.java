@@ -88,5 +88,10 @@ public class AnimalBoardDAOImpl implements AnimalBoardDAO {
 	public int updateBoard(AnimalBoard animal) {
 		return sqlSession.update("animalBoard.updateBoard", animal);
 	}
+
+	@Override
+	public List<AnimalBoard> selectBoardListOneWeek() {
+		return sqlSession.selectList("animalBoard.selectBoardListOneWeek");
+	}
 	
 }

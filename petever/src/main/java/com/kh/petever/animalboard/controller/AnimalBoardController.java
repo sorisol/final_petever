@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -176,7 +177,7 @@ public class AnimalBoardController {
 		Matcher match = pattern.matcher(animal.getAniBoContent());
 		
 		List<String> imgTag = new ArrayList<>();
-		List<AnimalAttach> fileList = new ArrayList<>();
+		List<AnimalAttach> attachList = new ArrayList<>();
 		
 		//게시물 내용에서 img태그 추출
 		while(match.find()) {
@@ -195,10 +196,10 @@ public class AnimalBoardController {
 			AnimalAttach attach = new AnimalAttach();
 			attach.setAniAtOriginalName(oName);
 			attach.setAniAtRenamedName(rName);
-			fileList.add(attach);
+			attachList.add(attach);
 		}
 		//animalBoard vo에 list로 넣기
-		animal.setAttachList(fileList);
+		animal.setAttachList(attachList);
 		try {
 			//기존파일지우고 다시쓰기....
 			int result1 = service.deleteAttach(animal.getAniBoId());
@@ -284,6 +285,25 @@ public class AnimalBoardController {
 		Map<String, Object> result = new HashMap<>();
 		result.put("boardList", boardList);
 		result.put("fileList", fileList);
+		
+		return result;
+	}
+	
+	@RequestMapping("/animalboard/index")
+	public @ResponseBody Map<String, Object> index(Model model) {
+		
+		//전체 게시글 조회
+		List<AnimalBoard> boardList = service.selectBoardListOneWeek();
+		log.debug("boardList = {}", boardList);
+		//첨부파일조회
+		List<AnimalAttach> attachList = service.selectAttachList();
+		log.debug("attachList = {}", attachList);
+		model.addAttribute("boardList", boardList);
+		model.addAttribute("attachList", attachList);
+		
+		Map<String, Object> result = new HashMap<>();
+		result.put("boardList", boardList);
+		result.put("attachList", attachList);
 		
 		return result;
 	}

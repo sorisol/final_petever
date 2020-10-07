@@ -20,12 +20,6 @@
             	 	 enctype="multipart/form-data">
                     <h1>글쓰기</h1>
                     <input type="hidden" name="userId" value="honggd" />
-                    <c:forEach items="${attachList}" var="attach">
-	                    <input type="hidden" name="animalAtId" value="${attach.aniAtId} }" />
-	                    <input type="hidden" name="animalAtId" value="${attach.aniAtOriginalName} }" />
-	                    <input type="hidden" name="animalAtId" value="${attach.aniAtRenamedName} }" />
-	                    <input type="hidden" name="animalAtId" value="${attach.aniAtUploadDate} }" />
-                    </c:forEach>
                     <div class="title">
                         <select name="aniBoTag">
                             <option selected disabled hidden>말머리</option>

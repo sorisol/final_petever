@@ -149,7 +149,7 @@
                         </div>
                     	<hr style="height: 1px; border:none; background-color: lightgray; width: 1000px; margin: 20px 0px;">
                     	<div class="button-wrap">
-                        <input type="button" value="취소" onclick="javascript:history.go(-1)" class="btn">
+                        <input type="button" value="취소" onclick="location.href='${pageContext.request.contextPath}/animalboard'" class="btn">
                         <input type="submit" value="등록" class="btn" id="submitbtn">
                     	</div>
                 </form>
@@ -241,7 +241,7 @@ $(function () {
     $("input[name=aniBoType]").change(function() {
 		var $breed = $(this).val();
 		var $selectTag = $("#aniBoKind");
-		var dog = ['믹스견', '리트리버', '말티즈', '불독', '비숑프리제', '시츄', '요크셔테리어', '치와와', '포메라니안', '푸들'];
+		var dog = ['믹스견', '리트리버', '말티즈', '보더콜리', '불독', '비숑프리제', '시츄', '웰시코기', '요크셔테리어', '치와와', '포메라니안', '푸들'];
 		var cat = ['코리안숏헤어', '노르웨이숲', '러시안블루', '렉돌', '먼치킨', '뱅갈', '브리티쉬숏헤어', '샴', '스코티쉬폴드', '터키쉬앙고라'];
 		if($breed == '개') {
 			$selectTag.html('');
