@@ -16,10 +16,10 @@ import lombok.ToString;
 @ToString
 public class ReviewBoard implements Serializable {
 	
-	private String rewBoId;
+	private int rewBoId;
 	private String userId;
 	private String rewBoTitle;
 	private String RewBoContent;
-	private Date RewBoRegDate;
+	private String RewBoRegDate;
 
 }
