@@ -3,6 +3,7 @@ package com.kh.petever.reviewBoard.model.dao;
 import java.util.List;
 
 
+
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class ReviewBoardDAOImpl implements ReviewBoardDAO {
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		return sqlSession.selectList("reviewboard.selectReviewBoard", null, rowBounds);
+		return sqlSession.selectList("reviewboard.selectReviewBoardList");
 	}
 
 }

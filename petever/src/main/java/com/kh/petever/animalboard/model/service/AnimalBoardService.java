@@ -35,4 +35,6 @@ public interface AnimalBoardService {
 
 	int updateBoard(AnimalBoard animal);
 
+	List<AnimalBoard> selectBoardListOneWeek();
+
 }

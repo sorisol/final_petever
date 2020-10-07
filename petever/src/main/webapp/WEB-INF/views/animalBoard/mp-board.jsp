@@ -142,65 +142,6 @@
 		                    	</a>
 	                        </div>
 	                    </c:forEach>
-	                   		<div class="post">
-	       		            	<a href="${ pageContext.request.contextPath }/animalboard/boardView">
-		                            <img src="${pageContext.request.contextPath}/resources/images/dog8.jpg" alt="">
-		                            <br>
-		                            <span class="tag missing">[실종]</span>
-		                            <span>찾습니다</span>
-		                            <p>종류 : <b>강아지</b></p>
-		                            <p>지역 : <b>서울시 강남구</b></p>
-		                            <hr>
-		                            <span>hoggd</span>
-		                            <span>2020.09.13</span>
-		                    	</a>
-	                   		</div>
-	                        <div class="post">
-	                        	<a href="${ pageContext.request.contextPath }/animalboard/boardView">
-		                            <img src="${pageContext.request.contextPath}/resources/images/dog2.jpg" alt="">
-		                            <br>
-		                            <span class="tag protect">[보호]</span>
-		                            <span>제목</span>
-		                            <p>종류 : <b>강아지</b></p>
-		                            <p>지역 : <b>서울시 강남구</b> </p>
-		                            <hr>
-		                            <span>hoggd</span>
-		                            <span>2020.09.13</span>
-		                    	</a>
-	                        </div>
-	                        <div class="post">
-	                            <img src="${pageContext.request.contextPath}/resources/images/dog7.jpg" alt="">
-	                            <br>
-	                            <span class="tag missing">[실종]</span>
-	                            <span>제목</span>
-	                            <p>종류 : <b>강아지</b></p>
-	                            <p>지역 : <b>서울시 강남구</b> </p>
-	                            <hr>
-	                            <span>hoggd</span>
-	                            <span>2020.09.13</span>
-	                        </div>
-	                        <div class="post">
-	                            <img src="${pageContext.request.contextPath}/resources/images/dog4.jpg" alt="">
-	                            <br>
-	                            <span class="tag missing">[실종]</span>
-	                            <span>제목</span>
-	                            <p>종류 : <b>강아지</b></p>
-	                            <p>지역 : <b>서울시 강남구</b> </p>
-	                            <hr>
-	                            <span>hoggd</span>
-	                            <span>2020.09.13</span>
-	                        </div>
-	                        <div class="post">
-	                            <img src="${pageContext.request.contextPath}/resources/images/dog5.jpg" alt="">
-	                            <br>
-	                            <span class="tag missing">[실종]</span>
-	                            <span>제목</span>
-	                            <p>종류 : <b>강아지</b></p>
-	                            <p>지역 : <b>서울시 강남구</b> </p>
-	                            <hr>
-	                            <span>hoggd</span>
-	                            <span>2020.09.13</span>
-	                        </div>
 	                    </div>
 	                    <hr style="height: 1px; border:none; background-color: lightgray; width: 860px; margin: 35px 50px 10px 50px;">
 	                    <button type="button" onclick="location.href='${pageContext.request.contextPath}/animalboard/boardFrm'" class="write-btn">글쓰기</button>
@@ -238,17 +179,17 @@ function searchFunc() {
 			}
 			else {
 				/* console.log(data);
-				console.log(data.fileList); */
+				console.log(data.attachList); */
 				for(var i in data.boardList) {
 					var b = data.boardList[i];
 					html += '<div class="post">';
 					html += '<a href="${ pageContext.request.contextPath }/animalboard/boardView?no='+b.aniBoId+'">';
 
 					//사진
-            		for(var j in data.fileList) {
-						var f = data.fileList[j];
-						if(b.aniBoId == f.aniBoId) {
-							html += '<img src="${pageContext.request.contextPath}/resources/editor/multiupload/'+f.aniAtRenamedName+'">';
+            		for(var j in data.attachList) {
+						var a = data.attachList[j];
+						if(b.aniBoId == a.aniBoId) {
+							html += '<img src="${pageContext.request.contextPath}/resources/editor/multiupload/'+a.aniAtRenamedName+'">';
 						}
                     }
 					if(b.aniBoTag == '실종')
@@ -303,31 +244,19 @@ $(function() {
     $("input[name=aniBoType]").change(function() {
 		var $breed = $(this).val();
 		var $selectTag = $("#aniBoKind");
+		var dog = ['믹스견', '리트리버', '말티즈', '보더콜리', '불독', '비숑프리제', '시츄', '웰시코기', '요크셔테리어', '치와와', '포메라니안', '푸들'];
+		var cat = ['코리안숏헤어', '노르웨이숲', '러시안블루', '렉돌', '먼치킨', '뱅갈', '브리티쉬숏헤어', '샴', '스코티쉬폴드', '터키쉬앙고라'];
 		if($breed == '개'){
 			$selectTag.html('');
-			$selectTag.append('<option value="믹스견">믹스견</option>');
-			$selectTag.append('<option value="리트리버">리트리버</option>');
-			$selectTag.append('<option value="말티즈">말티즈</option>');
-			$selectTag.append('<option value="불독">불독</option>');
-			$selectTag.append('<option value="비숑프리제">비숑프리제</option>');
-			$selectTag.append('<option value="시츄">시츄</option>');
-			$selectTag.append('<option value="요크셔테리어">요크셔테리어</option>');
-			$selectTag.append('<option value="치와와">치와와</option>');
-			$selectTag.append('<option value="포메라니안">포메라니안</option>');
-			$selectTag.append('<option value="푸들">푸들</option>');
+			for(var i in dog) {
+				$selectTag.append('<option value="'+dog[i]+'">'+dog[i]+'</option>');
+			}
 		}
 		else if($breed == '고양이'){
 			$selectTag.html('');
-			$selectTag.append('<option value="코리안숏헤어">코리안숏헤어</option>');
-			$selectTag.append('<option value="노르웨이숲">노르웨이숲</option>');
-			$selectTag.append('<option value="러시안블루">러시안블루</option>');
-			$selectTag.append('<option value="렉돌">렉돌</option>');
-			$selectTag.append('<option value="먼치킨">먼치킨</option>');
-			$selectTag.append('<option value="뱅갈">뱅갈</option>');
-			$selectTag.append('<option value="브리티쉬숏헤어">브리티쉬숏헤어</option>');
-			$selectTag.append('<option value="샴">샴</option>');
-			$selectTag.append('<option value="스코티쉬폴드">스코티쉬폴드</option>');
-			$selectTag.append('<option value="터키쉬앙고라">터키쉬앙고라</option>');
+			for(var i in cat) {
+				$selectTag.append('<option value="'+cat[i]+'">'+cat[i]+'</option>');
+			}
 		}
 		else {
 			$selectTag.html('');

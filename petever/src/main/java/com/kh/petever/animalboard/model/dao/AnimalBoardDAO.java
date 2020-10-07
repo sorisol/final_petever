@@ -37,4 +37,6 @@ public interface AnimalBoardDAO {
 
 	int updateBoard(AnimalBoard animal);
 
+	List<AnimalBoard> selectBoardListOneWeek();
+
 }

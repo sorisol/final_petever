@@ -16,8 +16,8 @@ import lombok.ToString;
 @ToString
 public class ReviewAttach implements Serializable {
 	
-	private String rewAtId;
-	private String rewBoId;
+	private int rewAtId;
+	private int rewBoId;
 	private String rewAtOriginalName;
 	private String rewAtRenamedName;
 	private Date rewAtUploadDate;

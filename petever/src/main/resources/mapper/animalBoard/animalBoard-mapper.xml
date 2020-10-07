@@ -64,10 +64,14 @@
 	</select>
 	
 	<select id="selectAttachList" resultMap="animalAttachMap">
-		select
-			*
-		from
-			animal_attach
+		select a.*
+		from (select 
+              	ani_bo_id,
+              	ani_at_original_name,
+              	ani_at_renamed_name,
+              	row_number() over(partition by ani_bo_id order by ani_at_id)as rowidx
+            from animal_attach) a
+		where rowIdx = 1
 	</select>
 	
 	<select id="selectCommentList" resultMap="animalCommentMap">
@@ -237,6 +241,18 @@
 		where
 			ani_bo_id = #{aniBoId}
 	</update>
+	
+	<select id="selectBoardListOneWeek" resultMap="animalBoardMap">
+		<![CDATA[
+		select
+			*
+		from
+			animal_board
+		where
+			ani_bo_date >= to_date(to_char(sysdate-7, 'yyyyMMdd'), 'yyyyMMdd')
+			and (ani_bo_tag in ('실종', '보호'))
+		]]>
+	</select>
 	
 	<resultMap id="animalBoardMap" type="animalBoard"></resultMap>
 	<resultMap id="animalAttachMap" type="animalAttach"></resultMap>
