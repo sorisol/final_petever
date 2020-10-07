@@ -19,4 +19,14 @@ public class AdminDaoImpl implements AdminDao {
 		return session.selectList("admin.adminUser");
 	}
 
+	@Override
+	public int adminDel(String id) {
+		return session.delete("admin.adminDel",id);
+	}
+
+	@Override
+	public List<AdminUser> selectList(String keyword) {
+		return session.selectList("admin.adminSearch",keyword);
+	}
+
 }

@@ -14,7 +14,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-
+<script>
+<c:if test="${ not empty msg }">
+	alert('${ msg }');
+</c:if>
+</script>
 <title>admin-user</title>
 
 <!-- Custom fonts for this template-->
@@ -148,7 +152,7 @@
 									<div class="row">
 										<div class="col-sm-12 col-md-6">
 											<div id="dataTable_filter" class="dataTables_filter">
-												<label>Search:<input type="search" class="form-control form-control-sm"
+												<label>Search:<input id="adminSearch" type="search" class="form-control form-control-sm"
 													placeholder="" aria-controls="dataTable"></label>
 											</div>
 										</div>
@@ -178,15 +182,16 @@
 															aria-label="Salary: activate to sort column ascending" style="width: 100px;">회원삭제</th>
 													</tr>
 												</thead>
-												<tbody>
+												<tbody id="userTable">
 													<c:forEach var="user" items="${list}" varStatus="vs">
-														<form id="adminDelFrm" action="${pageContext.request.contextPath}/admin/adminDel.do" method="POST">
 															<tr role="row" class="odd">
 																<td>${vs.count}</td>
 																<td class="sorting_1">${user.userId}</td>
 																<td>${user.cnt}</td>
 																<td>${user.userEmail}</td>
-																<td>${user.userBirth}</td>
+      															<c:set var = "str1" value = "${user.userBirth}" />
+      															<c:set var = "str" value = "${fn:substring(str1, 0, 10)}" />
+																<td>${str}</td>
 																<td>${user.userPhone}</td>
 																<td>${user.userLocal}</td>
 																<td>
@@ -195,7 +200,6 @@
 																	</a>
 																</td>
 															</tr>
-														</form>
 													</c:forEach>
 												</tbody>
 											</table>
@@ -238,6 +242,9 @@
 </div>
 </div>
 </div>
+<form name="adminDelFrm" action="adminDel.do" method="POST">
+	<input type="hidden" name="id"/>
+</form>
 <!-- Bootstrap core JavaScript-->
 <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
 <script
@@ -250,12 +257,61 @@
 <!-- Custom scripts for all pages-->
 <script src="${pageContext.request.contextPath}/resources/js/sb-admin-2.min.js"></script>
 <script>
-function adminDel(id){
+function adminDel(userId){
 	if(confirm("정말 삭제하시겠습니까?") == false)
 		return;
-	var $frm = $("#adminDelFrm");
+	var frm = document.adminDelFrm;
 
-	$frm.submit();
+	frm.id.value = userId;
+	frm.submit();
+}
+
+$("#adminSearch").keyup(function() { 
+	var keyword = $(this).val();
+	console.log(keyword);
+	$.ajax({
+		url : "${ pageContext.request.contextPath}/admin/adminSearch.do",
+		data : {
+			keyword : keyword
+		},
+		dataType:"json",
+		method : "GET",
+		success : function(data){
+			console.log(data);
+			displayResultTable("userTable", data.list);
+		},
+		error : function(xhr, status, err){
+			console.log("처리실패", xhr, status, err);
+		}
+	});	
+});
+
+function displayResultTable(id, data){
+	var $container = $("#" + id);
+
+	var html = "";
+	console.log(data);
+	console.log(Object.keys(data).length);
+	if(Object.keys(data).length > 0){
+		for(var i in data){
+			var list = data[i];
+			html += "<tr role='row' class='odd'>";
+			html += "<td>" + (i+1) + "</td>";
+			html += "<td>" + list.userId + "</td>";
+			html += "<td>" + list.cnt + "</td>";
+			html += "<td>" + list.userEmail + "</td>";			
+			html += "<td>" + (list.userBirth).substring(0, 10) + "</td>";			
+			html += "<td>" + list.userPhone + "</td>";			
+			html += "<td>" + list.userLocal + "</td>";			
+			html += "<td> <a href='#' class='btn btn-danger btn-circle btn-sm'>	<i class='fas fa-trash' onclick='adminDel("+list.userId+")'></i></a></td>";			
+			html += "</tr>";
+		}
+	}
+	else {
+		html += "<tr><td colspan='6'>검색된 결과가 없습니다.</td></tr>";
+	}	 
+
+	$container.html(html);
 	
 }
 </script>

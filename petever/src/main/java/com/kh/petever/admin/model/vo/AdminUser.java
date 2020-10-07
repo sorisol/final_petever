@@ -1,7 +1,6 @@
 package com.kh.petever.admin.model.vo;
 
 import java.io.Serializable;
-import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,7 +19,7 @@ public class AdminUser implements Serializable {
 	private String userId;
 	private String userPwd;
 	private String userEmail;
-	private Date userBirth;
+	private String userBirth;
 	private String userPhone;
 	private String userLocal;
 	private String userRole;

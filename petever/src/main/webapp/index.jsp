@@ -217,7 +217,7 @@
     
     window.onload = function(){
 		$.ajax({
-			url : "${ pageContext.request.contextPath}/statis/loadStatis.do",
+			url : "${ pageContext.request.contextPath}/statis/mainLoadStatis.do",
 			dataType:"json",
 			method : "GET",
 			success : function(res){

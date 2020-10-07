@@ -8,6 +8,10 @@ public interface AdminDao {
 
 	List<AdminUser> selectList();
 
+	int adminDel(String id);
+
+	List<AdminUser> selectList(String keyword);
+
 
 
 }

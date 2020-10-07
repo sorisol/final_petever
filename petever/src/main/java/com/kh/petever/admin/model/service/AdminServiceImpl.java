@@ -19,5 +19,15 @@ public class AdminServiceImpl implements AdminService {
 		return adminDao.selectList();
 	}
 
+	@Override
+	public int adminDel(String id) {
+		return adminDao.adminDel(id);
+	}
+
+	@Override
+	public List<AdminUser> selectList(String keyword) {
+		return adminDao.selectList(keyword);
+	}
+
 
 }
