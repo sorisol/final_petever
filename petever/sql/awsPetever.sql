@@ -101,16 +101,25 @@ CREATE TABLE animal_comment (
 
 
 CREATE TABLE animal_tag (
-	tag_ID NUMBER,
+	tag_no varchar2(20) NOT NULL,
+    user_id varchar2(30) NOT NULL,
 	tag_color VARCHAR2(100) NOT NULL,
-	tag_font VARCHAR2(30) NOT NULL,
-	tag_pet_name VARCHAR2(50)	NOT NULL,
-	tag_birth_date DATE,
-	tag_gender VARCHAR2(30),
-	tag_num NUMBER,
-	tag_family_name	VARCHAR2(50)	NOT NULL,
-	tag_family_phone VARCHAR2(20)	NOT NULL,
-    constraints pk_tag_id primary key(tag_ID)
+	tag_font VARCHAR2(50) NOT NULL,
+	tag_ani_name VARCHAR2(50)	NOT NULL,
+	tag_ani_birth DATE NOT NULL,
+	tag_ani_gender VARCHAR2(30) NOT NULL,
+	tag_ani_ssn VARCHAR2(30),
+	tag_person_name	VARCHAR2(50)	NOT NULL,
+	tag_person_phone VARCHAR2(20)	NOT NULL,
+    ssg_name varchar2(30) NOT NULL,
+    ssg_tel varchar2(11) NOT NULL,
+    ssg_addr1 varchar2(100) NOT NULL,
+    ssg_addr2 varchar2(100) NOT NULL,
+    buy_date DATE default sysdate,
+    constraints pk_tag_id primary key(tag_no),
+    constraints fk_user_id foreign key(user_id)
+                                    references tb_user(user_id)
+                                    on delete cascade
 );
 
 
@@ -200,8 +209,6 @@ create table shelterAnimal(
     constraint pk_desertion_no primary key(desertion_no)
 );
 commit;
-
-select * from shelterAnimal;
 
 -- ani_weight 성공
 update shelteranimal SA
