@@ -2,316 +2,263 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
 
-  <title>admin-user</title>
+<title>admin-user</title>
 
-  <!-- Custom fonts for this template-->
-  <link href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link
-    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-    rel="stylesheet">
+<!-- Custom fonts for this template-->
+<link href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css"
+	rel="stylesheet" type="text/css">
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
 
-  <!-- Custom styles for this template-->
-  <link href="${pageContext.request.contextPath}/resources/css/sb-admin-2.min.css" rel="stylesheet">
+<!-- Custom styles for this template-->
+<link href="${pageContext.request.contextPath}/resources/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
 <body id="page-top">
 
-  <!-- Page Wrapper -->
-  <div id="wrapper">
+	<!-- Page Wrapper -->
+	<div id="wrapper">
 
-    <!-- Sidebar -->
-    <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #373b44;">
+		<!-- Sidebar -->
+		<ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar"
+			style="background-color: #373b44;">
 
-      <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-          <div class="sidebar-brand-icon">
-              <img src="${pageContext.request.contextPath}/resources/images/adminlogo.png" alt="" style="width: 45px;">
-            </div>
-        <div class="sidebar-brand-text">Petever</div>
-      </a>
+			<!-- Sidebar - Brand -->
+			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+				<div class="sidebar-brand-icon">
+					<img src="${pageContext.request.contextPath}/resources/images/adminlogo.png" alt=""
+						style="width: 45px;">
+				</div>
+				<div class="sidebar-brand-text">Petever</div>
+			</a>
 
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0">
+			<!-- Divider -->
+			<hr class="sidebar-divider my-0"/>
 
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="index.html">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>AdminPage</span></a>
-      </li>
+			<!-- Nav Item - Dashboard -->
+			<li class="nav-item active"><a class="nav-link" href="index.html"> <i
+					class="fas fa-fw fa-tachometer-alt"></i> <span>AdminPage</span></a></li>
 
-      <!-- Divider -->
-      <hr class="sidebar-divider">
+			<!-- Divider -->
+			<hr class="sidebar-divider"/>
 
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Interface
-      </div>
+			<!-- Heading -->
+			<div class="sidebar-heading">Interface</div>
 
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
-          aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>신고게시글</span>
-        </a>
-      </li>
+			<!-- Nav Item - Pages Collapse Menu -->
+			<li class="nav-item"><a class="nav-link collapsed" href="#" data-toggle="collapse"
+				data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"> <i
+					class="fas fa-fw fa-cog"></i> <span>신고게시글</span>
+			</a></li>
 
-      <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item active">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-          aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>회원정보 조회 및 수정</span>
-        </a>
-      </li>
+			<!-- Nav Item - Utilities Collapse Menu -->
+			<li class="nav-item active"><a class="nav-link collapsed" href="#" data-toggle="collapse"
+				data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities"> <i
+					class="fas fa-fw fa-wrench"></i> <span>회원정보 조회</span>
+			</a></li>
 
 
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
+			<!-- Divider -->
+			<hr class="sidebar-divider d-none d-md-block">
 
-      <!-- Sidebar Toggler (Sidebar) -->
+			<!-- Sidebar Toggler (Sidebar) -->
 
-    </ul>
-    <!-- End of Sidebar -->
+		</ul>
+		<!-- End of Sidebar -->
 
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
+		<!-- Content Wrapper -->
+		<div id="content-wrapper" class="d-flex flex-column">
 
-      <!-- Main Content -->
-      <div id="content">
+			<!-- Main Content -->
+			<div id="content">
 
-        <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+				<!-- Topbar -->
+				<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-          <a href="#" class="btn btn-warning btn-icon-split">
-            <span class="icon text-white-50">
-              <i class="fas fa-arrow-right"></i>
-            </span>
-            <span class="text">메인페이지 돌아가기</span>
-          </a>
+					<a href="${pageContext.request.contextPath}/index.jsp" class="btn btn-warning btn-icon-split"> <span class="icon text-white-50">
+							<i class="fas fa-arrow-right"></i>
+					</span> <span class="text">메인페이지 돌아가기</span>
+					</a>
 
-          <!-- Sidebar Toggle (Topbar) -->
-          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-            <i class="fa fa-bars"></i>
-          </button>
+					<!-- Sidebar Toggle (Topbar) -->
+					<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+						<i class="fa fa-bars"></i>
+					</button>
 
 
-          <!-- Topbar Navbar -->
-          <ul class="navbar-nav ml-auto">
+					<!-- Topbar Navbar -->
+					<ul class="navbar-nav ml-auto">
 
-            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-            <li class="nav-item dropdown no-arrow d-sm-none">
-              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-search fa-fw"></i>
-              </a>
-              <!-- Dropdown - Messages -->
-              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                aria-labelledby="searchDropdown">
-                <form class="form-inline mr-auto w-100 navbar-search">
-                  <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                      aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </li>
+						<!-- Nav Item - Search Dropdown (Visible Only XS) -->
+						<li class="nav-item dropdown no-arrow d-sm-none"><a class="nav-link dropdown-toggle"
+							href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false"> <i class="fas fa-search fa-fw"></i>
+						</a> <!-- Dropdown - Messages -->
+							<div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+								aria-labelledby="searchDropdown">
+								<form class="form-inline mr-auto w-100 navbar-search">
+									<div class="input-group">
+										<input type="text" class="form-control bg-light border-0 small"
+											placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+										<div class="input-group-append">
+											<button class="btn btn-primary" type="button">
+												<i class="fas fa-search fa-sm"></i>
+											</button>
+										</div>
+									</div>
+								</form>
+							</div></li>
 
 
-            <!-- Nav Item - User Information -->
-            <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600">Admin</span>
-              </a>
-            </li>
+						<!-- Nav Item - User Information -->
+						<li class="nav-item dropdown no-arrow"><a class="nav-link dropdown-toggle" href="#"
+							id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false"> <span class="mr-2 d-none d-lg-inline text-gray-600">Admin</span>
+						</a></li>
 
-          </ul>
+					</ul>
 
-        </nav>
-        <!-- End of Topbar -->
+				</nav>
+				<!-- End of Topbar -->
 
-        <!-- Begin Page Content -->
-        <div class="container-fluid">
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">회원정보 조회 및 수정</h6>
-            </div>
-            <div class="card-body">
-              <div class="table-responsive" style="overflow: hidden;">
-                <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                  <div class="row">
-                    <div class="col-sm-12 col-md-6">
-                      <div id="dataTable_filter" class="dataTables_filter"><label>Search:<input type="search"
-                            class="form-control form-control-sm" placeholder="" aria-controls="dataTable"></label></div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0"
-                        role="grid" aria-describedby="dataTable_info" style="width: 100%;">
-                        <thead>
-                          <tr role="row">
-                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                              aria-label="Name: activate to sort column ascending" style="width: 25px;">번호</th>
-                            <th class="sorting_desc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                              aria-label="Position: activate to sort column ascending" style="width: 80px;"
-                              aria-sort="descending">아이디</th>
-                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                              aria-label="Office: activate to sort column ascending" style="width: 25px;">신고</th>
-                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                              aria-label="Age: activate to sort column ascending" style="width: 159px;">이메일</th>
-                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                              aria-label="Start date: activate to sort column ascending" style="width: 191px;">전화번호</th>
-                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                              aria-label="Salary: activate to sort column ascending" style="width: 210px;">주소</th>
-                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                              aria-label="Salary: activate to sort column ascending" style="width: 100px;">수정</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr role="row" class="odd">
-                            <td class="">1</td>
-                            <td class="sorting_1"><input type="text" name="" id="" value="honggd" style="width: 80px;">
-                            </td>
-                            <td>0</td>
-                            <td><input type="text" name="" id="" value="honggd@naver.com"></td>
-                            <td><input type="text" name="" id="" value="01050805778"></td>
-                            <td><input type="text" name="" id="" value="서울시 강남구 역삼동"></td>
-                            <td>
-                              <a href="#" class="btn btn-success btn-circle btn-sm mr-2">
-                                <i class="fas fa-check"></i>
-                              </a><a href="#" class="btn btn-danger btn-circle btn-sm">
-                                <i class="fas fa-trash"></i>
-                              </a></td>
-                          </tr>
-                          <tr role="row" class="odd">
-                            <td class="">2</td>
-                            <td class="sorting_1"><input type="text" name="" id="" value="honggd" style="width: 80px;">
-                            </td>
-                            <td>0</td>
-                            <td><input type="text" name="" id="" value="honggd@naver.com"></td>
-                            <td><input type="text" name="" id="" value="01050805778"></td>
-                            <td><input type="text" name="" id="" value="서울시 강남구 역삼동"></td>
-                            <td>
-                              <a href="#" class="btn btn-success btn-circle btn-sm mr-2">
-                                <i class="fas fa-check"></i>
-                              </a><a href="#" class="btn btn-danger btn-circle btn-sm">
-                                <i class="fas fa-trash"></i>
-                              </a></td>
-                          </tr>
-                          <tr role="row" class="odd">
-                            <td class="">3</td>
-                            <td class="sorting_1"><input type="text" name="" id="" value="honggd" style="width: 80px;">
-                            </td>
-                            <td>0</td>
-                            <td><input type="text" name="" id="" value="honggd@naver.com"></td>
-                            <td><input type="text" name="" id="" value="01050805778"></td>
-                            <td><input type="text" name="" id="" value="서울시 강남구 역삼동"></td>
-                            <td>
-                              <a href="#" class="btn btn-success btn-circle btn-sm mr-2">
-                                <i class="fas fa-check"></i>
-                              </a><a href="#" class="btn btn-danger btn-circle btn-sm">
-                                <i class="fas fa-trash"></i>
-                              </a></td>
-                          </tr>
-                          <tr role="row" class="odd">
-                            <td class="">4</td>
-                            <td class="sorting_1"><input type="text" name="" id="" value="honggd" style="width: 80px;">
-                            </td>
-                            <td>0</td>
-                            <td><input type="text" name="" id="" value="honggd@naver.com"></td>
-                            <td><input type="text" name="" id="" value="01050805778"></td>
-                            <td><input type="text" name="" id="" value="서울시 강남구 역삼동"></td>
-                            <td>
-                              <a href="#" class="btn btn-success btn-circle btn-sm mr-2">
-                                <i class="fas fa-check"></i>
-                              </a><a href="#" class="btn btn-danger btn-circle btn-sm">
-                                <i class="fas fa-trash"></i>
-                              </a></td>
-                          </tr>
-                          <tr role="row" class="odd">
-                            <td class="">5</td>
-                            <td class="sorting_1"><input type="text" name="" id="" value="honggd" style="width: 80px;">
-                            </td>
-                            <td>0</td>
-                            <td><input type="text" name="" id="" value="honggd@naver.com"></td>
-                            <td><input type="text" name="" id="" value="01050805778"></td>
-                            <td><input type="text" name="" id="" value="서울시 강남구 역삼동"></td>
-                            <td>
-                              <a href="#" class="btn btn-success btn-circle btn-sm mr-2">
-                                <i class="fas fa-check"></i>
-                              </a><a href="#" class="btn btn-danger btn-circle btn-sm">
-                                <i class="fas fa-trash"></i>
-                              </a></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-sm-12 col-md-5">
-                      <div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">Showing 1 to 10
-                        of 10 entries</div>
-                    </div>
-                    <div class="col-sm-12 col-md-7">
-                      <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                        <ul class="pagination">
-                          <li class="paginate_button page-item previous disabled" id="dataTable_previous"><a href="#"
-                              aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
-                          <li class="paginate_button page-item active"><a href="#" aria-controls="dataTable"
-                              data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
-                          <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="2"
-                              tabindex="0" class="page-link">2</a></li>
-                          <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="3"
-                              tabindex="0" class="page-link">3</a></li>
-                          <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="4"
-                              tabindex="0" class="page-link">4</a></li>
-                          <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="5"
-                              tabindex="0" class="page-link">5</a></li>
-                          <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="6"
-                              tabindex="0" class="page-link">6</a></li>
-                          <li class="paginate_button page-item next" id="dataTable_next"><a href="#"
-                              aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+				<!-- Begin Page Content -->
+				<div class="container-fluid">
+					<div class="card shadow mb-4">
+						<div class="card-header py-3">
+							<h6 class="m-0 font-weight-bold text-primary">회원정보 조회</h6>
+						</div>
+						<div class="card-body">
+							<div class="table-responsive" style="overflow: hidden;">
+								<div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+									<div class="row">
+										<div class="col-sm-12 col-md-6">
+											<div id="dataTable_filter" class="dataTables_filter">
+												<label>Search:<input type="search" class="form-control form-control-sm"
+													placeholder="" aria-controls="dataTable"></label>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-sm-12">
+											<table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0"
+												role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+												<thead>
+													<tr role="row">
+														<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+															aria-label="Name: activate to sort column ascending" style="width: 25px;">번호</th>
+														<th class="sorting_desc" tabindex="0" aria-controls="dataTable" rowspan="1"
+															colspan="1" aria-label="Position: activate to sort column ascending"
+															style="width: 80px;" aria-sort="descending">아이디</th>
+														<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+															aria-label="Office: activate to sort column ascending" style="width: 25px;">신고</th>
+														<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+															aria-label="Age: activate to sort column ascending" style="width: 159px;">이메일</th>
+														<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+															aria-label="Age: activate to sort column ascending" style="width: 100px;">생일</th>
+														<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+															aria-label="Start date: activate to sort column ascending" style="width: 191px;">전화번호</th>
+														<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+															aria-label="Salary: activate to sort column ascending" style="width: 210px;">주소</th>
+														<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+															aria-label="Salary: activate to sort column ascending" style="width: 100px;">회원삭제</th>
+													</tr>
+												</thead>
+												<tbody>
+													<c:forEach var="user" items="${list}" varStatus="vs">
+														<form id="adminDelFrm" action="${pageContext.request.contextPath}/admin/adminDel.do" method="POST">
+															<tr role="row" class="odd">
+																<td>${vs.count}</td>
+																<td class="sorting_1">${user.userId}</td>
+																<td>${user.cnt}</td>
+																<td>${user.userEmail}</td>
+																<td>${user.userBirth}</td>
+																<td>${user.userPhone}</td>
+																<td>${user.userLocal}</td>
+																<td>
+																	<a href="#" class="btn btn-danger btn-circle btn-sm"> 
+																		<i class="fas fa-trash" onclick="adminDel('${ user.userId }')"></i>
+																	</a>
+																</td>
+															</tr>
+														</form>
+													</c:forEach>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-sm-12 col-md-5">
+											<div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">Showing
+												1 to 10 of 10 entries</div>
+										</div>
+										<div class="col-sm-12 col-md-7">
+											<div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+												<ul class="pagination">
+													<li class="paginate_button page-item previous disabled" id="dataTable_previous"><a
+														href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+													<li class="paginate_button page-item active"><a href="#" aria-controls="dataTable"
+														data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+													<li class="paginate_button page-item "><a href="#" aria-controls="dataTable"
+														data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
+													<li class="paginate_button page-item "><a href="#" aria-controls="dataTable"
+														data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
+													<li class="paginate_button page-item "><a href="#" aria-controls="dataTable"
+														data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
+													<li class="paginate_button page-item "><a href="#" aria-controls="dataTable"
+														data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
+													<li class="paginate_button page-item "><a href="#" aria-controls="dataTable"
+														data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
+													<li class="paginate_button page-item next" id="dataTable_next"><a href="#"
+														aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
+</div>
+</div>
+</div>
+<!-- Bootstrap core JavaScript-->
+<script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-        <!-- Bootstrap core JavaScript-->
-        <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Core plugin JavaScript-->
+<script
+	src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-        <!-- Core plugin JavaScript-->
-        <script src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+<!-- Custom scripts for all pages-->
+<script src="${pageContext.request.contextPath}/resources/js/sb-admin-2.min.js"></script>
+<script>
+function adminDel(id){
+	if(confirm("정말 삭제하시겠습니까?") == false)
+		return;
+	var $frm = $("#adminDelFrm");
 
-        <!-- Custom scripts for all pages-->
-        <script src="${pageContext.request.contextPath}/resources/js/sb-admin-2.min.js"></script>
-
+	$frm.submit();
+	
+}
+</script>
 </body>
 
 </html>

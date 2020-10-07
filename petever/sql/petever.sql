@@ -36,22 +36,39 @@ CREATE TABLE tb_user (
     constraints pk_user_id primary key(user_id),
     constraints ck_user_role check(user_role in ('U','A')) 
 );
-<<<<<<< HEAD
 select 
 				*
 			from 
 				tb_user
 			where 
 				user_id = 'admin';
-select * from tb_user;
+                
+select a.*,count(b.user_id) from tb_user a inner join report b on a.user_id = b.user_id group by b.user_id;
+
+select u.*,r.cnt
+from tb_user u, (select count(*) as cnt,user_id from report group by user_id) r;
+
+select u.user_id, count(r.user_id) as cnt
+from tb_user u left join report r on u.user_id=r.user_id
+group by u.user_id;
+
+SELECT  
+       u.user_id, 
+       u.user_pwd, 
+       isnull(r.Cnt, 0) as Cnt 
+FROM tb_user u 
+LEFT JOIN 
+    (SELECT r.user_id, count(1) Cnt
+     FROM report r
+    GROUP BY r.user_id) as r
+ON u.user_id=r.user_id;
+
+select count(*) as cnt, user_id from report group by user_id;
 INSERT INTO tb_user
 VALUES ('admin','1234','admin@naver.com','950609','01056549907','서울 강남구','A');
-=======
 --컬럼길이수정
 alter table tb_user modify (user_local varchar2(100));
 commit;
-
->>>>>>> branch 'master' of https://github.com/rato12/petever.git
 
 --CREATE TABLE message (
 --	msg_num	NUMBER	NOT NULL,

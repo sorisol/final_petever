@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="admin">
+
+	<select id="adminUser" resultMap="user">
+		SELECT  
+       		u.*, 
+       		NVL(r.Cnt, 0) as Cnt 
+		FROM tb_user u 
+		LEFT JOIN 
+    		(SELECT r.user_id, count(1) Cnt
+     			FROM report r
+    			GROUP BY r.user_id) r
+			ON u.user_id=r.user_id
+	</select>
+	
+	<resultMap id="user" type="adminUser">
+		<id column="user_id" property="userId"></id>
+		<result column="user_pwd" property="userPwd"></result>
+		<result column="user_email" property="userEmail"></result>
+		<result column="user_birth" property="userBirth"></result>
+		<result column="user_phone" property="userPhone"></result>
+		<result column="user_local" property="userLocal"></result>
+		<result column="user_role" property="userRole"></result>
+		<result column="cnt" property="cnt"></result>
+	</resultMap>
+</mapper>
