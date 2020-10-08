@@ -113,6 +113,7 @@ CREATE TABLE animal_tag (
 	tag_person_phone VARCHAR2(20)	NOT NULL,
     ssg_name varchar2(30) NOT NULL,
     ssg_tel varchar2(11) NOT NULL,
+    ssg_addr0 varchar2(10) not null,
     ssg_addr1 varchar2(100) NOT NULL,
     ssg_addr2 varchar2(100) NOT NULL,
     buy_date DATE default sysdate,
@@ -122,6 +123,7 @@ CREATE TABLE animal_tag (
                                     on delete cascade
 );
 
+create sequence seq_tag_no;
 
 CREATE TABLE review_board (
 	rew_bo_id	NUMBER,
@@ -224,3 +226,5 @@ update shelterAnimal SA
 set SA.ani_age = (select to_number(extract(year from sysdate)-extract(year from to_date(substr(nvl(regexp_replace(substr(S.age, 0, instr(S.age, '(', 1)-1), ' |-|`', ''),0), 0, 4), 'rrrr'))) 
                  from shelterAnimal S
                  where SA.desertion_no = S.desertion_no);
+
+

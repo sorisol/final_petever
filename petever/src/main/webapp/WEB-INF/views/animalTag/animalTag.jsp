@@ -5,8 +5,39 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/tag.css">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+<!-- google font -->
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&family=Sunflower:wght@500&display=swap" rel="stylesheet">
+<!-- 주소검색API -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
     <script>
+	    var autoHypenPhone = function(str){
+	        str = str.replace(/[^0-9]/g, '');
+	        var tmp = '';
+	        if( str.length < 4){
+	            return str;
+	        }else if(str.length < 7){
+	            tmp += str.substr(0, 3);
+	            tmp += '-';
+	            tmp += str.substr(3);
+	            return tmp;
+	        }else if(str.length < 11){
+	            tmp += str.substr(0, 3);
+	            tmp += '-';
+	            tmp += str.substr(3, 3);
+	            tmp += '-';
+	            tmp += str.substr(6);
+	            return tmp;
+	        }else{              
+	            tmp += str.substr(0, 3);
+	            tmp += '-';
+	            tmp += str.substr(3, 4);
+	            tmp += '-';
+	            tmp += str.substr(7);
+	            return tmp;
+	        }
+	    
+	        return str;
+	  }
         $(function () {
             $("[name=tagColor]").change(function () {
                 var $color = $(this);
@@ -41,6 +72,9 @@
                 var $aniName = $(this);
                 // console.log($aniName.val());
                 $("#preview-name").text($aniName.val());
+                $("#preview-name").css("opacity","1");
+                $("#preview-name").css("transition-duration",".6s");
+               
             });
             //동물생년월일
             $("#ani-birth").change(function () {
@@ -70,7 +104,13 @@
             $("#person-phone").keyup(function () {
                 var $personPhone = $(this);
                 // console.log($personPhone.val());
-                $("#preview-person-phone").text($personPhone.val());
+                this.value = autoHypenPhone( this.value ) ; 
+                $("#preview-person-phone").text(this.value);
+            });
+			//배송 받을 전화번호
+            $("[name=ssgTel]").keyup(function () {
+                var $ssgTel = $(this);
+                this.value = autoHypenPhone( this.value ); 
             });
 
             //slide-wrap
@@ -152,21 +192,122 @@
             var autoSlider = setInterval(function () {
                 plusSlides(1);
             }, 3000);
+
+            /* submit 전 DATA 정규성 검사 */
+            $("#aniTagFrm").submit(function() {
+/*             	if(${ empty loginUser }) {
+    				alert("로그인후 구매 해주세요.");
+    				return false;
+                } */
+
+/*                 if($('input[name="tagColor"]:checked').val() == undefined) {
+                	alert("인식표 색상을 선택해주세요.");
+    				return false;
+                } */
+                
+/*                 if($('input[name="tagFont"]:checked').val() == undefined) {
+                	alert("인식표 글씨체를 선택해주세요.");
+    				return false;
+                }  */
+
+                var $tagAniName = $('input[name="tagAniName"]').val();
+
+/* 				console.log(/^[가-힣]{1,5}$/.test($tagAniName));
+                if(/^[가-힣a-zA-Z]{1,6}$|^[a-zA-Z]{1,10}$/.test($tagAniName) == false) {
+                	alert("반려동물 이름 형식에 맞춰 작성해주세요.");
+    				return false;
+                } */
+
+				var $tagAniBirth = $('input[name="tagAniBirth"]').val();
+/*                 if(/^(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/.test($tagAniBirth) == false) {
+                	alert("반려동물 생일을 형식에 맞춰 작성해주세요.(ex:2020-10-23)");
+    				return false;
+                } */
+
+/*                 if($('input[name="tagAniGender"]:checked').val() == undefined) {
+                	alert("반려 동물의 성별을 선택해주세요.");
+    				return false;
+                } */
+
+                var $tagAniSsn = $('[name=tagAniSsn]').val();
+/*                 if(/^[0-9]{12}$|^{}$/.test($tagAniSsn) == false) {
+                	alert("반려 동물의 등록번호가 있다면 숫자 12자리 입력\n반려 동물의 등록번호가 없다면 빈칸으로 제출해주세요.");
+    				return false;
+                } */
+
+                var $tagPerName = $('[name=tagPersonName]').val();
+/*                if(/^[가-힣]{1,6}$|^[a-zA-Z]{1,10}$/.test($tagPerName) == false){
+                	alert("인식표에 작성될 보호자 이름을 작성해주세요.");
+    				return false;
+                } */
+
+/*                 var $tagPerTel = $("[name=tagPersonPhone]").val();
+                if(/^01[0-9]{1}-[0-9]{3,4}-[0-9]{4}$/.test($tagPerTel) == false){
+                	alert("인식표에 작성될 보호자 전화번호를 작성해주세요.");
+    				return false;
+                } */
+
+/*                 var $ssgName = $('input[name="ssgName"]').val();
+                if(/^[가-힣]{2,6}$$/.test($ssgName) == false) {
+                	alert("이름 형식에 맞춰 작성해주세요.");
+    				return false;
+                } */
+
+/*                 var $ssgTel = $("[name=ssgTel]").val();
+                if(/^01[0-9]{1}-[0-9]{3,4}-[0-9]{4}$/.test($ssgTel) == false){
+                	alert("전화번호를 작성해주세요.");
+    				return false;
+                } */
+
+                /* var $ssgAddr0 = $("[name=ssgAddr0]").val();
+                if(/^[0-9]{5}$/.test($ssgAddr0) == false){
+                	alert("우편번호를 입력해주세요.");
+    				return false;
+                }  */
+
+                /* var $ssgAddr1 = $("[name=ssgAddr1]").val();
+                if(/[^\s]/g.test($ssgAddr1) == false){
+                	alert("주소(동)를 입력해주세요.");
+    				return false;
+                }  */
+
+                var $ssgAddr2 = $("[name=ssgAddr2]").val();
+                if(/[^\s]/g.test($ssgAddr2) == false){
+                	alert("주소(세부)를 입력해주세요.");
+    				return false;
+                } 
+
+    			return true;
+            });
+
+			$("#ssg_user").change(function(){
+
+				var $check = $(this).is(":checked");
+				
+				if(${ empty loginUser }) {
+    				alert("로그인후 구매 해주세요.");
+    				$("#ssg_user").prop("checked", false);
+    				return;
+                } 
+                
+				if($check) {
+					$('input[name="ssgName"]').val("${ loginUser.userId }");
+					$('input[name="ssgTel"]').val(autoHypenPhone("${ loginUser.userPhone }"));
+
+				} else {
+					$('input[name="ssgName"]').val('');
+					$('input[name="ssgTel"]').val('');
+				}
+			});
+				
+
+
+
+
             
         });
 
-        $("#aniTagFrm").submit(function() {
 
-            console.log(${ not empty loginUser });
-
-        	if(${ empty loginUser }) {
-				alert("로그인후 구매 해주세요.");
-				return false;
-			}
-
-
-			return true;
-        });
             
         function previewReset() {
 			var result = confirm("초기화 하시겠습니까??");
@@ -186,12 +327,48 @@
 			}
         }
 
-    
+        /* 주소검색 API*/
+        function execPostCode() {
+             new daum.Postcode({
+                 oncomplete: function(data) {
 
-		
+                    var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+                    var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+     
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraRoadAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                       extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraRoadAddr !== ''){
+                        extraRoadAddr = ' (' + extraRoadAddr + ')';
+                    }
+                    // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+                    if(fullRoadAddr !== ''){
+                        fullRoadAddr += extraRoadAddr;
+                    }
+     
+                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                    console.log(data.zonecode);
+                    console.log(fullRoadAddr);
+                    
+                    
+                    $("[name=ssgAddr0]").val(data.zonecode);
+                    $("[name=ssgAddr1]").val(fullRoadAddr);
+                    
+                    /* document.getElementById('signUpUserPostNo').value = data.zonecode; //5자리 새우편번호 사용
+                    document.getElementById('signUpUserCompanyAddress').value = fullRoadAddr;
+                    document.getElementById('signUpUserCompanyAddressDetail').value = data.jibunAddress; */
+                }
+             }).open();
+         }
 
-        
-    </script>
+</script>
     <div id="main-wrap">
         <section class="main"></section>
         <section class="content-wrap">
@@ -263,7 +440,10 @@
                             
                             <hr/>
                             
-							<h4>배송지 입력</h4>
+							<h4 style="float: left; width: 240px;">배송지 입력</h4>
+							<input type="checkbox" id="ssg_user" /> 
+							<label for="ssg_user" class="ssg_user">기존 정보 적용</label>
+							<br>
 							<label for="ssg-name" class="ani-label ssg">이름</label>
                             <input type="text" name="ssgName" id="ssg-name" placeholder="받으실분 이름">
                             <br />
@@ -271,8 +451,9 @@
                             <input type="text" name="ssgTel" id="ssg-tel" placeholder="받으실분 전화번호">
                             <br />
 							<label for="ssg-addr" class="ani-label ssg" id="ssg-addr-label" >주소</label>
-                            <input type="text" name="ssgAddr1" id="ssg-addr1" placeholder="메인 주소">
-                            <button id="addr-search">주소찾기</button>
+							<input type="text" name="ssgAddr0" id="ssg-addr0" placeholder="우편번호" readonly>
+                            <input type="text" name="ssgAddr1" id="ssg-addr1" placeholder="메인 주소" readonly>
+                            <button type="button" id="addr-search" onclick="execPostCode();">주소찾기</button>
                             <input type="text" name="ssgAddr2" id="ssg-addr2" placeholder="세부 주소">
                             
                             <input class="btn" type="submit" id="submit" value="구매">

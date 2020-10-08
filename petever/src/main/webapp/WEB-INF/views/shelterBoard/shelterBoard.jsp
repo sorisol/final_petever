@@ -226,12 +226,12 @@ $(function () {
                         	<td></td>
                         	<td></td>
                         	<td colspan="2">
-                        		<input type="submit" value="조회"/>
+                        		<input type="submit" id="btn-search" value="조회"/>
                         	</td>
                         </tr>
                     </table>
 					</form>
-                    <hr style="height: 1px; border:none; background-color: #373b44; width: 860px; margin: 35px 50px;">
+                    <hr style="height: 1px; border:none; background-color: lightgray;; width: 860px; margin: 35px 50px;">
 
                     <div class="post-wrap">
                     	<c:forEach items="${ shelterBoardList }" var="sbl" >
