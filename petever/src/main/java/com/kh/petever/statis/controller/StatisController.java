@@ -156,18 +156,8 @@ public class StatisController {
 		search.put("endDay", endDay);
 		
 		List<StatisList> list = statisService.selectList(search);
-		int[] areaResult = new int[8];
-		for (StatisList statisList : list) {
-			areaResult[0]+=statisList.getCnt();
-		}
-			areaResult[1] = listGetCnt(list, 0);
-			areaResult[7] = listGetCnt(list,1); 
-			areaResult[3] = listGetCnt(list,2); 
-			areaResult[6] = listGetCnt(list,3);
-			areaResult[5] = listGetCnt(list,4);
-			areaResult[2] = listGetCnt(list,5); 
-			areaResult[4] = listGetCnt(list,6); 
-		map.put("areaResult", areaResult);
+		int[] loadResult = setList(list); 
+		map.put("areaResult", loadResult);
 
 		map.put("euthanasia", euthanasiaData);
 		map.put("adopt", adoptData);
@@ -205,22 +195,24 @@ public class StatisController {
 		}
 		
 		List<StatisList> list = statisService.selectList();
-		int[] loadResult = new int[8];
-		for (StatisList statisList : list) {
-			loadResult[0]+=statisList.getCnt();
-		}
-			loadResult[1] = listGetCnt(list, 0);
-			loadResult[2] = listGetCnt(list,5); 
-			loadResult[3] = listGetCnt(list,2); 
-			loadResult[4] = listGetCnt(list,6);
-			loadResult[5] = listGetCnt(list,4);
-			loadResult[6] = listGetCnt(list,3); 
-			loadResult[7] = listGetCnt(list,1); 
+		int[] loadResult = setList(list);
 		map.put("loadResult", loadResult);
 		
 		map.put("euthanasia", euthanasiaData);
 		map.put("adopt", adoptData);
 
+		return map;
+	}
+	
+	@GetMapping("/mainLoadStatis.do")
+	@ResponseBody
+	public Map<String, int[]> mainLoadStatis() {
+		Map<String, int[]> map = new HashMap<>();
+		
+		List<StatisList> list = statisService.selectList();
+		int[] loadResult = setList(list);
+		map.put("loadResult", loadResult);
+		
 		return map;
 	}
 	
@@ -268,17 +260,7 @@ public class StatisController {
 		}
 
 		List<StatisList> list = statisService.selectList(searchArea);
-		int[] loadResult = new int[8];
-		for (StatisList statisList : list) {
-			loadResult[0]+=statisList.getCnt();
-		}
-			loadResult[1] = listGetCnt(list, 0);
-			loadResult[2] = listGetCnt(list,5); 
-			loadResult[3] = listGetCnt(list,2); 
-			loadResult[4] = listGetCnt(list,6);
-			loadResult[5] = listGetCnt(list,4);
-			loadResult[6] = listGetCnt(list,3); 
-			loadResult[7] = listGetCnt(list,1); 
+		int[] loadResult = setList(list);
 		map.put("loadResult", loadResult);
 
 		return map;
@@ -292,6 +274,15 @@ public class StatisController {
 		kind = "%"+kind+"%";
 
 		List<StatisList> list = statisService.selectList(kind);
+		
+		int[] loadResult = setList(list); 
+		
+		map.put("loadResult", loadResult);
+		
+		return map;
+	}
+	
+	public int[] setList(List<StatisList> list) {
 		int[] loadResult = new int[8];
 		for (StatisList statisList : list) {
 			loadResult[0]+=statisList.getCnt();
@@ -303,9 +294,7 @@ public class StatisController {
 			loadResult[5] = listGetCnt(list,4);
 			loadResult[6] = listGetCnt(list,3); 
 			loadResult[7] = listGetCnt(list,1); 
-		map.put("loadResult", loadResult);
-
-		return map;
+		return loadResult;
 	}
 	
 }
