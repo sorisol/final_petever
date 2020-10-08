@@ -25,15 +25,15 @@ public class AnimalTagController {
 		return "animalTag/animalTag";
 	}
 	
-	@PostMapping("/animalTagBuy.do")
-	public String animalTagBuy(AnimalTag aniTag) {
-		System.out.println(aniTag);
-
-		int result = animalService.insertAniTag(aniTag);
-		
-		
-		return "";
-	}
+//	@PostMapping("/animalTagBuy.do")
+//	public String animalTagBuy(AnimalTag aniTag) {
+//		System.out.println(aniTag);
+//
+//		int result = animalService.insertAniTag(aniTag);
+//		
+//		
+//		return "";
+//	}
 	
 	
 }

@@ -54,6 +54,7 @@
     display: inline-block;
     text-shadow: 0px 0px 2px black;
     font-size: 18px;
+    opacity: .2;
 }
 
 #preview-name {
@@ -92,7 +93,7 @@
 }
 
 .animal-tag-select input {
-    margin-bottom: 20px;
+    margin-bottom: 19px;
 }
 
 .animal-tag-select input[type=radio] {
@@ -169,6 +170,8 @@ input[id="submit"]{
 #ssg-addr-label {
 	display: block;
     margin-bottom: 20px;
+    float: left;
+    width: 135px;
 }
 
 #ssg-addr1 {
@@ -192,6 +195,18 @@ input[id="submit"]{
 
 hr {
 	margin-bottom: 20px;
+	background-color: lightgray;
+    height: 1px;
+    border: none;
+}
+
+.ssg_user{
+	font-size: 12px;
+}
+
+#ssg_user{
+	width: 10px;
+    height: 10px;
 }
 
 

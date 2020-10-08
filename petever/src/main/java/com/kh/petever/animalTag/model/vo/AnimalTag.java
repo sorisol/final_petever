@@ -28,6 +28,7 @@ public class AnimalTag implements Serializable {
 	private String tagPersonPhone;
 	private String ssgName;
 	private String ssgTel;
+	private String ssgAddr0;
 	private String ssgAddr1;
 	private String ssgAddr2;
 	private String buyDate;
