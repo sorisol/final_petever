@@ -41,25 +41,31 @@
         $(function () {
             $("[name=tagColor]").change(function () {
                 var $color = $(this);
-                console.log($color.val());
 
-                var realColor;
-                if ($color.val() == 'green') {
-	                $("#ani-info-tag1").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/animalTag_green1.png)');
-	                $("#ani-info-tag2").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/animalTag_green1.png)');
-                } else if ($color.val() == 'blue') {
-	                $("#ani-info-tag1").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/animalTag_blue1.png)');
-	                $("#ani-info-tag2").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/animalTag_blue1.png)');
-                } else if ($color.val() == 'ivory') {
-	                $("#ani-info-tag1").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/animalTag_beige1.png)');
-	                $("#ani-info-tag2").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/animalTag_beige1.png)');
-                } else if ($color.val() == 'pink') {
-	                $("#ani-info-tag1").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/animalTag_pink1.png)');
-	                $("#ani-info-tag2").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/animalTag_pink1.png)');
-                } else if ($color.val() == 'brown') {
-	                $("#ani-info-tag1").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/animalTag_brown.png)');
-	                $("#ani-info-tag2").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/animalTag_brown.png)');
+                if ($color.val() == 'silver') {
+	                $("#ani-info-tag1").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_silver.png)');
+	                $("#ani-info-tag2").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_silver.png)');
+                } else if ($color.val() == 'gold') {
+	                $("#ani-info-tag1").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_gold.png)');
+	                $("#ani-info-tag2").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_gold.png)');
+                } else if ($color.val() == 'rosegold') {
+	                $("#ani-info-tag1").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_rosegold.png)');
+	                $("#ani-info-tag2").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_rosegold.png)');
                 }
+            });
+
+            $("[name=tagAniKind]").change(function() {
+                var $aniKind = $(this);
+				console.log($aniKind.val());
+
+				if($aniKind.val() == '포메라니안'){
+					$("#aniaml-tag-img").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/ani_pome.png)');
+				} else if($aniKind.val() == '진돗개'){
+					$("#aniaml-tag-img").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/ani_jindo.png)');
+				} else if($aniKind.val() == '시바견'){
+					$("#aniaml-tag-img").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/ani_siba.png)');
+				}
+
             });
 
             $("[name=tagFont]").change(function () {
@@ -72,11 +78,8 @@
                 var $aniName = $(this);
                 // console.log($aniName.val());
                 $("#preview-name").text($aniName.val());
-                $("#preview-name").css("opacity","1");
-                $("#preview-name").css("transition-duration",".6s");
-               
             });
-            //동물생년월일
+            /* //동물생년월일
             $("#ani-birth").change(function () {
                 var $aniBirth = $(this);
                 // console.log($aniBirth.val());
@@ -87,7 +90,7 @@
                 var $aniGender = $(this);
                 // console.log($aniGender.next().text());
                 $("#preview-gender").text("/ " + $aniGender.next().text());
-            });
+            }); */
             //동물등록번호
             $("#ani-ssn").keyup(function () {
                 var $aniSsn = $(this);
@@ -213,19 +216,8 @@
                 var $tagAniName = $('input[name="tagAniName"]').val();
 
 /* 				console.log(/^[가-힣]{1,5}$/.test($tagAniName));
-                if(/^[가-힣a-zA-Z]{1,6}$|^[a-zA-Z]{1,10}$/.test($tagAniName) == false) {
+                if(/^[가-힣a-zA-Z]{1,5}$|^[a-zA-Z]{1,10}$/.test($tagAniName) == false) {
                 	alert("반려동물 이름 형식에 맞춰 작성해주세요.");
-    				return false;
-                } */
-
-				var $tagAniBirth = $('input[name="tagAniBirth"]').val();
-/*                 if(/^(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/.test($tagAniBirth) == false) {
-                	alert("반려동물 생일을 형식에 맞춰 작성해주세요.(ex:2020-10-23)");
-    				return false;
-                } */
-
-/*                 if($('input[name="tagAniGender"]:checked').val() == undefined) {
-                	alert("반려 동물의 성별을 선택해주세요.");
     				return false;
                 } */
 
@@ -236,7 +228,7 @@
                 } */
 
                 var $tagPerName = $('[name=tagPersonName]').val();
-/*                if(/^[가-힣]{1,6}$|^[a-zA-Z]{1,10}$/.test($tagPerName) == false){
+/*                if(/^[가-힣]{2,6}$|^[a-zA-Z]{2,10}$/.test($tagPerName) == false){
                 	alert("인식표에 작성될 보호자 이름을 작성해주세요.");
     				return false;
                 } */
@@ -299,6 +291,28 @@
 					$('input[name="ssgTel"]').val('');
 				}
 			});
+
+
+			//강아지, 고양이 별 종
+		    $("[name=tagAniKind]").each(function() {
+				var $breed = $(this).val();
+				var $selectTag = $("#aniKind");
+				var dog = ['포메라니안', '진돗개', '시바견', '리트리버', '말티즈', '보더콜리', '불독', '비숑프리제', '시츄', '웰시코기', '요크셔테리어', '치와와', '푸들'];
+				var cat = ['코리안숏헤어', '노르웨이숲', '러시안블루', '렉돌', '먼치킨', '뱅갈', '브리티쉬숏헤어', '샴', '스코티쉬폴드', '터키쉬앙고라'];
+				/* if($breed == '개'){ */
+					/* $selectTag.html(''); */
+					for(var i in dog) {
+						$selectTag.append('<option value="'+dog[i]+'">'+dog[i]+'</option>');
+					}
+				/* } */
+				/* else if($breed == '고양이'){
+					$selectTag.html('');
+					for(var i in cat) {
+						$selectTag.append('<option value="'+cat[i]+'">'+cat[i]+'</option>');
+					}
+				} */
+				
+		    });
 				
 
 
@@ -378,15 +392,16 @@
                 <div class="tag-wrap">
                     <div class="animal-tag-preview">
                         <div id="ani-info-tag1">
-                            <label class="animal-tag-font" id="preview-name" for=""></label><br>
-                            <label class="animal-tag-font" id="preview-birth" for=""></label>
-                            <label class="animal-tag-font" id="preview-gender" for=""></label><br>
-                            <label class="animal-tag-font" id="preview-ssn" for=""></label><br>
+                        	<div id="aniaml-tag-img"></div><br />
+                        	<label class="animal-tag-font" id="preview-name" for=""></label>
                         </div>
 
                         <label class="preview-label preview-front" for="">앞면</label>
 
                         <div id="ani-info-tag2">
+                            <!-- <label class="animal-tag-font" id="preview-birth" for=""></label>
+                            <label class="animal-tag-font" id="preview-gender" for=""></label><br> -->
+                            <label class="animal-tag-font" id="preview-ssn" for=""></label><br>
                             <label class="animal-tag-font" id="preview-person-name" for=""></label><br>
                             <label class="animal-tag-font" id="preview-person-phone" for=""></label><br>
                         </div>
@@ -396,19 +411,19 @@
                     <div class="animal-tag-select">
                         <form action="${ pageContext.request.contextPath }/animalTag/animalTagBuy.do" id="aniTagFrm" method="POST" >
                         	<input type="hidden" name="userId" value="${ loginUser.userId }"/>
-                            <h4>색상</h4>
-                            <input type="radio" name="tagColor" id="green" value="green">
-                            <label class="ani-radio" for="green">그린</label>
-                            <input type="radio" name="tagColor" id="blue" value="blue">
-                            <label class="ani-radio" for="blue">블루</label>
-                            <input type="radio" name="tagColor" id="ivory" value="ivory">
-                            <label class="ani-radio" for="ivory">아이보리</label>
-                            <br />
-                            <input type="radio" name="tagColor" id="pink" value="pink">
-                            <label class="ani-radio" for="pink">핑크</label>
-                            <input type="radio" name="tagColor" id="brown" value="brown">
-                            <label class="ani-radio" for="brown">브라운</label>
-
+                            <h4>펜던트 색상</h4>
+                            <input type="radio" name="tagColor" id="silver" value="silver">
+                            <label class="ani-radio" for="silver">실버(Silver)</label>
+                            <input type="radio" name="tagColor" id="gold" value="gold">
+                            <label class="ani-radio" for="gold">골드(Gold)</label><br />
+                            <input type="radio" name="tagColor" id="rosegold" value="rosegold">
+                            <label class="ani-radio" for="rosegold">로즈골드(Rose Gold)</label><br />
+                            
+                            <label for="aniKind" class="ani-label">동물선택</label>
+                            <select name="tagAniKind" id="aniKind">
+                            	<option value="">동물 이미지 선택</option>
+                            </select>
+                            
                             <h4>폰트</h4>
                             <input type="radio" name="tagFont" id="font_DoHyeon" value="Do Hyeon">
                             <label class="ani-radio font_DoHyeon" for="font_DoHyeon">도현체</label>
@@ -418,25 +433,16 @@
                             <label class="ani-radio font_Sunflower" for="font_Sunflower">선플라워체</label>
                             <br>
                             <label for="ani-name" class="ani-label">동물이름</label>
-                            <input type="text" name="tagAniName" id="ani-name" placeholder="동물 이름">
-                            <br>
-                            <label for="ani-birth" class="ani-label">동물생년월일</label>
-                            <input type="date" name="tagAniBirth" id="ani-birth">
-                            <br>
-                            <label for="ani-gender" class="ani-label">동물성별</label>
-                            <input type="radio" name="tagAniGender" id="ani-gender-m" value="M">
-                            <label class="ani-radio" for="ani-gender-m">수컷</label>
-                            <input type="radio" name="tagAniGender" id="ani-gender-f" value="F">
-                            <label class="ani-radio" for="ani-gender-f">암컷</label>
+                            <input type="text" name="tagAniName" id="ani-name" placeholder="한영(5자), 영문(10자) 이내">
                             <br>
                             <label for="ani-ssn" class="ani-label">동물등록번호</label>
-                            <input type="text" name="tagAniSsn" id="ani-ssn" placeholder="동물등록번호">
+                            <input type="text" name="tagAniSsn" id="ani-ssn" placeholder="숫자 12자리">
                             <br>
                             <label for="person-name" class="ani-label">보호자 이름</label>
-                            <input type="text" name="tagPersonName" id="person-name" placeholder="보호자 이름">
+                            <input type="text" name="tagPersonName" id="person-name" placeholder="한글 6자 이내">
                             <br>
                             <label for="person-phone" class="ani-label">보호자 전화번호</label>
-                            <input type="text" name="tagPersonPhone" id="person-phone" placeholder="보호자 전화번호">
+                            <input type="text" name="tagPersonPhone" id="person-phone" placeholder="숫자만 입력해주세요">
                             
                             <hr/>
                             
@@ -445,16 +451,16 @@
 							<label for="ssg_user" class="ssg_user">기존 정보 적용</label>
 							<br>
 							<label for="ssg-name" class="ani-label ssg">이름</label>
-                            <input type="text" name="ssgName" id="ssg-name" placeholder="받으실분 이름">
+                            <input type="text" name="ssgName" id="ssg-name" placeholder="한글 2~6자">
                             <br />
 							<label for="ssg-tel" class="ani-label ssg">핸드폰번호</label>
-                            <input type="text" name="ssgTel" id="ssg-tel" placeholder="받으실분 전화번호">
+                            <input type="text" name="ssgTel" id="ssg-tel" placeholder="숫자만 입력해주세요">
                             <br />
 							<label for="ssg-addr" class="ani-label ssg" id="ssg-addr-label" >주소</label>
-							<input type="text" name="ssgAddr0" id="ssg-addr0" placeholder="우편번호" readonly>
-                            <input type="text" name="ssgAddr1" id="ssg-addr1" placeholder="메인 주소" readonly>
-                            <button type="button" id="addr-search" onclick="execPostCode();">주소찾기</button>
-                            <input type="text" name="ssgAddr2" id="ssg-addr2" placeholder="세부 주소">
+							<input type="text" name="ssgAddr0" id="ssg-addr0" onclick="execPostCode();" placeholder="우편번호" readonly style="cursor: pointer;">
+                            <input type="text" name="ssgAddr1" id="ssg-addr1" onclick="execPostCode();" placeholder="메인 주소" readonly style="cursor: pointer;">
+                            <button type="button" id="addr-search" onclick="execPostCode();" style="cursor: pointer;">주소찾기</button>
+                            <input type="text" name="ssgAddr2" id="ssg-addr2" placeholder="세부 주소 입력">
                             
                             <input class="btn" type="submit" id="submit" value="구매">
                             <input class="btn" type="button" value="초기화" onclick="previewReset();">
