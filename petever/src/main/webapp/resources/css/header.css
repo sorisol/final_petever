@@ -54,6 +54,7 @@ header .main-bar ul li:nth-child(n+2){
     position: absolute;
     margin-bottom:25px;
     margin-left: 20px;
+    cursor: pointer;
 }
 /* ASIDE */
 aside img{

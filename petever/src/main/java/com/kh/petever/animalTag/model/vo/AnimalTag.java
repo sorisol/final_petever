@@ -19,15 +19,15 @@ public class AnimalTag implements Serializable {
 	private String userId;
 	private int tagNo;
 	private String tagColor;
+	private String tagAniKind;
 	private String tagFont;
 	private String tagAniName;
-	private String tagAniBirth;
-	private String tagAniGender;
 	private String tagAniSsn;
 	private String tagPersonName;
 	private String tagPersonPhone;
 	private String ssgName;
 	private String ssgTel;
+	private String ssgAddr0;
 	private String ssgAddr1;
 	private String ssgAddr2;
 	private String buyDate;

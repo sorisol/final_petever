@@ -20,8 +20,8 @@
 
 .animal-tag-preview {
     width: 390px;
-    height: 850px;
-    border: 1px solid #6d6e71;
+    height: 800px;
+    border: 0px solid #6d6e71;
     border-radius: 10px;
     float: left;
     padding: 20px;
@@ -35,8 +35,8 @@
     margin: 15px auto;
     background-repeat: no-repeat;
     background-size: cover;
-	width: 200px;
-    height: 245px;
+	width: 230px;
+    height: 230px;
 }
 
 #ani-info-tag2 {
@@ -46,24 +46,34 @@
 /*     margin: 15px auto; */
     background-repeat: no-repeat;
     background-size: cover;
-    width: 200px;
-    height: 245px;
+    width: 230px;
+    height: 230px;
 }
 
 .animal-tag-font {
     display: inline-block;
     text-shadow: 0px 0px 2px black;
-    font-size: 18px;
+    font-size: 26px;
+}
+
+#aniaml-tag-img {
+	width: 120px;
+    height: 120px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0px auto;
+    display: inline-block;
+    margin-top: 40px;
 }
 
 #preview-name {
-    margin-top: 120px;
-    font-size: 25px;
+    margin-top: 6px;
+    font-size: 30px;
 }
 
-#preview-person-name {
-    margin-top: 140px;
-    font-size: 25px;
+#preview-ssn {
+    margin-top: 70px;
+    margin-bottom: 5px;
 }
 
 .preview-label {
@@ -72,14 +82,10 @@
     font-size: 15px;
 }
 
-#preview-birth {
-    margin-left: 10px;
-}
-
 .animal-tag-select {
     width: 390px;
-    height: 850px;
-    border: 1px solid #6d6e71;
+    height: 800px;
+    border: 0px solid #6d6e71;
     border-radius: 10px;
     float: left;
     padding: 20px;
@@ -92,7 +98,7 @@
 }
 
 .animal-tag-select input {
-    margin-bottom: 20px;
+    margin-bottom: 19px;
 }
 
 .animal-tag-select input[type=radio] {
@@ -112,6 +118,18 @@
     background: #fff;
     margin-left: 5px;
 
+}
+
+#aniKind {
+    width: 200px;
+    height: 35px;
+    border: solid 1px #dadada;
+    border-radius: 10px;
+    padding: 6px 18px 6px 10px;
+    box-sizing: border-box;
+    background: #fff;
+    margin-left: 5px;
+    font-size: 15px;
 }
 
 .ani-label {
@@ -169,6 +187,8 @@ input[id="submit"]{
 #ssg-addr-label {
 	display: block;
     margin-bottom: 20px;
+    float: left;
+    width: 135px;
 }
 
 #ssg-addr1 {
@@ -192,6 +212,18 @@ input[id="submit"]{
 
 hr {
 	margin-bottom: 20px;
+	background-color: lightgray;
+    height: 1px;
+    border: none;
+}
+
+.ssg_user{
+	font-size: 12px;
+}
+
+#ssg_user{
+	width: 10px;
+    height: 10px;
 }
 
 
@@ -330,3 +362,5 @@ hr {
     -o-transition: all 0.3s cubic-bezier(1, .01, .32, 1);
     transition: all 0.3s cubic-bezier(1, .01, .32, 1);
 }
+
+

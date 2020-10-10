@@ -99,20 +99,19 @@ CREATE TABLE animal_comment (
                                             on delete cascade
 );
 
-
 CREATE TABLE animal_tag (
 	tag_no varchar2(20) NOT NULL,
     user_id varchar2(30) NOT NULL,
 	tag_color VARCHAR2(100) NOT NULL,
+    tag_ani_kind varchar2(50) NOT NULL,
 	tag_font VARCHAR2(50) NOT NULL,
 	tag_ani_name VARCHAR2(50)	NOT NULL,
-	tag_ani_birth DATE NOT NULL,
-	tag_ani_gender VARCHAR2(30) NOT NULL,
 	tag_ani_ssn VARCHAR2(30),
 	tag_person_name	VARCHAR2(50)	NOT NULL,
 	tag_person_phone VARCHAR2(20)	NOT NULL,
     ssg_name varchar2(30) NOT NULL,
-    ssg_tel varchar2(11) NOT NULL,
+    ssg_tel varchar2(13) NOT NULL,
+    ssg_addr0 varchar2(10) not null,
     ssg_addr1 varchar2(100) NOT NULL,
     ssg_addr2 varchar2(100) NOT NULL,
     buy_date DATE default sysdate,
@@ -122,6 +121,7 @@ CREATE TABLE animal_tag (
                                     on delete cascade
 );
 
+create sequence seq_tag_no;
 
 CREATE TABLE review_board (
 	rew_bo_id	NUMBER,
@@ -224,3 +224,33 @@ update shelterAnimal SA
 set SA.ani_age = (select to_number(extract(year from sysdate)-extract(year from to_date(substr(nvl(regexp_replace(substr(S.age, 0, instr(S.age, '(', 1)-1), ' |-|`', ''),0), 0, 4), 'rrrr'))) 
                  from shelterAnimal S
                  where SA.desertion_no = S.desertion_no);
+
+create table adoption_application(
+    adopt_id	NUMBER,
+    ani_bo_id number,
+    sender_id varchar2(30) ,
+    sender_local varchar2(100),
+    sender_phone char(11),
+	sender_job varchar2(100),
+    sender_home varchar2(100),
+    a1 VARCHAR2(100),
+    a2 VARCHAR2(10),
+    a3 VARCHAR2(100),
+    a4 VARCHAR2(3000),
+    a5 VARCHAR2(10),
+    a6 VARCHAR2(1000),
+    a7 VARCHAR2(3000),
+    a8 VARCHAR2(1000),
+    a9 VARCHAR2(10),
+    a10 VARCHAR2(1000),
+    a11 VARCHAR2(100),
+    a12 VARCHAR2(100),
+    a13 VARCHAR2(10),
+    constraints pk_adopt_id primary key(adopt_id),
+    constraints fk_adopt_ani_bo_id foreign key(ani_bo_id)
+                                    references animal_board(ani_bo_id)
+                                    on delete set null,
+     constraints fk_adopt_receiver foreign key(sender_id)
+                                    references tb_user(user_id)
+                                    on delete set null
+);

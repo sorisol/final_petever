@@ -31,7 +31,6 @@ public class AnimalTagController {
 
 		int result = animalService.insertAniTag(aniTag);
 		
-		
 		return "";
 	}
 	

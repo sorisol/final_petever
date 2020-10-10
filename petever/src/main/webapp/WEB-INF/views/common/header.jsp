@@ -42,13 +42,13 @@
                 <li><a href="${ pageContext.request.contextPath }/user/userDetail.do">마이페이지</a></li>
                
                 <li>고객센터</li>
-                <li><a href="${ pageContext.request.contextPath }/admin/adminUser.do">관리자</li>
+                <li><a href="${ pageContext.request.contextPath }/admin/adminUser.do">관리자</a></li>
             </ul>
         </div>
     </header>
     <div class="menu main-bar">
         <ul>
-            <div class="logo"></div>
+            <div class="logo" onclick="location.href='${ pageContext.request.contextPath }'"></div>
             <li>사이트소개</li>
             <li><a href="${ pageContext.request.contextPath }/animalboard">유기동물</a></li>
             <li><a href="${ pageContext.request.contextPath }/shelterBoard/shelterBoard.do">보호소동물</a></li>
