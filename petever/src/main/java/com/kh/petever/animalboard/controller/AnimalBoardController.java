@@ -308,6 +308,15 @@ public class AnimalBoardController {
 		return result;
 	}
 	
+	@GetMapping("/apply/adopt")
+	public ModelAndView adoptFrm(@RequestParam("no") int no, ModelAndView mav) {
+		AnimalBoard animal = service.selectOneBoard(no);
+		mav.addObject("animal", animal);
+		log.debug("animal = {}", animal);
+		
+		mav.setViewName("animalBoard/adoption-application");
+		return mav;
+	}
 	//이 아래로는 파일 관련
 	@RequestMapping("/file_uploader")
 	public String file_uploader(HttpServletRequest request, HttpServletResponse response, Photo photo){

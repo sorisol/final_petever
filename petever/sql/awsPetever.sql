@@ -227,4 +227,32 @@ set SA.ani_age = (select to_number(extract(year from sysdate)-extract(year from 
                  from shelterAnimal S
                  where SA.desertion_no = S.desertion_no);
 
-
+create table adoption_application(
+    adopt_id	NUMBER,
+    ani_bo_id number,
+    sender_id varchar2(30) ,
+    sender_local varchar2(100),
+    sender_phone char(11),
+	sender_job varchar2(100),
+    sender_home varchar2(100),
+    a1 VARCHAR2(100),
+    a2 VARCHAR2(10),
+    a3 VARCHAR2(100),
+    a4 VARCHAR2(3000),
+    a5 VARCHAR2(10),
+    a6 VARCHAR2(1000),
+    a7 VARCHAR2(3000),
+    a8 VARCHAR2(1000),
+    a9 VARCHAR2(10),
+    a10 VARCHAR2(1000),
+    a11 VARCHAR2(100),
+    a12 VARCHAR2(100),
+    a13 VARCHAR2(10),
+    constraints pk_adopt_id primary key(adopt_id),
+    constraints fk_adopt_ani_bo_id foreign key(ani_bo_id)
+                                    references animal_board(ani_bo_id)
+                                    on delete set null,
+     constraints fk_adopt_receiver foreign key(sender_id)
+                                    references tb_user(user_id)
+                                    on delete set null
+);
