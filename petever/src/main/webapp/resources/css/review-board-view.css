@@ -195,10 +195,6 @@ td {
 	outline-color: #f2aa8a;	
 }
 
-@CHARSET "UTF-8";
-body {font-family:"휴먼모음T";}
-div, section, header, aside, footer {padding:10px;}
-
 /********** 전체컨테이너 **********/
 div#container	{}
 
