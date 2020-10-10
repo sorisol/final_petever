@@ -81,6 +81,9 @@
 			animal_comment
 		where
 			ani_bo_id = #{no}
+		start with ani_co_level = 1 
+		connect by prior ani_co_id = ani_co_ref 
+		order siblings by ani_co_id asc
 	</select>
 	
 	<select id="totalComment" resultType="_int">
