@@ -5,8 +5,8 @@
 <mapper namespace="animalTag">
 	<insert id="insertAniTag">
 		insert into animal_tag
-		values (seq_tag_no.nextval, #{ userId }, #{ tagColor }, #{ tagFont }, #{ tagAniName },
-				to_date(#{ tagAniBirth }, 'yyyy-MM-dd'), #{ tagAniGender }, #{ tagAniSsn }, #{ tagPersonName }, #{ tagPersonPhone },
+		values (seq_tag_no.nextval, #{ userId }, #{ tagColor }, #{ tagAniKind }, #{ tagFont }, 
+				#{ tagAniName }, #{ tagAniSsn }, #{ tagPersonName }, #{ tagPersonPhone },
 				#{ ssgName }, #{ ssgTel }, #{ ssgAddr0 }, #{ ssgAddr1 }, #{ ssgAddr2 }, default)
 	</insert>
 

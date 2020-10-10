@@ -99,20 +99,18 @@ CREATE TABLE animal_comment (
                                             on delete cascade
 );
 
-
 CREATE TABLE animal_tag (
 	tag_no varchar2(20) NOT NULL,
     user_id varchar2(30) NOT NULL,
 	tag_color VARCHAR2(100) NOT NULL,
+    tag_ani_kind varchar2(50) NOT NULL,
 	tag_font VARCHAR2(50) NOT NULL,
 	tag_ani_name VARCHAR2(50)	NOT NULL,
-	tag_ani_birth DATE NOT NULL,
-	tag_ani_gender VARCHAR2(30) NOT NULL,
 	tag_ani_ssn VARCHAR2(30),
 	tag_person_name	VARCHAR2(50)	NOT NULL,
 	tag_person_phone VARCHAR2(20)	NOT NULL,
     ssg_name varchar2(30) NOT NULL,
-    ssg_tel varchar2(11) NOT NULL,
+    ssg_tel varchar2(13) NOT NULL,
     ssg_addr0 varchar2(10) not null,
     ssg_addr1 varchar2(100) NOT NULL,
     ssg_addr2 varchar2(100) NOT NULL,
