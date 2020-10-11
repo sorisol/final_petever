@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/tag.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animalTag.css">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <!-- google font -->
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&family=Sunflower:wght@500&display=swap" rel="stylesheet">
@@ -409,7 +409,7 @@
                         <label class="preview-label preview-back" for="">뒷면</label>
                     </div>
                     <div class="animal-tag-select">
-                        <form action="${ pageContext.request.contextPath }/animalTag/animalTagBuy.do" id="aniTagFrm" method="POST" >
+                        <form action="${ pageContext.request.contextPath }/animalTag/animalTagPay.do" id="aniTagFrm" method="POST" >
                         	<input type="hidden" name="userId" value="${ loginUser.userId }"/>
                             <h4>펜던트 색상</h4>
                             <input type="radio" name="tagColor" id="silver" value="silver">
@@ -461,12 +461,18 @@
                             <input type="text" name="ssgAddr1" id="ssg-addr1" onclick="execPostCode();" placeholder="메인 주소" readonly style="cursor: pointer;">
                             <button type="button" id="addr-search" onclick="execPostCode();" style="cursor: pointer;">주소찾기</button>
                             <input type="text" name="ssgAddr2" id="ssg-addr2" placeholder="세부 주소 입력">
+                            <input type="hidden" name="tagPrice" value="5000"/>
                             
                             <input class="btn" type="submit" id="submit" value="구매">
                             <input class="btn" type="button" value="초기화" onclick="previewReset();">
                         </form>
                     </div>
                 </div>
+                
+                <form action="${ pageContext.request.contextPath }/animalTag/kakaoPay" method="post">
+                	<input type="hidden" name="price" value="5000"/>
+				    <button>카카오페이로 결제하기</button>
+				</form>
                 
                 <div id="slider-wrap">
 				    <ul id="slider">
