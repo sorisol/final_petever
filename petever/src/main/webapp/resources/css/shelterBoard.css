@@ -55,6 +55,9 @@ span {
 hr {
     width: 200px;
     margin: 5px auto;
+    background-color: lightgray;
+    height: 1px;
+    border: none;
 }
 
 .tag+span {
@@ -130,6 +133,23 @@ option {
     margin: 0px 0px 0px -5px;
     outline: none;
     cursor: pointer;
+}
+
+.org {
+	font-size: 15px;
+    padding: 2px;
+    width: 105px;
+}
+
+#btn-search {
+	float: right;
+    width: 68px;
+    height: 36px;
+    border: 1px solid #FFDD93;
+    background-color: #FFDD93;
+    color: #373b44;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 .missing {

@@ -16,5 +16,38 @@
 <resultMap id="reviewBoardMap" type="reviewBoard">
 </resultMap>
  
+<!-- 게시판 글 작성  -->
+  	<insert id="insertReviewBoard">
+		insert into 
+			review_board  
+			(rew_bo_id,
+			 user_id,
+			 rew_bo_title,
+			 rew_bo_content
+			 
+			 )
+		values(
+		seq_review_board_id.nextval,
+			#{userId},
+			#{rewBoTitle},
+			#{RewBoContent}
+		)
+		
+		
+	
+	</insert> 
+
+
+	<insert id="insertAttachment">
+			insert into
+				animal_attach
+			values(
+				seq_animal_attach_id.nextval,
+				#{aniBoId},
+				#{aniAtOriginalName},
+				#{aniAtRenamedName},
+				default
+			)
+		</insert>
 	
 </mapper>

@@ -73,6 +73,7 @@
                                     <th>품종</th>
                                     <td colspan="3">
                                         <select name="aniBoKind" id="aniBoKind">
+                                        	<option selected disabled hidden>동물 선택 후, 품종을 선택하세요</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -256,7 +257,7 @@ $(function () {
 			}
 		}
 		else {
-			$selectTag.html('');
+			$selectTag.html('<option value="">없음</option>');
 		}
     });
 

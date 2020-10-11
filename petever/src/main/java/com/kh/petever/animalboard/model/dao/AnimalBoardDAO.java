@@ -3,9 +3,12 @@ package com.kh.petever.animalboard.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.petever.animalboard.model.vo.AdoptApplication;
 import com.kh.petever.animalboard.model.vo.AnimalAttach;
 import com.kh.petever.animalboard.model.vo.AnimalBoard;
 import com.kh.petever.animalboard.model.vo.AnimalComment;
+import com.kh.petever.animalboard.model.vo.Report;
+import com.kh.petever.shelterBoard.model.vo.ShelterAnimal;
 
 public interface AnimalBoardDAO {
 
@@ -38,5 +41,11 @@ public interface AnimalBoardDAO {
 	int updateBoard(AnimalBoard animal);
 
 	List<AnimalBoard> selectBoardListOneWeek();
+
+	int insertApplication(AdoptApplication application);
+
+	List<ShelterAnimal> selectShelterAnimalList(AnimalBoard animalBoard);
+
+	int insertReport(Report rep);
 
 }

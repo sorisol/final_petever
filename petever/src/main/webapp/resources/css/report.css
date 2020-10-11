@@ -1,0 +1,61 @@
+.main {
+    width: 1440px;
+    height: 716px;
+    background: url("img/sub1.jpg") no-repeat center;
+    background-size: 1440px;
+    margin: 0 auto;
+}
+body{
+    width:500px;
+    height:300px;
+}
+.report{
+    width: 500px;
+    height: 40px;
+    background: #ebebeb;
+    line-height: 40px;
+}
+h3, p{
+    margin-left: 15px;
+}
+
+p{
+    margin: 5px 15px;
+    font-size: 14px;
+}
+span{
+    font-size: 16px;
+}
+.btn{
+    width:140px;
+    margin: 0 auto;
+}
+textarea{
+    margin-left: 15px;
+    margin-bottom: 10px;
+}
+input[value="신고하기"]{
+    width: 80px;
+    height: 25px;
+    font-weight: bold;
+    background: #ebebeb;
+    border:1px solid #adadad;
+    outline: none;
+}
+input[value="취소"]{
+    width: 40px;
+    height: 25px;
+    font-weight: bold;
+    background: #ebebeb;
+    border:1px solid #adadad;
+    outline: none;
+}
+input[type="button"]:active{
+    background: white;
+}
+input[type="text"] {
+	border: none;
+}
+input[type="text"]:focus {
+	outline: none;
+}

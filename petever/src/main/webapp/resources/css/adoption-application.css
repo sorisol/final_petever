@@ -1,0 +1,104 @@
+section {
+    background-color: #e8c2b7;
+    padding: 20px 0 50px;
+}
+
+.logo {
+    width: 275px;
+    height: 92px;
+    background: url("${pageContext.request.contextPath }/resources/images/logo.png") no-repeat;
+    background-size: cover;
+    background-position: center;
+    margin: 0 auto;
+}
+
+.title {
+	font-size: 20px;
+	font-weight: bold;
+}
+.adopt {
+    margin: 130px auto;
+    width: 550px;
+    padding: 30px;
+    background-color: white;
+    border-radius: 30px;
+}
+.adopt h1 {
+	text-align: center;
+	margin: 20px 0px 30px 0px;
+}
+.adopt input[type=radio] {
+	margin: 15px 0px 15px 30px;
+}
+.adopt input[type=text] {
+    display: block;
+    width: 500px;
+    height: 36px;
+    border: 1px solid #cdcdcd;
+    border-radius: 30px;
+    margin: 0px auto 15px;
+    padding-left: 15px;
+}
+.adopt textarea {
+	width: 500px;
+	height: 52px;
+    border: 1px solid #cdcdcd;
+    border-radius: 30px;
+    margin: 0px 25px 15px;
+    padding: 15px 25px;
+    resize: none;
+    max-height: 500px;
+    overflow-wrap: break-word;
+    overflow: hidden;
+}
+.adopt textarea:focus {
+    border: 2px solid #FFDD93;
+    outline: none;
+}
+.adopt label {
+    display: block;
+    margin: 15px 28px 5px 28px;
+}
+.adopt .radio-label {
+	display: inline;
+    margin: 15px 0px;
+}
+
+.adopt select {
+	margin-left: 30px;
+	width: 150px;
+	height: 34px;
+    border: 1px solid #cdcdcd;
+    border-radius: 30px;
+    padding-left: 15px;
+    font-size: 16px;
+}
+#type {
+	width: 225px;
+}
+
+.adopt input:focus, select:focus {
+    border-radius: 30px;
+    border: 1px solid #FFDD93;
+    outline: none;
+}
+
+.adopt input[type=submit] {
+    width: 364px;
+    height: 50px;
+    /* float: left; */
+    background-color: #FFDD93;
+    border: 1px solid #FFDD93;
+    border-bottom: 3px solid #FFDD93;
+    text-align: center;
+    line-height: 40px;
+    color: #373b44;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 8px;
+    margin: 30px auto 20px;
+    display: block;
+    cursor: pointer;
+    border-radius: 30px;
+    outline: none;
+}

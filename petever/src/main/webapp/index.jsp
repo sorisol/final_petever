@@ -8,43 +8,28 @@
 <script src="${pageContext.request.contextPath}/resources/js/chartjs-plugin-labels.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/utils.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/index.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/slick.css"/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/slick-theme.css"/>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/slick.js"></script>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <script src="${pageContext.request.contextPath}/resources/js/loading.js"></script>
+
    <div id="main-wrap">
         <section class="main">
 
         </section>
         <section class="content-wrap">
             <article class="content">
-                <p class="title">■ 실종 동물 / 보호</p>
-               	<div class="slidebanner">
-	                <ul class="bannerbox">
-	                </ul>
+                <p class="missing-title">■ 실종된 동물</p>
+              	<div class="missing slider" data-slick='{"slidesToShow": 5, "slidesToScroll": 5}'>
+              			
                	</div>
-                    <%-- <li>
-                        <img src="${pageContext.request.contextPath}/resources/images/dog1.jpg" alt="실종 및 보호 동물 사진">
-                    </li> --%>
-                    <%-- <li>
-                        <img src="${pageContext.request.contextPath}/resources/images/dog2.jpg" alt="실종 및 보호 동물 사진">
-                    </li>
-                    <li>
-                        <img src="${pageContext.request.contextPath}/resources/images/dog3.jpg" alt="실종 및 보호 동물 사진">
-                    </li>
-                    <li>
-                        <img src="${pageContext.request.contextPath}/resources/images/dog4.jpg" alt="실종 및 보호 동물 사진">
-                    </li>
-                    <li>
-                        <img src="${pageContext.request.contextPath}/resources/images/dog5.jpg" alt="실종 및 보호 동물 사진">
-                    </li>
-                    <li>
-                        <img src="${pageContext.request.contextPath}/resources/images/dog6.jpg" alt="실종 및 보호 동물 사진">
-                    </li>
-                    <li>
-                        <img src="${pageContext.request.contextPath}/resources/images/dog7.jpg" alt="실종 및 보호 동물 사진">
-                    </li>
-                    <li>
-                        <img src="${pageContext.request.contextPath}/resources/images/dog8.jpg" alt="실종 및 보호 동물 사진">
-                    </li> --%>
+                <p class="protect-title">■ 보호중인 동물</p>
+              	<div class="protect slider" data-slick='{"slidesToShow": 5, "slidesToScroll": 5}'>
+              			
+               	</div>
             </article>
             <article class="total-wrap">
 					<h1 class="totalStatis">총 ${ allCnt } 마리</h1>
@@ -212,54 +197,83 @@
 <a href="${ pageContext.request.contextPath }/check/check.do">체크리스트</a>
 <script>
 // Map관련    
-   function numberWithCommas(x) {
+function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
     
 window.onload = function(){
-	$.ajax({
+	
+	 $.ajax({
 		url : "${pageContext.request.contextPath}/animalboard/index",
 		method : "GET",
 		success : function(data){
 			console.log(data);
 			if(data.boardList != null) {
-				var $ul = $('.bannerbox');
+				var $missing = $('.missing');
+				var $protect = $('.protect');
 				
-				var html = '';
+				var miss = '';
+				var prot = '';
 				for(var i in data.boardList) {
 					var b = data.boardList[i];
 					for(var j in data.attachList) {
 						var a = data.attachList[j];
 						if(b.aniBoId == a.aniBoId){
-							html += '<li>';
-							html += '<a href="${ pageContext.request.contextPath }/animalboard/boardView?no='+b.aniBoId+'">';
-							html += '<img src="${pageContext.request.contextPath}/resources/editor/multiupload/'+a.aniAtRenamedName+'" alt="실종 및 보호 동물 사진">'
+							if(b.aniBoTag == '실종') {
+								miss += '<div>';
+								miss += '<a href="${ pageContext.request.contextPath }/animalboard/boardView?no='+b.aniBoId+'">';
+								miss += '<img src="${pageContext.request.contextPath}/resources/editor/multiupload/'+a.aniAtRenamedName+'" alt="실종 및 보호 동물 사진">';
+								miss += '<p class="post-title">['+b.aniBoTitle+']</p>';
+								miss += '<p class="post-local">지역 : '+b.aniBoLocal+'</p>';
+								miss += '</a></div>';
+							}
+							else if(b.aniBoTag == '보호') {
+								prot += '<div>';
+								prot += '<a href="${ pageContext.request.contextPath }/animalboard/boardView?no='+b.aniBoId+'">';
+								prot += '<img src="${pageContext.request.contextPath}/resources/editor/multiupload/'+a.aniAtRenamedName+'" alt="실종 및 보호 동물 사진">';
+								prot += '<p class="post-title">['+b.aniBoTitle+']</p>';
+								prot += '<p class="post-local">지역 : '+b.aniBoLocal+'</p>';
+								prot += '</a></div>';
+							}
 						}
 					}
 				}
 			}
-			html += '</a></li>';
-			$ul.append(html);
+			$missing.append(miss);
+			$protect.append(prot);
+			slickCarousel();
 		},
 		error : function(xhr, status, err){
 			console.log("처리실패", xhr, status, err);
-		}
+ 		}
 	});
-	timer();
-	var current=0;
-	var $interval;
-
-	function timer(){
-	  var $interval=setInterval(function(){slide()},2000);                        
-	}
-
-	function slide(){
-	  $(".bannerbox").animate({left:"-=200px"},1000,function(){
-	    $(this).css({"left":0});
-	    $(".bannerbox").append( $(".bannerbox").children("li").eq(0) );
-	  });    
-	  current++;
-	  if(current==5)current=0;
+	$.noConflict();
+	function slickCarousel() {
+	 	$('.slider').slick({
+		  centerMode: true,
+		  centerPadding: '60px',
+		  slidesToShow: 5,
+		  responsive: [
+		    {
+		      breakpoint: 768,
+		      settings: {
+		        arrows: false,
+		        centerMode: true,
+		        centerPadding: '40px',
+		        slidesToShow: 3
+		      }
+		    },
+		    {
+		      breakpoint: 480,
+		      settings: {
+		        arrows: false,
+		        centerMode: true,
+		        centerPadding: '40px',
+		        slidesToShow: 1
+		      }
+		    }
+		  ]
+		});
 	}
 	
 		$.ajax({
@@ -450,6 +464,7 @@ window.onload = function(){
  				console.log("처리실패", xhr, status, err);
  			}
  		});
+    
     }
     
 </script>

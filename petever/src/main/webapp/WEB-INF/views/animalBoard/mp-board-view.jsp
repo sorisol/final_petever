@@ -7,13 +7,26 @@
 <fmt:requestEncoding value="utf-8"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mp-board-view.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/slick.css"/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/slick-theme.css"/>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/slick.js"></script>
 	    <div id="main-wrap">
         <section class="main">
 
         </section>
         <section class="content-wrap">
             <h1>[${animalBoard.aniBoTag}] ${animalBoard.aniBoTitle}</h1>
-            <p>#강아지 #3살 #퍼그 #수컷 #강남구 #중성화</p>
+            <p>#${animalBoard.aniBoLocal}
+               #${animalBoard.aniBoType}
+               #${animalBoard.aniBoKind}
+               ${animalBoard.aniBoGender[0]}
+               #${animalBoard.aniBoCha}
+               #
+	           <fmt:parseDate value="${animalBoard.aniBoMissDate}" var="missDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+			   <fmt:formatDate value="${missDate}" pattern="yyyy.MM.dd"/>
+            </p>
             <div class="content">
                 <div class="board-container">
                     <div class="board-header">
@@ -24,7 +37,7 @@
                         <div class="writer-menu">
                             <ul>
                                 <li><a href="">쪽지보내기</a></li>
-                                <li><a href="">입양신청하기</a></li>
+                                <li><a href="${pageContext.request.contextPath}/apply/adopt?no=${animalBoard.aniBoId}">입양신청하기</a></li>
                             </ul>
                         </div>
                         <span class="write-time">
@@ -40,12 +53,30 @@
 						${animalBoard.aniBoContent }
                     </div>
                     <div class="pet-info">
-                        <span>#강아지</span>
-                        <span>#퍼그</span>
-                        <span>#수컷</span>
-                        <span>#3살</span>
-                        <span>#강남구 태해란로</span>
-                        <span>#중성화 완료</span>
+                        <span>#${animalBoard.aniBoLocal}</span>
+                        <span>#${animalBoard.aniBoType}</span>
+                        <span>#${animalBoard.aniBoKind}</span>
+                        <span>#${animalBoard.aniBoGender[0]}</span>
+                        <span>#${animalBoard.aniBoCha}</span>
+                        <span>#
+	                        <fmt:parseDate value="${animalBoard.aniBoMissDate}" var="missDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+							<fmt:formatDate value="${missDate}" pattern="yyyy.MM.dd"/>
+                        </span>
+                    </div>
+                    <div class="similar-container">
+                    	<fieldset>
+                    		<legend> 같은 지역에서 실종 신고된 동물 </legend>
+                    		<div class="slider">
+	                    		<c:forEach items="${shelterAniList}" var="sa">
+	                    			<div class="slider">
+	                    				<a href="${pageContext.request.contextPath}/shelterBoard/shelterAni?deserNo=${sa.desertionNo}">
+		                    				<img src="${sa.popfile}"/>
+	                    				</a>
+	                    			</div>
+	                    		</c:forEach>
+                    		</div>
+                    		<img src="${pageContext.request.contextPath}/resources/images/dog1.jpg" width="200px" height="200px"/>
+                    	</fieldset>
                     </div>
                     <div id="board-comment-container">
                         <div class="comment-header">
@@ -57,62 +88,76 @@
                         		<c:if test="${cl.aniCoLevel == 1 }">
 			                        <div class="board-comment">
 			                            <span class="id-box">${cl.userId}</span>
-			                            <img class="icon" src="${pageContext.request.contextPath}/resources/images/icon.png"/>
-			                            <div class="comment-menu">
-				                            <ul>
-				                                <li class="comment-edit" value="${cl.aniCoId}">수정</li>
-				                                <li class="comment-delete" value="${cl.aniCoId}">삭제</li>
-				                            </ul>
-				                        </div>
+		                            	<c:if test="${not empty loginUser}">
+		                            		<c:if test="${loginUser.userId eq cl.userId || loginUser.userId == 'admin'}">
+			                           		 	<img class="icon" src="${pageContext.request.contextPath}/resources/images/icon.png"/>
+					                            <div class="comment-menu">
+						                            <ul>
+						                                <li class="comment-edit" value="${cl.aniCoId}">수정</li>
+						                                <li class="comment-delete" value="${cl.aniCoId}">삭제</li>
+						                            </ul>
+						                        </div>
+			                            	</c:if>
+			                            </c:if>
 			                            <p>${cl.aniCoContent}</p>
 			                            <span class="comment-time">
 			                            	<fmt:parseDate value="${cl.aniCoDate}" var="aniCoDate" pattern="yyyy-MM-dd HH:mm:ss"/>
 											<fmt:formatDate value="${aniCoDate}" pattern="yyyy.MM.dd HH:mm"/>
 			                            </span>
 			                            
-			                            <button type="button" class="reply-btn" value="${cl.aniCoId}">답글쓰기</button>
+										<c:if test="${not empty loginUser}">
+				                            <button type="button" class="reply-btn" value="${cl.aniCoId}">답글쓰기</button>
+				                            <div class="comment-reply-write" style="display: none;"></div>
+										</c:if>
 			                        </div>
-                        		</c:if>
-                        		<c:if test="${cl.aniCoLevel == 2 }">
+	                        	</c:if>
+                        		<c:if test="${cl.aniCoLevel == 2}">
 			                        <div class="board-comment-reply">
 			                            <span class="id-box">&#8627; ${cl.userId}</span>
-			                            <img class="icon" src="${pageContext.request.contextPath}/resources/images/icon.png"/>
-			                            <div class="comment-menu">
-				                            <ul>
-				                                <li class="comment-edit" value="${cl.aniCoId}">수정</li>
-				                                <li class="comment-delete" value="${cl.aniCoId}">삭제</li>
-				                            </ul>
-				                        </div>
+		                            	<c:if test="${not empty loginUser}">
+				                            <img class="icon" src="${pageContext.request.contextPath}/resources/images/icon.png"/>
+				                            <div class="comment-menu">
+			                            		<c:if test="${loginUser.userId eq cl.userId || loginUser.userId == 'admin'}">
+						                            <ul>
+						                                <li class="comment-edit" value="${cl.aniCoId}">수정</li>
+						                                <li class="comment-delete" value="${cl.aniCoId}">삭제</li>
+						                            </ul>
+				                            	</c:if>
+					                        </div>
+		                            	</c:if>
 			                            <p>${cl.aniCoContent}</p>
 			                            <span class="comment-time">
 			                            	<fmt:parseDate value="${cl.aniCoDate}" var="aniCoDate" pattern="yyyy-MM-dd HH:mm:ss"/>
 											<fmt:formatDate value="${aniCoDate}" pattern="yyyy.MM.dd HH:mm"/>
 										</span>
-			                            <button type="button" class="reply-btn" value="${cl.aniCoId}">답글쓰기</button>
 			                        </div>
-                        		</c:if>
+	                        	</c:if>
                         	</c:forEach>
                         </c:if>
                     </div>
-                    <div class="comment-write">
-                    	<form action="${pageContext.request.contextPath}/animalboard/insertComment" method="post">
-	                        <input type="hidden" name="userId" value="honggd"/>
-	                        <input type="hidden" name="aniCoLevel" value="1"/>
-	                        <input type="hidden" name="aniBoId" value="${animalBoard.aniBoId}" />
-	                        <input type="hidden" name="aniCoRef" value="0"/>
-	                        <span>honggd</span>
-	                        <textarea rows="1" class="comment_inbox_text" placeholder="댓글을 입력하세요" name="aniCoContent"
-	                            onkeyup="xSize(this)"></textarea>
-	                        <div class="btn-align">
-	                            <button class="comment-reg-btn">등록</button>
-	                        </div>
-                    	</form>
-                    </div>
+                    <c:if test="${not empty loginUser}">
+	                    <div class="comment-write">
+	                    	<form action="${pageContext.request.contextPath}/animalboard/insertComment" method="post">
+		                        <input type="hidden" name="userId" value="${loginUser.userId}"/>
+		                        <input type="hidden" name="aniCoLevel" value="1"/>
+		                        <input type="hidden" name="aniBoId" value="${animalBoard.aniBoId}" />
+		                        <input type="hidden" name="aniCoRef" value="0"/>
+		                        <span>${loginUser.userId}</span>
+		                        <textarea rows="1" class="comment_inbox_text" placeholder="댓글을 입력하세요" name="aniCoContent"
+		                            onkeyup="xSize(this)"></textarea>
+		                        <div class="btn-align">
+		                            <button class="comment-reg-btn">등록</button>
+		                        </div>
+	                    	</form>
+	                    </div>
+                    </c:if>
                 </div>
                 <div class="btn-wrap">
 	                <button type="button" class="board-list-btn" onclick="location.href='${pageContext.request.contextPath}/animalboard'">글 목록</button>
-	                <button type="button" class="board-delete-btn">삭제</button>
-	                <button type="button"class="board-edit-btn" onclick="location.href='${pageContext.request.contextPath}/animalboard/updateBoardFrm?no=${animalBoard.aniBoId}'">수정</button>
+	                <c:if test="${loginUser.userId == animalBoard.userId || loginUser.userId == 'admin'}">
+		                <button type="button" class="board-delete-btn">삭제</button>
+		                <button type="button"class="board-edit-btn" onclick="location.href='${pageContext.request.contextPath}/animalboard/updateBoardFrm?no=${animalBoard.aniBoId}'">수정</button>
+	                </c:if>
                 </div>
             </div>
         </section>
@@ -124,7 +169,7 @@
 		location.href="${pageContext.request.contextPath}/animalboard/deleteBoard?no="+${animalBoard.aniBoId};
 	});
     function openReport() {
-        window.open("report.html", "신고하기",
+        window.open("${pageContext.request.contextPath}/animalboard/reportFrm?no=${animalBoard.aniBoId}&&doUser=${loginUser.userId}", "신고하기",
             "width=500, height=330, toolbar=no, menubar=no, scrollbars=no, resizable=yes, top=300, left=500");
     }
 
@@ -135,22 +180,21 @@
      }
         
      $(".reply-btn").on('click', function() {
-         var reply = '<div class="comment-reply-write">'
-           		+'<form action="${pageContext.request.contextPath}/animalboard/insertComment" method="post">'
-				+'<input type="hidden" name="userId" value="honggd"/>'
-                +'<input type="hidden" name="aniCoLevel" value="2"/>'
-                +'<input type="hidden" name="aniBoId" value="${animalBoard.aniBoId}" />'
-                +'<input type="hidden" name="aniCoRef" value="'+$(this).val()+'"/>'
-                +'<span>honggd</span>'
-                +'<textarea rows="1" class="comment_inbox_text" placeholder="댓글을 입력하세요" onkeyup="xSize(this)" name="aniCoContent"></textarea>'
-                +'<div class="btn-align">'
-                +'<button type="button" class="comment-cancle-btn" onclick="cancleBtn()">취소</button>'
-                +'<button class="comment-reg-btn">등록</button>'
-                +'</div>'
-                +'</form>'
-                +'</div>';
-          $(this).parent().append(reply);
-          $(this).off("click");
+    	 /* $(".comment-reply-write") */
+    	 $(this).next().toggle();
+         var reply = '<form action="${pageContext.request.contextPath}/animalboard/insertComment" method="post">';
+         reply += '<input type="hidden" name="userId" value="${loginUser.userId}"/>';
+         reply += '<input type="hidden" name="aniCoLevel" value="2"/>';
+         reply += '<input type="hidden" name="aniBoId" value="${animalBoard.aniBoId}" />';
+         reply += '<input type="hidden" name="aniCoRef" value="'+$(this).val()+'"/>';
+         reply += '<span class="id-box">${loginUser.userId}</span>';
+         reply += '<textarea rows="1" class="comment_inbox_text" placeholder="댓글을 입력하세요" onkeyup="xSize(this)" name="aniCoContent"></textarea>';
+         reply += '<div class="btn-align">';
+         reply += '<button type="button" class="comment-cancle-btn" onclick="cancleBtn(this);">취소</button>';
+         reply += '<button class="comment-reg-btn">등록</button>';
+         reply += '</div>';
+         reply += '</form>';
+          $(this).next().html(reply);
       });
        
 	//태그 색상
@@ -193,10 +237,18 @@
     });
     $(".comment-edit-btn").on("click", function() {
     });
-	//취소버튼눌렀을때
-    function cancleBtn() {
-       $(".comment-reply-write").toggle();
+    
+    function cancleBtn(btn) {
+		var $btn = $(btn);
+      	$btn.parent().parent().parent().toggle();
     }
+    
+    $('.slider').slick({
+    	  infinite: true,
+    	  slidesToShow: 4,
+    	  slidesToScroll: 4
+    });
+    		
 </script>
 	
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

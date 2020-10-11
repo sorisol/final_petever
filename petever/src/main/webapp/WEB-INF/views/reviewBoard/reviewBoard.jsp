@@ -1,4 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="com.kh.petever.animalboard.model.vo.AnimalAttach"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -17,8 +19,9 @@
 	         <div class="content">
                 <div class="border">
                 
-    <section id="board-container" class="container">
+   <section id="board-container" class="container">
 	<p>총 ${ totalContents }건의 게시물이 있습니다.</p>
+	
 	<table id="tbl-board" class="table table-striped table-hover">
 		<tr>
 			<th>번호</th>
@@ -30,13 +33,13 @@
 		<c:forEach items="${ list }" var="b">
 		<tr data-board-no="${ b.rewBoId }">
 			<td>${ b.rewBoId }</td>
-			<td>${ b.rewBoTitle }</td>
 			<td>${ b.userId }</td>
+			<td>${ b.rewBoTitle }</td>
 			<td>
 				<%-- <fmt:formatDate value="${ b.regDate }" type="both"/> --%>
 				<!-- String -> Date -> yyy.MM.dd형식으로 바꾸기 -->
-		        <fmt:parseDate value="${b.rewBoRegDate}" var="regDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-				<fmt:formatDate value="${regDate}" pattern="yyyy.MM.dd HH:mm:ss"/>
+		        <fmt:parseDate value="${b.rewBoRegDate}" var="regDate" pattern="yyyy-MM-dd"/>
+				<fmt:formatDate value="${regDate}" pattern="yyyy.MM.dd"/>
 			</td>
 			<td align="center">
 				<%-- <c:if test="${ b.attachmentCount > 0 }">

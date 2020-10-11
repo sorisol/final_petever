@@ -97,7 +97,9 @@
 	                        <tr>
 	                        	<th>품종</th>
 	                        	<td colspan="3">
-	                        		<select name="aniBoKind" id="aniBoKind"></select>
+	                        		<select name="aniBoKind" id="aniBoKind">
+	                        			<option selected disabled hidden>동물 선택 후, 품종을 선택하세요</option>
+	                        		</select>
 	                        	</td>
 	                        	<th>지역</th>
 	                        	<td>
@@ -125,7 +127,7 @@
 		                    	</c:forEach>
 		                            <br>
 		                            <span class="tag">[${b.aniBoTag }]</span>
-		                            <span>${b.aniBoTitle}</span>
+		                            <span id="post-title">${b.aniBoTitle}</span>
 		                            <p>종류 : <strong>
 		                   				<c:forEach items="${b.aniBoType}" var="t">
 		                            		${t}
@@ -200,7 +202,7 @@ function searchFunc() {
 						html += '<br><span class="tag protect">['+b.aniBoTag+']</span>';
 					else
 						html += '<br><span class="tag">['+b.aniBoTag+']</span>';
-					html += '<span>'+b.aniBoTitle+'</span>';
+					html += '<span id="post-title">'+b.aniBoTitle+'</span>';
 					html += '<p>종류 : <strong>'+b.aniBoType+'</strong></p>';
 					html += '<p>지역 : <strong>'+b.aniBoLocal+'</strong></p><hr>';
 					html += '<span>'+b.userId+'</span>';
@@ -259,7 +261,7 @@ $(function() {
 			}
 		}
 		else {
-			$selectTag.html('');
+			$selectTag.html('<option value="">없음</option>');
 		}
     });
     //동물종류 라디오버튼처럼 작동
