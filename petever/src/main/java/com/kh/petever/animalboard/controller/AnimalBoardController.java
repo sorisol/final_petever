@@ -22,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,10 +30,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.petever.animalboard.model.service.AnimalBoardService;
+import com.kh.petever.animalboard.model.vo.AdoptApplication;
 import com.kh.petever.animalboard.model.vo.AnimalAttach;
 import com.kh.petever.animalboard.model.vo.AnimalBoard;
 import com.kh.petever.animalboard.model.vo.AnimalComment;
 import com.kh.petever.animalboard.model.vo.Photo;
+import com.kh.petever.animalboard.model.vo.Report;
+import com.kh.petever.shelterBoard.model.vo.ShelterAnimal;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -68,6 +72,11 @@ public class AnimalBoardController {
 		AnimalBoard animalBoard = service.selectOneBoard(no);
 		mav.addObject("animalBoard", animalBoard);
 		log.debug("animalBoard = {}", animalBoard);
+		
+		//no번 게시글과 보호소 동물 조회
+		List<ShelterAnimal> shelterAniList = service.selectShelterAnimalList(animalBoard);
+		log.debug("shelterAniList={}", shelterAniList);
+		mav.addObject("shelterAniList", shelterAniList);
 		
 		//no번 게시글의 댓글
 		int totalComment = service.totalComment(no);
@@ -317,6 +326,47 @@ public class AnimalBoardController {
 		mav.setViewName("animalBoard/adoption-application");
 		return mav;
 	}
+	
+	@PostMapping("/apply/insertApplication")
+	public String insertApplication(AdoptApplication application, RedirectAttributes redirectAttr) {
+		log.debug("application = {}", application);
+		try {
+			int result = service.insertApplication(application);
+			redirectAttr.addFlashAttribute("msg", "신청 완료");
+		} catch(Exception e) {
+			log.error("입양 신청 오류", e);
+			redirectAttr.addFlashAttribute("msg", "신청 실패");
+		}
+		
+		return "redirect:/";
+	}
+	
+	@GetMapping("/animalboard/reportFrm")
+	public ModelAndView reportFrm(@RequestParam("no") int no, @RequestParam("doUser") String doUser, ModelAndView mav) {
+		AnimalBoard animal = service.selectOneBoard(no);
+		mav.addObject("animal",  animal);
+		mav.addObject("doUser", doUser);
+		
+		mav.setViewName("animalBoard/report");
+		return mav;
+	}
+	
+	@PostMapping("/animalboard/report")
+	public @ResponseBody Map<String, Object> insertReport(@RequestBody Report rep) {
+		log.debug("rep = {}", rep);
+		String msg = "신고 완료";
+		try {
+			int result = service.insertReport(rep);
+		} catch(Exception e) {
+			log.error("신고 오류", e);
+			msg = "신고 실패";
+		}
+		Map<String, Object> map = new HashMap<>();
+		map.put("msg", msg);
+		
+		return map;
+	}
+
 	//이 아래로는 파일 관련
 	@RequestMapping("/file_uploader")
 	public String file_uploader(HttpServletRequest request, HttpServletResponse response, Photo photo){

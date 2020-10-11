@@ -8,9 +8,12 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.petever.animalboard.model.vo.AdoptApplication;
 import com.kh.petever.animalboard.model.vo.AnimalAttach;
 import com.kh.petever.animalboard.model.vo.AnimalBoard;
 import com.kh.petever.animalboard.model.vo.AnimalComment;
+import com.kh.petever.animalboard.model.vo.Report;
+import com.kh.petever.shelterBoard.model.vo.ShelterAnimal;
 
 @Repository
 public class AnimalBoardDAOImpl implements AnimalBoardDAO {
@@ -92,6 +95,21 @@ public class AnimalBoardDAOImpl implements AnimalBoardDAO {
 	@Override
 	public List<AnimalBoard> selectBoardListOneWeek() {
 		return sqlSession.selectList("animalBoard.selectBoardListOneWeek");
+	}
+
+	@Override
+	public int insertApplication(AdoptApplication application) {
+		return sqlSession.insert("animalBoard.insertApplication", application);
+	}
+
+	@Override
+	public List<ShelterAnimal> selectShelterAnimalList(AnimalBoard animalBoard) {
+		return sqlSession.selectList("animalBoard.selectShelterAnimalList", animalBoard);
+	}
+
+	@Override
+	public int insertReport(Report rep) {
+		return sqlSession.insert("animalBoard.insertReport", rep);
 	}
 	
 }
