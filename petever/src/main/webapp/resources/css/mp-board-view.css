@@ -32,7 +32,6 @@
     font-size: 12px;
     font-weight: normal;
     color: #979797;
-    ;
 }
 
 .header-comment-view {
@@ -49,7 +48,6 @@
 #board-comment-container {
     padding: 20px 0px;
 }
-
 .comment-header {
     padding-left: 20px;
     padding-bottom: 10px;
@@ -183,6 +181,29 @@ form span {
     background-color: #ffebbf;
     /* color: orange; */
     border-radius: 3px;
+}
+.similar-container {
+	margin: 20px 0px;
+}
+.similar-container legend {
+	font-weight: bold;
+	margin-left: 20px;
+	padding: 10px;
+}
+.similar-container fieldset {
+	padding: 10px;
+	border: none;
+	border-top: 1px solid lightgray;
+	border-bottom: 1px solid lightgray;
+}
+.slider {
+	width: 1000px;
+	height: 200px;
+}
+.slider img {
+	width: 180px;
+	height: 180px;
+	margin: 10px;
 }
 
 .reply-btn {

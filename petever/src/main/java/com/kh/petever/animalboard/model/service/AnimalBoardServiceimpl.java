@@ -8,9 +8,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.petever.animalboard.model.dao.AnimalBoardDAO;
+import com.kh.petever.animalboard.model.vo.AdoptApplication;
 import com.kh.petever.animalboard.model.vo.AnimalAttach;
 import com.kh.petever.animalboard.model.vo.AnimalBoard;
 import com.kh.petever.animalboard.model.vo.AnimalComment;
+import com.kh.petever.animalboard.model.vo.Report;
+import com.kh.petever.shelterBoard.model.vo.ShelterAnimal;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -136,6 +139,21 @@ public class AnimalBoardServiceimpl implements AnimalBoardService {
 	@Override
 	public List<AnimalBoard> selectBoardListOneWeek() {
 		return dao.selectBoardListOneWeek();
+	}
+
+	@Override
+	public int insertApplication(AdoptApplication application) {
+		return dao.insertApplication(application);
+	}
+
+	@Override
+	public List<ShelterAnimal> selectShelterAnimalList(AnimalBoard animalBoard) {
+		return dao.selectShelterAnimalList(animalBoard);
+	}
+
+	@Override
+	public int insertReport(Report rep) {
+		return dao.insertReport(rep);
 	}
 	
 	

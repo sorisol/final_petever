@@ -7,6 +7,11 @@
 <fmt:requestEncoding value="utf-8"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mp-board-view.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/slick.css"/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/slick-theme.css"/>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/slick.js"></script>
 	    <div id="main-wrap">
         <section class="main">
 
@@ -16,7 +21,7 @@
             <p>#${animalBoard.aniBoLocal}
                #${animalBoard.aniBoType}
                #${animalBoard.aniBoKind}
-               #${animalBoard.aniBoGender[0]}
+               ${animalBoard.aniBoGender[0]}
                #${animalBoard.aniBoCha}
                #
 	           <fmt:parseDate value="${animalBoard.aniBoMissDate}" var="missDate" pattern="yyyy-MM-dd HH:mm:ss"/>
@@ -58,6 +63,21 @@
 							<fmt:formatDate value="${missDate}" pattern="yyyy.MM.dd"/>
                         </span>
                     </div>
+                    <div class="similar-container">
+                    	<fieldset>
+                    		<legend> 같은 지역에서 실종 신고된 동물 </legend>
+                    		<div class="slider">
+	                    		<c:forEach items="${shelterAniList}" var="sa">
+	                    			<div class="slider">
+	                    				<a href="${pageContext.request.contextPath}/shelterBoard/shelterAni?deserNo=${sa.desertionNo}">
+		                    				<img src="${sa.popfile}"/>
+	                    				</a>
+	                    			</div>
+	                    		</c:forEach>
+                    		</div>
+                    		<img src="${pageContext.request.contextPath}/resources/images/dog1.jpg" width="200px" height="200px"/>
+                    	</fieldset>
+                    </div>
                     <div id="board-comment-container">
                         <div class="comment-header">
                             <span class="comment-view">댓글 ${totalComment}</span>
@@ -85,7 +105,6 @@
 											<fmt:formatDate value="${aniCoDate}" pattern="yyyy.MM.dd HH:mm"/>
 			                            </span>
 			                            
-										<!-- 로그인 후 보이게 -->
 										<c:if test="${not empty loginUser}">
 				                            <button type="button" class="reply-btn" value="${cl.aniCoId}">답글쓰기</button>
 				                            <div class="comment-reply-write" style="display: none;"></div>
@@ -150,7 +169,7 @@
 		location.href="${pageContext.request.contextPath}/animalboard/deleteBoard?no="+${animalBoard.aniBoId};
 	});
     function openReport() {
-        window.open("report.html", "신고하기",
+        window.open("${pageContext.request.contextPath}/animalboard/reportFrm?no=${animalBoard.aniBoId}&&doUser=${loginUser.userId}", "신고하기",
             "width=500, height=330, toolbar=no, menubar=no, scrollbars=no, resizable=yes, top=300, left=500");
     }
 
@@ -223,6 +242,13 @@
 		var $btn = $(btn);
       	$btn.parent().parent().parent().toggle();
     }
+    
+    $('.slider').slick({
+    	  infinite: true,
+    	  slidesToShow: 4,
+    	  slidesToScroll: 4
+    });
+    		
 </script>
 	
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

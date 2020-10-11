@@ -97,7 +97,9 @@
 	                        <tr>
 	                        	<th>품종</th>
 	                        	<td colspan="3">
-	                        		<select name="aniBoKind" id="aniBoKind"></select>
+	                        		<select name="aniBoKind" id="aniBoKind">
+	                        			<option selected disabled hidden>동물 선택 후, 품종을 선택하세요</option>
+	                        		</select>
 	                        	</td>
 	                        	<th>지역</th>
 	                        	<td>
@@ -259,7 +261,7 @@ $(function() {
 			}
 		}
 		else {
-			$selectTag.html('');
+			$selectTag.html('<option value="">없음</option>');
 		}
     });
     //동물종류 라디오버튼처럼 작동
