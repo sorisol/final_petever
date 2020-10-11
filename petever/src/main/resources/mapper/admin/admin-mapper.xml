@@ -14,6 +14,7 @@
      			FROM report r
     			GROUP BY r.user_id) r
 			ON u.user_id=r.user_id
+		order by u.user_role
 	</select>
 	
 	<select id="adminSearch" resultMap="user">
@@ -43,4 +44,46 @@
 	<delete id="adminDel">
 		delete from tb_user where user_id = #{id}
 	</delete>
+	
+	
+	<select id="adminReport" resultMap="report">
+		select * from report
+	</select>
+	
+	<select id="searchReport" resultMap="report">
+		select * from report
+            where user_id like #{keyword}
+	</select>
+	
+	<resultMap id="report" type="Report">
+		<id column="ani_bo_id" property="aniBoId"></id>
+		<result column="user_id" property="userId"></result>
+		<result column="rep_content" property="repContent"></result>
+		<result column="rep_display" property="repDisplay"></result>
+		<result column="rep_date" property="repDate"></result>
+		<result column="rep_do_user" property="repDoUser"></result>
+	</resultMap>
+	
+	<delete id="reportDel">
+		delete from report where user_id = #{no}
+	</delete>
+	
+	<update id="reportYN">
+		update report set rep_display
+		<if test="yn.equalsIgnoreCase('Y')">
+				= 'N'
+		</if>
+		<if test="yn.equalsIgnoreCase('N')">
+				= 'Y'
+		</if>
+		where ani_bo_id = #{no}
+	</update>
+	
+	<select id="totalUser" resultType="_int">
+		select count(*) from tb_user
+	</select>
+	
+	<select id="totalReport" resultType="_int">
+		select count(*) from report
+	</select>
 </mapper>

@@ -96,3 +96,6 @@
     line-height: 25px;
     margin-top: 10px;
 }
+.menu a, .main-bar a{
+	color:white;	
+}

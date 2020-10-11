@@ -50,7 +50,7 @@
 					<h1 class="totalStatis">총 ${ allCnt } 마리</h1>
 					<hr style="width: 500px; background-color: white; height: 1px; border: none; margin: 0 auto;">
 					<p>
-						현재 대한민국 유기된 동물 
+						2017년 1월 1일 ~ 2020년10월10일 현재 대한민국 유기된 동물 
 						<br />Data provided by OpenApi Animal and Plant Quarantine Agency.
 					</p>
 				</article>
@@ -209,7 +209,7 @@
 
 
         </svg>
-
+<a href="${ pageContext.request.contextPath }/check/check.do">체크리스트</a>
 <script>
 // Map관련    
    function numberWithCommas(x) {
@@ -383,6 +383,7 @@ window.onload = function(){
      				});
      				barChartTop.data.datasets.forEach(function(dataset) {
      					dataset.data = loadData;
+     					dataset.label= strArr[idx]+" 유기 현황";
      				});
 
      				doughnutChart.update();
@@ -403,7 +404,7 @@ window.onload = function(){
         $("polyline").css("fill", "#fff");
     	$("#sejong").css("fill", "#fff");
     	clickCheck = true;
-        ajaxBtn("개");
+        ajaxBtn("개","강아지");
     });
     $btn.eq(1).click(function(){
         $btn.removeClass("on");
@@ -411,7 +412,7 @@ window.onload = function(){
         $("polyline").css("fill", "#fff");
     	$("#sejong").css("fill", "#fff");
     	clickCheck = true;
-        ajaxBtn("고양이");
+        ajaxBtn("고양이","고양이");
         
     });
     $btn.eq(2).click(function(){
@@ -420,10 +421,10 @@ window.onload = function(){
         $("polyline").css("fill", "#fff");
     	$("#sejong").css("fill", "#fff");
     	clickCheck = true;
-        ajaxBtn("기타");
+        ajaxBtn("기타","기타동물");
     });
 	
-    function ajaxBtn(kind){
+    function ajaxBtn(kind,species){
         $.ajax({
  			url : "${ pageContext.request.contextPath}/statis/btnStatis.do",
  			data : {
@@ -438,6 +439,7 @@ window.onload = function(){
  					dataset.data = loadData;
  				});
  				barChartTop.data.datasets.forEach(function(dataset) {
+ 					dataset.label= "전국 "+ species+" 유기 현황";
  					dataset.data = loadData;
  				});
 
