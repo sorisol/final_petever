@@ -2,6 +2,9 @@ package com.kh.petever.reviewBoard.model.vo;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
+
+import com.kh.petever.animalboard.model.vo.AnimalAttach;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,5 +24,6 @@ public class ReviewBoard implements Serializable {
 	private String rewBoTitle;
 	private String RewBoContent;
 	private String RewBoRegDate;
+	private List<ReviewAttach> attachList;
 
 }

@@ -32,7 +32,6 @@
     font-size: 12px;
     font-weight: normal;
     color: #979797;
-    ;
 }
 
 .header-comment-view {
@@ -49,7 +48,6 @@
 #board-comment-container {
     padding: 20px 0px;
 }
-
 .comment-header {
     padding-left: 20px;
     padding-bottom: 10px;
@@ -74,13 +72,7 @@
 
 .board-comment *,
 .board-comment-reply * {
-    font-weight: normal;
     margin-bottom: 5px;
-}
-
-.id-box {
-    font-size: 14px;
-    font-weight: bold;
 }
 
 .comment-time {
@@ -101,13 +93,13 @@
 .comment-write {
     border: 1px solid lightgray;
     border-radius: 5px;
-    padding: 20px;
+    padding: 10px;
     margin-bottom: 20px;
 }
 
 .comment_inbox_text {
     border: none;
-    padding: 20px;
+    padding: 10px 20px;
     overflow-wrap: break-word;
     overflow: visible;
     resize: none;
@@ -190,6 +182,29 @@ form span {
     /* color: orange; */
     border-radius: 3px;
 }
+.similar-container {
+	margin: 20px 0px;
+}
+.similar-container legend {
+	font-weight: bold;
+	margin-left: 20px;
+	padding: 10px;
+}
+.similar-container fieldset {
+	padding: 10px;
+	border: none;
+	border-top: 1px solid lightgray;
+	border-bottom: 1px solid lightgray;
+}
+.slider {
+	width: 1000px;
+	height: 200px;
+}
+.slider img {
+	width: 180px;
+	height: 180px;
+	margin: 10px;
+}
 
 .reply-btn {
 	border: none;
@@ -224,6 +239,8 @@ button:hover {
 .id-box {
 	display: inline-block;
 	margin-bottom: 5px;
+	font-size: 15px;
+	font-weight: bold;
 }
 .comment-menu {
 	width: 50px;

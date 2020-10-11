@@ -81,6 +81,9 @@
 			animal_comment
 		where
 			ani_bo_id = #{no}
+		start with ani_co_level = 1 
+		connect by prior ani_co_id = ani_co_ref 
+		order siblings by ani_co_id asc
 	</select>
 	
 	<select id="totalComment" resultType="_int">
@@ -253,7 +256,63 @@
 			and (ani_bo_tag in ('실종', '보호'))
 		]]>
 	</select>
+	<insert id="insertApplication">
+		insert into
+			adoption_application
+		values(
+			seq_adopt_id.nextval,
+			#{aniBoId},
+			#{senderId},
+			#{senderLocal},
+			#{senderPhone},
+			#{senderJob},
+			#{senderHome},
+			#{a1}, #{a2}, #{a3}, #{a4}, #{a5}, #{a6}, #{a7}, #{a8}, #{a9}, #{a10}, #{a11}, #{a12}, #{a13}
+		)
+	</insert>
+	<select id="selectShelterAnimalList" resultMap="shelterAnimalMap">
+		select
+			*
+		from
+			shelterAnimal
+		<where>
+	        org_nm like '%'||#{aniBoLocal}||'%'
+	        and process_state like '%보호중%'
+	        <if test="aniBoGender == '암컷'">
+	            and gender_cd in ('Q', 'F')
+	        </if>
+	        <if test="aniBoGender == '수컷'">
+	            and gender_cd in ('Q', 'M') 
+	        </if>
+	        <if test="aniBoType != null and aniBoType != '기타'">
+	            and kind_cd like '%'||#{aniBoType}||'%'
+	        </if>
+	        <if test="aniBoType == '기타'">
+	            and kind_cd like '기타축종'
+	        </if>
+	        <if test="aniBoKind != null and aniBoKind != '코리안숏헤어'">
+	            and kind_cd like '%'||#{aniBoKind}||'%'
+	        </if>
+	        <if test="aniBoKind == '코리안숏헤어'">
+	            and kind_cd like '%한국 고양이%'
+	        </if>
+		</where>
+	</select>
 	
+	<insert id="insertReport">
+		insert into
+			report
+		values(
+			#{aniBoId},
+			#{userId},
+			#{repContent},
+			default,
+			default,
+			#{repDoUser}
+		)
+	</insert>
+	
+	<resultMap id="shelterAnimalMap" type="shelterAnimal"></resultMap>
 	<resultMap id="animalBoardMap" type="animalBoard"></resultMap>
 	<resultMap id="animalAttachMap" type="animalAttach"></resultMap>
 	<resultMap id="animalCommentMap" type="animalComment"></resultMap>
