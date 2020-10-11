@@ -15,7 +15,8 @@
         	<span class="title">[${animal.aniBoTag }]${animal.aniBoTitle}</span>
         	<span>글에 대한 입양 신청서입니다.</span>
         </a>
-            <form name="adoptFrm" action="" method="post">
+            <form name="adoptFrm" action="${pageContext.request.contextPath}/apply/insertApplication" method="post">
+            	<input type="hidden" name="aniBoId" value="${animal.aniBoId}" />
             	<input type="hidden" name="receiverId" value="${animal.userId}" />
                 <label for="senderId">◾ 아이디</label>
                 <input type="text" name="senderId" value="${loginUser.userId}">
@@ -25,7 +26,7 @@
                 <input type="text" name="senderPhone" value="${loginUser.userPhone}">
                 <label for="senderEmail">◾ 이메일 주소</label>
                 <input type="text" name="senderEmail" value="${loginUser.userEmail}">
-                <label for="senderrJob">◾ 직업</label>
+                <label for="senderJob">◾ 직업</label>
                 <input type="text" name="senderJob">
                 <label for="senderHome">◾ 주거형태</label>
                 <select name="senderHome" id="type">
