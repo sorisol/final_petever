@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.petever.animalboard.model.vo.AnimalAttach;
 import com.kh.petever.reviewBoard.model.dao.ReviewBoardDAO;
+import com.kh.petever.reviewBoard.model.vo.ReviewAttach;
 import com.kh.petever.reviewBoard.model.vo.ReviewBoard;
 
 import lombok.extern.slf4j.Slf4j;
@@ -23,5 +25,40 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 		// TODO Auto-generated method stub
 		return reviewBoardDAO.selectReviewBoard(limit, offset);
 	}
+
+	@Override
+	public int insertReviewBoard(ReviewBoard review) {
+		int result = 0;
+		
+		//1.board 테이블에 insert
+		result = reviewBoardDAO.insertReviewBoard(review);
+		log.debug("result = {}", result);
+		if(result == 0)
+			throw new RuntimeException("게시글 등록 오류");
+		
+//		2.attachment 테이블에 insert
+		//첨부파일 수 만큼 행추가
+		List<ReviewAttach> attachList = review.getAttachList();
+		//첨부파일이 있는 경우
+		if(attachList != null) {
+			for(ReviewAttach attach : attachList) {
+				attach.setRewBoId(review.getRewBoId());
+				log.debug("attach = {}", attach);
+				result = reviewBoardDAO.insertAttachment(attach);
+				
+				if(result == 0)
+					throw new RuntimeException("첨부파일 등록 오류");
+			}
+		}
+		
+		return result;
+	}
+
+	@Override
+	public List<ReviewAttach> selectAttachList() {
+		return reviewBoardDAO.selectAttachList();
+	}
+
+
 
 }

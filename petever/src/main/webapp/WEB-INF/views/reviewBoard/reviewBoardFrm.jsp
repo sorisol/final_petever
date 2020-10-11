@@ -16,7 +16,7 @@
             <p>입양후기 작성 게시판입니다.</p>
             <div class="content">
             	 <form name="boardFrm" id="boardFrm" method="post"
-            	 	action="${pageContext.request.contextPath}/reviewBoard/"
+            	 	action="${pageContext.request.contextPath}/reviewboard/insertBoard"
             	 	 enctype="multipart/form-data">
                     <h1>글쓰기</h1>
                     <input type="hidden" name="userId" value="honggd" />
