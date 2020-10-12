@@ -308,7 +308,8 @@
 			#{repContent},
 			default,
 			default,
-			#{repDoUser}
+			#{repDoUser},
+			seq_report_id.nextval
 		)
 	</insert>
 	

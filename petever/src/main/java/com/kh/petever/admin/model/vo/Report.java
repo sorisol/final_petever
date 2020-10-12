@@ -21,4 +21,5 @@ public class Report implements Serializable{
 	private String repDisplay;
 	private String repDate;
 	private String repDoUser;
+	private int reportId;
 }

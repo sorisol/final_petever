@@ -12,7 +12,7 @@ import com.kh.petever.animalboard.model.vo.AdoptApplication;
 import com.kh.petever.animalboard.model.vo.AnimalAttach;
 import com.kh.petever.animalboard.model.vo.AnimalBoard;
 import com.kh.petever.animalboard.model.vo.AnimalComment;
-import com.kh.petever.animalboard.model.vo.Report;
+import com.kh.petever.admin.model.vo.Report;
 import com.kh.petever.shelterBoard.model.vo.ShelterAnimal;
 
 import lombok.extern.slf4j.Slf4j;
