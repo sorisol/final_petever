@@ -36,7 +36,7 @@ public class Utils {
 		if(pageNo == 1) {
 			
 		} else {
-			pageBar += "<a href='" + url + "cPage=" + (pageNo - 1) + "'>이전</a>";
+			pageBar += "<a class='page-link' href='" + url + "cPage=" + (pageNo - 1) + "'>이전</a>";
 		}
 		
 		//페이지 번호 영역
@@ -46,7 +46,7 @@ public class Utils {
 			if(pageNo == cPage) {
 				pageBar += "<span class='cPage'>" + pageNo + "</span>";
 			} else {
-				pageBar += "<a href='" + url + "cPage=" + pageNo + "'>" + pageNo + "</a>";
+				pageBar += "<a class='page-link' href='" + url + "cPage=" + pageNo + "'>" + pageNo + "</a>";
 			}
 			pageNo++;
 		}
@@ -55,7 +55,7 @@ public class Utils {
 		if(pageNo > totalPage) {
 			
 		} else {
-			pageBar += "<a href='" + url + "cPage=" + pageNo + "'>다음</a>";
+			pageBar += "<a class='page-link' href='" + url + "cPage=" + pageNo + "'>다음</a>";
 		}
 		return pageBar;
 	}

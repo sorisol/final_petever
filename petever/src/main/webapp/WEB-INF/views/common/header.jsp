@@ -41,20 +41,29 @@
                 </c:if>
                 <li><a href="${ pageContext.request.contextPath }/user/userDetail.do">마이페이지</a></li>
                
+<<<<<<< HEAD
+                <li><a href="">고객센터</a></li>
+=======
                 <li>고객센터</li>
+>>>>>>> branch 'master' of https://github.com/rato12/petever.git
                 <li><a href="${ pageContext.request.contextPath }/admin/adminUser.do">관리자</a></li>
             </ul>
         </div>
     </header>
     <div class="menu main-bar">
         <ul>
+<<<<<<< HEAD
+            <div class="logo"></div>
+            <li><a href="">사이트소개</a></li>
+=======
             <div class="logo" onclick="location.href='${ pageContext.request.contextPath }'"></div>
             <li>사이트소개</li>
+>>>>>>> branch 'master' of https://github.com/rato12/petever.git
             <li><a href="${ pageContext.request.contextPath }/animalboard">유기동물</a></li>
             <li><a href="${ pageContext.request.contextPath }/shelterBoard/shelterBoard.do">보호소동물</a></li>
             <li><a href="${ pageContext.request.contextPath }/reviewBoard/reviewBoard.do">입양후기</a></li>
             <li><a href="${ pageContext.request.contextPath }/animalTag/animalTag.do">인식표</a></li>
-            <li><a href=""></a>보호소</li>
+            <li><a href="">보호소</a></li>
             <li><a href="${ pageContext.request.contextPath }/statis/statis.do">통계</a></li>
         </ul>
     </div>

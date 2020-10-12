@@ -65,15 +65,13 @@
 			<div class="sidebar-heading">Interface</div>
 
 			<!-- Nav Item - Pages Collapse Menu -->
-			<li class="nav-item"><a class="nav-link collapsed" href="#" data-toggle="collapse"
-				data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"> <i
-					class="fas fa-fw fa-cog"></i> <span>신고게시글</span>
+			<li class="nav-item"><a class="nav-link collapsed" href="${ pageContext.request.contextPath }/admin/adminReport.do"> 
+			<i class="fas fa-fw fa-cog"></i> <span>신고게시글</span>
 			</a></li>
 
 			<!-- Nav Item - Utilities Collapse Menu -->
-			<li class="nav-item active"><a class="nav-link collapsed" href="#" data-toggle="collapse"
-				data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities"> <i
-					class="fas fa-fw fa-wrench"></i> <span>회원정보 조회</span>
+			<li class="nav-item active"><a class="nav-link collapsed" href="${ pageContext.request.contextPath }/admin/adminUser.do"> 
+			<i class="fas fa-fw fa-wrench"></i> <span>회원정보 조회</span>
 			</a></li>
 
 
@@ -206,29 +204,10 @@
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-sm-12 col-md-5">
-											<div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">Showing
-												1 to 10 of 10 entries</div>
-										</div>
 										<div class="col-sm-12 col-md-7">
 											<div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
 												<ul class="pagination">
-													<li class="paginate_button page-item previous disabled" id="dataTable_previous"><a
-														href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
-													<li class="paginate_button page-item active"><a href="#" aria-controls="dataTable"
-														data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
-													<li class="paginate_button page-item "><a href="#" aria-controls="dataTable"
-														data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
-													<li class="paginate_button page-item "><a href="#" aria-controls="dataTable"
-														data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
-													<li class="paginate_button page-item "><a href="#" aria-controls="dataTable"
-														data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
-													<li class="paginate_button page-item "><a href="#" aria-controls="dataTable"
-														data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
-													<li class="paginate_button page-item "><a href="#" aria-controls="dataTable"
-														data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
-													<li class="paginate_button page-item next" id="dataTable_next"><a href="#"
-														aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+														${ pageBar }
 												</ul>
 											</div>
 										</div>
