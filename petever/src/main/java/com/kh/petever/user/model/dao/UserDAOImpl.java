@@ -1,6 +1,7 @@
 package com.kh.petever.user.model.dao;
 
 import org.apache.ibatis.session.SqlSession;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -36,10 +37,6 @@ public class UserDAOImpl implements UserDAO {
 		return sqlSession.delete("user.userDelete", user);
 	}
 
-	@Override
-	public int idChk(User user) {
-		return sqlSession.selectOne("user.idChk", user);
-	}
-	
-	
-}
+
+}	
+

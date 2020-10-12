@@ -10,7 +10,7 @@ public interface ReviewBoardService {
 	
 	List<ReviewBoard> selectReviewBoard(int limit, int offset);
 	
-	int insertReviewBoard(ReviewBoard review);
+	int insertReviewBoard(ReviewBoard reviewBoard);
 	
 	List<ReviewAttach> selectAttachList();
 	
