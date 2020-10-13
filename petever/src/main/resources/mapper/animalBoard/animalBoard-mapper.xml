@@ -47,9 +47,12 @@
 	
 	<select id="selectBoardList" resultMap="animalBoardMap">
 		select
-			* 
+			*
 		from
-			animal_board
+		    animal_board A left join (select distinct(ani_bo_id), rep_display from report) R
+		        			using(ani_bo_id)
+		where
+			rep_display = 'Y' or rep_display is null
 		order by
 			ani_bo_id desc
 	</select>
@@ -169,13 +172,13 @@
 	        </if>
 	        <if test="aniBoAge != null and aniBoAge != ''">
 	        	<foreach collection="aniBoAge" item="age">
-		            <if test="age == 3">
+		            <if test="age == '3'">
 		    			and ani_bo_age between 0 and 3
 		    		</if>
-		    		<if test="age == 7">
+		    		<if test="age == '7'">
 		    			and ani_bo_age between 4 and 7
 		    		</if>
-		    		<if test="age == 8">
+		    		<if test="age == '8'">
 		    			and ani_bo_age >= 8
 		    		</if>
 	        	</foreach>
@@ -250,10 +253,12 @@
 		select
 			*
 		from
-			animal_board
+			animal_board left join (select distinct(ani_bo_id), rep_display from report)
+						using(ani_bo_id)
 		where
 			ani_bo_date >= to_date(to_char(sysdate-7, 'yyyyMMdd'), 'yyyyMMdd')
 			and (ani_bo_tag in ('실종', '보호'))
+			and(rep_display = 'Y' or rep_display is null)
 		]]>
 	</select>
 	<insert id="insertApplication">
@@ -313,6 +318,26 @@
 		)
 	</insert>
 	
+	<select id="selectOneReport" resultMap="reportMap">
+		select
+			*
+		from
+			report
+		where
+			ani_bo_id = #{aniBoId}
+			and rep_do_user = #{repDoUser}
+	</select>
+	
+	<select id="animalBoardCount" resultType="_int">
+		select
+			count(*)
+		from
+			animal_board left join report using(ani_bo_id) 
+		where
+			rep_display = 'Y' or rep_display is null
+	</select>
+	
+	<resultMap id="reportMap" type="report"></resultMap>
 	<resultMap id="shelterAnimalMap" type="shelterAnimal"></resultMap>
 	<resultMap id="animalBoardMap" type="animalBoard"></resultMap>
 	<resultMap id="animalAttachMap" type="animalAttach"></resultMap>

@@ -27,14 +27,14 @@
                 data-onsuccess="onSignIn"></div>
             <div id="naver_id_login" style="width:232px;margin:20px auto;"></div>
             <a id="custom-login-btn" style="margin: 0 auto; width: 232px; display: block;"
-                href="javascript:loginWithKakao()">
+                href="https://kauth.kakao.com/oauth/authorize?client_id=94eafcad9cc336603158ae0aa47f30a3&redirect_uri=http://localhost:9090/petever/user/kakaologin.do&response_type=code">
                 <img src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg" width="232" />
             </a>
         </div>
     </section>
 
  
-    <script src="js/kakao.js"></script>
+    <!-- <script src="js/kakao.js"></script> -->
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8">
     </script>

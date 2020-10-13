@@ -3,6 +3,7 @@ package com.kh.petever.animalboard.model.service;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,8 +55,8 @@ public class AnimalBoardServiceimpl implements AnimalBoardService {
 	}
 
 	@Override
-	public List<AnimalBoard> selectBoardList(int limit, int offset) {
-		return dao.selectBoardList(limit, offset);
+	public List<AnimalBoard> selectBoardList(RowBounds rowBounds) {
+		return dao.selectBoardList(rowBounds);
 	}
 
 	@Override
@@ -154,6 +155,16 @@ public class AnimalBoardServiceimpl implements AnimalBoardService {
 	@Override
 	public int insertReport(Report rep) {
 		return dao.insertReport(rep);
+	}
+
+	@Override
+	public Report selectOneReport(Map<String, Object> param) {
+		return dao.selectOneReport(param);
+	}
+
+	@Override
+	public int animalBoardCount() {
+		return dao.animalBoardCount();
 	}
 	
 	

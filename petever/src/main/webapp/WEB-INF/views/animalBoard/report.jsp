@@ -28,13 +28,14 @@
     </div>
 <script>
 $(function() {
-    <c:if test="${doUser == null || doUser == ''}">
-		var doUser = null;
-    </c:if>
-	if(doUser == null) {
-		alert("로그인 후 이용해주세요");
+	<c:if test="${doUser == null || doUser == ''}">
+		alert("로그인 후 이용해주세요.");
 		window.close();
-	}
+	</c:if>
+	<c:if test="${not empty rep}">
+		alert("이미 신고처리된 게시물입니다.");
+		window.close();
+	</c:if>
 });
 $("#submit-btn").on("click", function() {
 	console.log("실행");

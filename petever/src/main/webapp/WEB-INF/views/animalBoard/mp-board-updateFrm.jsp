@@ -12,14 +12,14 @@
 
         </section>
         <section class="content-wrap">
-            <h1>[보호] 퍼그(수컷)을 보호하고 있습니다.</h1>
-            <p>#강아지 #3살 #퍼그 #수컷 #강남구 #중성화</p>
+            <h1>${animalBoard.aniBoTag} ${animalBoard.aniBoTitle}</h1>
+            <p>#${animalBoard.aniBoType} #${animalBoard.aniBoKind} #${animalBoard.aniBoGender[0]} #${animalBoard.aniBoLocal}</p>
             <div class="content">
             	 <form name="boardFrm" id="boardFrm" method="post"
             	 	action="${pageContext.request.contextPath}/animalboard/updateBoard"
             	 	 enctype="multipart/form-data">
                     <h1>글쓰기</h1>
-                    <input type="hidden" name="userId" value="honggd" />
+                    <input type="hidden" name="userId" value="${animalBoard.userId}" />
                     <div class="title">
                         <select name="aniBoTag">
                             <option selected disabled hidden>말머리</option>
@@ -98,20 +98,9 @@
                                 <tr>
                                 <tr>
                                     <th>나이</th>
-                                    <c:forEach items="${animalBoard.aniBoAge}" var="age">
-                                    <td>
-                                        <input type="checkbox" name="aniBoAge" id="0~3" value="${age}" ${age eq '3' ? 'checked' : ''}>
-                                        <label for="0~3">0~3</label>
+                                    <td colspan="3">
+                                        <input type="number" name="aniBoAge"  min="0" max="20" value="${animalBoard.aniBoAge}">
                                     </td>
-                                    <td>
-                                        <input type="checkbox" name="aniBoAge" id="4~7" value="7" ${age eq '7' ? 'checked' : ''}>
-                                        <label for="4~7">4~7</label>
-                                    </td>
-                                    <td>
-                                        <input type="checkbox" name="aniBoAge" id="8~" value="8" ${age eq '8' ? 'checked' : ''}>
-                                        <label for="8~">8 이상</label>
-                                    </td>
-                                    </c:forEach>
                                 </tr>
                                 <tr>
                                     <th>성별</th>
@@ -129,20 +118,9 @@
                                 <tr>
                                 <tr>
                                     <th>무게(kg)</th>
-                                    <c:forEach items="${animalBoard.aniBoSize}" var="size">
-	                                    <td>
-	                                        <input type="checkbox" name="aniBoSize" id="~5" value="5" ${size eq '5' ? 'checked' : '' }>
-	                                        <label for="~5">5 미만</label>
-	                                    </td>
-	                                    <td>
-	                                        <input type="checkbox" name="aniBoSize" id="5~9" value="9" ${size eq '9' ? 'checked' : '' }>
-	                                        <label for="5~9">5~9</label>
-	                                    </td>
-	                                    <td>
-	                                        <input type="checkbox" name="aniBoSize" id="10~" value="10" ${size eq '10' ? 'checked' : '' }>
-	                                        <label for="10~">10이상</label>
-	                                    </td>
-                                    </c:forEach>
+                                    <td colspan="3">
+                                        <input type="number" name="aniBoSize"  min="0" max="50" value="${animalBoard.aniBoSize}">
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th>털색</th>
@@ -257,7 +235,7 @@ $(function () {
 
 	//강아지, 고양이 별 종
 	var $selectTag = $("#aniBoKind");
-	var dog = ['믹스견', '리트리버', '말티즈', '불독', '비숑프리제', '시츄', '요크셔테리어', '치와와', '포메라니안', '푸들'];
+	var dog = ['믹스견', '리트리버', '말티즈', '보더콜리', '불독', '비숑프리제', '시츄', '웰시코기', '요크셔테리어', '치와와', '포메라니안', '푸들'];
 	var cat = ['코리안숏헤어', '노르웨이숲', '러시안블루', '렉돌', '먼치킨', '뱅갈', '브리티쉬숏헤어', '샴', '스코티쉬폴드', '터키쉬앙고라'];
     $("input[name=aniBoType]").change(function() {
 		var $breed = $(this).val();
