@@ -318,6 +318,9 @@ a.animated-button.thar-three:before {
 
 	$('.thar-three').click(function(){
 		$('#con').css("opacity","0");
+		setTimeout(function() {
+		$('#con').hide();
+			}, 500);
 	});
 	
 	$('.mm-prev-btn').hide();
