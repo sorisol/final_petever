@@ -46,4 +46,25 @@ public class ReviewBoardDAOImpl implements ReviewBoardDAO {
 		return sqlSession.selectList("reviewboard.selectAttachList");
 	}
 
+	@Override
+	public ReviewBoard selectOneBoard(int no) {
+		
+		return sqlSession.selectOne("reviewboard.selectOneBoard", no);
+	}
+
+	@Override
+	public int updateBoard(ReviewBoard reviewBoard) {
+		
+		return sqlSession.update("reviewboard.updateBoard", reviewBoard);
+	}
+
+	@Override
+	public int deleteBoard(int no) {
+		return sqlSession.delete("reviewboard.deleteBoard", no);
+	}
+
+	
+
+
+	
 }
