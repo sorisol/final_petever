@@ -28,6 +28,8 @@ public interface AdminDao {
 
 	int totalReport();
 
+	int reportRemove(String no);
+
 
 
 }

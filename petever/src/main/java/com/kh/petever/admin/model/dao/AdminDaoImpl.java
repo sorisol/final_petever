@@ -62,4 +62,9 @@ public class AdminDaoImpl implements AdminDao {
 		return session.selectOne("admin.totalReport");
 	}
 
+	@Override
+	public int reportRemove(String no) {
+		return session.delete("admin.reportRemove", no);
+	}
+
 }

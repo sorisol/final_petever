@@ -75,6 +75,18 @@ public class AdminController {
 		return mav;
 	}
 	
+	@PostMapping("/reportRemove.do")
+	public String reportRemove(@RequestParam("no") String no, 
+			RedirectAttributes redirectAttr) {
+		
+		int result = adminService.reportRemove(no);
+		String msg = (result > 0) ? " 게시글이 삭제되었습니다." : "철회실패";
+		redirectAttr.addFlashAttribute("msg", msg);
+		
+		
+		return "redirect:/admin/adminReport.do";
+	}
+	
 	@PostMapping("/reportDel.do")
 	public String reportDel(@RequestParam("no") String no, 
 						RedirectAttributes redirectAttr) {
