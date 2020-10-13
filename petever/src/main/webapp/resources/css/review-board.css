@@ -122,13 +122,7 @@ td {
 .content .search * {
     float: left;
 }
-#query {
-	width: 200px;
-	margin: 0px 10px;
-	height: 32px;
-    padding: 0px 12px;
-    border: 1px solid #ebecef;
-}
+
 .search-wrap select {
     width: 100px;
     height: 36px;
@@ -141,6 +135,14 @@ td {
 .search-wrap select:focus {
     border: 1px solid #FFDD93;
     outline-color: #FFDD93;
+}
+
+.search-wrap input {
+    width: 200px;
+    height: 32px;
+    padding: 0px 12px;
+    margin: 0px 10px;
+    border: 1px solid #ebecef;
 }
 
 .search-wrap input:focus {
@@ -191,36 +193,21 @@ td {
 .write-btn:focus {
 	outline-color: #f2aa8a;	
 }
-.pageBar {
-	text-align: center;
-    margin: 30px auto;
-}
-​
-.page-link {
-	width: 15px;
-    height: 15px;
-    color: #373b44;
-    font-weight: 600;
-    font-size: 16px;
-    padding: 5px;
-	margin: 3px;
-​
-}
-.cPage{
-	width: 15px;
-    height: 15px;
-    color: #fffde4;
-    font-weight: bold;
-    font-size: 19px;
-    padding: 5px;
-    background-color: #373b44;
-    border-radius: 10px;
-	margin: 3px;
-}
-​
-.page-pre {
-	background-color: white;
-    border-radius: 10px;
-    color: darkgray;
-    padding: 4px;
-}
+
+
+/********** 전체컨테이너 **********/
+div#container	{}
+
+/********** header **********/
+header div#header-container {height:100px;}
+header div#header-container h2 	{margin:30px 10px 0px 10px;}
+
+
+/********** content **********/
+section#content		{min-height:600px;}
+
+
+/********** footer **********/
+footer	{background-color:#f8f9fa; background-clip:content-box; clear:both; height:95px; text-align:center;}
+footer p 	{margin-top:30px;}
+

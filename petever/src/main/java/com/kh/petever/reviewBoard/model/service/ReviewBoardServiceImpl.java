@@ -61,5 +61,19 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 	}
 
 
+	@Override
+	public ReviewBoard selectOneBoard(int no) {
+		return reviewBoardDAO.selectOneBoard(no);
+	}
+
+	@Override
+	public int updateBoard(ReviewBoard reviewBoard) {
+		return reviewBoardDAO.updateBoard(reviewBoard);
+	}
+
+	@Override
+	public int deleteBoard(int no) {
+		return reviewBoardDAO.deleteBoard(no);
+	}
 
 }

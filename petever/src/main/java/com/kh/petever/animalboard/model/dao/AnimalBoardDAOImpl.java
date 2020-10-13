@@ -32,9 +32,8 @@ public class AnimalBoardDAOImpl implements AnimalBoardDAO {
 	}
 
 	@Override
-	public List<AnimalBoard> selectBoardList(int limit, int offset) {
-		RowBounds rowBounds = new RowBounds(offset, limit);
-		return sqlSession.selectList("animalBoard.selectBoardList");
+	public List<AnimalBoard> selectBoardList(RowBounds rowBounds) {
+		return sqlSession.selectList("animalBoard.selectBoardList", null, rowBounds);
 	}
 
 	@Override
@@ -110,6 +109,16 @@ public class AnimalBoardDAOImpl implements AnimalBoardDAO {
 	@Override
 	public int insertReport(Report rep) {
 		return sqlSession.insert("animalBoard.insertReport", rep);
+	}
+
+	@Override
+	public Report selectOneReport(Map<String, Object> param) {
+		return sqlSession.selectOne("animalBoard.selectOneReport", param);
+	}
+
+	@Override
+	public int animalBoardCount() {
+		return sqlSession.selectOne("animalBoard.animalBoardCount");
 	}
 	
 }

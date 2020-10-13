@@ -114,7 +114,7 @@
 	                        </tr>
 	                    </table>
 	
-	                    <hr style="height: 1px; border:none; background-color: lightgray; width: 1000px; margin: 30px 50px;">
+	                    <hr style="height: 1px; border:none; background-color: lightgray; width: 860px; margin: 30px 50px;">
 						
 	                    <div class="post-wrap">
 	                    <c:forEach items="${boardList}" var="b">
@@ -149,15 +149,17 @@
 	                    <button type="button" onclick="location.href='${pageContext.request.contextPath}/animalboard/boardFrm'" class="write-btn">글쓰기</button>
 	                    <div class="search-wrap">
 	                        <select name="search" id="search">
-	                            <option value="ani_bo_title">제목</option>
-	                            <option value="ani_bo_content">내용</option>
-	                            <option value="ani_bo_date">날짜</option>
-	                            <option value="ani_bo_tag">말머리</option>
+	                            <option value="aniBoTitle">제목</option>
+	                            <option value="aniBoContent">내용</option>
+	                            <option value="aniBoTag">말머리</option>
 	                        </select>
-	                        <input type="text" name="query" id="query">
+	                        <input type="text" name="aniBoTitle" id="query">
 	                        <button type="button" id="bottom-search-btn" onclick="searchFunc();">검색</button>
 		                </div>
                     </form>
+                    <div class="pageBar">
+						${ pageBar }
+					</div>
                 </div>
             </div>
         </section>
@@ -188,16 +190,16 @@ function searchFunc() {
 					html += '<a href="${ pageContext.request.contextPath }/animalboard/boardView?no='+b.aniBoId+'">';
 
 					//사진
-            		for(var j in data.attachList) {
-						var a = data.attachList[j];
-						if(b.aniBoId == a.aniBoId) {
-							html += '<img src="${pageContext.request.contextPath}/resources/editor/multiupload/'+a.aniAtRenamedName+'">';
+            		for(var j in data.fileList) {
+						var f = data.fileList[j];
+						if(b.aniBoId == f.aniBoId) {
+							html += '<img src="${pageContext.request.contextPath}/resources/editor/multiupload/'+f.aniAtRenamedName+'">';
 						}
                     }
 					if(b.aniBoTag == '실종')
 						html += '<br><span class="tag missing">['+b.aniBoTag+']</span>';
 					else if(b.aniBoTag == '목격')
-						html += '<br><span class="tag sight">['+b.aniBoTag+']</span>';
+						html += '<br><span class="tag sighting">['+b.aniBoTag+']</span>';
 					else if(b.aniBoTag == '보호')
 						html += '<br><span class="tag protect">['+b.aniBoTag+']</span>';
 					else
@@ -220,6 +222,21 @@ function searchFunc() {
 
 $(function() {	
 	$("#search").on("change", function() {
+		var $query = $("#query");
+		var $search = $("#search");
+
+		$query.attr('name', $(this).val());
+
+		if($search.val() == 'aniBoTag') {
+			$query.hide();
+			$query.replaceWith('<select id="query" name="aniBoTag"></select>');
+			$search.next().append('<option value="실종">실종</option>');
+			$search.next().append('<option value="목격">목격</option>');
+			$search.next().append('<option value="보호">보호</option>');
+			$search.next().append('<option value="완료">완료</option>');
+		}
+		else {
+			$("#query").replaceWith('<input type="text" name="'+$search.val()+'" id="query">');
 		console.log($("#search").val());
 		//console.log($("#search").next().html());
 		if($("#search").val() == 'ani_bo_tag') {
@@ -233,9 +250,8 @@ $(function() {
 	});
 	var tag = document.getElementsByClassName("tag");
 	for(var i=0; i<tag.length; i++) {
-           if(tag[i].innerHTML == '[실종]'){
+           if(tag[i].innerHTML == '[실종]')
                tag[i].setAttribute('class', 'tag missing');
-        }
            else if(tag[i].innerHTML == '[목격]')
                tag[i].setAttribute('class', 'tag sighting');
            else if(tag[i].innerHTML == '[보호]')

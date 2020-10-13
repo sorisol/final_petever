@@ -12,14 +12,14 @@
 
         </section>
         <section class="content-wrap">
-            <h1>[보호] 퍼그(수컷)을 보호하고 있습니다.</h1>
-            <p>#강아지 #3살 #퍼그 #수컷 #강남구 #중성화</p>
+            <h1>유기동물 게시판</h1>
+            <p>글쓰기</p>
             <div class="content">
             	 <form name="boardFrm" id="boardFrm" method="post"
             	 	action="${pageContext.request.contextPath}/animalboard/insertBoard"
             	 	 enctype="multipart/form-data">
                     <h1>글쓰기</h1>
-                    <input type="hidden" name="userId" value="honggd" />
+                    <input type="hidden" name="userId" value="${loginUser.userId}" />
                     <div class="title">
                         <select name="aniBoTag">
                             <option selected disabled hidden>말머리</option>
@@ -91,17 +91,8 @@
                                 <tr>
                                 <tr>
                                     <th>나이</th>
-                                    <td>
-                                        <input type="checkbox" name="aniBoAge" id="0~3" value="3">
-                                        <label for="0~3">0~3</label>
-                                    </td>
-                                    <td>
-                                        <input type="checkbox" name="aniBoAge" id="4~7" value="7">
-                                        <label for="4~7">4~7</label>
-                                    </td>
-                                    <td>
-                                        <input type="checkbox" name="aniBoAge" id="8~" value="8">
-                                        <label for="8~">8 이상</label>
+                                    <td colspan="3">
+                                        <input type="number" name="aniBoAge" min="0" max="20" >
                                     </td>
                                 </tr>
                                 <tr>
@@ -118,17 +109,8 @@
                                 <tr>
                                 <tr>
                                     <th>무게(kg)</th>
-                                    <td>
-                                        <input type="checkbox" name="aniBoSize" id="~5" value="5">
-                                        <label for="~5">5 미만</label>
-                                    </td>
-                                    <td>
-                                        <input type="checkbox" name="aniBoSize" id="5~9" value="9">
-                                        <label for="5~9">5~9</label>
-                                    </td>
-                                    <td>
-                                        <input type="checkbox" name="aniBoSize" id="10~" value="10">
-                                        <label for="10~">10이상</label>
+                                    <td colspan="3">
+                                        <input type="number" name="aniBoSize"  min="0" max="100">
                                     </td>
                                 </tr>
                                 <tr>
