@@ -235,18 +235,10 @@ $(function() {
 			$search.next().append('<option value="보호">보호</option>');
 			$search.next().append('<option value="완료">완료</option>');
 		}
-		else {
+		else
 			$("#query").replaceWith('<input type="text" name="'+$search.val()+'" id="query">');
-		console.log($("#search").val());
+		//console.log($("#search").val());
 		//console.log($("#search").next().html());
-		if($("#search").val() == 'ani_bo_tag') {
-			$("#query").replaceWith('<select name="aniBoTag"></select>');
-			$("#query").hide();
-			$("#search").next().append('<option value="실종">실종</option>');
-			$("#search").next().append('<option value="목격">목격</option>');
-			$("#search").next().append('<option value="보호">보호</option>');
-			$("#search").next().append('<option value="완료">완료</option>');
-		}
 	});
 	var tag = document.getElementsByClassName("tag");
 	for(var i=0; i<tag.length; i++) {
