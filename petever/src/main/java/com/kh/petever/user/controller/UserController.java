@@ -69,6 +69,11 @@ public class UserController {
 		log.debug("user@controller = {}", user);
 		
 		String rawPassword = user.getUserPwd();
+		//카카오아이디로 회원가입 했을 경우
+		if(user.getUserPwd() == null) {
+			rawPassword = "petever";
+		}
+		
 		String encryptPassword = bcryptPasswordEncoder.encode(rawPassword);
 		user.setUserPwd(encryptPassword);
 		System.out.println("rawPassword@controller = " + rawPassword);
@@ -246,26 +251,23 @@ public class UserController {
 	//카카오로그인
 	@RequestMapping("/kakaologin.do")
 	public String kakaoLognin(@RequestParam("code") String code, HttpSession session, Model model) {
-		log.debug("code = {}", code);
+//		log.debug("code = {}", code);
 		
 		String access_Token = kakao.getAccessToken(code);
-		log.debug("controller access_token = {}", access_Token);
+//		log.debug("controller access_token = {}", access_Token);
 		
-		User user =  new User();
 		HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
+		String kakaoId = (String)userInfo.get("email");
+
+		User u = userService.selectOneUser(kakaoId);
 		
-		if (userInfo.get("email") != null) {
-			user.setUserId((String)userInfo.get("email"));
-			user.setUserEmail((String)userInfo.get("email"));
-	    }
-		User u = userService.selectOneUser(user.getUserId());
-		
+		//DB에 등록 안되어있으면 회원가입페이지로 -> 추가정보입력
 		if(u == null) {
-			model.addAttribute("userId", user.getUserId());
+			model.addAttribute("userId", kakaoId);
 			return "user/signup";
 		}
 		
-		session.setAttribute("loginUser", user);
+		session.setAttribute("loginUser", u);
 		session.setAttribute("access_Token", access_Token);
 		//세션에서 next값 가져오기
 		String next = (String)session.getAttribute("next");
