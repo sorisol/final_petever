@@ -159,3 +159,37 @@ option {
 .protect {
     color: #5F9EA0;
 }
+
+.pageBar {
+	text-align: center;
+    margin: 30px auto;
+}
+
+.page-link {
+	width: 15px;
+    height: 15px;
+    color: #373b44;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 5px;
+	margin: 3px;
+
+}
+.cPage{
+	width: 15px;
+    height: 15px;
+    color: #fffde4;
+    font-weight: bold;
+    font-size: 19px;
+    padding: 5px;
+    background-color: #373b44;
+    border-radius: 10px;
+	margin: 3px;
+}
+
+.page-pre {
+	background-color: white;
+    border-radius: 10px;
+    color: darkgray;
+    padding: 4px;
+}

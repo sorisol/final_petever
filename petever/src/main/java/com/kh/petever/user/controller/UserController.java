@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.FlashMap;
@@ -31,6 +33,7 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import com.kh.petever.user.model.service.KakaoAPI;
 import com.kh.petever.user.model.service.UserService;
 import com.kh.petever.user.model.vo.User;
+
 
 @Controller
 @RequestMapping("/user")
@@ -222,19 +225,22 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-	/*
-	 * // 아이디중복체크
-	 * 
-	 * @RequestMapping(value = "/checkIdDuplicate.do") public String idChk() {
-	 * return "user/checkIdDuplicate"; }
-	 */
-	
-	//회원정보수정페이지 연결
-	@GetMapping("/checkIdDuplicate.do")
-	public String idChk() {
-		System.out.println("접속");
-		return "user/checkIdDuplicate";
 
+	@GetMapping("/checkIdDuplicate1.do")
+	public ModelAndView checkIdDuplicate1(ModelAndView mav,
+										  @RequestParam("userId") String userId) {
+		
+		//1. 업무로직 : 중복체크
+		User user = userService.selectOneUser(userId);
+		boolean isUsable = user == null;
+		
+		//2. model에 속성등록
+		mav.addObject("isUsable", isUsable);
+		
+		//3. viewName : jsonView빈 지정
+		mav.setViewName("jsonView");// /WEB-INF/views/jsonView.jsp
+		
+		return mav;
 	}
 	
 	//카카오로그인
@@ -267,5 +273,16 @@ public class UserController {
 		return "redirect:/"+location;
 	}
 
+	@GetMapping("/checkIdDuplicate2.do")
+	@ResponseBody
+	public Map<String, Object> checkIdDuplicate2(@RequestParam("userId") String userId) {
+		User user = userService.selectOneUser(userId);
+		boolean isUsable = (user == null);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("isUsable", isUsable);
+		map.put("userId", userId);
+		
+		return map;
+	}
 }
-

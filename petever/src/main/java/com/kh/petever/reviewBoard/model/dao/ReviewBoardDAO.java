@@ -12,7 +12,7 @@ public interface ReviewBoardDAO {
 	List<ReviewBoard> selectReviewBoard(int limit, int offset);
 
 	//게시글작성
-	int insertReviewBoard(ReviewBoard review);
+	int insertReviewBoard(ReviewBoard reviewBoard);
 	
 	int insertAttachment(ReviewAttach attach);
 

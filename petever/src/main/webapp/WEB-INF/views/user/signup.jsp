@@ -9,7 +9,15 @@
 
 <!-- 주소검색API -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-
+<!-- 제이쿼리 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<style>
+/*중복아이디체크관련*/
+div#userId-container{position:relative; padding:0px;}
+div#userId-container span.guide {display:none;font-size: 12px;position:absolute; top:12px; right:10px;}
+div#userId-container span.ok{color:green;}
+div#userId-container span.error{color:red;}
+</style>
 
     <section>
     
@@ -20,9 +28,24 @@
     	
         <div class="signup">
             <form name="userSignupFrm" action="signup.do" method="post">
-                <label for="">아이디 <span class="id-check" onclick="checkIdDuplicate();">중복확인</span></label>
-                <input type="text" name="userId" maxlength='12' id="userId" placeholder="4자리 이상" required>
-                <label for="">비밀번호</label>
+				<tr>
+				<label for="">아이디</label>
+				<td>
+					<div id="userId-container">
+						<input type="text" 
+							   class="form-control" 
+							   placeholder="4글자이상"
+							   name="userId" 
+							   id="userId"
+							   required>
+						<span class="guide ok">이 아이디는 사용 가능합니다.</span>		   
+						<span class="guide error">이 아이디는 사용할 수 없습니다.</span>		   
+						<input type="hidden" id="idValid" value="0" />
+					</div>
+				</td>
+			</tr>
+<!--                 <input type="text" name="userId" maxlength='12' id="userId" placeholder="4자리 이상" required>
+               -->  <label for="">비밀번호</label>
                 <input type="password" name="userPwd" maxlength='12' id="userPwd1" required>
                 <label for="">비밀번호 확인</label>
                 <input type="password" name="userPwd2" maxlength='12' id="userPwd2" required>
@@ -45,8 +68,6 @@
 			<div class="form-group">
 			    <input class="form-control" placeholder="상세주소" name="addr3" id="addr3" type="text"  />
 			</div> 
-                
-                <button class="addr-search" >검색</button> 
                 <input type="submit" value="회원가입" onclick="button1_click();" onsubmit ="return CheckAll()">
          
             </form>
@@ -54,6 +75,44 @@
     </section>
   
     <script>
+	/* 아이디중복체크  */
+	$("#userId").keyup(function(){
+
+	//중복 검사후 아이디 재작성하는 경우
+	if(/^\w{4,}$/.test($(this).val()) == false){
+		$(".guide").hide();
+		$("#idValid").val(0);
+		return;
+	}
+
+	$.ajax({
+		url : "${ pageContext.request.contextPath }/user/checkIdDuplicate2.do",
+		data : {
+			userId : $(this).val()
+		},
+		dataType : "json",
+		success : function(data){
+			console.log(data);
+
+			if(data.isUsable == true){
+				$(".guide.error").hide();
+				$(".guide.ok").show();
+				$("#idValid").val(1);
+			}
+			else {
+				$(".guide.error").show();
+				$(".guide.ok").hide();
+				$("#idValid").val(0);
+			}
+		},
+		error : function(xhr, status, err){
+			console.log("처리실패", xhr, status, err);
+		}
+	});
+
+	
+});
+    
     /*회원가입*/
     $("#userSignupFrm").submit(function(){
 
@@ -138,35 +197,8 @@ $(function(){
 	});
 });
 
-/**
- * 팝업 + 폼제출
- */
-function checkIdDuplicate(){
-	let $userId = $("#userId");
-	if(!/^[\w]{4,}$/.test($userId.val())){
-		alert("유효한 아이디를 입력해주세요.");
-		$userId.select();
-		return;
-	}
-	
-	//팝업생성
-	let title = "checkIdDuplicatePopup";
-	let spec = "left=300px, top=300px, width=300px, height=200px";
-	let popup = open("", title, spec);
-	//url부분은 form이 제출될 주소가 오므로, 공란처리
-	
-	let $frm = $("[name=checkIdDuplicateFrm]");
-	$frm.attr("action", "<%=request.getContextPath()%>/user/checkIdDuplicate");
-	$frm.attr("method", "POST");
-	$frm.attr("target", title);//폼과 팝업을 연결
-	$frm.find("[name=userId]").val($userId.val());
-	$frm.submit();
-	
-}
-
  
     </script>
-
 
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

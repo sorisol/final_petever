@@ -9,6 +9,14 @@
 				#{ tagAniName }, #{ tagAniSsn }, #{ tagPersonName }, #{ tagPersonPhone },
 				#{ ssgName }, #{ ssgTel }, #{ ssgAddr0 }, #{ ssgAddr1 }, #{ ssgAddr2 }, default)
 	</insert>
+	
+	<select id="selectList" resultMap="animalTagVO">
+		select *
+		from animal_tag
+		where user_id = #{ userId }
+	</select>
+	<resultMap type="AnimalTag" id="animalTagVO">
+	</resultMap>
 
 	
 </mapper>

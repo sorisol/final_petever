@@ -1,5 +1,7 @@
 package com.kh.petever.animalTag.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,7 +39,7 @@ public class AnimalTagController {
 		
 		log.debug("등록여부 {}", result == 1 ? "성공" : "실패");
 	 
-		return "/"; 
+		return "redirect:/"; 
 	}
 	 
 
@@ -51,6 +53,18 @@ public class AnimalTagController {
 		model.addAttribute("tagPrice", tagPrice);
 
 		return "animalTag/animalTagPay";
+	}
+	
+	@GetMapping("/animalTagList.do")
+	public String animalList(@RequestParam String userId, Model model) {
+		log.debug("userId = {}", userId);
+		
+		List<AnimalTag> list = animalService.selectList(userId);
+		System.out.println(list);
+		
+		model.addAttribute("list", list);
+		
+		return "animalTag/animalTagList";
 	}
 
 }
