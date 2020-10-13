@@ -66,11 +66,17 @@ table td,th {
     height: 32px;
     border: 1px solid #ebecef;
 }
-.pet-info input[type=text] {
+#aniBoKind {
+	width: 250px;
+}
+.pet-info input[type=text], input[type=number] {
     height: 30px;
     width: 400px;
     padding: 0 10px;
     border: 1px solid #ebecef;
+}
+.pet-info input[type=number] {
+	width: 138px;
 }
 .pet-info input[type=date] {
     padding: 0 10px;

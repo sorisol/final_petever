@@ -207,7 +207,7 @@ window.onload = function(){
 		url : "${pageContext.request.contextPath}/animalboard/index",
 		method : "GET",
 		success : function(data){
-			console.log(data);
+			//console.log(data);
 			if(data.boardList != null) {
 				var $missing = $('.missing');
 				var $protect = $('.protect');

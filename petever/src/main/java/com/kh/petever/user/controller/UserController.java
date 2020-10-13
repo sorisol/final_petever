@@ -2,7 +2,6 @@ package com.kh.petever.user.controller;
 
 import java.security.Principal;
 import java.sql.Date;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,19 +9,16 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,7 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
-import com.kh.petever.user.model.dao.UserDAO;
+import com.kh.petever.user.model.service.KakaoAPI;
 import com.kh.petever.user.model.service.UserService;
 import com.kh.petever.user.model.vo.User;
 
@@ -46,6 +42,9 @@ public class UserController {
 
 	private Logger log = LoggerFactory.getLogger(getClass());
 
+	@Autowired
+    private KakaoAPI kakao;
+	
 	@Autowired
 	private UserService userService;
 
@@ -244,6 +243,36 @@ public class UserController {
 		return mav;
 	}
 	
+	//카카오로그인
+	@RequestMapping("/kakaologin.do")
+	public String kakaoLognin(@RequestParam("code") String code, HttpSession session, Model model) {
+		log.debug("code = {}", code);
+		
+		String access_Token = kakao.getAccessToken(code);
+		log.debug("controller access_token = {}", access_Token);
+		
+		User user =  new User();
+		HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
+		
+		if (userInfo.get("email") != null) {
+			user.setUserId((String)userInfo.get("email"));
+			user.setUserEmail((String)userInfo.get("email"));
+	    }
+		User u = userService.selectOneUser(user.getUserId());
+		
+		if(u == null) {
+			model.addAttribute("userId", user.getUserId());
+			return "user/signup";
+		}
+		
+		session.setAttribute("loginUser", user);
+		session.setAttribute("access_Token", access_Token);
+		//세션에서 next값 가져오기
+		String next = (String)session.getAttribute("next");
+		String location = next != null ? next : "/";
+		return "redirect:/"+location;
+	}
+
 	@GetMapping("/checkIdDuplicate2.do")
 	@ResponseBody
 	public Map<String, Object> checkIdDuplicate2(@RequestParam("userId") String userId) {
@@ -256,5 +285,4 @@ public class UserController {
 		
 		return map;
 	}
-	
 }
