@@ -169,42 +169,47 @@
                   </div>
                   <div class="row">
                     <div class="col-sm-12">
+                    <style>
+                    	.table{
+                    		font-size:12px;
+                    	}
+                    </style>
                       <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0"
                         role="grid" aria-describedby="dataTable_info" style="width: 100%;">
-                        <thead>
+                        <thead style="background-color:#f8f9fc;">
                           <tr role="row">
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                              aria-label="Name: activate to sort column ascending" style="width: 25px;">번호</th>
+                              aria-label="Name: activate to sort column ascending" style="width: 4%;text-align:center;">번호</th>
                             <th class="sorting_desc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                              aria-label="Position: activate to sort column ascending" style="width: 80px;"
+                              aria-label="Position: activate to sort column ascending" style="width: 6%;"
                               aria-sort="descending">피신고인</th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                              aria-label="Office: activate to sort column ascending" style="width: 25px;">신고인</th>
+                              aria-label="Office: activate to sort column ascending" style="width: 6%;">신고인</th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                              aria-label="Age: activate to sort column ascending" style="width: 159px;">사유</th>
+                              aria-label="Age: activate to sort column ascending" style="width: 60%;">사유</th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                              aria-label="Start date: activate to sort column ascending" style="width: 191px;">날짜</th>
+                              aria-label="Start date: activate to sort column ascending" style="width: 8%;">날짜</th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                              aria-label="Salary: activate to sort column ascending" style="width: 210px;">게시여부</th>
+                              aria-label="Salary: activate to sort column ascending" style="width: 6%;text-align:center;">게시여부</th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                              aria-label="Salary: activate to sort column ascending" style="width: 100px;">확인</th>
+                              aria-label="Salary: activate to sort column ascending" style="width: 10%;">확인</th>
                           </tr>
                         </thead>
                         <tbody id="reportTable">
                         <c:forEach var="rep" items="${list}">
                           <tr role="row" class="odd">
-                            <td class="">${rep.aniBoId}</td>
+                            <td style="text-align:center;" class=""> <a href="${pageContext.request.contextPath}/animalboard/boardView?no=${rep.aniBoId}" style="color:#858796;">${rep.aniBoId}</a></td>
                             <td class="sorting_1">${rep.userId}</td>
                             <td>${rep.repDoUser}</td>
-                            <td>${rep.repContent}</td>
+                            <td style="background: #f8f9fc;font-size:14px;">${rep.repContent}</td>
                             <td>${rep.repDate}</td>
-                            <td>${rep.repDisplay}</td>
+                            <td style="text-align:center;font-size:24px;">${rep.repDisplay}</td>
                             <td>
-                              <a href="#"  id="reportDel" class="btn btn-danger btn-circle btn-sm mr-2"  onclick="reportDel('${ rep.aniBoId }')">
+                              <a href="#"  id="reportDel" class="btn btn-info btn-circle btn-sm mr-2"  onclick="reportDel('${ rep.aniBoId }')">
                                 <i class="align-middle fas fa-fw fa-sync-alt"></i>
                               </a>
                             <c:if test="${rep.repDisplay eq 'Y'}">
-                              <a href="#" id="reportYN" class="btn btn-success btn-circle btn-sm" style="font-weight: bold; font-size: 16px;" onclick="reportYN('${ rep.aniBoId }','${ rep.repDisplay }')">
+                              <a href="#" id="reportYN" class="btn btn-warning btn-circle btn-sm" style="font-weight: bold; font-size: 16px;" onclick="reportYN('${ rep.aniBoId }','${ rep.repDisplay }')">
                                 N
                               </a>
                             </c:if>
@@ -312,9 +317,9 @@ function displayResultTable(id, data){
 			html += "<td>" + list.repContent + "</td>";			
 			html += "<td>" + list.repDate + "</td>";			
 			html += "<td>" + list.repDisplay + "</td>";			
-			html += "<td> <a href='#'  id='reportDel' class='btn btn-danger btn-circle btn-sm mr-2'  onclick='reportDel("+list.aniBoId +")'> <i class='align-middle fas fa-fw fa-sync-alt'></i> </a>";
+			html += "<td> <a href='#'  id='reportDel' class='btn btn-info btn-circle btn-sm mr-2'  onclick='reportDel("+list.aniBoId +")'> <i class='align-middle fas fa-fw fa-sync-alt'></i> </a>";
 			if(list.repDisplay=='Y'){
-				html += "<a href='#' id='reportYN' class='btn btn-success btn-circle btn-sm' style='font-weight: bold; font-size: 16px;' onclick='reportYN("+list.aniBoId+"','"+list.repDisplay+"')>N</a>";
+				html += "<a href='#' id='reportYN' class='btn btn-warning btn-circle btn-sm' style='font-weight: bold; font-size: 16px;' onclick='reportYN("+list.aniBoId+"','"+list.repDisplay+"')>N</a>";
 			}
 			if(list.repDisplay=='N'){
 				html += "<a href='#' id='reportYN' class='btn btn-success btn-circle btn-sm' style='font-weight: bold; font-size: 16px;' onclick='reportYN("+list.aniBoId+"','"+list.repDisplay+"')>Y</a>";

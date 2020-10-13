@@ -13,7 +13,6 @@ public interface UserDAO {
 	//회원탈퇴
 	int userDelete(User user);
 	
-	//아이디 중복체크
-	public int idChk(User user);
 
 }
+

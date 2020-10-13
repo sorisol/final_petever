@@ -2,11 +2,15 @@ package com.kh.petever.user.controller;
 
 import java.security.Principal;
 import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,8 +34,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+import com.kh.petever.user.model.dao.UserDAO;
 import com.kh.petever.user.model.service.UserService;
 import com.kh.petever.user.model.vo.User;
+
 
 @Controller
 @RequestMapping("/user")
@@ -219,20 +226,35 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-	/*
-	 * // 아이디중복체크
-	 * 
-	 * @RequestMapping(value = "/checkIdDuplicate.do") public String idChk() {
-	 * return "user/checkIdDuplicate"; }
-	 */
-	
-	//회원정보수정페이지 연결
-	@GetMapping("/checkIdDuplicate.do")
-	public String idChk() {
-		System.out.println("접속");
-		return "user/checkIdDuplicate";
 
+	@GetMapping("/checkIdDuplicate1.do")
+	public ModelAndView checkIdDuplicate1(ModelAndView mav,
+										  @RequestParam("userId") String userId) {
+		
+		//1. 업무로직 : 중복체크
+		User user = userService.selectOneUser(userId);
+		boolean isUsable = user == null;
+		
+		//2. model에 속성등록
+		mav.addObject("isUsable", isUsable);
+		
+		//3. viewName : jsonView빈 지정
+		mav.setViewName("jsonView");// /WEB-INF/views/jsonView.jsp
+		
+		return mav;
 	}
-
+	
+	@GetMapping("/checkIdDuplicate2.do")
+	@ResponseBody
+	public Map<String, Object> checkIdDuplicate2(@RequestParam("userId") String userId) {
+		User user = userService.selectOneUser(userId);
+		boolean isUsable = (user == null);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("isUsable", isUsable);
+		map.put("userId", userId);
+		
+		return map;
+	}
+	
 }
-

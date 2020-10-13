@@ -163,7 +163,8 @@
 				var euthanasiaSum = 0;
 				var adoptChartData = new Array();
 				var euthanasiaChartData = new Array();
-								
+				var labelCity = $("select[name=city]").val();
+				
 				for(var i = 0; i <(res.adopt).length; i++){
 					adoptSum+=res.adopt[i];
 					euthanasiaSum+=res.euthanasia[i];
@@ -182,9 +183,9 @@
 					dataset.data = loadData;
 				});
 
-				addData(adoptChart, ajaxLable, adoptChartData);
+				addData(adoptChart, ajaxLable, adoptChartData, labelCity, 1);
 				
-				addData(euthanasiaChart, ajaxLable, euthanasiaChartData);
+				addData(euthanasiaChart, ajaxLable, euthanasiaChartData, labelCity, 2);
 
 				doughnutChart.update();
 				barChartTop.update();
@@ -303,7 +304,7 @@
                 labels: ["서울", "경기", "인천", "강원도", "충남", "충북", "경북", "경남", "전남", "전북", "제주도"],
 
                 datasets: [{
-                    label: "지역별 입양 및 보호율(%)",
+                    label: "지역별 입양 및 보호율(%) 17.01.01 ~ 현재",
                     barPercentage: 0.5,
                     barThickness: 15,
                     maxBarThickness: 15,
@@ -354,7 +355,7 @@
             	labels: ["수도권", "강원도", "충남", "충북", "경북", "경남", "전남", "전북", "제주도"],
 
                 datasets: [{
-                    label: "지역별 안락사 및 자연사율(%)",
+                    label: "지역별 안락사 및 자연사율(%) 17.01.01 ~ 현재",
                     barPercentage: 0.5,
                     barThickness: 15,
                     maxBarThickness: 15,
@@ -424,8 +425,57 @@
 			case"area16" : paramArea = area16; break;
 		}
 		console.log(paramArea);
-		if($("#city option:selected").val() == "시/도"){
-			alert("선택해주세요");
+		if($("#city option:selected").val() == "전국"){
+			$.ajax({
+				url : "${ pageContext.request.contextPath}/statis/searchStatis.do",
+				data : {
+					city : city,
+					province : province,
+					startDay : startDay,
+					endDay : endDay,
+					paramArea : JSON.stringify(paramArea)
+				},
+				dataType:"json",
+				method : "GET",
+				success : function(res){
+					var ajaxStaticData = [ res.areaResult[1], res.areaResult[2], res.areaResult[3], res.areaResult[4], res.areaResult[5], res.areaResult[6], res.areaResult[7]];
+					var ajaxLable = ["서울", "경기", "인천", "강원", "충남", "충북", "경북", "경남", "전남", "전북", "제주"];
+					var adoptSum = 0;
+					var euthanasiaSum = 0;
+					var adoptChartData = new Array();
+					var euthanasiaChartData = new Array();
+					var labelCity = $("select[name=city]").val();
+									
+					for(var i = 0; i <(res.adopt).length; i++){
+						adoptSum+=res.adopt[i];
+						euthanasiaSum+=res.euthanasia[i];
+					}
+					for(var j = 0; j <(res.adopt).length; j++){
+						adoptChartData[j] = Math.round((res.adopt[j]/adoptSum)*10000)/100;
+						euthanasiaChartData[j] = Math.round((res.euthanasia[j]/euthanasiaSum)*10000)/100;
+					}
+					
+					doughnutChart.data.datasets.forEach(function(dataset) {
+						dataset.data = ajaxStaticData;
+					});
+					barChartTop.data.datasets.forEach(function(dataset) {
+						dataset.data = ajaxStaticData;
+					});
+
+					addData(adoptChart, ajaxLable, adoptChartData, labelCity, 1);
+					
+					addData(euthanasiaChart, ajaxLable, euthanasiaChartData, labelCity, 2);
+
+					doughnutChart.update();
+					barChartTop.update();
+
+					$(".totalStatis").text("총 "+ numberWithCommas(res.areaResult[0])+" 마리");
+					$("#area").text("대한민국");
+				},
+				error : function(xhr, status, err){
+					console.log("처리실패", xhr, status, err);
+				}
+			});
 			return;
 		}
 		$.ajax({
@@ -446,7 +496,8 @@
 				var euthanasiaSum = 0;
 				var adoptChartData = new Array();
 				var euthanasiaChartData = new Array();
-								
+				var labelCity = $("select[name=city]").val();
+				
 				for(var i = 0; i <(res.adopt).length; i++){
 					adoptSum+=res.adopt[i];
 					euthanasiaSum+=res.euthanasia[i];
@@ -467,9 +518,9 @@
 					dataset.data = ajaxStaticData;
 				});
 
-				addData(adoptChart, ajaxLable, adoptChartData);
+				addData(adoptChart, ajaxLable, adoptChartData, labelCity, 1);
 				
-				addData(euthanasiaChart, ajaxLable, euthanasiaChartData);
+				addData(euthanasiaChart, ajaxLable, euthanasiaChartData, labelCity, 2);
 
 				doughnutChart.update();
 				barChartTop.update();
@@ -482,16 +533,21 @@
 			}
 		});
 	});
-
-	function addData(chart, label, data) {
+	
+	function addData(chart, label, data, labelCity, num) {
 	    chart.data.labels =label;
 	    chart.data.datasets.forEach((dataset) => {
+		    if(num==1){
+	    	dataset.label =labelCity+" 지역별 입양 및 보호율(%) 17.01.01 ~ 현재";
+			}else if(num==2){
+	    	dataset.label =labelCity+" 지역별 안락사 및 자연사율(%) 17.01.01 ~ 현재";
+			}
 	        dataset.data = data;
 	    });
 	    chart.update();
 	}
     
-        var area0 = ["시/도 선택", "서울특별시", "인천광역시", "대전광역시", "광주광역시", "대구광역시", "울산광역시", "부산광역시", "경기도", "강원도",
+        var area0 = ["전국", "서울특별시", "인천광역시", "대전광역시", "광주광역시", "대구광역시", "울산광역시", "부산광역시", "경기도", "강원도",
             "충청북도", "충청남도", "전라북도", "전라남도", "경상북도", "경상남도", "제주특별자치도"
         ];
         var area1 = ["강남구", "강동구", "강북구", "강서구", "관악구", "광진구", "구로구", "금천구", "노원구", "도봉구", "동대문구", "동작구", "마포구",
@@ -540,7 +596,7 @@
             $.each(eval(area0), function () {
                 $selectCity.append("<option value=" + this + ">" + this + "</option>");
             })
-            $selectCity.next().next().append("<option value=''>구/군 선택</option>");
+            $selectCity.next().next().append("<option value=''>전국</option>");
         });
 
         $("select[name=city]").change(function () {
@@ -552,7 +608,7 @@
             $("option", $province).remove();
 
             if (area == "area0") {
-                $province.append("<option value=''>구/군 선택</option>");
+                $province.append("<option value=''>전국</option>");
             } else {
                 $.each(eval(area), function () {
                     $province.append("<option value=" + this + ">" + this + "</option>");

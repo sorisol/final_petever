@@ -161,31 +161,22 @@
 												role="grid" aria-describedby="dataTable_info" style="width: 100%;">
 												<thead>
 													<tr role="row">
-														<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-															aria-label="Name: activate to sort column ascending" style="width: 25px;">번호</th>
-														<th class="sorting_desc" tabindex="0" aria-controls="dataTable" rowspan="1"
-															colspan="1" aria-label="Position: activate to sort column ascending"
-															style="width: 80px;" aria-sort="descending">아이디</th>
-														<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-															aria-label="Office: activate to sort column ascending" style="width: 25px;">신고</th>
-														<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-															aria-label="Age: activate to sort column ascending" style="width: 159px;">이메일</th>
-														<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-															aria-label="Age: activate to sort column ascending" style="width: 100px;">생일</th>
-														<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-															aria-label="Start date: activate to sort column ascending" style="width: 191px;">전화번호</th>
-														<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-															aria-label="Salary: activate to sort column ascending" style="width: 210px;">주소</th>
-														<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-															aria-label="Salary: activate to sort column ascending" style="width: 100px;">회원삭제</th>
+														<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending" style="width: 4%;text-align:center;">번호</th>
+														<th class="sorting_desc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 8%;" aria-sort="descending">아이디</th>
+														<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 4%;text-align:center;">신고</th>
+														<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 16%;">이메일</th>
+														<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 10%;">생일</th>
+														<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 11%;">전화번호</th>
+														<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 43%;">주소</th>
+														<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 4%;text-align:center;">삭제</th>
 													</tr>
 												</thead>
 												<tbody id="userTable">
 													<c:forEach var="user" items="${list}" varStatus="vs">
 															<tr role="row" class="odd">
-																<td>${vs.count}</td>
+																<td style="text-align:center;">${vs.count}</td>
 																<td class="sorting_1">${user.userId}</td>
-																<td>${user.cnt}</td>
+																<td style="text-align:center;">${user.cnt}</td>
 																<td>${user.userEmail}</td>
       															<c:set var = "str1" value = "${user.userBirth}" />
       															<c:set var = "str" value = "${fn:substring(str1, 0, 10)}" />

@@ -115,6 +115,40 @@ public class StatisController {
 			@RequestParam(value="paramArea", required=false) String[] paramArea){
 		Map<String, int[]> map = new HashMap<>();
 		Map<String, String> search = new HashMap<>();
+		if(paramArea == null) {
+			System.out.println(city);
+			String[] area = {"%서울%", "%경기%", "%인천%", "%강원%", "%충청남도%", "%충청북도%", "%경상북도%", "%경상남도%", "%전라남도%", "%전라북도%", "%제주%"};
+			List<String> areaArr = new ArrayList<>(Arrays.asList(area));
+			int[] adoptData = new int[11];
+			int[] euthanasiaData = new int[11];
+			List<StatisList> euthanasia = statisService.euthanasia(areaArr);
+			List<StatisList> adopt = statisService.adoptStatis(areaArr);
+			String[] order = {"서울특", "경기도", "인천광", "강원도", "충청남", "충청북", "경상북", "경상남", "전라남", "전라북", "제주특"};
+			for(int i =0; i<order.length;i++) {
+				for(int j =0;j<euthanasia.size();j++) {
+					if(order[i].equals(euthanasia.get(j).getState())) {
+						euthanasiaData[i] = euthanasia.get(j).getCnt();
+					}
+					if(order[i].equals(adopt.get(j).getState())){
+						adoptData[i] = adopt.get(j).getCnt();
+					}
+				}
+			}
+			
+			search.put("city", "%"+"%");
+			search.put("startDay", startDay);
+			search.put("endDay", endDay);
+			
+			List<StatisList> list = statisService.selectList(search);
+			int[] loadResult = setList(list); 
+			map.put("areaResult", loadResult);
+			
+			map.put("euthanasia", euthanasiaData);
+			map.put("adopt", adoptData);
+
+			return map;
+		}
+		System.out.println("넘었다");
 		int[] adoptData = new int[35];
 		int[] euthanasiaData = new int[35];
 		String searchCity = city;

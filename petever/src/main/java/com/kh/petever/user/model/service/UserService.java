@@ -11,8 +11,6 @@ public interface UserService {
 	int updateUser(User user);
 	
 	int userDelete(User user);
-	
-	int idChk(User user);
 
 
 
