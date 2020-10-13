@@ -53,26 +53,26 @@
 .animal-tag-font {
     display: inline-block;
     text-shadow: 0px 0px 2px black;
-    font-size: 26px;
+    font-size: 20px;
 }
 
 #aniaml-tag-img {
-	width: 120px;
-    height: 120px;
+	width: 100px;
+    height: 100px;
     background-repeat: no-repeat;
     background-size: cover;
     margin: 0px auto;
     display: inline-block;
-    margin-top: 40px;
+    margin-top: 70px;
 }
 
 #preview-name {
     margin-top: 6px;
-    font-size: 30px;
+    font-size: 25px;
 }
 
 #preview-ssn {
-    margin-top: 70px;
+    margin-top: 100px;
     margin-bottom: 5px;
 }
 
@@ -233,9 +233,9 @@ hr {
     height: 600px;
     position: relative;
     overflow: hidden;
-    margin: 0 auto;
-    margin-top: 20px;
-    border-radius: 10px;
+    margin: 30px auto;
+    margin-top: 55px;
+    border-radius: 30px;
 }
 
 #slider-wrap ul#slider {

@@ -1,5 +1,7 @@
 package com.kh.petever.animalTag.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,11 @@ public class AnimalTagServiceImpl implements AnimalTagService {
 	@Override
 	public int insertAniTag(AnimalTag aniTag) {
 		return animalTagDAO.insertAniTag(aniTag);
+	}
+
+	@Override
+	public List<AnimalTag> selectList(String userId) {
+		return animalTagDAO.selectList(userId);
 	}
 
 }
