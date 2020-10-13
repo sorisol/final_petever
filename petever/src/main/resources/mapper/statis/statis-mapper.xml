@@ -17,7 +17,7 @@
 
 	<select id="countStatisSearch" resultMap="statisList">
 		select count(*),process_state from shelterAnimal where notice_no like #{ city } and 
-		(happen_dt <![CDATA[ >=  ]]> #{startDay} and happen_dt <![CDATA[ <=  ]]>  #{endDay}) group by process_state having process_state not like '%미포획%'
+		(happen_dt <![CDATA[ >=  ]]> to_date(#{startDay}, 'yyyy-MM-dd') and happen_dt <![CDATA[ <=  ]]>  to_date(#{endDay}, 'yyyy-MM-dd')) group by process_state having process_state not like '%미포획%'
 		order by process_state
 	</select>
 

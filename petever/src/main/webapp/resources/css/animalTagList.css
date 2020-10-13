@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&family=Sunflower:wght@500&display=swap');
+
+.main {
+    width: 1440px;
+    height: 716px;
+    background: url("../images/sub2.jpg") no-repeat center;
+    background-size: 1440px;
+    margin: 0 auto;
+}
+
+.content {
+    overflow: hidden;
+}
+
+.tag-wrap{
+    width: 900px;
+    height: 295px;
+    margin: 0 auto;
+    overflow: hidden;
+    border: 0px solid black;
+}
+
+.animal-tag-preview {
+    width: 850px;
+    height: 250px;
+    border: 1px solid #6d6e71;
+    border-radius: 10px;
+    float: left;
+    padding: 20px;
+    text-align: center;
+}
+
+
+
+.ani-info-tag1 {
+/*     margin-left: auto;
+    margin-right: auto; */
+/*     margin: 15px auto; */
+    background-repeat: no-repeat;
+    background-size: cover;
+	width: 230px;
+    height: 230px;
+}
+
+.ani-info-tag2 {
+    margin-left: auto;
+    margin-right: auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 230px;
+    height: 230px;
+}
+
+.ani-tag-front{
+    width: 250px;
+    height: 250px;
+    border: 1px solid;
+    float: left;
+	
+}
+
+.animal-tag-font {
+    display: inline-block;
+    text-shadow: 0px 0px 2px black;
+    font-size: 20px;
+}
+
+.aniaml-tag-img {
+	width: 100px;
+    height: 100px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0px auto;
+    display: inline-block;
+    margin-top: 70px;
+}
+
+#preview-name {
+    margin-top: 6px;
+    font-size: 25px;
+}
+
+#preview-ssn {
+    margin-top: 100px;
+    margin-bottom: 5px;
+}
+
+.preview-label {
+    font-family: '돋움체', sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.font_DoHyeon {
+    font-family: 'Do Hyeon', sans-serif !important;
+}
+
+.font_Jua {
+    font-family: 'Jua', sans-serif !important;
+}
+
+.font_Sunflower {
+    font-family: 'Sunflower', sans-serif !important;
+}
+
+.btn {
+    width: 150px;
+    height: 45px;
+    float: left;
+    background-color: #FFDD93;
+    border: 1px solid #FFDD93;
+    border-bottom: 3px solid #FFDD93;
+    text-align: center;
+    line-height: 40px;
+    color: #373b44;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 8px;
+    display: block;
+    cursor: pointer;
+    border-radius: 30px;
+    outline: none;
+}
+
+input[id="submit"]{
+    background-color: #e8c2b7;
+    border: 1px solid #e8c2b7;
+    border-bottom: 3px solid #e8c2b7;
+    margin-right: 10px;
+    margin-left: 35px;
+}
+
+#ssg-addr-label {
+	display: block;
+    margin-bottom: 20px;
+    float: left;
+    width: 135px;
+}
+
+#ssg-addr1 {
+    margin-left: 25px;
+    width: 270px;
+}
+
+#ssg-addr2 {
+    margin-left: 25px;
+    width: 339px;
+}
+
+#addr-search {
+    height: 35px;
+    padding: 6px;
+    font-weight: 600;
+    border-radius: 10px;
+    background: beige;
+    border: solid 2px khaki;
+}
+
+hr {
+	margin-bottom: 20px;
+	background-color: lightgray;
+    height: 1px;
+    border: none;
+}
+
+
+
+
+
+
+
+
+

@@ -43,14 +43,14 @@
                 var $color = $(this);
 
                 if ($color.val() == 'silver') {
-	                $("#ani-info-tag1").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_silver.png)');
-	                $("#ani-info-tag2").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_silver.png)');
+	                $("#ani-info-tag1").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_silver_2.png)');
+	                $("#ani-info-tag2").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_silver_2.png)');
                 } else if ($color.val() == 'gold') {
-	                $("#ani-info-tag1").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_gold.png)');
-	                $("#ani-info-tag2").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_gold.png)');
+	                $("#ani-info-tag1").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_gold_2.png)');
+	                $("#ani-info-tag2").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_gold_2.png)');
                 } else if ($color.val() == 'rosegold') {
-	                $("#ani-info-tag1").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_rosegold.png)');
-	                $("#ani-info-tag2").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_rosegold.png)');
+	                $("#ani-info-tag1").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_rosegold_2.png)');
+	                $("#ani-info-tag2").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_rosegold_2.png)');
                 }
             });
 
@@ -313,16 +313,8 @@
 				} */
 				
 		    });
-				
-
-
-
-
-            
         });
 
-
-            
         function previewReset() {
 			var result = confirm("초기화 하시겠습니까??");
 			if(result){
@@ -386,7 +378,7 @@
     <div id="main-wrap">
         <section class="main"></section>
         <section class="content-wrap">
-            <h1>입양하기</h1>
+            <h1>동물 인식표</h1>
             <p>펫에버에서는 이러한 일들을 합니다.</p>
             <div class="content">
                 <div class="tag-wrap">
@@ -395,17 +387,12 @@
                         	<div id="aniaml-tag-img"></div><br />
                         	<label class="animal-tag-font" id="preview-name" for=""></label>
                         </div>
-
                         <label class="preview-label preview-front" for="">앞면</label>
-
                         <div id="ani-info-tag2">
-                            <!-- <label class="animal-tag-font" id="preview-birth" for=""></label>
-                            <label class="animal-tag-font" id="preview-gender" for=""></label><br> -->
                             <label class="animal-tag-font" id="preview-ssn" for=""></label><br>
                             <label class="animal-tag-font" id="preview-person-name" for=""></label><br>
                             <label class="animal-tag-font" id="preview-person-phone" for=""></label><br>
                         </div>
-
                         <label class="preview-label preview-back" for="">뒷면</label>
                     </div>
                     <div class="animal-tag-select">
@@ -413,17 +400,15 @@
                         	<input type="hidden" name="userId" value="${ loginUser.userId }"/>
                             <h4>펜던트 색상</h4>
                             <input type="radio" name="tagColor" id="silver" value="silver">
-                            <label class="ani-radio" for="silver">실버(Silver)</label>
+                            <label class="ani-radio" for="silver" style="width: 100px; display: inline-block;">실버(Silver)</label>
                             <input type="radio" name="tagColor" id="gold" value="gold">
                             <label class="ani-radio" for="gold">골드(Gold)</label><br />
                             <input type="radio" name="tagColor" id="rosegold" value="rosegold">
                             <label class="ani-radio" for="rosegold">로즈골드(Rose Gold)</label><br />
-                            
                             <label for="aniKind" class="ani-label">동물선택</label>
                             <select name="tagAniKind" id="aniKind">
                             	<option value="">동물 이미지 선택</option>
                             </select>
-                            
                             <h4>폰트</h4>
                             <input type="radio" name="tagFont" id="font_DoHyeon" value="Do Hyeon">
                             <label class="ani-radio font_DoHyeon" for="font_DoHyeon">도현체</label>
@@ -468,12 +453,7 @@
                         </form>
                     </div>
                 </div>
-                
-                <form action="${ pageContext.request.contextPath }/animalTag/kakaoPay" method="post">
-                	<input type="hidden" name="price" value="5000"/>
-				    <button>카카오페이로 결제하기</button>
-				</form>
-                
+               
                 <div id="slider-wrap">
 				    <ul id="slider">
 				        <li>
@@ -504,21 +484,28 @@
 				                <h3>사용예시#1</h3>
 				                <span></span>
 				            </div>
-				            <img src="${pageContext.request.contextPath}/resources/images/tag4.jpg" alt="">
+				            <img src="${pageContext.request.contextPath}/resources/images/tag5.jpg" alt="">
 				        </li>
 				        <li>
 				            <div>
 				                <h3>사용예시#2</h3>
 				                <span></span>
 				            </div>
-				            <img src="${pageContext.request.contextPath}/resources/images/tag5.jpg" alt="">
+				            <img src="${pageContext.request.contextPath}/resources/images/tag6.jpg" alt="">
 				        </li>
 				        <li>
 				            <div>
 				                <h3>사용예시#3</h3>
 				                <span></span>
 				            </div>
-				            <img src="${pageContext.request.contextPath}/resources/images/tag6.jpg" alt="">
+				            <img src="${pageContext.request.contextPath}/resources/images/tag7.jpg" alt="">
+				        </li>
+				        <li>
+				            <div>
+				                <h3>사용예시#4</h3>
+				                <span></span>
+				            </div>
+				            <img src="${pageContext.request.contextPath}/resources/images/tag8.jpg" alt="">
 				        </li>
 				    </ul>
 				
@@ -532,6 +519,8 @@
 				</div>
                 
             </div>
+            
+            <button type="button" onclick="location.href='${ pageContext.request.contextPath }/animalTag/animalTagList.do?userId=${ loginUser.userId }'" >결제내역</button>
         </section>
     </div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
