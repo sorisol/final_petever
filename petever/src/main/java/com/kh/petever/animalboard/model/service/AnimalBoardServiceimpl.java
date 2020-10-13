@@ -166,6 +166,11 @@ public class AnimalBoardServiceimpl implements AnimalBoardService {
 	public int animalBoardCount() {
 		return dao.animalBoardCount();
 	}
+
+	@Override
+	public List<AnimalAttach> selectAttachListOneBoard(int no) {
+		return dao.selectAttachListOneBoard(no);
+	}
 	
 	
 }

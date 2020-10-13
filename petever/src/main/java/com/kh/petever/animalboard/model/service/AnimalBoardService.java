@@ -52,4 +52,6 @@ public interface AnimalBoardService {
 
 	int animalBoardCount();
 
+	List<AnimalAttach> selectAttachListOneBoard(int no);
+
 }

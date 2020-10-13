@@ -54,4 +54,6 @@ public interface AnimalBoardDAO {
 
 	int animalBoardCount();
 
+	List<AnimalAttach> selectAttachListOneBoard(int no);
+
 }

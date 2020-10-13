@@ -157,11 +157,18 @@ public class AnimalBoardController {
 	}
 	
 	@GetMapping("/animalboard/deleteBoard")
-	public String deleteBoard(@RequestParam("no") int no, RedirectAttributes redirectAttr) {
+	public String deleteBoard(@RequestParam("no") int no, RedirectAttributes redirectAttr, HttpServletRequest request) {
 //		log.debug("no = {}", no);
+		String filePath = request.getServletContext().getRealPath("/resources/editor/multiupload/");
+		List<AnimalAttach> list = service.selectAttachListOneBoard(no);
 		try {
 			int result = service.deleteBoard(no);
 			redirectAttr.addFlashAttribute("msg", "게시글 삭제 완료");
+			//사진 삭제
+			for(AnimalAttach attach : list) {
+				File f = new File(filePath, attach.getAniAtRenamedName());
+				f.delete();
+			}
 		} catch(Exception e) {
 			log.error("게시글 삭제 오류", e);
 			redirectAttr.addFlashAttribute("msg", "게시글 삭제 실패");
@@ -283,10 +290,6 @@ public class AnimalBoardController {
 		String sigugun = (String)req.getParameter("sigugun");
 		if(sigugun != null && !"".equals(sigugun))
 			animal.setAniBoLocal(sido + " " + sigugun);
-
-		animal.setAniBoGender(req.getParameterValues("aniBoGender"));
-		animal.setAniBoHair(req.getParameterValues("aniBoHair"));
-		animal.setAniBoColor(req.getParameterValues("aniBoColor"));
 
 		log.debug("search animal={}", animal);
 		

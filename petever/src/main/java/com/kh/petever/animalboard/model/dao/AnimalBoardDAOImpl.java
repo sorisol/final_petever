@@ -120,5 +120,10 @@ public class AnimalBoardDAOImpl implements AnimalBoardDAO {
 	public int animalBoardCount() {
 		return sqlSession.selectOne("animalBoard.animalBoardCount");
 	}
+
+	@Override
+	public List<AnimalAttach> selectAttachListOneBoard(int no) {
+		return sqlSession.selectList("animalBoard.selectAttachListOneBoard", no);
+	}
 	
 }
