@@ -77,8 +77,8 @@ public class AnimalBoardDAOImpl implements AnimalBoardDAO {
 	}
 
 	@Override
-	public List<AnimalBoard> searchBoardList(AnimalBoard animal) {
-		return sqlSession.selectList("animalBoard.searchBoardList", animal);
+	public List<AnimalBoard> searchBoardList(Map<String, Object> param) {
+		return sqlSession.selectList("animalBoard.searchBoardList", param);
 	}
 
 	@Override
@@ -119,6 +119,11 @@ public class AnimalBoardDAOImpl implements AnimalBoardDAO {
 	@Override
 	public int animalBoardCount() {
 		return sqlSession.selectOne("animalBoard.animalBoardCount");
+	}
+
+	@Override
+	public List<AnimalAttach> selectAttachListOneBoard(int no) {
+		return sqlSession.selectList("animalBoard.selectAttachListOneBoard", no);
 	}
 	
 }

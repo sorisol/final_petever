@@ -100,8 +100,8 @@ public class AnimalBoardServiceimpl implements AnimalBoardService {
 	}
 
 	@Override
-	public List<AnimalBoard> searchBoardList(AnimalBoard animal) {
-		return dao.searchBoardList(animal);
+	public List<AnimalBoard> searchBoardList(Map<String, Object> param) {
+		return dao.searchBoardList(param);
 	}
 	
 	@Override
@@ -165,6 +165,11 @@ public class AnimalBoardServiceimpl implements AnimalBoardService {
 	@Override
 	public int animalBoardCount() {
 		return dao.animalBoardCount();
+	}
+
+	@Override
+	public List<AnimalAttach> selectAttachListOneBoard(int no) {
+		return dao.selectAttachListOneBoard(no);
 	}
 	
 	

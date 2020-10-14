@@ -36,7 +36,7 @@ div#userId-container span.error{color:red;}
 							   class="form-control" 
 							   placeholder="4글자이상"
 							   name="userId" 
-							   id="userId"
+							   id="userId" value="${userId}"
 							   required>
 						<span class="guide ok">이 아이디는 사용 가능합니다.</span>		   
 						<span class="guide error">이 아이디는 사용할 수 없습니다.</span>		   
@@ -44,13 +44,16 @@ div#userId-container span.error{color:red;}
 					</div>
 				</td>
 			</tr>
-<!--                 <input type="text" name="userId" maxlength='12' id="userId" placeholder="4자리 이상" required>
-               -->  <label for="">비밀번호</label>
-                <input type="password" name="userPwd" maxlength='12' id="userPwd1" required>
-                <label for="">비밀번호 확인</label>
-                <input type="password" name="userPwd2" maxlength='12' id="userPwd2" required>
+<!--            <input type="text" name="userId" maxlength='12' id="userId" placeholder="4자리 이상" required>-->  
+				<c:if test="${empty userId}">
+					<label for="">비밀번호</label>
+	                <input type="password" name="userPwd" maxlength='12' id="userPwd1" required>
+	                <label for="">비밀번호 확인</label>
+	                <input type="password" name="userPwd2" maxlength='12' id="userPwd2" required>
+				</c:if>
+				
                 <label for="">이메일</label>
-                <input type="email" name="userEmail" id="userEmail" required>
+                <input type="email" name="userEmail" id="userEmail" value="${userId}" required>
                 <label for="">생년월일</label>
                 <input type="date" name="userBirth" id="" required>     
                 <label for="">전화번호</label>
