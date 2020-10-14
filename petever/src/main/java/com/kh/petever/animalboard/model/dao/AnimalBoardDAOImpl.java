@@ -77,8 +77,8 @@ public class AnimalBoardDAOImpl implements AnimalBoardDAO {
 	}
 
 	@Override
-	public List<AnimalBoard> searchBoardList(AnimalBoard animal) {
-		return sqlSession.selectList("animalBoard.searchBoardList", animal);
+	public List<AnimalBoard> searchBoardList(Map<String, Object> param) {
+		return sqlSession.selectList("animalBoard.searchBoardList", param);
 	}
 
 	@Override

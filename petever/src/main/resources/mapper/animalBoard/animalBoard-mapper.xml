@@ -147,7 +147,7 @@
 			animal_board
 		<where>
 	        <if test="aniBoTitle != null and aniBoTitle != ''">
-	            and ani_bo_title like '%'||#{aniBoTitle}||'%'
+	            ani_bo_title like '%'||#{aniBoTitle}||'%'
 	        </if>
 	        <if test="aniBoContent != null and aniBoContent != ''">
 	            and ani_bo_content like '%'||#{aniBoContent}||'%'
@@ -155,45 +155,53 @@
 	        <if test="aniBoTag != null and aniBoTag != ''">
 	            and ani_bo_tag like '%'||#{aniBoTag}||'%'
 	        </if>
-	        <if test="aniBoLocal != null and aniBoLocal != ''">
+	        <if test="aniBoLocal != null and aniBoLocal != ' '">
 	            and ani_bo_local like '%'||#{aniBoLocal}||'%'
 	        </if>
 	        <if test="aniBoType != null and aniBoType != ''">
-	        	and ani_bo_type = #{aniBoType}
+	        	and ani_bo_type in
+	        	<foreach collection="aniBoType" item="type" separator="," open="(" close=")">
+	        		#{type}
+	        	</foreach>
 	        </if>
 	        <if test="aniBoKind != null and aniBoKind != ''">
 	            and ani_bo_kind like '%'||#{aniBoKind}||'%'
 	        </if>
 	        <if test="aniBoGender != null and aniBoGender != ''">
-	            and ani_bo_gender = #{aniBoGender}
+	            and ani_bo_gender in
+	        	<foreach collection="aniBoGender" item="gender" separator="," open="(" close=")">
+	        		#{gender}
+	        	</foreach>
 	        </if>
-	        <if test="aniBoAge != null and aniBoAge != ''">
-	            <if test="age == '3'">
-	    			and ani_bo_age between 0 and 3
-	    		</if>
-	    		<if test="age == '7'">
-	    			and ani_bo_age between 4 and 7
-	    		</if>
-	    		<if test="age == '8'">
-	    			and ani_bo_age >= 8
-	    		</if>
-	        </if>
-	        <if test="aniBoSize != null and aniBoSize != ''">
-	            <if test="size == 5">
-	    		and ani_bo_size between 0 and 4.99
-	    		</if>
-	    		<if test="size == 9">
-	    		and ani_bo_size between 5 and 9.99
-	    		</if>
-	    		<if test="size == 10">
-	    		and ani_bo_size >= 10
-	        	</if>
-	        </if>
+            <if test="aniBoAge == 3">
+    			and ani_bo_age between 0 and 3
+    		</if>
+    		<if test="aniBoAge == 7">
+    			and ani_bo_age between 4 and 7
+    		</if>
+    		<if test="aniBoAge == 8">
+    			and ani_bo_age >= 8
+    		</if>
+            <if test="aniBoSize == 5">
+    		and ani_bo_size between 0 and 4.99
+    		</if>
+    		<if test="aniBoSize == 9">
+    		and ani_bo_size between 5 and 9.99
+    		</if>
+    		<if test="aniBoSize == 10">
+    		and ani_bo_size >= 10
+        	</if>
 	        <if test="aniBoHair != null and aniBoHair != ''">
-	            and ani_bo_hair = #{aniBoHair}
+	            and ani_bo_hair in
+	        	<foreach collection="aniBoHair" item="hair" separator="," open="(" close=")">
+	        		#{hair}
+	        	</foreach>
 	        </if>
 	        <if test="aniBoColor != null and aniBoColor != ''">
-	            and ani_bo_color = #{aniBoColor}
+	            and ani_bo_color in
+	        	<foreach collection="aniBoColor" item="color" separator="," open="(" close=")">
+	        		#{color}
+	        	</foreach>
 	        </if>
     	</where>
 	</select>

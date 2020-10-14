@@ -36,7 +36,7 @@ public interface AnimalBoardDAO {
 
 	int editComment(AnimalComment aniComment);
 
-	List<AnimalBoard> searchBoardList(AnimalBoard animal);
+	List<AnimalBoard> searchBoardList(Map<String, Object> param);
 
 	int deleteAttach(int aniBoId);
 

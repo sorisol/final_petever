@@ -3,6 +3,7 @@ package com.kh.petever.user.controller;
 import java.security.Principal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -146,7 +147,10 @@ public class UserController {
 	// 로그아웃 - 세션 무효화
 
 	@RequestMapping("/logout.do")
-	public String userLogout(SessionStatus sessionStatus) {
+	public String userLogout(SessionStatus sessionStatus, HttpSession session) {
+		kakao.kakaoLogout((String)session.getAttribute("access_Token"));
+		session.removeAttribute("access_Token");
+		
 		// @SessionAttribute를 통해 등록된 객체 무효화
 		if (sessionStatus.isComplete() == false)
 			sessionStatus.setComplete();
@@ -226,7 +230,7 @@ public class UserController {
 		if(result == 0) {
 			rttr.addFlashAttribute("msg", "회원탈퇴 실패");
 		}
-		userLogout(sessionStatus);
+		userLogout(sessionStatus, session);
 		return "redirect:/";
 	}
 	
