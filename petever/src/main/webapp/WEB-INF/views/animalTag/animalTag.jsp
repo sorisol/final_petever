@@ -79,18 +79,7 @@
                 // console.log($aniName.val());
                 $("#preview-name").text($aniName.val());
             });
-            /* //동물생년월일
-            $("#ani-birth").change(function () {
-                var $aniBirth = $(this);
-                // console.log($aniBirth.val());
-                $("#preview-birth").text($aniBirth.val());
-            });
-            //동물성별
-            $("[name=tagAniGender]").click(function () {
-                var $aniGender = $(this);
-                // console.log($aniGender.next().text());
-                $("#preview-gender").text("/ " + $aniGender.next().text());
-            }); */
+
             //동물등록번호
             $("#ani-ssn").keyup(function () {
                 var $aniSsn = $(this);
@@ -198,70 +187,70 @@
 
             /* submit 전 DATA 정규성 검사 */
             $("#aniTagFrm").submit(function() {
-/*             	if(${ empty loginUser }) {
+             	if(${ empty loginUser }) {
     				alert("로그인후 구매 해주세요.");
     				return false;
-                } */
+                }
 
-/*                 if($('input[name="tagColor"]:checked').val() == undefined) {
+                if($('input[name="tagColor"]:checked').val() == undefined) {
                 	alert("인식표 색상을 선택해주세요.");
     				return false;
-                } */
+                }
                 
-/*                 if($('input[name="tagFont"]:checked').val() == undefined) {
+                if($('input[name="tagFont"]:checked').val() == undefined) {
                 	alert("인식표 글씨체를 선택해주세요.");
     				return false;
-                }  */
+                }  
 
                 var $tagAniName = $('input[name="tagAniName"]').val();
 
-/* 				console.log(/^[가-힣]{1,5}$/.test($tagAniName));
+ 				/* console.log(/^[가-힣]{1,5}$/.test($tagAniName)); */
                 if(/^[가-힣a-zA-Z]{1,5}$|^[a-zA-Z]{1,10}$/.test($tagAniName) == false) {
                 	alert("반려동물 이름 형식에 맞춰 작성해주세요.");
     				return false;
-                } */
+                } 
 
                 var $tagAniSsn = $('[name=tagAniSsn]').val();
-/*                 if(/^[0-9]{12}$|^{}$/.test($tagAniSsn) == false) {
+                if(/^[0-9]{12}$|^{}$/.test($tagAniSsn) == false) {
                 	alert("반려 동물의 등록번호가 있다면 숫자 12자리 입력\n반려 동물의 등록번호가 없다면 빈칸으로 제출해주세요.");
     				return false;
-                } */
+                }
 
                 var $tagPerName = $('[name=tagPersonName]').val();
-/*                if(/^[가-힣]{2,6}$|^[a-zA-Z]{2,10}$/.test($tagPerName) == false){
+                if(/^[가-힣]{2,6}$|^[a-zA-Z]{2,10}$/.test($tagPerName) == false){
                 	alert("인식표에 작성될 보호자 이름을 작성해주세요.");
     				return false;
-                } */
+                }
 
-/*                 var $tagPerTel = $("[name=tagPersonPhone]").val();
+                var $tagPerTel = $("[name=tagPersonPhone]").val();
                 if(/^01[0-9]{1}-[0-9]{3,4}-[0-9]{4}$/.test($tagPerTel) == false){
                 	alert("인식표에 작성될 보호자 전화번호를 작성해주세요.");
     				return false;
-                } */
+                }
 
-/*                 var $ssgName = $('input[name="ssgName"]').val();
+                var $ssgName = $('input[name="ssgName"]').val();
                 if(/^[가-힣]{2,6}$$/.test($ssgName) == false) {
                 	alert("이름 형식에 맞춰 작성해주세요.");
     				return false;
-                } */
+                }
 
-/*                 var $ssgTel = $("[name=ssgTel]").val();
+                var $ssgTel = $("[name=ssgTel]").val();
                 if(/^01[0-9]{1}-[0-9]{3,4}-[0-9]{4}$/.test($ssgTel) == false){
                 	alert("전화번호를 작성해주세요.");
     				return false;
-                } */
+                }
 
-                /* var $ssgAddr0 = $("[name=ssgAddr0]").val();
+                var $ssgAddr0 = $("[name=ssgAddr0]").val();
                 if(/^[0-9]{5}$/.test($ssgAddr0) == false){
                 	alert("우편번호를 입력해주세요.");
     				return false;
-                }  */
+                }
 
-                /* var $ssgAddr1 = $("[name=ssgAddr1]").val();
+                var $ssgAddr1 = $("[name=ssgAddr1]").val();
                 if(/[^\s]/g.test($ssgAddr1) == false){
                 	alert("주소(동)를 입력해주세요.");
     				return false;
-                }  */
+                }
 
                 var $ssgAddr2 = $("[name=ssgAddr2]").val();
                 if(/[^\s]/g.test($ssgAddr2) == false){
@@ -374,6 +363,14 @@
              }).open();
          }
 
+        function animalTagList() {
+            if(${ empty loginUser }) {
+				alert("로그인 후 사용해주세요.");
+				return;
+            }
+			location.href="${ pageContext.request.contextPath }/animalTag/animalTagList.do?userId=${ loginUser.userId }";
+        }
+
 </script>
     <div id="main-wrap">
         <section class="main"></section>
@@ -381,6 +378,12 @@
             <h1>동물 인식표</h1>
             <p>펫에버에서는 이러한 일들을 합니다.</p>
             <div class="content">
+            <div class="sub-bar">
+		        <ul>
+		            <li><a href="${ pageContext.request.contextPath }/animalTag/animalTag.do">인식표</a></li>
+		            <li style="border-left: 1px solid black;"><a href="javascript:animalTagList();">결제내역</a></li>
+		        </ul>
+		    </div>
                 <div class="tag-wrap">
                     <div class="animal-tag-preview">
                         <div id="ani-info-tag1">
@@ -401,7 +404,7 @@
                             <h4>펜던트 색상</h4>
                             <input type="radio" name="tagColor" id="silver" value="silver">
                             <label class="ani-radio" for="silver" style="width: 100px; display: inline-block;">실버(Silver)</label>
-                            <input type="radio" name="tagColor" id="gold" value="gold">
+                            <input type="radio" name="tagColor" id="gold" value="gold" checked>
                             <label class="ani-radio" for="gold">골드(Gold)</label><br />
                             <input type="radio" name="tagColor" id="rosegold" value="rosegold">
                             <label class="ani-radio" for="rosegold">로즈골드(Rose Gold)</label><br />
@@ -517,10 +520,7 @@
 				        </ul>
 				    </div>
 				</div>
-                
             </div>
-            
-            <button type="button" onclick="location.href='${ pageContext.request.contextPath }/animalTag/animalTagList.do?userId=${ loginUser.userId }'" >결제내역</button>
         </section>
     </div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

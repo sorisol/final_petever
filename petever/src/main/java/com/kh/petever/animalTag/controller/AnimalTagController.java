@@ -34,16 +34,24 @@ public class AnimalTagController {
 	}
 
 	@PostMapping("/insertAniTag.do") 
-	public String animalTagBuy(AnimalTag aniTag, @RequestParam int tagPrice) { 
+	public String animalTagBuy(AnimalTag aniTag, @RequestParam int tagPrice, Model model) { 
 		log.debug("insert 진입");
-		System.out.println(aniTag);
+		System.out.println("전" + aniTag);
 		log.debug("tagPrice{}", tagPrice);
 	 
 		int result = animalService.insertAniTag(aniTag);
+		System.out.println("후" + aniTag);
 		
 		log.debug("등록여부 {}", result == 1 ? "성공" : "실패");
-	 
-		return "redirect:/"; 
+		if(result > 0) {
+			AnimalTag animalTag = animalService.selectOne(aniTag);
+			System.out.println(animalTag);
+			model.addAttribute("list", animalTag);
+			return "animalTag/animalTagPaySuccess"; 
+		} else {
+			
+		}
+		return "animalTag/animalTagPaySuccess"; 
 	}
 	 
 

@@ -63,6 +63,12 @@ $(function(){
             <h1>동물 인식표(결제내역)</h1>
             <p>펫에버에서는 이러한 일들을 합니다.</p>
             <div class="content">
+                        <div class="sub-bar">
+		        <ul>
+		            <li><a href="${ pageContext.request.contextPath }/animalTag/animalTag.do">인식표</a></li>
+		            <li style="border-left: 1px solid black;"><a href="${ pageContext.request.contextPath }/animalTag/animalTagList.do?userId=${ loginUser.userId }">결제내역</a></li>
+		        </ul>
+		    </div>
             	<c:forEach items="${ list }" var="list">
 	                <div class="tag-wrap">
 	                    <div class="animal-tag-preview">

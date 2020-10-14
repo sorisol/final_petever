@@ -30,4 +30,9 @@ public class AnimalTagDAOImpl implements AnimalTagDAO {
 		return sqlSession.selectOne("animalTag.selectCount", userId);
 	}
 
+	@Override
+	public AnimalTag selectOne(AnimalTag aniTag) {
+		return sqlSession.selectOne("animalTag.selectOne", aniTag);
+	}
+
 }
