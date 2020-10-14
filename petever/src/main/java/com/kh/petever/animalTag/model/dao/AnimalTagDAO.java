@@ -14,4 +14,6 @@ public interface AnimalTagDAO {
 
 	int animalTagCount(String userId);
 
+	AnimalTag selectOne(AnimalTag aniTag);
+
 }

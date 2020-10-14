@@ -30,4 +30,9 @@ public class AnimalTagServiceImpl implements AnimalTagService {
 		return animalTagDAO.animalTagCount(userId);
 	}
 
+	@Override
+	public AnimalTag selectOne(AnimalTag aniTag) {
+		return animalTagDAO.selectOne(aniTag);
+	}
+
 }
