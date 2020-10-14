@@ -50,8 +50,8 @@ public class AnimalTagController {
 			return "animalTag/animalTagPaySuccess"; 
 		} else {
 			
+			return "redirect:/"; 
 		}
-		return "animalTag/animalTagPaySuccess"; 
 	}
 	 
 
