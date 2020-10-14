@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="message">
+
+
+	<select id="selectMessageList" resultMap="MessageMap">
+		select	
+			*
+		from 
+			message
+	</select>
+	<resultMap id="MessageMap" type="message">
+
+	</resultMap>
+
+	<select id="selectOneMessage" resultMap="MessageMap">
+		select
+			*
+		from
+			message
+		where
+			msg_num = #{msgNo}
+	</select>
+	
+	<select id="selectMessageTotalContents" resultType="_int">
+	    select 
+	    	count(*) 
+	    from 
+	    	message 	
+	    <where>
+			user_Id like '%'||#{userId}||'%'	    
+	    </where> 
+	    
+	</select>
+	
+	
+	
+	
+	<insert id="insertMessage">
+		insert into
+			message
+		values(
+			seq_msg_no.nextval,
+			#{userId},
+			#{userIdSend},
+			#{msgContent},
+			default
+		)
+	</insert>
+	
+	
+	
+	
+</mapper>
