@@ -28,9 +28,9 @@
                             <option value="보호">보호</option>
                             <option value="완료">완료</option>
                         </select>
-                        <input type="text" placeholder="제목을 입력해 주세요." name="aniBoTitle">
+                        <input type="text" placeholder="제목을 입력해 주세요." name="aniBoTitle" required>
                     </div>
-                    <textarea id="board-content" name="aniBoContent" rows="50"></textarea>
+                    <textarea id="board-content" name="aniBoContent" rows="50" required></textarea>
                         <div class="pet-info">
                             <table class="pet-info">
                            		<tr>
@@ -133,7 +133,7 @@
                     	<hr style="height: 1px; border:none; background-color: lightgray; width: 1000px; margin: 20px 0px;">
                     	<div class="button-wrap">
                         <input type="button" value="취소" onclick="location.href='${pageContext.request.contextPath}/animalboard'" class="btn">
-                        <input type="submit" value="등록" class="btn" id="submitbtn">
+                        <input type="button" value="등록" class="btn" id="submitbtn">
                     	</div>
                 </form>
             </div>
@@ -151,9 +151,43 @@ nhn.husky.EZCreator.createInIFrame({
 
 $("#submitbtn").click(function() {
 	//유효성 검사
-	//필수 : 제목, 말머리, 내용, 지역
-	
+	//필수 : 말머리, 제목, 내용, 날짜, 지역, 종류
 	oEditors.getById["board-content"].exec("UPDATE_CONTENTS_FIELD", []);
+	var ir1 = $("#board-content").val();
+	var $title = $("[name=aniBoTitle]").val().trim();
+	
+	if($("[name=aniBoTag]").val() == null) {
+		alert("말머리를 선택하세요.");
+		$("[name=aniBoTag]").focus();
+		return;
+	}
+	if($title.length == 0) {
+		alert("제목을 입력하세요.");
+		$("[name=aniBoTitle]").focus();
+		return;
+	}
+	if($("[name=aniBoMissDate]").val() == null || $("[name=aniBoMissDate]").val() == '') {
+		alert("실종/발견 날짜를 선택해주세요.");
+		$("[name=aniBoMissDate]").focus();
+		return;
+	}
+	if($("[name=sido]").val() == null) {
+		alert("지역을 선택해주세요.");
+		$("[name=sido]").focus();
+		return;
+	}
+	if($("[name=aniBoType]").val() == null) {
+		alert("동물 종류를 선택해주세요.");
+		$("[name=aniBoType]").focus();
+		return;
+	}
+	//내용 유효성검사
+	if( ir1 == ""  || ir1 == null || ir1 == '&nbsp;' || ir1 == '<p>&nbsp;</p>')  {
+          alert("내용을 입력하세요.");
+          oEditors.getById["board-content"].exec("FOCUS"); //포커싱
+          return;
+     }
+		
 	$("#boardFrm").submit();
 });
 

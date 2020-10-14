@@ -13,7 +13,7 @@
         </section>
         <section class="content-wrap">
             <h1>${animalBoard.aniBoTag} ${animalBoard.aniBoTitle}</h1>
-            <p>#${animalBoard.aniBoType} #${animalBoard.aniBoKind} #${animalBoard.aniBoGender[0]} #${animalBoard.aniBoLocal}</p>
+            <p>#${animalBoard.aniBoType} #${animalBoard.aniBoKind} #${animalBoard.aniBoLocal}</p>
             <div class="content">
             	 <form name="boardFrm" id="boardFrm" method="post"
             	 	action="${pageContext.request.contextPath}/animalboard/updateBoard"
@@ -104,16 +104,14 @@
                                 </tr>
                                 <tr>
                                     <th>성별</th>
-                                    <c:forEach items="${animalBoard.aniBoGender}" var="gender">
-	                                    <td>
-	                                        <input type="checkbox" name="aniBoGender" id="암컷" value="암컷" ${gender eq '암컷' ? 'checked' : '' }>
-	                                        <label for="암컷">암컷</label>
-	                                    </td>
-	                                    <td>
-	                                        <input type="checkbox" name="aniBoGender" id="수컷" value="수컷"  ${gender eq '수컷' ? 'checked' : '' }>
-	                                        <label for="수컷">수컷</label>
-	                                    </td>
-                                    </c:forEach>
+                                    <td>
+                                        <input type="checkbox" name="aniBoGender" id="암컷" value="암컷" ${animalBoard.aniBoGender eq '암컷' ? 'checked' : '' }>
+                                        <label for="암컷">암컷</label>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="aniBoGender" id="수컷" value="수컷"  ${animalBoard.aniBoGender eq '수컷' ? 'checked' : '' }>
+                                        <label for="수컷">수컷</label>
+                                    </td>
                                 </tr>
                                 <tr>
                                 <tr>
@@ -124,20 +122,18 @@
                                 </tr>
                                 <tr>
                                     <th>털색</th>
-                                    <c:forEach items="${animalBoard.aniBoColor}" var="color">
-	                                    <td>
-	                                        <input type="checkbox" name="aniBoColor" id="흰색" value="흰색" ${color eq '흰색' ? 'checked' : '' }>
-	                                        <label for="흰색">흰색</label>
-	                                    </td>
-	                                    <td>
-	                                        <input type="checkbox" name="aniBoColor" id="검은색" value="검은색" ${color eq '검은색' ? 'checked' : '' }>
-	                                        <label for="검은색">검은색</label>
-	                                    </td>
-	                                    <td>
-	                                        <input type="checkbox" name="aniBoColor" id="갈색" value="갈색" ${color eq '갈색' ? 'checked' : '' }>
-	                                        <label for="갈색">갈색</label>
-	                                    </td>
-                                    </c:forEach>
+                                    <td>
+                                        <input type="checkbox" name="aniBoColor" id="흰색" value="흰색" ${animalBoard.aniBoColor eq '흰색' ? 'checked' : '' }>
+                                        <label for="흰색">흰색</label>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="aniBoColor" id="검은색" value="검은색" ${animalBoard.aniBoColor eq '검은색' ? 'checked' : '' }>
+                                        <label for="검은색">검은색</label>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="aniBoColor" id="갈색" value="갈색" ${animalBoard.aniBoColor eq '갈색' ? 'checked' : '' }>
+                                        <label for="갈색">갈색</label>
+                                    </td>
                                 </tr>
                             </table>
                         </div>
@@ -162,9 +158,42 @@ nhn.husky.EZCreator.createInIFrame({
 
 $("#submitbtn").click(function() {
 	//유효성 검사
-	//필수 : 제목, 말머리, 내용, 지역
-	
+	//필수 : 말머리, 제목, 내용, 날짜, 지역, 종류
 	oEditors.getById["board-content"].exec("UPDATE_CONTENTS_FIELD", []);
+	var ir1 = $("#board-content").val();
+	var $title = $("[name=aniBoTitle]").val().trim();
+	
+	if($("[name=aniBoTag]").val() == null) {
+		alert("말머리를 선택하세요.");
+		$("[name=aniBoTag]").focus();
+		return;
+	}
+	if($title.length == 0) {
+		alert("제목을 입력하세요.");
+		$("[name=aniBoTitle]").focus();
+		return;
+	}
+	if($("[name=aniBoMissDate]").val() == null || $("[name=aniBoMissDate]").val() == '') {
+		alert("실종/발견 날짜를 선택해주세요.");
+		$("[name=aniBoMissDate]").focus();
+		return;
+	}
+	if($("[name=sido]").val() == null) {
+		alert("지역을 선택해주세요.");
+		$("[name=sido]").focus();
+		return;
+	}
+	if($("[name=aniBoType]").val() == null) {
+		alert("동물 종류를 선택해주세요.");
+		$("[name=aniBoType]").focus();
+		return;
+	}
+	//내용 유효성검사
+	if( ir1 == ""  || ir1 == null || ir1 == '&nbsp;' || ir1 == '<p>&nbsp;</p>')  {
+          alert("내용을 입력하세요.");
+          oEditors.getById["board-content"].exec("FOCUS"); //포커싱
+          return;
+     }
 	$("#boardFrm").submit();
 });
 

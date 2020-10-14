@@ -27,7 +27,7 @@ public class ReviewBoardDAOImpl implements ReviewBoardDAO {
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		return sqlSession.selectList("reviewboard.selectReviewBoardList");
+		return sqlSession.selectList("reviewboard.selectReviewBoardList", null, rowBounds);
 	}
 	
 	//게시글작성
@@ -61,6 +61,11 @@ public class ReviewBoardDAOImpl implements ReviewBoardDAO {
 	@Override
 	public int deleteBoard(int no) {
 		return sqlSession.delete("reviewboard.deleteBoard", no);
+	}
+
+	@Override
+	public int deleteAttach(int rewBoId) {	
+		return sqlSession.delete("reviewboard.deleteAttach", rewBoId);
 	}
 
 	

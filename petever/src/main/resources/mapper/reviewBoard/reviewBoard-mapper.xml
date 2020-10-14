@@ -21,7 +21,7 @@
 		insert into 
 			review_board  
 		values(
-			review_board_seq.nextval,
+			seq_animal_board_id.nextval,
 			#{userId},
 			#{rewBoTitle},
 			#{RewBoContent},
@@ -30,7 +30,7 @@
 		
 		<selectKey keyProperty="rewBoId" resultType="_int" order="AFTER">
 			select
-				review_board_seq.currval
+				seq_animal_board_id.currval
 			from
 				dual
 		</selectKey>		
@@ -93,6 +93,13 @@
 	 rew_bo_id = #{rewBoId}
 	</delete>
 	
+	<!-- 첨부파일삭제 -->
+	<delete id="deleteAttach">
+		delete from
+			review_attach
+		where
+			rew_bo_id = #{rewBoId}
+	</delete>
 	
 	
 </mapper>

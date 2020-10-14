@@ -28,5 +28,8 @@ public interface ReviewBoardDAO {
 	//게시글 삭제
 	int deleteBoard(int no);
 	
+	int deleteAttach(int rewBoId);
+	
+	
 	
 }

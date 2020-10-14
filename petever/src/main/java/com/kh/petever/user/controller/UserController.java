@@ -3,6 +3,7 @@ package com.kh.petever.user.controller;
 import java.security.Principal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -69,6 +70,11 @@ public class UserController {
 		log.debug("user@controller = {}", user);
 		
 		String rawPassword = user.getUserPwd();
+		//카카오아이디로 회원가입 했을 경우
+		if(user.getUserPwd() == null) {
+			rawPassword = "petever";
+		}
+		
 		String encryptPassword = bcryptPasswordEncoder.encode(rawPassword);
 		user.setUserPwd(encryptPassword);
 		System.out.println("rawPassword@controller = " + rawPassword);
@@ -141,7 +147,10 @@ public class UserController {
 	// 로그아웃 - 세션 무효화
 
 	@RequestMapping("/logout.do")
-	public String userLogout(SessionStatus sessionStatus) {
+	public String userLogout(SessionStatus sessionStatus, HttpSession session) {
+		kakao.kakaoLogout((String)session.getAttribute("access_Token"));
+		session.removeAttribute("access_Token");
+		
 		// @SessionAttribute를 통해 등록된 객체 무효화
 		if (sessionStatus.isComplete() == false)
 			sessionStatus.setComplete();
@@ -221,7 +230,7 @@ public class UserController {
 		if(result == 0) {
 			rttr.addFlashAttribute("msg", "회원탈퇴 실패");
 		}
-		userLogout(sessionStatus);
+		userLogout(sessionStatus, session);
 		return "redirect:/";
 	}
 	
@@ -246,26 +255,23 @@ public class UserController {
 	//카카오로그인
 	@RequestMapping("/kakaologin.do")
 	public String kakaoLognin(@RequestParam("code") String code, HttpSession session, Model model) {
-		log.debug("code = {}", code);
+//		log.debug("code = {}", code);
 		
 		String access_Token = kakao.getAccessToken(code);
-		log.debug("controller access_token = {}", access_Token);
+//		log.debug("controller access_token = {}", access_Token);
 		
-		User user =  new User();
 		HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
+		String kakaoId = (String)userInfo.get("email");
+
+		User u = userService.selectOneUser(kakaoId);
 		
-		if (userInfo.get("email") != null) {
-			user.setUserId((String)userInfo.get("email"));
-			user.setUserEmail((String)userInfo.get("email"));
-	    }
-		User u = userService.selectOneUser(user.getUserId());
-		
+		//DB에 등록 안되어있으면 회원가입페이지로 -> 추가정보입력
 		if(u == null) {
-			model.addAttribute("userId", user.getUserId());
+			model.addAttribute("userId", kakaoId);
 			return "user/signup";
 		}
 		
-		session.setAttribute("loginUser", user);
+		session.setAttribute("loginUser", u);
 		session.setAttribute("access_Token", access_Token);
 		//세션에서 next값 가져오기
 		String next = (String)session.getAttribute("next");
