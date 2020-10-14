@@ -1,5 +1,8 @@
 package com.kh.petever.animalTag.model.service;
 
+import java.util.List;
+
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +18,16 @@ public class AnimalTagServiceImpl implements AnimalTagService {
 	@Override
 	public int insertAniTag(AnimalTag aniTag) {
 		return animalTagDAO.insertAniTag(aniTag);
+	}
+
+	@Override
+	public List<AnimalTag> selectList(String userId, RowBounds rowBounds) {
+		return animalTagDAO.selectList(userId, rowBounds);
+	}
+
+	@Override
+	public int animalTagCount(String userId) {
+		return animalTagDAO.animalTagCount(userId);
 	}
 
 }

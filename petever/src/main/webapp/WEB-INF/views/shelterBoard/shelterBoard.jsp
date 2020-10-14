@@ -252,7 +252,7 @@ $(function () {
                     		</div>
                     	</c:forEach>
                     </div>
-                    <div class="search">
+                    <div class="pageBar">
                         ${ pageBar }
                     </div>
                 </div>

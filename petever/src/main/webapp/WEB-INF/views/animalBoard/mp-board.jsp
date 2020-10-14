@@ -98,7 +98,7 @@
 	                        	<th>품종</th>
 	                        	<td colspan="3">
 	                        		<select name="aniBoKind" id="aniBoKind">
-	                        			<option selected disabled hidden>동물 선택 후, 품종을 선택하세요</option>
+	                        			<option selected disabled hidden>품종을 선택하세요</option>
 	                        		</select>
 	                        	</td>
 	                        	<th>지역</th>
@@ -114,7 +114,7 @@
 	                        </tr>
 	                    </table>
 	
-	                    <hr style="height: 1px; border:none; background-color: lightgray; width: 1000px; margin: 30px 50px;">
+	                    <hr style="height: 1px; border:none; background-color: lightgray; width: 860px; margin: 30px 50px;">
 						
 	                    <div class="post-wrap">
 	                    <c:forEach items="${boardList}" var="b">
@@ -149,15 +149,17 @@
 	                    <button type="button" onclick="location.href='${pageContext.request.contextPath}/animalboard/boardFrm'" class="write-btn">글쓰기</button>
 	                    <div class="search-wrap">
 	                        <select name="search" id="search">
-	                            <option value="ani_bo_title">제목</option>
-	                            <option value="ani_bo_content">내용</option>
-	                            <option value="ani_bo_date">날짜</option>
-	                            <option value="ani_bo_tag">말머리</option>
+	                            <option value="aniBoTitle">제목</option>
+	                            <option value="aniBoContent">내용</option>
+	                            <option value="aniBoTag">말머리</option>
 	                        </select>
-	                        <input type="text" name="query" id="query">
+	                        <input type="text" name="aniBoTitle" id="query">
 	                        <button type="button" id="bottom-search-btn" onclick="searchFunc();">검색</button>
 		                </div>
                     </form>
+                    <div class="pageBar">
+						${ pageBar }
+					</div>
                 </div>
             </div>
         </section>
@@ -188,16 +190,16 @@ function searchFunc() {
 					html += '<a href="${ pageContext.request.contextPath }/animalboard/boardView?no='+b.aniBoId+'">';
 
 					//사진
-            		for(var j in data.attachList) {
-						var a = data.attachList[j];
-						if(b.aniBoId == a.aniBoId) {
-							html += '<img src="${pageContext.request.contextPath}/resources/editor/multiupload/'+a.aniAtRenamedName+'">';
+            		for(var j in data.fileList) {
+						var f = data.fileList[j];
+						if(b.aniBoId == f.aniBoId) {
+							html += '<img src="${pageContext.request.contextPath}/resources/editor/multiupload/'+f.aniAtRenamedName+'">';
 						}
                     }
 					if(b.aniBoTag == '실종')
 						html += '<br><span class="tag missing">['+b.aniBoTag+']</span>';
 					else if(b.aniBoTag == '목격')
-						html += '<br><span class="tag sight">['+b.aniBoTag+']</span>';
+						html += '<br><span class="tag sighting">['+b.aniBoTag+']</span>';
 					else if(b.aniBoTag == '보호')
 						html += '<br><span class="tag protect">['+b.aniBoTag+']</span>';
 					else
@@ -220,57 +222,60 @@ function searchFunc() {
 
 $(function() {	
 	$("#search").on("change", function() {
-		console.log($("#search").next().html());
-		if($("#search").val() == '말머리') {
-			$("#query").replaceWith('<select name="aniBoTag"><option value="실종">실종</option></select>');
-			//$("#query").hide();
-			/* $("#search").next().append('<option value="실종">실종</option>');
-			$("#search").next().append('<option value="목격">목격</option>');
-			$("#search").next().append('<option value="보호">보호</option>');
-			$("#search").next().append('<option value="완료">완료</option>'); */
+		var $query = $("#query");
+		var $search = $("#search");
+
+		$query.attr('name', $(this).val());
+
+		if($search.val() == 'aniBoTag') {
+			$query.hide();
+			$query.replaceWith('<select id="query" name="aniBoTag"></select>');
+			$search.next().append('<option value="실종">실종</option>');
+			$search.next().append('<option value="목격">목격</option>');
+			$search.next().append('<option value="보호">보호</option>');
+			$search.next().append('<option value="완료">완료</option>');
 		}
+		else
+			$("#query").replaceWith('<input type="text" name="'+$search.val()+'" id="query">');
+		//console.log($("#search").val());
+		//console.log($("#search").next().html());
 	});
 	var tag = document.getElementsByClassName("tag");
 	for(var i=0; i<tag.length; i++) {
-           if(tag[i].innerHTML == '[실종]'){
+           if(tag[i].innerHTML == '[실종]')
                tag[i].setAttribute('class', 'tag missing');
-        }
            else if(tag[i].innerHTML == '[목격]')
                tag[i].setAttribute('class', 'tag sighting');
            else if(tag[i].innerHTML == '[보호]')
                tag[i].setAttribute('class', 'tag protect');
            
    	}
-   	
+	$('input[type=checkbox]').on('change', function() {
+		var $chBox = $(this);
+		if($chBox.prop('name') == 'aniBoAge') {
+        	if($chBox.prop('checked')) {
+        		$('input[name=aniBoAge]').prop('checked', false);
+				$chBox.prop('checked', true);
+			} 
+        }
+		if($chBox.prop('name') == 'aniBoSize') {
+        	if($chBox.prop('checked')) {
+        		$('input[name=aniBoSize]').prop('checked', false);
+				$chBox.prop('checked', true);
+			} 
+        }
+	});
 	//강아지, 고양이 별 종
-    $("input[name=aniBoType]").change(function() {
-		var $breed = $(this).val();
-		var $selectTag = $("#aniBoKind");
-		var dog = ['믹스견', '리트리버', '말티즈', '보더콜리', '불독', '비숑프리제', '시츄', '웰시코기', '요크셔테리어', '치와와', '포메라니안', '푸들'];
-		var cat = ['코리안숏헤어', '노르웨이숲', '러시안블루', '렉돌', '먼치킨', '뱅갈', '브리티쉬숏헤어', '샴', '스코티쉬폴드', '터키쉬앙고라'];
-		if($breed == '개'){
-			$selectTag.html('');
-			for(var i in dog) {
-				$selectTag.append('<option value="'+dog[i]+'">'+dog[i]+'</option>');
-			}
-		}
-		else if($breed == '고양이'){
-			$selectTag.html('');
-			for(var i in cat) {
-				$selectTag.append('<option value="'+cat[i]+'">'+cat[i]+'</option>');
-			}
-		}
-		else {
-			$selectTag.html('<option value="">없음</option>');
-		}
-    });
-    //동물종류 라디오버튼처럼 작동
-    $("[name=aniBoType]").on('change', function() {
-       	if($(this).prop('checked')) {
-       		$('[name=aniBoType]').prop('checked', false);
-			$(this).prop('checked', true);
-		} 
-    });
+	var $breed = $(this).val();
+	var $selectTag = $("#aniBoKind");
+	var dog = ['믹스견', '리트리버', '말티즈', '보더콜리', '불독', '비숑프리제', '시츄', '웰시코기', '요크셔테리어', '치와와', '포메라니안', '푸들'];
+	var cat = ['코리안숏헤어', '노르웨이숲', '러시안블루', '렉돌', '먼치킨', '뱅갈', '브리티쉬숏헤어', '샴', '스코티쉬폴드', '터키쉬앙고라'];
+	for(var i in dog) {
+		$selectTag.append('<option value="'+dog[i]+'">'+dog[i]+'</option>');
+	}
+	for(var i in cat) {
+		$selectTag.append('<option value="'+cat[i]+'">'+cat[i]+'</option>');
+	}
 		
     var area0 = ["서울특별시", "인천광역시", "대전광역시", "광주광역시", "대구광역시", "울산광역시", "부산광역시", "경기도", "강원도", "충청북도", "충청남도", "전라북도", "전라남도", "경상북도", "경상남도", "제주도"];
     var area1 = ["강남구", "강동구", "강북구", "강서구", "관악구", "광진구", "구로구", "금천구", "노원구", "도봉구", "동대문구", "동작구", "마포구", "서대문구", "서초구", "성동구", "성북구", "송파구", "양천구", "영등포구", "용산구", "은평구", "종로구", "중구", "중랑구"];

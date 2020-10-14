@@ -27,22 +27,23 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 	}
 
 	@Override
-	public int insertReviewBoard(ReviewBoard review) {
+	public int insertReviewBoard(ReviewBoard reviewBoard) {
+		//리턴할 result변수 선언
 		int result = 0;
 		
 		//1.board 테이블에 insert
-		result = reviewBoardDAO.insertReviewBoard(review);
+		result = reviewBoardDAO.insertReviewBoard(reviewBoard);
 		log.debug("result = {}", result);
 		if(result == 0)
 			throw new RuntimeException("게시글 등록 오류");
 		
 //		2.attachment 테이블에 insert
 		//첨부파일 수 만큼 행추가
-		List<ReviewAttach> attachList = review.getAttachList();
+		List<ReviewAttach> attachList = reviewBoard.getAttachList();
 		//첨부파일이 있는 경우
 		if(attachList != null) {
 			for(ReviewAttach attach : attachList) {
-				attach.setRewBoId(review.getRewBoId());
+				attach.setRewBoId(reviewBoard.getRewBoId());
 				log.debug("attach = {}", attach);
 				result = reviewBoardDAO.insertAttachment(attach);
 				
@@ -60,5 +61,19 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 	}
 
 
+	@Override
+	public ReviewBoard selectOneBoard(int no) {
+		return reviewBoardDAO.selectOneBoard(no);
+	}
+
+	@Override
+	public int updateBoard(ReviewBoard reviewBoard) {
+		return reviewBoardDAO.updateBoard(reviewBoard);
+	}
+
+	@Override
+	public int deleteBoard(int no) {
+		return reviewBoardDAO.deleteBoard(no);
+	}
 
 }

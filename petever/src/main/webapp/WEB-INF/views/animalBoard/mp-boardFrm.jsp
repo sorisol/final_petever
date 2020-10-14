@@ -12,14 +12,14 @@
 
         </section>
         <section class="content-wrap">
-            <h1>[보호] 퍼그(수컷)을 보호하고 있습니다.</h1>
-            <p>#강아지 #3살 #퍼그 #수컷 #강남구 #중성화</p>
+            <h1>유기동물 게시판</h1>
+            <p>글쓰기</p>
             <div class="content">
             	 <form name="boardFrm" id="boardFrm" method="post"
             	 	action="${pageContext.request.contextPath}/animalboard/insertBoard"
             	 	 enctype="multipart/form-data">
                     <h1>글쓰기</h1>
-                    <input type="hidden" name="userId" value="honggd" />
+                    <input type="hidden" name="userId" value="${loginUser.userId}" />
                     <div class="title">
                         <select name="aniBoTag">
                             <option selected disabled hidden>말머리</option>
@@ -28,9 +28,9 @@
                             <option value="보호">보호</option>
                             <option value="완료">완료</option>
                         </select>
-                        <input type="text" placeholder="제목을 입력해 주세요." name="aniBoTitle">
+                        <input type="text" placeholder="제목을 입력해 주세요." name="aniBoTitle" required>
                     </div>
-                    <textarea id="board-content" name="aniBoContent" rows="50"></textarea>
+                    <textarea id="board-content" name="aniBoContent" rows="50" required></textarea>
                         <div class="pet-info">
                             <table class="pet-info">
                            		<tr>
@@ -91,17 +91,8 @@
                                 <tr>
                                 <tr>
                                     <th>나이</th>
-                                    <td>
-                                        <input type="checkbox" name="aniBoAge" id="0~3" value="3">
-                                        <label for="0~3">0~3</label>
-                                    </td>
-                                    <td>
-                                        <input type="checkbox" name="aniBoAge" id="4~7" value="7">
-                                        <label for="4~7">4~7</label>
-                                    </td>
-                                    <td>
-                                        <input type="checkbox" name="aniBoAge" id="8~" value="8">
-                                        <label for="8~">8 이상</label>
+                                    <td colspan="3">
+                                        <input type="number" name="aniBoAge" min="0" max="20" >
                                     </td>
                                 </tr>
                                 <tr>
@@ -118,17 +109,8 @@
                                 <tr>
                                 <tr>
                                     <th>무게(kg)</th>
-                                    <td>
-                                        <input type="checkbox" name="aniBoSize" id="~5" value="5">
-                                        <label for="~5">5 미만</label>
-                                    </td>
-                                    <td>
-                                        <input type="checkbox" name="aniBoSize" id="5~9" value="9">
-                                        <label for="5~9">5~9</label>
-                                    </td>
-                                    <td>
-                                        <input type="checkbox" name="aniBoSize" id="10~" value="10">
-                                        <label for="10~">10이상</label>
+                                    <td colspan="3">
+                                        <input type="number" name="aniBoSize"  min="0" max="100">
                                     </td>
                                 </tr>
                                 <tr>
@@ -151,7 +133,7 @@
                     	<hr style="height: 1px; border:none; background-color: lightgray; width: 1000px; margin: 20px 0px;">
                     	<div class="button-wrap">
                         <input type="button" value="취소" onclick="location.href='${pageContext.request.contextPath}/animalboard'" class="btn">
-                        <input type="submit" value="등록" class="btn" id="submitbtn">
+                        <input type="button" value="등록" class="btn" id="submitbtn">
                     	</div>
                 </form>
             </div>
@@ -169,9 +151,43 @@ nhn.husky.EZCreator.createInIFrame({
 
 $("#submitbtn").click(function() {
 	//유효성 검사
-	//필수 : 제목, 말머리, 내용, 지역
-	
+	//필수 : 말머리, 제목, 내용, 날짜, 지역, 종류
 	oEditors.getById["board-content"].exec("UPDATE_CONTENTS_FIELD", []);
+	var ir1 = $("#board-content").val();
+	var $title = $("[name=aniBoTitle]").val().trim();
+	
+	if($("[name=aniBoTag]").val() == null) {
+		alert("말머리를 선택하세요.");
+		$("[name=aniBoTag]").focus();
+		return;
+	}
+	if($title.length == 0) {
+		alert("제목을 입력하세요.");
+		$("[name=aniBoTitle]").focus();
+		return;
+	}
+	if($("[name=aniBoMissDate]").val() == null || $("[name=aniBoMissDate]").val() == '') {
+		alert("실종/발견 날짜를 선택해주세요.");
+		$("[name=aniBoMissDate]").focus();
+		return;
+	}
+	if($("[name=sido]").val() == null) {
+		alert("지역을 선택해주세요.");
+		$("[name=sido]").focus();
+		return;
+	}
+	if($("[name=aniBoType]").val() == null) {
+		alert("동물 종류를 선택해주세요.");
+		$("[name=aniBoType]").focus();
+		return;
+	}
+	//내용 유효성검사
+	if( ir1 == ""  || ir1 == null || ir1 == '&nbsp;' || ir1 == '<p>&nbsp;</p>')  {
+          alert("내용을 입력하세요.");
+          oEditors.getById["board-content"].exec("FOCUS"); //포커싱
+          return;
+     }
+		
 	$("#boardFrm").submit();
 });
 

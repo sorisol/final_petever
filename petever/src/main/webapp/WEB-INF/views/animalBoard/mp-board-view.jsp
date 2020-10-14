@@ -21,7 +21,7 @@
             <p>#${animalBoard.aniBoLocal}
                #${animalBoard.aniBoType}
                #${animalBoard.aniBoKind}
-               ${animalBoard.aniBoGender[0]}
+               ${animalBoard.aniBoGender}
                #${animalBoard.aniBoCha}
                #
 	           <fmt:parseDate value="${animalBoard.aniBoMissDate}" var="missDate" pattern="yyyy-MM-dd HH:mm:ss"/>
@@ -56,8 +56,12 @@
                         <span>#${animalBoard.aniBoLocal}</span>
                         <span>#${animalBoard.aniBoType}</span>
                         <span>#${animalBoard.aniBoKind}</span>
-                        <span>#${animalBoard.aniBoGender[0]}</span>
-                        <span>#${animalBoard.aniBoCha}</span>
+                        <c:if test="${not empty animalBoard.aniBoGender}">
+	                        <span>#${animalBoard.aniBoGender}</span>
+                        </c:if>
+                        <c:if test="${not empty animalBoard.aniBoCha}">
+                        	<span>#${animalBoard.aniBoCha}</span>
+                        </c:if>
                         <span>#
 	                        <fmt:parseDate value="${animalBoard.aniBoMissDate}" var="missDate" pattern="yyyy-MM-dd HH:mm:ss"/>
 							<fmt:formatDate value="${missDate}" pattern="yyyy.MM.dd"/>
@@ -68,14 +72,13 @@
                     		<legend> 같은 지역에서 실종 신고된 동물 </legend>
                     		<div class="slider">
 	                    		<c:forEach items="${shelterAniList}" var="sa">
-	                    			<div class="slider">
+	                    			<div>
 	                    				<a href="${pageContext.request.contextPath}/shelterBoard/shelterAni?deserNo=${sa.desertionNo}">
 		                    				<img src="${sa.popfile}"/>
 	                    				</a>
 	                    			</div>
 	                    		</c:forEach>
                     		</div>
-                    		<img src="${pageContext.request.contextPath}/resources/images/dog1.jpg" width="200px" height="200px"/>
                     	</fieldset>
                     </div>
                     <div id="board-comment-container">
@@ -245,7 +248,7 @@
     
     $('.slider').slick({
     	  infinite: true,
-    	  slidesToShow: 4,
+    	  slidesToShow: 5,
     	  slidesToScroll: 4
     });
     		

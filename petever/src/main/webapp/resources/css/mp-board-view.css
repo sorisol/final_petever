@@ -205,7 +205,9 @@ form span {
 	height: 180px;
 	margin: 10px;
 }
-
+.report-btn:hover {
+	cursor: pointer;
+}
 .reply-btn {
 	border: none;
     background-color: white;

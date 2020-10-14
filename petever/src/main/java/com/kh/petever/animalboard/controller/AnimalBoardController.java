@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +37,7 @@ import com.kh.petever.animalboard.model.vo.AnimalAttach;
 import com.kh.petever.animalboard.model.vo.AnimalBoard;
 import com.kh.petever.animalboard.model.vo.AnimalComment;
 import com.kh.petever.animalboard.model.vo.Photo;
+import com.kh.petever.common.Utils;
 import com.kh.petever.shelterBoard.model.vo.ShelterAnimal;
 
 import lombok.extern.slf4j.Slf4j;
@@ -48,15 +50,22 @@ public class AnimalBoardController {
 	private AnimalBoardService service;
 	
 	@GetMapping("/animalboard")
-	public ModelAndView animalboardListView(ModelAndView mav, @RequestParam(defaultValue="1", value="cPage") int cPage) {
+	public ModelAndView animalboardListView(ModelAndView mav, @RequestParam(defaultValue="1", value="cPage") int cPage,  HttpServletRequest request) {
 		final int limit = 16;
 		int offset = (cPage-1)*limit;
 		
 		//전체 게시글 조회
-		List<AnimalBoard> boardList = service.selectBoardList(limit, offset);
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<AnimalBoard> boardList = service.selectBoardList(rowBounds);
 		log.debug("boardList = {}", boardList);
 		//첨부파일조회
 		List<AnimalAttach> attachList = service.selectAttachList();
+		int totalContents = service.animalBoardCount();
+		
+		String url = request.getRequestURI() + "?";
+		String pageBar = Utils.getPageBarHtml(cPage, 10, totalContents, url);
+		
+		mav.addObject("pageBar", pageBar);
 		mav.addObject("boardList", boardList);
 		mav.addObject("attachList", attachList);
 		
@@ -96,7 +105,6 @@ public class AnimalBoardController {
 	@RequestMapping("/animalboard/insertBoard") 
 	public String insertBoard(AnimalBoard animal, RedirectAttributes redirectAttr, HttpServletRequest req){
 		//로그인한 사용자 아이디
-		animal.setUserId("honggd");
 		log.debug("animal = {}", animal);
 		
 		String sido = (String)req.getParameter("sido");
@@ -149,11 +157,18 @@ public class AnimalBoardController {
 	}
 	
 	@GetMapping("/animalboard/deleteBoard")
-	public String deleteBoard(@RequestParam("no") int no, RedirectAttributes redirectAttr) {
+	public String deleteBoard(@RequestParam("no") int no, RedirectAttributes redirectAttr, HttpServletRequest request) {
 //		log.debug("no = {}", no);
+		String filePath = request.getServletContext().getRealPath("/resources/editor/multiupload/");
+		List<AnimalAttach> list = service.selectAttachListOneBoard(no);
 		try {
 			int result = service.deleteBoard(no);
 			redirectAttr.addFlashAttribute("msg", "게시글 삭제 완료");
+			//사진 삭제
+			for(AnimalAttach attach : list) {
+				File f = new File(filePath, attach.getAniAtRenamedName());
+				f.delete();
+			}
 		} catch(Exception e) {
 			log.error("게시글 삭제 오류", e);
 			redirectAttr.addFlashAttribute("msg", "게시글 삭제 실패");
@@ -271,21 +286,38 @@ public class AnimalBoardController {
 	@PostMapping("/animalboard/search")
 	public @ResponseBody Map<String, Object> search(HttpServletRequest req, AnimalBoard animal) {
 		//사용자 입력값
-		String sido = (String)req.getParameter("sido");
-		String sigugun = (String)req.getParameter("sigugun");
-		if(sigugun != null && !"".equals(sigugun))
-			animal.setAniBoLocal(sido + " " + sigugun);
-
-		animal.setAniBoGender(req.getParameterValues("aniBoGender"));
-		animal.setAniBoAge(req.getParameterValues("aniBoAge"));
-		animal.setAniBoSize(req.getParameterValues("aniBoSize"));
-		animal.setAniBoHair(req.getParameterValues("aniBoHair"));
-		animal.setAniBoColor(req.getParameterValues("aniBoColor"));
-
-		log.debug("animal={}", animal);
+		Map<String, Object> param = new HashMap<>();
+		String sido = req.getParameter("sido");
+		String sigugun = req.getParameter("sigugun");
+		String aniBoLocal = sido + " " + sigugun;
+		if(sido == null || "".equals(sido))
+			aniBoLocal = null;
+		
+		String aniBoTitle = (String)req.getParameter("aniBoTitle");
+		String aniBoTag = (String)req.getParameter("aniBoTag");
+		String aniBoContent = req.getParameter("aniBoContent");
+		String aniBoKind = req.getParameter("aniBoKind");
+		String[] aniBoType = req.getParameterValues("aniBoType");
+		String[] aniBoGender = req.getParameterValues("aniBoGender");
+		String aniBoAge = req.getParameter("aniBoAge");
+		String aniBoSize = req.getParameter("aniBoSize");
+		String[] aniBoColor = req.getParameterValues("aniBoColor");
+		String[] aniBoHair = req.getParameterValues("aniBoHair");
+		param.put("aniBoTitle", aniBoTitle);
+		param.put("aniBoTag", aniBoTag);
+		param.put("aniBoContent", aniBoContent);
+		param.put("aniBoLocal", aniBoLocal);
+		param.put("aniBoType", aniBoType);
+		param.put("aniBoGender", aniBoGender);
+		param.put("aniBoAge", aniBoAge);
+		param.put("aniBoSize", aniBoSize);
+		param.put("aniBoColor", aniBoColor);
+		param.put("aniBoHair", aniBoHair);
+		param.put("aniBoKind", aniBoKind);
+		log.debug("param = {}", param);
 		
 		//업무로직
-		List<AnimalBoard> boardList = service.searchBoardList(animal);
+		List<AnimalBoard> boardList = service.searchBoardList(param);
 		List<AnimalAttach> fileList = service.selectAttachList();
 //		log.debug("boardList = {}", boardList);
 //		log.debug("fileList = {}", fileList);
@@ -344,8 +376,15 @@ public class AnimalBoardController {
 	@GetMapping("/animalboard/reportFrm")
 	public ModelAndView reportFrm(@RequestParam("no") int no, @RequestParam("doUser") String doUser, ModelAndView mav) {
 		AnimalBoard animal = service.selectOneBoard(no);
+		Map<String, Object> param = new HashMap<>();
+		param.put("aniBoId", no);
+		param.put("repDoUser", doUser);
+		
+		Report rep = service.selectOneReport(param);
+		log.debug("rep = {}", rep);
 		mav.addObject("animal",  animal);
 		mav.addObject("doUser", doUser);
+		mav.addObject("rep", rep);
 		
 		mav.setViewName("animalBoard/report");
 		return mav;

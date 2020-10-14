@@ -16,14 +16,14 @@
             <p>입양후기 작성 게시판입니다.</p>
             <div class="content">
             	 <form name="boardFrm" id="boardFrm" method="post"
-            	 	action="${pageContext.request.contextPath}/reviewboard/insertBoard"
+            	 	action="${pageContext.request.contextPath}/reviewBoard/insertReviewBoard.do"
             	 	 enctype="multipart/form-data">
                     <h1>글쓰기</h1>
                     <input type="hidden" name="userId" value="honggd" />
                     <div class="title">
-                        <input type="text" placeholder="제목을 입력해 주세요." name="aniBoTitle">
+                        <input type="text" placeholder="제목을 입력해 주세요." name="rewBoTitle">
                     </div>
-                    <textarea id="board-content" name="aniBoContent" rows="50"></textarea>
+                    <textarea id="board-content" name="rewBoContent" rows="50"></textarea>
                     
                     	<hr style="height: 1px; border:none; background-color: lightgray; width: 1000px; margin: 20px 0px;">
                     	<div class="button-wrap">

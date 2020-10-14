@@ -9,6 +9,21 @@
 				#{ tagAniName }, #{ tagAniSsn }, #{ tagPersonName }, #{ tagPersonPhone },
 				#{ ssgName }, #{ ssgTel }, #{ ssgAddr0 }, #{ ssgAddr1 }, #{ ssgAddr2 }, default)
 	</insert>
+	
+	<select id="selectList" resultMap="animalTagVO">
+		select *
+		from animal_tag
+		where user_id = #{ userId }
+		order by buy_date desc
+	</select>
+	<resultMap type="AnimalTag" id="animalTagVO">
+	</resultMap>
+	
+	<select id="selectCount" resultType="_int">
+		select count(*)
+		from animal_tag
+		where user_id = #{ userId }
+	</select>
 
 	
 </mapper>

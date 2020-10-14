@@ -26,11 +26,11 @@ public class AnimalBoard  implements Serializable{
 	private String aniBoLocal;
 	private String aniBoType;
 	private String aniBoKind;
-	private String[] aniBoGender;
-	private String[] aniBoAge;
-	private String[] aniBoSize;
-	private String[] aniBoHair;
-	private String[] aniBoColor;
+	private String aniBoGender;
+	private String aniBoAge;
+	private String aniBoSize;
+	private String aniBoHair;
+	private String aniBoColor;
 	private String aniBoCha;
 	private String aniBoMissDate;
 	

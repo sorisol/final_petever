@@ -16,23 +16,24 @@
 <resultMap id="reviewBoardMap" type="reviewBoard">
 </resultMap>
  
-<!-- 게시판 글 작성  -->
+	<!-- 게시판 글 작성  -->
   	<insert id="insertReviewBoard">
 		insert into 
 			review_board  
-			(rew_bo_id,
-			 user_id,
-			 rew_bo_title,
-			 rew_bo_content
-			 
-			 )
 		values(
-		seq_review_board_id.nextval,
+			review_board_seq.nextval,
 			#{userId},
 			#{rewBoTitle},
-			#{RewBoContent}
+			#{RewBoContent},
+			sysdate
 		)
 		
+		<selectKey keyProperty="rewBoId" resultType="_int" order="AFTER">
+			select
+				review_board_seq.currval
+			from
+				dual
+		</selectKey>		
 		
 	
 	</insert> 
@@ -40,14 +41,58 @@
 
 	<insert id="insertAttachment">
 			insert into
-				animal_attach
+				review_attach 
 			values(
-				seq_animal_attach_id.nextval,
-				#{aniBoId},
-				#{aniAtOriginalName},
-				#{aniAtRenamedName},
+				review_attach_seq.nextval,
+				#{rewBoId},
+				#{rewAtOriginalName},
+				#{rewAtRenamedName},
 				default
 			)
+
 		</insert>
+		
+
+<!-- 	<select id="read" parameterType="int">
+	select rew_bo_id,
+			user_id,
+			rew_bo_title,
+			rew_bo_content,
+			rew_bo_reg_date
+		from review_board
+		 where rew_bo_id = #{rewBoId}
+	</select> -->
+	
+	<!-- 조회 -->
+	<select id="selectOneBoard" resultMap="reviewBoardMap">
+		select
+			*
+		from
+			review_board
+		where
+			rew_bo_id = #{no}
+	</select>
+	
+	<!-- 수정 -->
+	<update id="updateBoard">
+	update 
+		review_board 
+	set 
+		rew_bo_title = #{rewBoTitle},
+		rew_bo_content = #{RewBoContent}
+	where 
+		rew_bo_id = #{rewBoId}
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="deleteBoard">
+	delete
+		from 
+	review_board
+	 	where
+	 rew_bo_id = #{rewBoId}
+	</delete>
+	
+	
 	
 </mapper>

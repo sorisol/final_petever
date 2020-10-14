@@ -21,5 +21,6 @@ public class ReviewAttach implements Serializable {
 	private String rewAtOriginalName;
 	private String rewAtRenamedName;
 	private Date rewAtUploadDate;
+	
 
 }

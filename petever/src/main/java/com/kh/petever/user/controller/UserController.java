@@ -3,6 +3,9 @@ package com.kh.petever.user.controller;
 import java.security.Principal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,8 +31,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+import com.kh.petever.user.model.service.KakaoAPI;
 import com.kh.petever.user.model.service.UserService;
 import com.kh.petever.user.model.vo.User;
+
 
 @Controller
 @RequestMapping("/user")
@@ -39,6 +43,9 @@ public class UserController {
 
 	private Logger log = LoggerFactory.getLogger(getClass());
 
+	@Autowired
+    private KakaoAPI kakao;
+	
 	@Autowired
 	private UserService userService;
 
@@ -63,6 +70,11 @@ public class UserController {
 		log.debug("user@controller = {}", user);
 		
 		String rawPassword = user.getUserPwd();
+		//카카오아이디로 회원가입 했을 경우
+		if(user.getUserPwd() == null) {
+			rawPassword = "petever";
+		}
+		
 		String encryptPassword = bcryptPasswordEncoder.encode(rawPassword);
 		user.setUserPwd(encryptPassword);
 		System.out.println("rawPassword@controller = " + rawPassword);
@@ -135,7 +147,10 @@ public class UserController {
 	// 로그아웃 - 세션 무효화
 
 	@RequestMapping("/logout.do")
-	public String userLogout(SessionStatus sessionStatus) {
+	public String userLogout(SessionStatus sessionStatus, HttpSession session) {
+		kakao.kakaoLogout((String)session.getAttribute("access_Token"));
+		session.removeAttribute("access_Token");
+		
 		// @SessionAttribute를 통해 등록된 객체 무효화
 		if (sessionStatus.isComplete() == false)
 			sessionStatus.setComplete();
@@ -215,24 +230,65 @@ public class UserController {
 		if(result == 0) {
 			rttr.addFlashAttribute("msg", "회원탈퇴 실패");
 		}
-		userLogout(sessionStatus);
+		userLogout(sessionStatus, session);
 		return "redirect:/";
 	}
 	
-	/*
-	 * // 아이디중복체크
-	 * 
-	 * @RequestMapping(value = "/checkIdDuplicate.do") public String idChk() {
-	 * return "user/checkIdDuplicate"; }
-	 */
-	
-	//회원정보수정페이지 연결
-	@GetMapping("/checkIdDuplicate.do")
-	public String idChk() {
-		System.out.println("접속");
-		return "user/checkIdDuplicate";
 
+	@GetMapping("/checkIdDuplicate1.do")
+	public ModelAndView checkIdDuplicate1(ModelAndView mav,
+										  @RequestParam("userId") String userId) {
+		
+		//1. 업무로직 : 중복체크
+		User user = userService.selectOneUser(userId);
+		boolean isUsable = user == null;
+		
+		//2. model에 속성등록
+		mav.addObject("isUsable", isUsable);
+		
+		//3. viewName : jsonView빈 지정
+		mav.setViewName("jsonView");// /WEB-INF/views/jsonView.jsp
+		
+		return mav;
+	}
+	
+	//카카오로그인
+	@RequestMapping("/kakaologin.do")
+	public String kakaoLognin(@RequestParam("code") String code, HttpSession session, Model model) {
+//		log.debug("code = {}", code);
+		
+		String access_Token = kakao.getAccessToken(code);
+//		log.debug("controller access_token = {}", access_Token);
+		
+		HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
+		String kakaoId = (String)userInfo.get("email");
+
+		User u = userService.selectOneUser(kakaoId);
+		
+		//DB에 등록 안되어있으면 회원가입페이지로 -> 추가정보입력
+		if(u == null) {
+			model.addAttribute("userId", kakaoId);
+			return "user/signup";
+		}
+		
+		session.setAttribute("loginUser", u);
+		session.setAttribute("access_Token", access_Token);
+		//세션에서 next값 가져오기
+		String next = (String)session.getAttribute("next");
+		String location = next != null ? next : "/";
+		return "redirect:/"+location;
 	}
 
+	@GetMapping("/checkIdDuplicate2.do")
+	@ResponseBody
+	public Map<String, Object> checkIdDuplicate2(@RequestParam("userId") String userId) {
+		User user = userService.selectOneUser(userId);
+		boolean isUsable = (user == null);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("isUsable", isUsable);
+		map.put("userId", userId);
+		
+		return map;
+	}
 }
-

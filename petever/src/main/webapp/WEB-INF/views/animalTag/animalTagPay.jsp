@@ -11,7 +11,7 @@
 <script>
 $(function(){
     var IMP = window.IMP; // 생략가능 
-    IMP.init('imp96969083'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+    IMP.init('imp96790963'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 
     IMP.request_pay({
         pg : 'kakaopay',

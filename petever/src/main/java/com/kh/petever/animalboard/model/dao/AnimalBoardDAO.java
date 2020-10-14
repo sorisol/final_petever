@@ -3,11 +3,13 @@ package com.kh.petever.animalboard.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
+
+import com.kh.petever.admin.model.vo.Report;
 import com.kh.petever.animalboard.model.vo.AdoptApplication;
 import com.kh.petever.animalboard.model.vo.AnimalAttach;
 import com.kh.petever.animalboard.model.vo.AnimalBoard;
 import com.kh.petever.animalboard.model.vo.AnimalComment;
-import com.kh.petever.admin.model.vo.Report;
 import com.kh.petever.shelterBoard.model.vo.ShelterAnimal;
 
 public interface AnimalBoardDAO {
@@ -16,7 +18,7 @@ public interface AnimalBoardDAO {
 
 	int insertAttachment(AnimalAttach attach);
 
-	List<AnimalBoard> selectBoardList(int limit, int offset);
+	List<AnimalBoard> selectBoardList(RowBounds rowBounds);
 
 	AnimalBoard selectOneBoard(int no);
 
@@ -34,7 +36,7 @@ public interface AnimalBoardDAO {
 
 	int editComment(AnimalComment aniComment);
 
-	List<AnimalBoard> searchBoardList(AnimalBoard animal);
+	List<AnimalBoard> searchBoardList(Map<String, Object> param);
 
 	int deleteAttach(int aniBoId);
 
@@ -47,5 +49,11 @@ public interface AnimalBoardDAO {
 	List<ShelterAnimal> selectShelterAnimalList(AnimalBoard animalBoard);
 
 	int insertReport(Report rep);
+
+	Report selectOneReport(Map<String, Object> param);
+
+	int animalBoardCount();
+
+	List<AnimalAttach> selectAttachListOneBoard(int no);
 
 }

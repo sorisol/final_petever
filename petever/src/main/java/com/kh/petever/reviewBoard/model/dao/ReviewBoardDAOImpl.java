@@ -32,18 +32,39 @@ public class ReviewBoardDAOImpl implements ReviewBoardDAO {
 	
 	//게시글작성
 	@Override
-	public int insertReviewBoard(ReviewBoard review) {
-		return sqlSession.insert("reviewBoard.insertReviewBoard", review);
+	public int insertReviewBoard(ReviewBoard reviewBoard) {
+		return sqlSession.insert("reviewboard.insertReviewBoard", reviewBoard);
 	}
 	
 	@Override
 	public int insertAttachment(ReviewAttach attach) {
-		return sqlSession.insert("reviewBoard.insertAttachment", attach);
+		return sqlSession.insert("reviewboard.insertAttachment", attach);
 	}
 
 	@Override
 	public List<ReviewAttach> selectAttachList() {
-		return sqlSession.selectList("reviewBoard.selectAttachList");
+		return sqlSession.selectList("reviewboard.selectAttachList");
 	}
 
+	@Override
+	public ReviewBoard selectOneBoard(int no) {
+		
+		return sqlSession.selectOne("reviewboard.selectOneBoard", no);
+	}
+
+	@Override
+	public int updateBoard(ReviewBoard reviewBoard) {
+		
+		return sqlSession.update("reviewboard.updateBoard", reviewBoard);
+	}
+
+	@Override
+	public int deleteBoard(int no) {
+		return sqlSession.delete("reviewboard.deleteBoard", no);
+	}
+
+	
+
+
+	
 }
