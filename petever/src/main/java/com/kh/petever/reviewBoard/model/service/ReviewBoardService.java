@@ -21,6 +21,8 @@ public interface ReviewBoardService {
 	
 	int deleteBoard(int no);
 	
+	int deleteAttach(int rewBoId);
+	
 
 }
  
