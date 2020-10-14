@@ -11,6 +11,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/slick-theme.css"/>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/slick.js"></script>
 	    <div id="main-wrap">
         <section class="main">
@@ -120,20 +121,22 @@
                 </div>
                 <div class="btn-wrap">
 	                <button type="button" class="board-list-btn" onclick="location.href='${pageContext.request.contextPath}/reviewBoard'">글 목록</button>
-	                <c:if test="${loginUser.userId == animalBoard.userId || loginUser.userId == 'admin'}">
-		                <button type="button" class="board-delete-btn">삭제</button>
-		                <button type="button"class="board-edit-btn" onclick="location.href='${pageContext.request.contextPath}/animalboard/updateBoardFrm?no=${animalBoard.aniBoId}'">수정</button>
-	                </c:if>
+	                <c:if test="${loginUser.userId == reviewBoard.userId || loginUser.userId == 'admin'}">
+		                <button type="button" class="board-delete-btn">삭제</button>			
+		                <button type="button"class="board-edit-btn" onclick="location.href='${pageContext.request.contextPath}/reviewBoard/updateFrm.do?no=${reviewBoard.rewBoId}'">수정</button>
+	              </c:if>
                 </div>
             </div>
         </section>
     </div>
 <script>
-	$(".board-delete-btn").on("click", function() {
+	
+ 	$(".board-delete-btn").on("click", function() {
 		if(!confirm("게시글을 삭제하시겠습니까?"))
 			return;
-		location.href="${pageContext.request.contextPath}/animalboard/deleteBoard?no="+${animalBoard.aniBoId};
+		location.href="${pageContext.request.contextPath}/reviewBoard/deleteBoard?no="+${reviewBoard.rewBoId};
 	});
+	
     function openReport() {
         window.open("${pageContext.request.contextPath}/animalboard/reportFrm?no=${animalBoard.aniBoId}&&doUser=${loginUser.userId}", "신고하기",
             "width=500, height=330, toolbar=no, menubar=no, scrollbars=no, resizable=yes, top=300, left=500");

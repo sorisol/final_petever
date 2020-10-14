@@ -76,4 +76,9 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 		return reviewBoardDAO.deleteBoard(no);
 	}
 
+	@Override
+	public int deleteAttach(int rewBoId) {
+		return reviewBoardDAO.deleteAttach(rewBoId);
+	}
+
 }
