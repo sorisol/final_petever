@@ -12,16 +12,13 @@
     order by 
       	rew_bo_id desc
 </select>
-	
-<resultMap id="reviewBoardMap" type="reviewBoard">
-</resultMap>
  
 	<!-- 게시판 글 작성  -->
   	<insert id="insertReviewBoard">
 		insert into 
 			review_board  
 		values(
-			seq_animal_board_id.nextval,
+			seq_animal_board_id.nextval, 
 			#{userId},
 			#{rewBoTitle},
 			#{RewBoContent},
@@ -51,17 +48,7 @@
 			)
 
 		</insert>
-		
 
-<!-- 	<select id="read" parameterType="int">
-	select rew_bo_id,
-			user_id,
-			rew_bo_title,
-			rew_bo_content,
-			rew_bo_reg_date
-		from review_board
-		 where rew_bo_id = #{rewBoId}
-	</select> -->
 	
 	<!-- 조회 -->
 	<select id="selectOneBoard" resultMap="reviewBoardMap">
@@ -69,6 +56,22 @@
 			*
 		from
 			review_board
+		where
+			rew_bo_id = #{no}
+	</select>
+	
+	<select id="selectAttachList" resultMap="reviewAttachMap">
+		select
+			*
+		from
+			review_attach
+	</select>
+	
+ 	<select id="selectOneBoardAttachList" resultMap="reviewAttachMap">
+		select
+			*
+		from
+			review_attach
 		where
 			rew_bo_id = #{no}
 	</select>
@@ -101,5 +104,84 @@
 			rew_bo_id = #{rewBoId}
 	</delete>
 	
+	<!-- 댓글조회 -->
+	<select id="selectCommentList" resultMap="reviewCommentMap">
+	select
+			*
+		from
+			review_comment
+		where
+			rew_bo_id = #{no}
+	</select>
 	
+	<!-- total 댓글 -->
+	<select id="totalComment" resultType="_int">
+		select
+			count(*)
+		from
+			review_comment
+		where
+			rew_bo_id = #{no}
+	</select>	
+	
+	<!-- 댓글작성 -->
+	<insert id="insertComment">
+	insert into
+		review_comment
+	values(
+		review_comment_seq.nextval,
+		#{rewBoId},
+		#{userId},
+		#{rewCoContent},
+		#{rewCoLevel},
+		sysdate
+		)
+	</insert>
+	
+	<!-- 댓글삭제 -->
+	<delete id="deleteComment">
+		delete from
+			review_comment
+		where
+			rew_co_id = #{commentNo}
+	</delete>	
+	
+	
+	<!-- 댓글수정 -->
+	<update id="editComment">
+		update
+			review_comment
+		set
+			rew_co_content = #{rewCoContent}
+		where
+			rew_co_id = #{rewCoId}
+	</update>
+	
+	<!-- 게시글 검색 -->
+	<select id="searchBoardList" resultMap="reviewBoardMap">
+		select 
+			*
+		from
+			review_board
+		<where>
+			<if test="rewBoTitle != null and rewBoTitle != ''">
+			            rew_bo_title like '%'||#{rewBoTitle}||'%'
+			 </if>
+			 <if test="rewBoContent != null and rewBoContent != ''">
+			            and rew_bo_content like '%'||#{rewBoContent}||'%'
+			  </if> 
+		</where>
+	</select>
+
+	<!-- 페이징 -->
+<!-- 	<select id="reviewBoardCount" resultType="_int">
+		select
+			count(*)
+		from
+			review_board
+	</select>  -->
+	
+	<resultMap id="reviewCommentMap" type="reviewComment"></resultMap>
+	<resultMap id="reviewAttachMap" type="reviewAttach"></resultMap>
+	<resultMap id="reviewBoardMap" type="reviewBoard"></resultMap>
 </mapper>
