@@ -182,7 +182,7 @@
 				barChartTop.data.datasets.forEach(function(dataset) {
 					dataset.data = loadData;
 				});
-
+				barChartTop.options = barOptions_stacked;
 				addData(adoptChart, ajaxLable, adoptChartData, labelCity, 1);
 				
 				addData(euthanasiaChart, ajaxLable, euthanasiaChartData, labelCity, 2);
@@ -250,12 +250,15 @@
             });
 
         var barOptions_stacked = {
+        		hover: {
+    				animationDuration: 0
+    			},
             animation: {
                 onComplete: function () {
                     var chartInstance = this.chart;
                     var ctx = chartInstance.ctx;
                     ctx.textAlign = "left";
-                    ctx.font = "11px Open Sans";
+                    ctx.font = "12px Open Sans";
                     ctx.fillStyle = "black";
 
                     Chart.helpers.each(this.data.datasets.forEach(function (dataset, i) {
@@ -263,9 +266,9 @@
                         Chart.helpers.each(meta.data.forEach(function (bar, index) {
                             data = dataset.data[index];
                             if (i == 0) {
-                                ctx.fillText(data, bar._model.x - 1, bar._model.y);
+                                ctx.fillText(data+" 마리", bar._model.x, bar._model.y);
                             } else {
-                                ctx.fillText(data, bar._model.x - 25, bar._model.y + 4);
+                                ctx.fillText(data+" 마리", bar._model.x - 25, bar._model.y + 4);
                             }
                         }), this)
                     }), this);
