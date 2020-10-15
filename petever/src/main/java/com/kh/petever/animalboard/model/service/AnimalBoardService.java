@@ -54,4 +54,6 @@ public interface AnimalBoardService {
 
 	List<AnimalAttach> selectAttachListOneBoard(int no);
 
+	AdoptApplication selectOneApplication(int no);
+
 }

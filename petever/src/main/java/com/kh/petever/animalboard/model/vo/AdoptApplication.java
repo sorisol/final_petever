@@ -35,4 +35,6 @@ public class AdoptApplication implements Serializable{
 	private String a11;
 	private String a12;
 	private String a13;
+	private String adoptDate;
+	private String receiverId;
 }
