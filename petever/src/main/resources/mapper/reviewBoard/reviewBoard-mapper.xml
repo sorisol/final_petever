@@ -12,16 +12,13 @@
     order by 
       	rew_bo_id desc
 </select>
-	
-<resultMap id="reviewBoardMap" type="reviewBoard">
-</resultMap>
  
 	<!-- 게시판 글 작성  -->
   	<insert id="insertReviewBoard">
 		insert into 
 			review_board  
 		values(
-			review_board_seq.nextval,
+			seq_animal_board_id.nextval, 
 			#{userId},
 			#{rewBoTitle},
 			#{RewBoContent},
@@ -30,7 +27,7 @@
 		
 		<selectKey keyProperty="rewBoId" resultType="_int" order="AFTER">
 			select
-				review_board_seq.currval
+				seq_animal_board_id.currval
 			from
 				dual
 		</selectKey>		
@@ -49,8 +46,142 @@
 				#{rewAtRenamedName},
 				default
 			)
-			
-	
+
 		</insert>
+
 	
+	<!-- 조회 -->
+	<select id="selectOneBoard" resultMap="reviewBoardMap">
+		select
+			*
+		from
+			review_board
+		where
+			rew_bo_id = #{no}
+	</select>
+	
+	<select id="selectAttachList" resultMap="reviewAttachMap">
+		select
+			*
+		from
+			review_attach
+	</select>
+	
+ 	<select id="selectOneBoardAttachList" resultMap="reviewAttachMap">
+		select
+			*
+		from
+			review_attach
+		where
+			rew_bo_id = #{no}
+	</select>
+	
+	<!-- 수정 -->
+	<update id="updateBoard">
+	update 
+		review_board 
+	set 
+		rew_bo_title = #{rewBoTitle},
+		rew_bo_content = #{RewBoContent}
+	where 
+		rew_bo_id = #{rewBoId}
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="deleteBoard">
+	delete
+		from 
+	review_board
+	 	where
+	 rew_bo_id = #{rewBoId}
+	</delete>
+	
+	<!-- 첨부파일삭제 -->
+	<delete id="deleteAttach">
+		delete from
+			review_attach
+		where
+			rew_bo_id = #{rewBoId}
+	</delete>
+	
+	<!-- 댓글조회 -->
+	<select id="selectCommentList" resultMap="reviewCommentMap">
+	select
+			*
+		from
+			review_comment
+		where
+			rew_bo_id = #{no}
+	</select>
+	
+	<!-- total 댓글 -->
+	<select id="totalComment" resultType="_int">
+		select
+			count(*)
+		from
+			review_comment
+		where
+			rew_bo_id = #{no}
+	</select>	
+	
+	<!-- 댓글작성 -->
+	<insert id="insertComment">
+	insert into
+		review_comment
+	values(
+		review_comment_seq.nextval,
+		#{rewBoId},
+		#{userId},
+		#{rewCoContent},
+		#{rewCoLevel},
+		sysdate
+		)
+	</insert>
+	
+	<!-- 댓글삭제 -->
+	<delete id="deleteComment">
+		delete from
+			review_comment
+		where
+			rew_co_id = #{commentNo}
+	</delete>	
+	
+	
+	<!-- 댓글수정 -->
+	<update id="editComment">
+		update
+			review_comment
+		set
+			rew_co_content = #{rewCoContent}
+		where
+			rew_co_id = #{rewCoId}
+	</update>
+	
+	<!-- 게시글 검색 -->
+	<select id="searchBoardList" resultMap="reviewBoardMap">
+		select 
+			*
+		from
+			review_board
+		<where>
+			<if test="rewBoTitle != null and rewBoTitle != ''">
+			            rew_bo_title like '%'||#{rewBoTitle}||'%'
+			 </if>
+			 <if test="rewBoContent != null and rewBoContent != ''">
+			            and rew_bo_content like '%'||#{rewBoContent}||'%'
+			  </if> 
+		</where>
+	</select>
+
+	<!-- 페이징 -->
+<!-- 	<select id="reviewBoardCount" resultType="_int">
+		select
+			count(*)
+		from
+			review_board
+	</select>  -->
+	
+	<resultMap id="reviewCommentMap" type="reviewComment"></resultMap>
+	<resultMap id="reviewAttachMap" type="reviewAttach"></resultMap>
+	<resultMap id="reviewBoardMap" type="reviewBoard"></resultMap>
 </mapper>

@@ -21,7 +21,7 @@
             <p>#${animalBoard.aniBoLocal}
                #${animalBoard.aniBoType}
                #${animalBoard.aniBoKind}
-               ${animalBoard.aniBoGender[0]}
+               ${animalBoard.aniBoGender}
                #${animalBoard.aniBoCha}
                #
 	           <fmt:parseDate value="${animalBoard.aniBoMissDate}" var="missDate" pattern="yyyy-MM-dd HH:mm:ss"/>
@@ -56,8 +56,12 @@
                         <span>#${animalBoard.aniBoLocal}</span>
                         <span>#${animalBoard.aniBoType}</span>
                         <span>#${animalBoard.aniBoKind}</span>
-                        <span>#${animalBoard.aniBoGender[0]}</span>
-                        <span>#${animalBoard.aniBoCha}</span>
+                        <c:if test="${not empty animalBoard.aniBoGender}">
+	                        <span>#${animalBoard.aniBoGender}</span>
+                        </c:if>
+                        <c:if test="${not empty animalBoard.aniBoCha}">
+                        	<span>#${animalBoard.aniBoCha}</span>
+                        </c:if>
                         <span>#
 	                        <fmt:parseDate value="${animalBoard.aniBoMissDate}" var="missDate" pattern="yyyy-MM-dd HH:mm:ss"/>
 							<fmt:formatDate value="${missDate}" pattern="yyyy.MM.dd"/>

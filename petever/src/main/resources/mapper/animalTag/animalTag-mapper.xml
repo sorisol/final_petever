@@ -8,15 +8,33 @@
 		values (seq_tag_no.nextval, #{ userId }, #{ tagColor }, #{ tagAniKind }, #{ tagFont }, 
 				#{ tagAniName }, #{ tagAniSsn }, #{ tagPersonName }, #{ tagPersonPhone },
 				#{ ssgName }, #{ ssgTel }, #{ ssgAddr0 }, #{ ssgAddr1 }, #{ ssgAddr2 }, default)
+		<selectKey keyProperty="tagNo" resultType="_int" order="AFTER">
+			select seq_tag_no.currval
+			from dual
+		</selectKey>
 	</insert>
+	
+	<select id="selectOne" resultMap="animalTagVO">
+		select *
+		from animal_tag
+		where user_id = #{ userId }
+			and tag_no = #{ tagNo }
+	</select>
 	
 	<select id="selectList" resultMap="animalTagVO">
 		select *
 		from animal_tag
 		where user_id = #{ userId }
+		order by buy_date desc
 	</select>
 	<resultMap type="AnimalTag" id="animalTagVO">
 	</resultMap>
+	
+	<select id="selectCount" resultType="_int">
+		select count(*)
+		from animal_tag
+		where user_id = #{ userId }
+	</select>
 
 	
 </mapper>

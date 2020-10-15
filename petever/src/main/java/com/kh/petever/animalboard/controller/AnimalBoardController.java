@@ -157,11 +157,18 @@ public class AnimalBoardController {
 	}
 	
 	@GetMapping("/animalboard/deleteBoard")
-	public String deleteBoard(@RequestParam("no") int no, RedirectAttributes redirectAttr) {
+	public String deleteBoard(@RequestParam("no") int no, RedirectAttributes redirectAttr, HttpServletRequest request) {
 //		log.debug("no = {}", no);
+		String filePath = request.getServletContext().getRealPath("/resources/editor/multiupload/");
+		List<AnimalAttach> list = service.selectAttachListOneBoard(no);
 		try {
 			int result = service.deleteBoard(no);
 			redirectAttr.addFlashAttribute("msg", "게시글 삭제 완료");
+			//사진 삭제
+			for(AnimalAttach attach : list) {
+				File f = new File(filePath, attach.getAniAtRenamedName());
+				f.delete();
+			}
 		} catch(Exception e) {
 			log.error("게시글 삭제 오류", e);
 			redirectAttr.addFlashAttribute("msg", "게시글 삭제 실패");
@@ -279,19 +286,38 @@ public class AnimalBoardController {
 	@PostMapping("/animalboard/search")
 	public @ResponseBody Map<String, Object> search(HttpServletRequest req, AnimalBoard animal) {
 		//사용자 입력값
-		String sido = (String)req.getParameter("sido");
-		String sigugun = (String)req.getParameter("sigugun");
-		if(sigugun != null && !"".equals(sigugun))
-			animal.setAniBoLocal(sido + " " + sigugun);
-
-		animal.setAniBoGender(req.getParameterValues("aniBoGender"));
-		animal.setAniBoHair(req.getParameterValues("aniBoHair"));
-		animal.setAniBoColor(req.getParameterValues("aniBoColor"));
-
-		log.debug("search animal={}", animal);
+		Map<String, Object> param = new HashMap<>();
+		String sido = req.getParameter("sido");
+		String sigugun = req.getParameter("sigugun");
+		String aniBoLocal = sido + " " + sigugun;
+		if(sido == null || "".equals(sido))
+			aniBoLocal = null;
+		
+		String aniBoTitle = (String)req.getParameter("aniBoTitle");
+		String aniBoTag = (String)req.getParameter("aniBoTag");
+		String aniBoContent = req.getParameter("aniBoContent");
+		String aniBoKind = req.getParameter("aniBoKind");
+		String[] aniBoType = req.getParameterValues("aniBoType");
+		String[] aniBoGender = req.getParameterValues("aniBoGender");
+		String aniBoAge = req.getParameter("aniBoAge");
+		String aniBoSize = req.getParameter("aniBoSize");
+		String[] aniBoColor = req.getParameterValues("aniBoColor");
+		String[] aniBoHair = req.getParameterValues("aniBoHair");
+		param.put("aniBoTitle", aniBoTitle);
+		param.put("aniBoTag", aniBoTag);
+		param.put("aniBoContent", aniBoContent);
+		param.put("aniBoLocal", aniBoLocal);
+		param.put("aniBoType", aniBoType);
+		param.put("aniBoGender", aniBoGender);
+		param.put("aniBoAge", aniBoAge);
+		param.put("aniBoSize", aniBoSize);
+		param.put("aniBoColor", aniBoColor);
+		param.put("aniBoHair", aniBoHair);
+		param.put("aniBoKind", aniBoKind);
+		log.debug("param = {}", param);
 		
 		//업무로직
-		List<AnimalBoard> boardList = service.searchBoardList(animal);
+		List<AnimalBoard> boardList = service.searchBoardList(param);
 		List<AnimalAttach> fileList = service.selectAttachList();
 //		log.debug("boardList = {}", boardList);
 //		log.debug("fileList = {}", fileList);

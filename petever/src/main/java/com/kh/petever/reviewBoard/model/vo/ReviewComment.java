@@ -1,9 +1,5 @@
 package com.kh.petever.reviewBoard.model.vo;
 
-import java.io.Serializable;
-import java.sql.Date;
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,13 +11,13 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class ReviewBoard implements Serializable {
+public class ReviewComment {
 	
+	private int rewCoId;
 	private int rewBoId;
 	private String userId;
-	private String rewBoTitle;
-	private String RewBoContent;
-	private String RewBoRegDate;
-	private List<ReviewAttach> attachList;
+	private String rewCoContent;
+	private int rewCoLevel;
+	private String rewCoDate;
 
 }
