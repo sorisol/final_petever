@@ -244,17 +244,14 @@
 	</update>
 	
 	<select id="selectBoardListOneWeek" resultMap="animalBoardMap">
-		<![CDATA[
 		select
 			*
 		from
 			animal_board left join (select distinct(ani_bo_id), rep_display from report)
 						using(ani_bo_id)
 		where
-			ani_bo_date >= to_date(to_char(sysdate-7, 'yyyyMMdd'), 'yyyyMMdd')
-			and (ani_bo_tag in ('실종', '보호'))
+			ani_bo_tag in ('실종', '보호')
 			and(rep_display = 'Y' or rep_display is null)
-		]]>
 	</select>
 	<insert id="insertApplication">
 		insert into
