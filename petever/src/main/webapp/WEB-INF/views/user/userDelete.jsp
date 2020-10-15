@@ -24,6 +24,7 @@
 					<button class="cencle btn btn-danger" type="button">취소</button>
 				</div>
 			</form>
+			</div>
 			<div>
 				<c:if test="${msg == false}">
 					비밀번호가 맞지 않습니다.

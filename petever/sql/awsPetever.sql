@@ -22,11 +22,15 @@ CREATE TABLE tb_user (
 	user_email	VARCHAR2(100)	NOT NULL,
 	user_birth_date	date NOT NULL,
 	user_phone	 VARCHAR2(11)	NOT NULL,
+    post_no varchar(5) not null,
 	user_local	VARCHAR2(100)	NOT NULL,
+    user_local_detail VARCHAR2(100) not null,
 	user_role	CHAR(1) default 'U' NOT NULL,
     constraints pk_user_id primary key(user_id),
     constraints ck_user_role check(user_role in ('U','A')) 
 );
+
+
 
 
 --CREATE TABLE message (
@@ -226,7 +230,7 @@ set SA.ani_age = (select to_number(extract(year from sysdate)-extract(year from 
                  where SA.desertion_no = S.desertion_no);
 
 create table adoption_application(
-    adopt_id	NUMBER,
+    adopt_id NUMBER,
     ani_bo_id number,
     sender_id varchar2(30) ,
     sender_local varchar2(100),

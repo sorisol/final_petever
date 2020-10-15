@@ -138,7 +138,7 @@ public class ShelterBoardController {
 		String url = request.getRequestURI() + "?kind="+ kind +"&gender=" + gender+ "&age=" + age + "&color=" + color + 
 					"&weight=" + weight + "&state=" + state +"&sido=" + sido + "&sigugun=" + sigugun + "&";
 		int totalContents = shelterBoardService.shelterAnimalCount(map);
-		String pageBar = Utils.getPageBarHtml(cPage, 16, totalContents, url);
+		String pageBar = Utils.getPageBarHtml(cPage, limit, totalContents, url);
 		
 		model.addAttribute("param", map);
 		model.addAttribute("shelterBoardList", list);

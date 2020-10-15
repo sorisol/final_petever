@@ -61,12 +61,8 @@ public class UserController {
 	}
 	
 	// 회원가입 post : 회원가입 폼을 제출했을때 처리할 핸들러
-	@RequestMapping(value ="/signup.do",
-					method = RequestMethod.POST)
-	public String userSignup(User user,
-						HttpServletRequest req,
-						RedirectAttributes redirectAttr) {
-		
+	@RequestMapping(value ="/signup.do", method = RequestMethod.POST)
+	public String userSignup(User user, HttpServletRequest req, RedirectAttributes redirectAttr) {
 		log.debug("user@controller = {}", user);
 		
 		String rawPassword = user.getUserPwd();
@@ -77,16 +73,9 @@ public class UserController {
 		
 		String encryptPassword = bcryptPasswordEncoder.encode(rawPassword);
 		user.setUserPwd(encryptPassword);
-		System.out.println("rawPassword@controller = " + rawPassword);
-		System.out.println("encryptPassword@controller = " + encryptPassword);
+		log.debug("rawPassword = {}", rawPassword);
+		log.debug("encryptPassword = {}", encryptPassword);
 		
-		//주소
-		String addr2 = req.getParameter("addr2");
-		String addr3 = req.getParameter("addr3");
-		
-		user.setUserLocal(addr2 + " " + addr3);
-		System.out.println(user);
-
 		//1.비지니스로직 실행
 		int result = userService.insertUser(user);
 				
@@ -175,24 +164,16 @@ public class UserController {
 	public String userDetail(Principal principal, Model model) {
 		log.debug("principal = {}", principal);
 		model.addAttribute("loginUser", principal);
+		
 		return "user/userDetail";
 	}
 
-	@RequestMapping(value = "/userUpdate.do",
-				method = RequestMethod.POST)
-	public ModelAndView userUpdate(User user,
-								 HttpServletRequest req){
+	@RequestMapping(value = "/userUpdate.do", method = RequestMethod.POST)
+	public ModelAndView userUpdate(User user, HttpServletRequest req){
 	//파라미터로 전달받지 않고 직접 객체 생성 또한 가능
 	//viewName 생성자에 전달 가능
 	ModelAndView mav = new ModelAndView("redirect:/user/userDetail.do");
 	log.debug("user = {}", user);
-	
-	//주소
-	String addr2 = req.getParameter("addr2");
-	String addr3 = req.getParameter("addr3");
-	
-	user.setUserLocal(addr2 + " " + addr3);
-	System.out.println(user);
 	
 	//1.비지니스로직 실행
 	int result = userService.updateUser(user);
