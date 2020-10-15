@@ -294,6 +294,55 @@ a.animated-button.thar-three:before {
 								</div>
 							</div>
 						</div>
+						<div class="mm-survey-page" data-page="10">
+							<div class="mm-survery-content">
+								<div class="mm-survey-question">
+									<p>털의 빠짐이나 길이는 어떻게 생각하시나요?</p>
+								</div>
+								<div class="mm-survey-item">
+									<input type="radio" id="radio35" data-item="10" name="radio10" value="a" />
+									<label for="radio35"><span></span><p>털이 잘안빠지거나 짧은 단모종</p></label>
+								</div>
+								<div class="mm-survey-item">
+									<input type="radio" id="radio36" data-item="10" name="radio10" value="b" />
+									<label for="radio36"><span></span><p>털 빠짐은 상관없고 긴 장모종</p></label>
+								</div>
+							</div>
+						</div>
+						<div class="mm-survey-page" data-page="11">
+							<div class="mm-survery-content">
+								<div class="mm-survey-question">
+									<p>반려동물의 크기는 어느정도로 생각하시나요?</p>
+								</div>
+								<div class="mm-survey-item">
+									<input type="radio" id="radio37" data-item="11" name="radio11" value="a" />
+									<label for="radio37"><span></span><p>소형(5kg대)</p></label>
+								</div>
+								<div class="mm-survey-item">
+									<input type="radio" id="radio38" data-item="11" name="radio11" value="b" />
+									<label for="radio38"><span></span><p>중형(5~10kg대)</p></label>
+								</div>
+								<div class="mm-survey-item">
+									<input type="radio" id="radio39" data-item="11" name="radio11" value="c" />
+									<label for="radio39"><span></span><p>대형(15kg~대)</p></label>
+								</div>
+							</div>
+						</div>
+						<div class="mm-survey-page" data-page="12">
+							<div class="mm-survery-content">
+								<div class="mm-survey-question">
+									<p>반려동물의 활동량은 어떠면 좋겠나요?</p>
+								</div>
+								<div class="mm-survey-item">
+									<input type="radio" id="radio40" data-item="12" name="radio12" value="a" />
+									<label for="radio40"><span></span><p>1시간 이하의 간단한 산책</p></label>
+								</div>
+								<div class="mm-survey-item">
+									<input type="radio" id="radio41" data-item="12" name="radio12" value="b" />
+									<label for="radio41"><span></span><p>2~3시간 이상의 운동 혹은 등산</p></label>
+								</div>
+							</div>
+						</div>
 					</div>
 					
 					<div class="mm-survey-controller">
@@ -313,7 +362,84 @@ a.animated-button.thar-three:before {
 	</div>
 	<form id="checkTotalFrm" action="${pageContext.request.contextPath}/check/checkTotal.do" method="GET" >
 		<input name="total" type="hidden" value="0" />
+		<input name="breeds" type="hidden" value="" />
 	</form>
+	<div id="svg-back"></div>
+<svg id="loading" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	viewBox="0 0 1000 441" style="enable-background: new 0 0 1000 441;"
+	xml:space="preserve">
+
+
+
+                <path class="back-legs-front"
+		d="M721.9,275l-11.3,81c20.1,14.3,18.6,22.6,18.2,24.4c-3.1,11.9-34.8,20.4-54.5,7.4
+       c-15.2-10.1-16.7-28.6-16.9-31.8l13-103.6L721.9,275z" />
+                <path class="back-legs-back"
+		d="M255.1,300.9l15.6,87.3c0,0,72,23.7,72,0s-21.4-29.3-21.4-29.3l-11.7-101.1L255.1,300.9z" />
+                <path class="body"
+		d="M211.3,109.2C274.2,79.4,382.4,38.8,520.5,39c137.3,0.2,244.8,40.5,307.6,70.2c0,73,0,146,0,219.1
+       c-66.1-29.3-175.4-67-313.4-66c-132.8,0.9-238.3,37.2-303.4,66c-7.8-9.8-34.7-46.2-37-102.1C171.8,160.9,204.8,117.5,211.3,109.2z" />
+
+                <path class="ear"
+		d="M948.3,273h-13.4c-15.8,0-28.8-13-28.8-28.8V74.6c0-15.8,13-28.8,28.8-28.8h13.4c15.8,0,28.8,13,28.8,28.8
+       v169.6C977.1,260,964.1,273,948.3,273z" />
+                <path class="ear"
+		d="M756.7,273h-13.4c-15.8,0-28.8-13-28.8-28.8V74.6c0-15.8,13-28.8,28.8-28.8h13.4c15.8,0,28.8,13,28.8,28.8
+       v169.6C785.5,260,772.5,273,756.7,273z" />
+
+                <path class="head"
+		d="M889.4,329.1h-89.1c-27.6,0-50.3-22.6-50.3-50.3V88.5c0-27.6,22.6-50.3,50.3-50.3h89.1
+       c27.6,0,50.3,22.6,50.3,50.3v190.4C939.6,306.5,917,329.1,889.4,329.1z" />
+                <ellipse class="eyes" cx="801.8" cy="132.9" rx="17.7"
+		ry="20.6" />
+                <ellipse class="eyes" cx="893.7" cy="132.9" rx="17.7"
+		ry="20.6" />
+                <path class="nose"
+		d="M817.6,200.2c3.6-2.9,14.4-10.7,29.7-10.1c13.5,0.5,23,7.2,26.7,10.1c-1.9,18.9-16.3,32.2-31.1,30.4
+       C830,229.2,819.1,216.5,817.6,200.2z" />
+
+                <path class="mouth"
+		d="M844.3,247.2c0,0.6,0.7,10.7-6.5,16.9c-6.8,5.9-14.5,2.9-15.2,2.6c-0.9,6.1-1.8,15.8-0.1,27.4
+       c1.6,10.5,2.8,18.3,8.4,23.7c8.9,8.5,25,6.9,31.8-2.3c2.8-3.8,3.6-10.9,4.9-24.8c0.9-9.2,1.2-16.8,1.3-22.2
+       c-5.8,0.3-13.4-0.5-18.2-6.4C846,256.2,844.2,245.2,844.3,247.2z" />
+
+
+                <path
+		d="M881.4,235.2c0.4,1,0,2.2-0.9,2.7c-0.9,0.4-1.9-0.1-2.3-1.1c-0.4-1,0-2.2,0.9-2.7C880,233.7,881,234.2,881.4,235.2z" />
+                <path
+		d="M899.9,247c0.4,1,0,2.2-0.9,2.7c-0.9,0.4-1.9-0.1-2.3-1.1c-0.4-1,0-2.2,0.9-2.7S899.5,246,899.9,247z" />
+                <path
+		d="M891.7,241c0.4,1,0,2.2-0.9,2.7c-0.9,0.4-1.9-0.1-2.3-1.1c-0.4-1,0-2.2,0.9-2.7C890.3,239.5,891.3,240,891.7,241z" />
+                <path
+		d="M886,248.2c0.4,1,0,2.2-0.9,2.7s-1.9-0.1-2.3-1.1c-0.4-1,0-2.2,0.9-2.7S885.7,247.2,886,248.2z" />
+                <path
+		d="M892.4,260.4c0.4,1,0,2.2-0.9,2.7c-0.9,0.4-1.9-0.1-2.3-1.1c-0.4-1,0-2.2,0.9-2.7S892,259.3,892.4,260.4z" />
+                <path
+		d="M895.8,230.4c0.4,1,0,2.2-0.9,2.7s-1.9-0.1-2.3-1.1c-0.4-1,0-2.2,0.9-2.7C894.4,228.9,895.5,229.4,895.8,230.4z" />
+                <path
+		d="M810.2,236.4c-0.5,1.2-0.1,2.6,0.8,3.1s2.1-0.1,2.5-1.3s0.1-2.6-0.8-3.1S810.7,235.2,810.2,236.4z" />
+                <path
+		d="M789.6,249.9c-0.5,1.2-0.1,2.6,0.8,3.1s2.1-0.1,2.5-1.3c0.5-1.2,0.1-2.6-0.8-3.1C791.2,248.2,790.1,248.7,789.6,249.9z" />
+                <path
+		d="M798.8,243c-0.5,1.2-0.1,2.6,0.8,3.1c0.9,0.5,2.1-0.1,2.5-1.3c0.5-1.2,0.1-2.6-0.8-3.1C800.4,241.3,799.3,241.8,798.8,243z" />
+                <path
+		d="M804.2,251.3c-0.5,1.2-0.1,2.6,0.8,3.1c0.9,0.5,2.1-0.1,2.5-1.3c0.5-1.2,0.1-2.6-0.8-3.1S804.6,250.1,804.2,251.3z" />
+                <path
+		d="M796.5,265.3c-0.5,1.2-0.1,2.6,0.8,3.1s2.1-0.1,2.5-1.3s0.1-2.6-0.8-3.1C798.1,263.5,796.9,264.1,796.5,265.3z" />
+                <path
+		d="M795.3,230.9c-0.5,1.2-0.1,2.6,0.8,3.1s2.1-0.1,2.5-1.3c0.5-1.2,0.1-2.6-0.8-3.1S795.8,229.7,795.3,230.9z" />
+                <path class="tail"
+		d="M211.3,109.2c0,0-99.2,96.2-136.1,74.4c-37-21.7-9.7-164.9-9.7-164.9c-7.6,9.1-45.7,56.2-42.1,124.4
+       c0.8,15.2,3.8,71.7,34.3,89.9c51,30.4,152.2-62.3,153.6-63.1l0,0V109.2z" />
+                <path class="legs-front"
+		d="M211.3,328.3l15.6,87.3c0,0,72,23.7,72,0s-21.4-29.3-21.4-29.3l-11.7-101.1L211.3,328.3z" />
+                <path class="legs-front"
+		d="M755.5,295.5l-11.3,81c20.1,14.3,18.6,22.6,18.2,24.4c-3.1,11.9-34.8,20.4-54.5,7.4
+       c-15.2-10.1-16.7-28.6-16.9-31.8L704,273L755.5,295.5z" />
+
+
+        </svg>
 	<script>
 
 	$('.thar-three').click(function(){
@@ -570,6 +696,7 @@ a.animated-button.thar-three:before {
 		
 		var map = {};
 		var total = 0;
+		var breeds ="";
 		
 		$('.mm-survey-item input:checked').each(function(index, val) {
 			var item;
@@ -588,9 +715,16 @@ a.animated-button.thar-three:before {
 		for (i = 1; i <= count; i++) {
 
 			console.log(map[i]);
-			console.log(total += Number(map[i]));
+			if(i<=9){
+				console.log(total += Number(map[i]));
+			}else{
+				breeds+=map[i];
+			}
 		}
-		$("#checkTotalFrm").find('input').val(total);
+		$("#checkTotalFrm").find('input[name=total]').val(total);
+		$("#checkTotalFrm").find('input[name=breeds]').val(breeds);
+		  $("#svg-back").css("display","block");
+		  $("#loading").css("display","block");
 		$("#checkTotalFrm").submit();
 	}
 
@@ -603,4 +737,3 @@ a.animated-button.thar-three:before {
 	</script>
 </body>
 </html>
-	
