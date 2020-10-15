@@ -61,9 +61,10 @@ public class KakaoAPI {
             //    Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
             JsonParser parser = new JsonParser();
             JsonElement element = parser.parse(result);
-            
-            access_Token = element.getAsJsonObject().get("access_token").getAsString();
-            refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
+
+        	access_Token = element.getAsJsonObject().get("access_token").getAsString();
+        	refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
+            	
             
 //            log.debug("access_token = {} ",access_Token);
 //            log.debug("refresh_token = {} ",refresh_Token);
