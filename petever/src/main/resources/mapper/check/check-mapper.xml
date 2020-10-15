@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="check">
+
+	<select id="selectOne" resultMap="av">
+		select *
+from(select * from shelteranimal order by dbms_random.value) where rownum <![CDATA[ <=  ]]> 1 and  kind_cd like #{dog}
+	</select>
+	<resultMap id="av" type="AnimalView">
+		<id column="desertion_no" property="desertionNo"></id>
+		<result column="file_name" property="fileName"></result>
+		<result column="age" property="age"></result>
+		<result column="weight" property="weight"></result>
+		<result column="gender_cd" property="genderCd"></result>
+	</resultMap>
+
+</mapper>

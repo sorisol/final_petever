@@ -205,7 +205,7 @@
                             <td>${rep.repDate}</td>
                             <td style="text-align:center;font-size:24px;">${rep.repDisplay}</td>
                             <td>
-                              <a href="#"  id="reportDel" class="btn btn-info btn-circle btn-sm mr-2"  onclick="reportDel('${ rep.aniBoId }')">
+                              <a href="#"  id="reportDel" class="btn btn-info btn-circle btn-sm"  onclick="reportDel('${ rep.aniBoId }')">
                                 <i class="align-middle fas fa-fw fa-sync-alt"></i>
                               </a>
                             <c:if test="${rep.repDisplay eq 'Y'}">
@@ -218,6 +218,9 @@
                                 Y
                               </a>
                             </c:if>
+                          	  <a href="#"  id="reportRemove" class="btn btn-danger btn-circle btn-sm"  onclick="reportRemove('${ rep.aniBoId }')">
+                                X
+                              </a>
                               </td>
                           </tr>
                           </c:forEach>
@@ -246,6 +249,9 @@
 <form name="reportDelFrm" action="reportDel.do" method="POST">
 	<input type="hidden" name="no"/>
 </form>
+<form name="reportRemoveFrm" action="reportRemove.do" method="POST">
+	<input type="hidden" name="no"/>
+</form>
 <form name="reportYNFrm" action="reportYN.do" method="POST">
 	<input type="hidden" name="no"/>
 	<input type="hidden" name="yn"/>
@@ -263,6 +269,14 @@
 
 </body>
 <script>
+function reportRemove(num){
+	if(confirm("게시글을 삭제하시겠습니까?") == false)
+		return;
+	var frm = document.reportRemoveFrm;
+
+	frm.no.value = num;
+	frm.submit();
+}
 function reportDel(num){
 	if(confirm("신고 철회하시겠습니까?") == false)
 		return;
@@ -311,19 +325,20 @@ function displayResultTable(id, data){
 		for(var i in data){
 			var list = data[i];
 			html += "<tr role='row' class='odd'>";
-			html += "<td>" + list.aniBoId + "</td>";
+			html += "<td style='text-align:center;'> <a href='${pageContext.request.contextPath}/animalboard/boardView?no="+list.aniBoId +"' style='color:#858796;'>"+list.aniBoId +"</a></td>";
 			html += "<td>" + list.userId + "</td>";
 			html += "<td>" + list.repDoUser + "</td>";
-			html += "<td>" + list.repContent + "</td>";			
+			html += "<td style='background: #f8f9fc;font-size:14px;'>" + list.repContent + "</td>";			
 			html += "<td>" + list.repDate + "</td>";			
-			html += "<td>" + list.repDisplay + "</td>";			
-			html += "<td> <a href='#'  id='reportDel' class='btn btn-info btn-circle btn-sm mr-2'  onclick='reportDel("+list.aniBoId +")'> <i class='align-middle fas fa-fw fa-sync-alt'></i> </a>";
+			html += "<td style='text-align:center;font-size:24px;'>" + list.repDisplay + "</td>";			
+			html += "<td> <a href='#'  id='reportDel' class='btn btn-info btn-circle btn-sm mr-1'  onclick='reportDel("+list.aniBoId +")'> <i class='align-middle fas fa-fw fa-sync-alt'></i> </a>";
 			if(list.repDisplay=='Y'){
-				html += "<a href='#' id='reportYN' class='btn btn-warning btn-circle btn-sm' style='font-weight: bold; font-size: 16px;' onclick='reportYN("+list.aniBoId+"','"+list.repDisplay+"')>N</a>";
+				html += "<a href='#' id='reportYN' class='btn btn-warning btn-circle btn-sm mr-1' style='font-weight: bold; font-size: 16px;' onclick='reportYN("+list.aniBoId+"','"+list.repDisplay+"')>N</a>";
 			}
 			if(list.repDisplay=='N'){
-				html += "<a href='#' id='reportYN' class='btn btn-success btn-circle btn-sm' style='font-weight: bold; font-size: 16px;' onclick='reportYN("+list.aniBoId+"','"+list.repDisplay+"')>Y</a>";
-			}			
+				html += "<a href='#' id='reportYN' class='btn btn-success btn-circle btn-sm mr-1' style='font-weight: bold; font-size: 16px;' onclick='reportYN("+list.aniBoId+"','"+list.repDisplay+"')>Y</a>";
+			}
+			html += "<a href='#'  id='reportRemove' class='btn btn-danger btn-circle btn-sm'  onclick='reportRemove("+list.aniBoId+")'>X</a>"			
 			html += "</td>";
 			html += "</tr>";
 		}
