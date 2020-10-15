@@ -28,4 +28,6 @@ public interface AdminService {
 
 	int totalReport();
 
+	int reportRemove(String no);
+
 }

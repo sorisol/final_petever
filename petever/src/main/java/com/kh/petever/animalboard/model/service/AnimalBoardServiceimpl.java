@@ -171,6 +171,11 @@ public class AnimalBoardServiceimpl implements AnimalBoardService {
 	public List<AnimalAttach> selectAttachListOneBoard(int no) {
 		return dao.selectAttachListOneBoard(no);
 	}
+
+	@Override
+	public AdoptApplication selectOneApplication(int no) {
+		return dao.selectOneApplication(no);
+	}
 	
 	
 }

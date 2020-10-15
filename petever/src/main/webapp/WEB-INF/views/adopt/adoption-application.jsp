@@ -24,8 +24,6 @@
                 <input type="text" name="senderLocal" value="${loginUser.userLocal}">
                 <label for="senderPhone">◾ 전화번호</label>
                 <input type="text" name="senderPhone" value="${loginUser.userPhone}">
-                <label for="senderEmail">◾ 이메일 주소</label>
-                <input type="text" name="senderEmail" value="${loginUser.userEmail}">
                 <label for="senderJob">◾ 직업</label>
                 <input type="text" name="senderJob">
                 <label for="senderHome">◾ 주거형태</label>
@@ -64,7 +62,7 @@
                 <label for="A5-N" class="radio-label">아니오</label>
                 <label for="Q6">◾ 반려동물을 키운 종류와 수는? </label>
                 <input type="text" name="A6">
-                <label for="Q7">◾ 입양동물이 짖음, 배변실수, 분리불안, 어지럽히기, 기존강아지와의 트러블을 일으킬 수 있습니다. <br>
+                <label for="Q7">◾ 입양동물이 짖음, 배변실수, 분리불안, 어지럽히기, 기존강아지와의 트러블을 일으킬 수 있습니다.
                    	 이점에 대해서 어떻게 생각하시나요? </label>
                 <textarea name="A7" onkeyup="xSize(this);"></textarea>
                 <label for="Q8">◾ 여행/특별한 일정으로 집을 비우게 될 시 반려동물은 어떻게 지내게됩니까?</label>

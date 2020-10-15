@@ -34,12 +34,14 @@
                         <span class="board-title">${animalBoard.aniBoTitle}</span>
                         <br>
                         <span class="writer">${animalBoard.userId}</span>
-                        <div class="writer-menu">
-                            <ul>
-                                <li><a href="">쪽지보내기</a></li>
-                                <li><a href="${pageContext.request.contextPath}/apply/adopt?no=${animalBoard.aniBoId}">입양신청하기</a></li>
-                            </ul>
-                        </div>
+                        <c:if test="${not empty loginUser}">
+	                        <div class="writer-menu">
+	                            <ul>
+	                                <li><a href="">쪽지보내기</a></li>
+	                                <li><a href="${pageContext.request.contextPath}/apply/adopt?no=${animalBoard.aniBoId}">입양신청하기</a></li>
+	                            </ul>
+	                        </div>
+                        </c:if>
                         <span class="write-time">
                         	<fmt:parseDate value="${animalBoard.aniBoDate}" var="aniBoDate" pattern="yyyy-MM-dd HH:mm:ss"/>
 							<fmt:formatDate value="${aniBoDate}" pattern="yyyy.MM.dd HH:mm"/>
@@ -67,20 +69,22 @@
 							<fmt:formatDate value="${missDate}" pattern="yyyy.MM.dd"/>
                         </span>
                     </div>
-                    <div class="similar-container">
-                    	<fieldset>
-                    		<legend> 같은 지역에서 실종 신고된 동물 </legend>
-                    		<div class="slider">
-	                    		<c:forEach items="${shelterAniList}" var="sa">
-	                    			<div>
-	                    				<a href="${pageContext.request.contextPath}/shelterBoard/shelterAni?deserNo=${sa.desertionNo}">
-		                    				<img src="${sa.popfile}"/>
-	                    				</a>
-	                    			</div>
-	                    		</c:forEach>
-                    		</div>
-                    	</fieldset>
-                    </div>
+                   	<c:if test="${not empty shelterAniList}">
+	                    <div class="similar-container">
+	                    	<fieldset>
+	                    		<legend> 같은 지역에서 실종 신고된 동물 </legend>
+	                    		<div class="slider">
+		                    		<c:forEach items="${shelterAniList}" var="sa">
+		                    			<div>
+		                    				<a href="${pageContext.request.contextPath}/shelterBoard/shelterAni?deserNo=${sa.desertionNo}">
+			                    				<img src="${sa.popfile}"/>
+		                    				</a>
+		                    			</div>
+		                    		</c:forEach>
+	                    		</div>
+	                    	</fieldset>
+	                    </div>
+                   	</c:if>
                     <div id="board-comment-container">
                         <div class="comment-header">
                             <span class="comment-view">댓글 ${totalComment}</span>
@@ -237,8 +241,6 @@
         $(this).parent().parent().next().html(ht);
         $(".edit").focus();
         
-    });
-    $(".comment-edit-btn").on("click", function() {
     });
     
     function cancleBtn(btn) {

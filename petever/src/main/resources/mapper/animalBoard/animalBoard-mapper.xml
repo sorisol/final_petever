@@ -264,7 +264,9 @@
 			#{senderPhone},
 			#{senderJob},
 			#{senderHome},
-			#{a1}, #{a2}, #{a3}, #{a4}, #{a5}, #{a6}, #{a7}, #{a8}, #{a9}, #{a10}, #{a11}, #{a12}, #{a13}
+			#{a1}, #{a2}, #{a3}, #{a4}, #{a5}, #{a6}, #{a7}, #{a8}, #{a9}, #{a10}, #{a11}, #{a12}, #{a13},
+			sysdate,
+			#{receiverId}
 		)
 	</insert>
 	<select id="selectShelterAnimalList" resultMap="shelterAnimalMap">
@@ -338,6 +340,16 @@
 			ani_bo_id = #{no}
 	</select>
 	
+	<select id="selectOneApplication" resultMap="adoptApplicationMap">
+		select
+			*
+		from
+			adoption_application
+		where
+			adopt_id = #{no}
+	</select>
+	
+	<resultMap id="adoptApplicationMap" type="AdoptApplication"></resultMap>
 	<resultMap id="reportMap" type="report"></resultMap>
 	<resultMap id="shelterAnimalMap" type="shelterAnimal"></resultMap>
 	<resultMap id="animalBoardMap" type="animalBoard"></resultMap>

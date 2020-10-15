@@ -62,5 +62,10 @@ public class AdminServiceImpl implements AdminService {
 		return adminDao.totalReport();
 	}
 
+	@Override
+	public int reportRemove(String no) {
+		return adminDao.reportRemove(no);
+	}
+
 
 }

@@ -1,3 +1,8 @@
+*{
+	margin:0;
+	padding:0;
+	list-style:none;
+}
 body{
 	background-color:#E6BCB0 !important;
 }
@@ -262,4 +267,157 @@ input[type="radio"]:checked + label span {
 
 .on{
 	border:3px solid #FFDD93;
+}
+
+.coment{
+	font-size: 12px;
+    display: block;
+    color: white;
+}
+
+.check-result{
+	width: 1140px;
+    margin: 15px auto;
+    text-align: center;
+}
+
+.ment{
+	width: 350px;
+    margin: 30px auto;
+    text-align: center;
+    height: 45px;
+    line-height: 45px;
+    border-left: 15px solid white;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.img-wrap{
+	width: 800px;
+    margin: 25px auto;
+	overflow:hidden;
+}
+
+.img-wrap li{
+	float:left;
+	text-align:center;
+	margin: 0 23px;
+	font-size:18px;
+	font-weight:bold;
+	cursor:pointer;
+}
+
+.img-wrap li:hover img{
+	border-color:black;
+}
+
+.img-wrap li img{
+	width: 220px;
+    height: 220px;
+    border-radius: 100%;
+    border: 10px solid white;
+}
+
+.dogEx{
+	width: 800px;
+    margin: 45px auto;
+    line-height:40px;
+    text-align:center;
+    border-top:2px solid white;
+    overflow:hidden;
+    padding-top:40px;
+}
+
+.dogEx .av{
+	width: 250px;
+    border: 1px solid white;
+    border-radius: 20px;
+    float: left;
+    margin-left:20px;
+}
+
+.dogEx .av img{
+	width: 200px;
+    height: 200px;
+    border-radius: 100%;
+}
+
+.dogEx .ex{
+	width:530px;
+	float: left;
+}
+.out{
+	display:none;
+}
+
+.dog-wrap{
+	width:802px;
+	margin:40px auto;
+	border:1px solid white;
+	overflow:hidden;
+}
+
+/* loading */
+#svg-back{
+	width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    background: #E6BCB0;
+    opacity:0.8;
+    z-index: 1;
+    display:none;
+}
+#loading {
+	width: 200px;
+	height: 400px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: auto;
+	animation: rotation 3.5s infinite ease-in-out;
+	animation-fill-mode: forwards;
+	transform-origin: bottom;
+	display:none;
+	position: fixed;
+    top: 0;
+    left: calc(50% - 100px);
+    z-index:2;
+}
+@keyframes rotation{
+    
+        0%{transform: rotate(0deg);}
+        100%{transform: rotate(720deg);}
+
+}
+.back-legs-front {
+	fill: #C8BFAE;
+}
+
+.back-legs-back {
+	fill: #C8BFAE;
+}
+
+.legs-front {
+	fill: #F5E9D4;
+}
+
+.body {
+	fill: #F5E9D4;
+}
+
+.tail {
+	fill: #F5E9D4;
+}
+
+.head {
+	fill: #F5E9D4;
+}
+
+.ear {
+	fill: #E8C9B0;
+}
+
+.mouth {
+	fill: #E5856F;
 }

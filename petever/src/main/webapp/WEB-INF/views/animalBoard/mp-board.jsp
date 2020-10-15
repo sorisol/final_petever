@@ -17,6 +17,7 @@
             <div class="content">
                 <div class="border">
                     <form id="searchFrm">
+                	<input type="button" onclick="location.href = '${pageContext.request.contextPath}/apply/applicationView?no=21'" value="연결"/>
 	                    <table class="pet-info">
 	                        <tr>
 	                            <th>동물종류</th>
