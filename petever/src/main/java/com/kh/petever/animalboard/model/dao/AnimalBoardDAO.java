@@ -56,4 +56,6 @@ public interface AnimalBoardDAO {
 
 	List<AnimalAttach> selectAttachListOneBoard(int no);
 
+	AdoptApplication selectOneApplication(int no);
+
 }

@@ -117,11 +117,11 @@ div#userId-container span.error{color:red;}
 });
     
     /*회원가입*/
-    $("#userSignupFrm").submit(function(){
+    /* $("#userSignupFrm").submit(function(){
 
         return true;
 
-    });
+    }); */
 
  /*    function button1_click() {
     	alert("회원가입이 완료되었습니다.");
@@ -167,12 +167,6 @@ div#userId-container span.error{color:red;}
          }).open();
      }
 
-
-
- 
-    </script>
-    
-    <script>
    /*  유효성검사 */
     
 $(function(){

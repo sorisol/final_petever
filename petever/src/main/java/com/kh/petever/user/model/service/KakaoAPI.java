@@ -46,7 +46,7 @@ public class KakaoAPI {
             
             //    결과 코드가 200이라면 성공
             int responseCode = conn.getResponseCode();
-//            log.debug("responseCode = {} ", responseCode);
+            log.debug("responseCode = {} ", responseCode);
  
             //    요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -56,7 +56,7 @@ public class KakaoAPI {
             while ((line = br.readLine()) != null) {
                 result += line;
             }
-//            log.debug("response body = {} ", result);
+            log.debug("response body = {} ", result);
             
             //    Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
             JsonParser parser = new JsonParser();
@@ -91,7 +91,7 @@ public class KakaoAPI {
 	        conn.setRequestProperty("Authorization", "Bearer " + access_Token);
 	        
 	        int responseCode = conn.getResponseCode();
-	        System.out.println("responseCode : " + responseCode);
+	        log.debug("responseCode : " + responseCode);
 	        
 	        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 	        
@@ -118,6 +118,7 @@ public class KakaoAPI {
 	    
 	    return userInfo;
 	}
+	
 	public void kakaoLogout(String access_Token) {
 	    String reqURL = "https://kapi.kakao.com/v1/user/logout";
 	    try {
@@ -127,7 +128,7 @@ public class KakaoAPI {
 	        conn.setRequestProperty("Authorization", "Bearer " + access_Token);
 	        
 	        int responseCode = conn.getResponseCode();
-	        System.out.println("responseCode : " + responseCode);
+	        log.debug("responseCode = {}", responseCode);
 	        
 	        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 	        

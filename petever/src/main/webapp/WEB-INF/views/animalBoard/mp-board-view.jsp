@@ -238,8 +238,6 @@
         $(".edit").focus();
         
     });
-    $(".comment-edit-btn").on("click", function() {
-    });
     
     function cancleBtn(btn) {
 		var $btn = $(btn);

@@ -141,13 +141,19 @@ public class UserController {
 
 		}
 
-		return "redirect:/";
+		return "redirect:/"+location;
 	}
 
 	// 로그아웃 - 세션 무효화
 
 	@RequestMapping("/logout.do")
 	public String userLogout(SessionStatus sessionStatus, HttpSession session) {
+		Enumeration se = session.getAttributeNames();
+
+		while(se.hasMoreElements()){
+			String getse = se.nextElement()+"";
+			log.debug("@@@@@@@ session1 : "+getse+" : "+session.getAttribute(getse));
+		}
 		kakao.kakaoLogout((String)session.getAttribute("access_Token"));
 		session.removeAttribute("access_Token");
 		
@@ -155,6 +161,11 @@ public class UserController {
 		if (sessionStatus.isComplete() == false)
 			sessionStatus.setComplete();
 
+		while(se.hasMoreElements()){
+			String getse = se.nextElement()+"";
+			log.debug("@@@@@@@ session2 : "+getse+" : "+session.getAttribute(getse));
+		}
+		
 		return "redirect:/";
 
 	}
