@@ -3,15 +3,15 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="reviewboard">
-<!-- 게시판목록 -->
-<select id="selectReviewBoardList" resultMap="reviewBoardMap">
-	select 
-		*
-	from 
-		review_board 
-    order by 
-      	rew_bo_id desc
-</select>
+	<!-- 게시판목록 -->
+	<select id="selectReviewBoardList" resultMap="reviewBoardMap">
+		select 
+			*
+		from 
+			review_board 
+	    order by 
+	      	rew_bo_id desc
+	</select>
  
 	<!-- 게시판 글 작성  -->
   	<insert id="insertReviewBoard">
@@ -174,13 +174,38 @@
 	</select>
 
 	<!-- 페이징 -->
-<!-- 	<select id="reviewBoardCount" resultType="_int">
+ 	<select id="reviewBoardCount" resultType="_int">
 		select
 			count(*)
 		from
 			review_board
-	</select>  -->
+	</select>
 	
+	<!-- 신고하기 -->
+	<insert id="insertReport">
+		insert into
+			report
+		values(
+			#{aniBoId},
+			#{userId},
+			#{repContent},
+			default,
+			default,
+			#{repDoUser},
+			seq_report_id.nextval
+		)
+	</insert>
+	
+	<select id="selectOneReport" resultMap="reportMap">
+		select
+			*
+		from
+			report
+		where
+			ani_bo_id = #{aniBoId}
+			and rep_do_user = #{repDoUser}
+	</select>	
+	<resultMap id="reportMap" type="report"></resultMap>	
 	<resultMap id="reviewCommentMap" type="reviewComment"></resultMap>
 	<resultMap id="reviewAttachMap" type="reviewAttach"></resultMap>
 	<resultMap id="reviewBoardMap" type="reviewBoard"></resultMap>

@@ -133,9 +133,9 @@
 			return;
 		location.href="${pageContext.request.contextPath}/reviewBoard/deleteBoard?no="+${reviewBoard.rewBoId};
 	});
-	
+	//신고하기
     function openReport() {
-        window.open("${pageContext.request.contextPath}/reviewBoard/reportFrm?no=${reviewBoard.rewBoId}&&doUser=${loginUser.userId}", "신고하기",
+        window.open("${pageContext.request.contextPath}/reviewBoard/reportFrm.do?no=${reviewBoard.rewBoId}&&doUser=${loginUser.userId}", "신고하기",
             "width=500, height=330, toolbar=no, menubar=no, scrollbars=no, resizable=yes, top=300, left=500");
     }
 

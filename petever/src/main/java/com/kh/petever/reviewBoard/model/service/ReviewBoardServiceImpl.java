@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.petever.admin.model.vo.Report;
 import com.kh.petever.reviewBoard.model.dao.ReviewBoardDAO;
 import com.kh.petever.reviewBoard.model.vo.ReviewAttach;
 import com.kh.petever.reviewBoard.model.vo.ReviewBoard;
@@ -119,6 +120,16 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 	@Override
 	public int reviewBoardCount() {
 		return reviewBoardDAO.reviewBoardCount();
+	}
+
+	@Override
+	public int insertReport(Report rep) {
+		return reviewBoardDAO.insertReport(rep);
+	}
+
+	@Override
+	public Report selectOneReport(Map<String, Object> param) {
+		return reviewBoardDAO.selectOneReport(param);
 	}
 
 }

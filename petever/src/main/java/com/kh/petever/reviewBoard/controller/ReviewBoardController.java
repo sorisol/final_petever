@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,8 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.kh.petever.animalboard.model.vo.AnimalAttach;
+import com.kh.petever.admin.model.vo.Report;
 import com.kh.petever.common.Utils;
 import com.kh.petever.reviewBoard.model.service.ReviewBoardService;
 import com.kh.petever.reviewBoard.model.vo.ReviewAttach;
@@ -47,18 +47,18 @@ public class ReviewBoardController {
 	// 입양후기 게시판 연결
 	@GetMapping("/reviewBoard.do")
 	public String reviewBoardList(Model model, @RequestParam(defaultValue = "1") int cPage, HttpServletRequest request) {
-		final int limit = 16;
+		final int limit = 10;
 		int offset = (cPage - 1) * limit;
 
 		List<ReviewBoard> list = reviewBoardService.selectReviewBoard(limit, offset);
-		//int totalContents = reviewBoardService.reviewBoardCount();
+		int totalContents = reviewBoardService.reviewBoardCount();
 		//count(*) from review_board
 		String url = request.getRequestURI() + "?";
-		//String pageBar = Utils.getPageBarHtml(cPage, limit, totalContents, url);
+		 String pageBar = Utils.getPageBarHtml(cPage, limit, totalContents, url);
 		
 		log.debug("list = {}", list);
 		model.addAttribute("list", list);
-		//model.addAttribute("pageBar", pageBar);
+		model.addAttribute("pageBar", pageBar);
 		
 		return "reviewBoard/reviewBoard";
 	}
@@ -297,7 +297,39 @@ public class ReviewBoardController {
 			
 			return result;
 		}
-		
+			//신고하기폼
+			@GetMapping("/reportFrm.do")
+			public ModelAndView reportFrm(@RequestParam("no") int no, @RequestParam("doUser") String doUser, ModelAndView mav) {
+				ReviewBoard reviewBoard = reviewBoardService.selectOneBoard(no);
+				Map<String, Object> param = new HashMap<>();
+				param.put("aniBoId", no);
+				param.put("repDoUser", doUser);
+				
+				Report rep = reviewBoardService.selectOneReport(param);
+				log.debug("rep = {}", rep);
+				mav.addObject("reviewBoard", reviewBoard);
+				mav.addObject("doUser", doUser);
+				mav.addObject("rep", rep);
+				
+				mav.setViewName("reviewBoard/report");
+				return mav;
+			}
+			
+			@PostMapping("/report.do")
+			public @ResponseBody Map<String, Object> insertReport(@RequestBody Report rep) {
+				log.debug("rep = {}", rep);
+				String msg = "신고 완료";
+				try {
+					int result = reviewBoardService.insertReport(rep);
+				} catch(Exception e) {
+					log.error("신고 오류", e);
+					msg = "신고 실패";
+				}
+				Map<String, Object> map = new HashMap<>();
+				map.put("msg", msg);
+				
+				return map;
+			}		
 	}
 	  
 
