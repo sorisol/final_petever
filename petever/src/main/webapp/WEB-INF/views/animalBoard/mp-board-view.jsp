@@ -34,12 +34,14 @@
                         <span class="board-title">${animalBoard.aniBoTitle}</span>
                         <br>
                         <span class="writer">${animalBoard.userId}</span>
-                        <div class="writer-menu">
-                            <ul>
-                                <li><a href="">쪽지보내기</a></li>
-                                <li><a href="${pageContext.request.contextPath}/apply/adopt?no=${animalBoard.aniBoId}">입양신청하기</a></li>
-                            </ul>
-                        </div>
+                        <c:if test="${not empty loginUser}">
+	                        <div class="writer-menu">
+	                            <ul>
+	                                <li onClick="sendMessage('${animalBoard.userId}');" >쪽지보내기</li>
+	                                <li><a href="${pageContext.request.contextPath}/apply/adopt?no=${animalBoard.aniBoId}">입양신청하기</a></li>
+	                            </ul>
+	                        </div>
+                        </c:if>
                         <span class="write-time">
                         	<fmt:parseDate value="${animalBoard.aniBoDate}" var="aniBoDate" pattern="yyyy-MM-dd HH:mm:ss"/>
 							<fmt:formatDate value="${aniBoDate}" pattern="yyyy.MM.dd HH:mm"/>
@@ -237,6 +239,8 @@
         $(this).parent().parent().next().html(ht);
         $(".edit").focus();
         
+    });
+    $(".comment-edit-btn").on("click", function() {
     });
     
     function cancleBtn(btn) {

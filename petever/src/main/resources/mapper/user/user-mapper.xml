@@ -12,9 +12,9 @@
 					#{ userEmail },
 					#{ userBirth },
 					#{ userPhone },
-					#{ userLocal }, default
+					#{ userLocal }, default,
+					#{ postNo }, #{ userLocalDetail }
 					)
-		
 		</insert>
 		
 		<select id="selectOneUser" resultMap="userMapppp">
@@ -27,13 +27,12 @@
 		</select>
 	
 		<resultMap type="user" id="userMapppp">
-	
+			<result column="user_birth_date" property="userBirth"/> 
 		</resultMap>
 <!-- 		<resultMap type="user" id="userMapppp">
 			<id column="user_id" property="userId"/>
 			<result column="user_pwd" property="userPwd"/> 
 			<result column="user_eamil" property="userEmail"/> 
-			<result column="user_birth_date" property="userBirth"/> 
 			<result column="user_phone" property="userPhone"/>
 			<result column="user_local" property="userLocal"/>
 			<result column="user_role" property="userRole"/>
@@ -48,7 +47,9 @@
 			user_email = #{ userEmail },
 			user_birth_date = #{ userBirth },
 			user_phone = #{ userPhone },
-			user_local = #{ userLocal }
+			post_no = #{ postNo }, 
+			user_local = #{ userLocal },
+			user_local_detail = #{ userLocalDetail }
 		where 
 			user_id = #{ userId }
 		</update>

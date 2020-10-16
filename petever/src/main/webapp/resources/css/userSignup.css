@@ -52,26 +52,6 @@ section {
     cursor: pointer;
 }
 
-button {
-    width: 364px;
-    height: 50px;
-    /* float: left; */
-    background-color: #FFDD93;
-    border: 1px solid #FFDD93;
-    border-bottom: 3px solid #FFDD93;
-    text-align: center;
-    line-height: 40px;
-    color: #373b44;
-    font-size: 18px;
-    font-weight: bold;
-    letter-spacing: 8px;
-    margin: 30px auto 20px;
-    display: block;
-    cursor: pointer;
-    border-radius: 30px;
-    outline: none;
-}
-
 #email-id,
 #email {
     width: 150px;
@@ -105,9 +85,10 @@ button {
     margin: 0px 23px 15px 40px;
     border: 1px solid #cdcdcd;
     border-radius: 30px;
+
 }
 
-.btn-default {
+button {
 	width: 175px;
     height: 50px;
     background-color: #FFDD93;

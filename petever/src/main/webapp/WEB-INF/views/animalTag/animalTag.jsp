@@ -272,12 +272,18 @@
                 } 
                 
 				if($check) {
-					$('input[name="ssgName"]').val("${ loginUser.userId }");
+					//$('input[name="ssgName"]').val("${ loginUser.userId }");
 					$('input[name="ssgTel"]').val(autoHypenPhone("${ loginUser.userPhone }"));
+					$('[name=ssgAddr0]').val("${ loginUser.postNo }");
+					$('[name=ssgAddr1]').val("${ loginUser.userLocal }");
+					$('[name=ssgAddr2]').val("${ loginUser.userLocalDetail }");
 
 				} else {
-					$('input[name="ssgName"]').val('');
+					//$('input[name="ssgName"]').val('');
 					$('input[name="ssgTel"]').val('');
+					$('[name=ssgAddr0]').val('');
+					$('[name=ssgAddr1]').val('');
+					$('[name=ssgAddr2]').val('');
 				}
 			});
 

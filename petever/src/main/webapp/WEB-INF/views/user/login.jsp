@@ -10,8 +10,8 @@
             <form action="${pageContext.request.contextPath}/user/login.do" 
                   method="POST">
                <div class="login-body">
-                <input type="text" name="userId">
-                <input type="password" name="userPwd">
+                <input type="text" name="userId" placeholder="아이디">
+                <input type="password" name="userPwd" placeholder="비밀번호">
                 <button>로그인</button>
                 <div class="check">
                     <input type="checkbox" id="switch" /><label for="switch"></label>
@@ -23,11 +23,9 @@
                 <a href="">아이디 찾기</a> |
                 <a href="">비밀번호 찾기</a>
             </div>
-            <div id="my-signin2" class="g-signin2" data-width="232" data-height="50" data-longtitle="true"
-                data-onsuccess="onSignIn"></div>
+            <div id="my-signin2" class="g-signin2" data-width="232" data-height="50" data-longtitle="true" data-onsuccess="onSignIn"></div>
             <div id="naver_id_login" style="width:232px;margin:20px auto;"></div>
-            <a id="custom-login-btn" style="margin: 0 auto; width: 232px; display: block;"
-                href="https://kauth.kakao.com/oauth/authorize?client_id=94eafcad9cc336603158ae0aa47f30a3&redirect_uri=http://localhost:9090/petever/user/kakaologin.do&response_type=code">
+            <a id="custom-login-btn" style="margin: 0 auto; width: 232px; display: block;" href="https://kauth.kakao.com/oauth/authorize?client_id=94eafcad9cc336603158ae0aa47f30a3&redirect_uri=http://localhost:9090/petever/user/kakaologin.do&response_type=code">
                 <img src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg" width="232" />
             </a>
         </div>

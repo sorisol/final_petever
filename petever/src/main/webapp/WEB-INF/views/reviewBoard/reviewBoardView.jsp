@@ -27,7 +27,7 @@
                     <span class="writer">${reviewBoard.userId}</span>
                         <div class="writer-menu">
                             <ul>
-                                <li><a href="">쪽지보내기</a></li>
+                                <li onclick="sendMessage();">쪽지보내기</li>
                             </ul>
                         </div>
                        

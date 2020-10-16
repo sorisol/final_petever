@@ -97,6 +97,11 @@ public class ShelterInfoBoardController {
 
 	}
 	
+
+	@RequestMapping("/shelterInfoBoardDetail.do")
+	
+	
+	
 	
     private String getTagValue(String tag, Element eElement) {
 		NodeList nlList = eElement.getElementsByTagName(tag).item(0).getChildNodes();
