@@ -38,7 +38,7 @@
                         <c:if test="${not empty loginUser}">
 	                        <div class="writer-menu">
 	                            <ul>
-	                                <li><a href="">쪽지보내기</a></li>
+	                                <li onClick="sendMessage('${animalBoard.userId}');" >쪽지보내기</li>
 	                                <li><a href="${pageContext.request.contextPath}/apply/adopt?no=${animalBoard.aniBoId}">입양신청하기</a></li>
 	                            </ul>
 	                        </div>
@@ -92,6 +92,21 @@
 	                    	</fieldset>
 	                    </div>
                    	</c:if>
+                    <div class="similar-container">
+                    	<fieldset>
+                    		<legend> 같은 지역에서 실종 신고된 동물 </legend>
+                    		<div class="slider">
+	                    		<c:forEach items="${shelterAniList}" var="sa">
+	                    			<div>
+	                    				<a href="${pageContext.request.contextPath}/shelterBoard/shelterAni?deserNo=${sa.desertionNo}">
+		                    				<img src="${sa.popfile}"/>
+	                    				</a>
+	                    			</div>
+	                    		</c:forEach>
+                    		</div>
+                    	</fieldset>
+                    </div>
+>>>>>>> branch 'master' of https://github.com/rato12/petever.git
                     <div id="board-comment-container">
                         <div class="comment-header">
                             <span class="comment-view">댓글 ${totalComment}</span>
@@ -223,6 +238,7 @@ function xSize(e) {
     e.style.height = (e.scrollHeight) + 'px';
 }
        
+<<<<<<< HEAD
 $(".reply-btn").on('click', function() {
 	/* $(".comment-reply-write") */
 	$(this).next().toggle();
@@ -283,6 +299,48 @@ $(".comment-edit").on("click",  function() {
     	+'</form>';
     $(this).parent().parent().next().html(ht);
     $(".edit").focus();
+=======
+	//태그 색상
+    $(function() {
+        var $tag = $(".board-title-tag");
+        if($tag.text().includes('실종'))
+            $tag.css('color', '#F08080');
+        else if($tag.text().includes('목격'))
+            $tag.css('color', '#F0EF97');
+        else if($tag.text().includes('보호'))
+            $tag.css('color', '#5F9EA0');
+    });
+       
+	//아이디 클릭시 메뉴
+    $(".writer").click(function() {
+        $(".writer-menu").toggle();
+    });
+	//댓글 이미지 클릭시
+    $(".icon").click(function() {
+        $(this).next().toggle();
+    });
+    //댓글 삭제 클릭시
+    $(".comment-delete").on("click",  function() {
+    	if(!confirm("댓글을 삭제하시겠습니까?"))
+			return;
+		location.href="${pageContext.request.contextPath}/animalboard/deleteComment?no=${animalBoard.aniBoId}&commentNo="+$(this).val();
+    });
+    $(".comment-edit").on("click",  function() {
+        $(this).parent().parent().toggle();
+        var val = $(this).parent().parent().next().html();
+        var ht = '<form action="${pageContext.request.contextPath}/animalboard/editComment" method="post">'
+            	+'<textarea rows="1" class="edit comment_inbox_text" placeholder="댓글을 입력하세요" onkeyup="xSize(this)" name="aniCoContent">'+val+'</textarea>'
+        		+'<button type="submit" class="comment-edit-btn">수정</button>'
+        		+'<input type="hidden" name="aniCoId" value="'+$(this).val()+'" />'
+        		+'<input type="hidden" name="aniBoId" value="${animalBoard.aniBoId}" />'
+        		+'</form>';
+        $(this).parent().parent().next().html(ht);
+        $(".edit").focus();
+        
+    });
+    $(".comment-edit-btn").on("click", function() {
+    });
+>>>>>>> branch 'master' of https://github.com/rato12/petever.git
     
 });
    
