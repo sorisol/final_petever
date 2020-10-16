@@ -35,7 +35,6 @@ import com.kh.petever.user.model.service.KakaoAPI;
 import com.kh.petever.user.model.service.UserService;
 import com.kh.petever.user.model.vo.User;
 
-
 @Controller
 @RequestMapping("/user")
 @SessionAttributes(value = { "loginUser" })
@@ -44,8 +43,8 @@ public class UserController {
 	private Logger log = LoggerFactory.getLogger(getClass());
 
 	@Autowired
-    private KakaoAPI kakao;
-	
+	private KakaoAPI kakao;
+
 	@Autowired
 	private UserService userService;
 
@@ -54,52 +53,48 @@ public class UserController {
 
 	private Logger logger;
 
-	//회원가입 get
+	// 회원가입 get
 	@RequestMapping(value = "/signup.do", method = RequestMethod.GET)
 	public String userSignup() {
 		return "user/signup";
 	}
-	
+
 	// 회원가입 post : 회원가입 폼을 제출했을때 처리할 핸들러
-	@RequestMapping(value ="/signup.do",
-					method = RequestMethod.POST)
-	public String userSignup(User user,
-						HttpServletRequest req,
-						RedirectAttributes redirectAttr) {
-		
+	@RequestMapping(value = "/signup.do", method = RequestMethod.POST)
+	public String userSignup(User user, HttpServletRequest req, RedirectAttributes redirectAttr) {
+
 		log.debug("user@controller = {}", user);
-		
+
 		String rawPassword = user.getUserPwd();
-		//카카오아이디로 회원가입 했을 경우
-		if(user.getUserPwd() == null) {
+		// 카카오아이디로 회원가입 했을 경우
+		if (user.getUserPwd() == null) {
 			rawPassword = "petever";
 		}
-		
+
 		String encryptPassword = bcryptPasswordEncoder.encode(rawPassword);
 		user.setUserPwd(encryptPassword);
 		System.out.println("rawPassword@controller = " + rawPassword);
 		System.out.println("encryptPassword@controller = " + encryptPassword);
-		
-		//주소
+
+		// 주소
 		String addr2 = req.getParameter("addr2");
 		String addr3 = req.getParameter("addr3");
-		
+
 		user.setUserLocal(addr2 + " " + addr3);
 		System.out.println(user);
 
-		//1.비지니스로직 실행
+		// 1.비지니스로직 실행
 		int result = userService.insertUser(user);
-				
-		//2.RedirectAttributes를 통한 사용자 알림처리
+
+		// 2.RedirectAttributes를 통한 사용자 알림처리
 		String msg = (result > 0) ? "회원가입성공!" : "회원가입성공!";
 		System.out.println("msg@controller = " + msg);
 		redirectAttr.addFlashAttribute("msg", msg);
-		
+
 		return "redirect:/";
-		
+
 	}
 
-	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 
@@ -141,7 +136,7 @@ public class UserController {
 
 		}
 
-		return "redirect:/"+location;
+		return "redirect:/" + location;
 	}
 
 	// 로그아웃 - 세션 무효화
@@ -150,22 +145,22 @@ public class UserController {
 	public String userLogout(SessionStatus sessionStatus, HttpSession session) {
 		Enumeration se = session.getAttributeNames();
 
-		while(se.hasMoreElements()){
-			String getse = se.nextElement()+"";
-			log.debug("@@@@@@@ session1 : "+getse+" : "+session.getAttribute(getse));
+		while (se.hasMoreElements()) {
+			String getse = se.nextElement() + "";
+			log.debug("@@@@@@@ session1 : " + getse + " : " + session.getAttribute(getse));
 		}
-		kakao.kakaoLogout((String)session.getAttribute("access_Token"));
+		kakao.kakaoLogout((String) session.getAttribute("access_Token"));
 		session.removeAttribute("access_Token");
-		
+
 		// @SessionAttribute를 통해 등록된 객체 무효화
 		if (sessionStatus.isComplete() == false)
 			sessionStatus.setComplete();
 
-		while(se.hasMoreElements()){
-			String getse = se.nextElement()+"";
-			log.debug("@@@@@@@ session2 : "+getse+" : "+session.getAttribute(getse));
+		while (se.hasMoreElements()) {
+			String getse = se.nextElement() + "";
+			log.debug("@@@@@@@ session2 : " + getse + " : " + session.getAttribute(getse));
 		}
-		
+
 		return "redirect:/";
 
 	}
@@ -178,116 +173,109 @@ public class UserController {
 		return "user/userDetail";
 	}
 
-	@RequestMapping(value = "/userUpdate.do",
-				method = RequestMethod.POST)
-	public ModelAndView userUpdate(User user,
-								 HttpServletRequest req){
-	//파라미터로 전달받지 않고 직접 객체 생성 또한 가능
-	//viewName 생성자에 전달 가능
-	ModelAndView mav = new ModelAndView("redirect:/user/userDetail.do");
-	log.debug("user = {}", user);
-	
-	//주소
-	String addr2 = req.getParameter("addr2");
-	String addr3 = req.getParameter("addr3");
-	
-	user.setUserLocal(addr2 + " " + addr3);
-	System.out.println(user);
-	
-	//1.비지니스로직 실행
-	int result = userService.updateUser(user);
-	
-	//2.처리결과에 따라 view단 분기처리
-	String msg = "";
-	if(result>0){ 
-		msg="회원정보수정성공!";
-		User updatedUser = userService.selectOneUser(user.getUserId());
-		mav.addObject("loginUser", updatedUser);
-	}
-	else 
-		msg="회원정보수정실패!";
-	
-	//리다이렉트시 값전달하기
-	FlashMap flashMap = RequestContextUtils.getOutputFlashMap(req);
-	flashMap.put("msg", msg);
-	
-	return mav;
-	}
+	@RequestMapping(value = "/userUpdate.do", method = RequestMethod.POST)
+	public ModelAndView userUpdate(User user, HttpServletRequest req) {
+		// 파라미터로 전달받지 않고 직접 객체 생성 또한 가능
+		// viewName 생성자에 전달 가능
+		ModelAndView mav = new ModelAndView("redirect:/user/userDetail.do");
+		log.debug("user = {}", user);
 
-		
+		// 주소
+		String addr2 = req.getParameter("addr2");
+		String addr3 = req.getParameter("addr3");
+
+		user.setUserLocal(addr2 + " " + addr3);
+		System.out.println(user);
+
+		// 1.비지니스로직 실행
+		int result = userService.updateUser(user);
+
+		// 2.처리결과에 따라 view단 분기처리
+		String msg = "";
+		if (result > 0) {
+			msg = "회원정보수정성공!";
+			User updatedUser = userService.selectOneUser(user.getUserId());
+			mav.addObject("loginUser", updatedUser);
+		} else
+			msg = "회원정보수정실패!";
+
+		// 리다이렉트시 값전달하기
+		FlashMap flashMap = RequestContextUtils.getOutputFlashMap(req);
+		flashMap.put("msg", msg);
+
+		return mav;
+	}
 
 	// 회원 탈퇴 get
-	@RequestMapping(value="/userDelete", method = RequestMethod.GET)
+	@RequestMapping(value = "/userDelete", method = RequestMethod.GET)
 	public String userDelete() {
 		return "user/userDelete";
 	}
-	
+
 	// 회원 탈퇴 post
-	@RequestMapping(value="/userDelete", method = RequestMethod.POST)
+	@RequestMapping(value = "/userDelete", method = RequestMethod.POST)
 	public String userDelete(User user, HttpSession session, RedirectAttributes rttr, SessionStatus sessionStatus) {
-		//세션에 있는 user를 가져와 userDelete변수에 넣어준다. 
+		// 세션에 있는 user를 가져와 userDelete변수에 넣어준다.
 		User u = (User) session.getAttribute("user");
-		
+
 		// 세션에있는 비밀번호
 		String sessionPass = user.getUserPwd();
 		// vo로 들어오는 비밀번호
 		String voPass = bcryptPasswordEncoder.encode(user.getUserPwd());
 
-		if(!(bcryptPasswordEncoder.matches(sessionPass, voPass))) {
+		if (!(bcryptPasswordEncoder.matches(sessionPass, voPass))) {
 			rttr.addFlashAttribute("msg", false);
 			return "redirect:/user/userDelete";
 		}
 		int result = userService.userDelete(user);
-		if(result == 0) {
+		if (result == 0) {
 			rttr.addFlashAttribute("msg", "회원탈퇴 실패");
 		}
 		userLogout(sessionStatus, session);
 		return "redirect:/";
 	}
-	
 
 	@GetMapping("/checkIdDuplicate1.do")
-	public ModelAndView checkIdDuplicate1(ModelAndView mav,
-										  @RequestParam("userId") String userId) {
-		
-		//1. 업무로직 : 중복체크
+	public ModelAndView checkIdDuplicate1(ModelAndView mav, @RequestParam("userId") String userId) {
+
+		// 1. 업무로직 : 중복체크
 		User user = userService.selectOneUser(userId);
 		boolean isUsable = user == null;
-		
-		//2. model에 속성등록
+
+		// 2. model에 속성등록
 		mav.addObject("isUsable", isUsable);
-		
-		//3. viewName : jsonView빈 지정
+
+		// 3. viewName : jsonView빈 지정
 		mav.setViewName("jsonView");// /WEB-INF/views/jsonView.jsp
-		
+
 		return mav;
 	}
-	
-	//카카오로그인
+
+	// 카카오로그인
 	@RequestMapping("/kakaologin.do")
 	public String kakaoLognin(@RequestParam("code") String code, HttpSession session, Model model) {
 //		log.debug("code = {}", code);
-		
+
 		String access_Token = kakao.getAccessToken(code);
 //		log.debug("controller access_token = {}", access_Token);
-		
+
 		HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
-		String kakaoId = (String)userInfo.get("email");
+		String kakaoId = (String) userInfo.get("email");
 
 		User u = userService.selectOneUser(kakaoId);
-		
-		//DB에 등록 안되어있으면 회원가입페이지로 -> 추가정보입력
-		if(u == null) {
+
+		// DB에 등록 안되어있으면 회원가입페이지로 -> 추가정보입력
+		if (u == null) {
 			model.addAttribute("userId", kakaoId);
 			return "user/signup";
 		}
-		
+
 		session.setAttribute("loginUser", u);
 		session.setAttribute("access_Token", access_Token);
-		//세션에서 next값 가져오기
-		String next = (String)session.getAttribute("next");
+		// 세션에서 next값 가져오기
+		String next = (String) session.getAttribute("next");
 		String location = next != null ? next : "/";
-		return "redirect:/"+location;
+		return "redirect:/" + location;
 	}
 
 	@GetMapping("/checkIdDuplicate2.do")
@@ -295,11 +283,30 @@ public class UserController {
 	public Map<String, Object> checkIdDuplicate2(@RequestParam("userId") String userId) {
 		User user = userService.selectOneUser(userId);
 		boolean isUsable = (user == null);
-		
+
 		Map<String, Object> map = new HashMap<>();
 		map.put("isUsable", isUsable);
 		map.put("userId", userId);
-		
+
 		return map;
 	}
+
+	/*
+	 * //Naver로그인 public class NaverController{ private final static String
+	 * CLIENT_ID = "icm6yqV9NBm6cGj51hOi"; private final static String CLIENT_SECRET
+	 * = "CB1N9zTFkP"; private final static String REDIRECT_URI =
+	 * "http://localhost:9090/petever/user/login.do"; private final static String
+	 * SESSION_STATE = "oauth_state";
+	 * 
+	 * 네아로 인증 URL 생성 Method public String getAuthorizationUrl(HttpSession session) {
+	 * 세션 유효성 검증을 위하여 난수를 생성 String state = generateRandomString(); 생성한 난수 값을
+	 * session에 저장 setSession(session, state); Scribe에서 제공하는 인증 URL 생성 기능을 이용하여 네아로
+	 * 인증 URL 생성 OAuth20Service oauthService = new
+	 * ServiceBuilder().apiKey(CLIENT_ID).apiSecret(CLIENT_SECRET)
+	 * .callback(REDIRECT_URI).state(state) // 앞서 생성한 난수값을 인증 URL생성시 사용함
+	 * .build(NaverLoginApi.instance());
+	 * 
+	 * return oauthService.getAuthorizationUrl(); } }
+	 */
+
 }
