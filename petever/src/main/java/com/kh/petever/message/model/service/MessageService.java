@@ -12,4 +12,7 @@ public interface MessageService {
 
 	List<Message> selectMessageList(int limit, int offset);
 
+
+	int insertMessage(Message message);
+
 }

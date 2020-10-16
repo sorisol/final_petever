@@ -10,4 +10,7 @@ public interface MessageDAO {
 
 	int selectMessageTotalContents();
 
+	int insertMessage(Message message);
+
+
 }

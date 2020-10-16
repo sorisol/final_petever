@@ -11,9 +11,6 @@
 		from 
 			message
 	</select>
-	<resultMap id="MessageMap" type="message">
-
-	</resultMap>
 
 	<select id="selectOneMessage" resultMap="MessageMap">
 		select
@@ -30,7 +27,7 @@
 	    from 
 	    	message 	
 	    <where>
-			user_Id like '%'||#{userId}||'%'	    
+			user_Id like '%'||#{recieveId}||'%'	    
 	    </where> 
 	    
 	</select>
@@ -44,7 +41,7 @@
 		values(
 			seq_msg_no.nextval,
 			#{userId},
-			#{userIdSend},
+			#{receiveId},
 			#{msgContent},
 			default
 		)
@@ -52,5 +49,8 @@
 	
 	
 	
+	<resultMap id="MessageMap" type="message">
+
+	</resultMap>
 	
 </mapper>

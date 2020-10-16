@@ -25,6 +25,12 @@ public class MessageDAOImpl implements MessageDAO{
 	public int selectMessageTotalContents() {
 		return sqlSession.selectOne("message.selectMessageTotalContents");
 	}
+
+	@Override
+	public int insertMessage(Message message) {
+		return sqlSession.insert("message.insertMessage", message);
+	}
+
 	
 	
 

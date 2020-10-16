@@ -36,7 +36,7 @@
                         <span class="writer">${animalBoard.userId}</span>
                         <div class="writer-menu">
                             <ul>
-                                <li><a href="">쪽지보내기</a></li>
+                                <li onClick="sendMessage('${animalBoard.userId}');" >쪽지보내기</li>
                                 <li><a href="${pageContext.request.contextPath}/apply/adopt?no=${animalBoard.aniBoId}">입양신청하기</a></li>
                             </ul>
                         </div>

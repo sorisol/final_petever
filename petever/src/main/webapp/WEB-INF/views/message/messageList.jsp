@@ -23,8 +23,10 @@
 		<tr data-board-no="${ b.msgNo }">
 			<td>${ b.msgNo }</td>
 			<td>${ b.msgContent }</td>
-			<td>${ b.userId }</td>
-			<td><fmt:formatDate value="${ b.msgTime }" type="both"/></td>
+			<td>${ b.receiveId }</td>
+			<td>
+			<fmt:formatDate value="${b.msgTime}" pattern="yyyy.MM.dd HH:mm:ss"/>
+			</td>
 		</tr>
 		</c:forEach>
 	</table>
