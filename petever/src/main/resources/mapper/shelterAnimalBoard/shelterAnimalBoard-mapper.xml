@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ShelterAnimalBoard">
+	<insert id="insertXml">	
+		insert into shelterAnimalBoard
+		values( seq_shelter_no.nextval, #{ careName }, #{ careAddr }, #{ careTel }, #{ lat }, #{ lng }, #{ divisionName },
+				#{ saveAnimal }, #{ weekOprStime }, #{ weekOprEtime }, #{ weekendOprStime }, #{ weekendOprEtime }, #{ weekCellStime },
+				#{ weekCellEtime }, #{ weekendCellStime }, #{ weekendCellEtime }, #{ closeDay }, #{ vetPersonCnt }, #{ specsPersonCnt },
+				#{ medicalCnt }, #{ breedCnt }, #{ quarabtineCnt }, #{ feedCnt }, #{ transCarCnt }, #{ orgName },
+				<if test=" dsignationDate != 'null'">
+					to_date(#{ dsignationDate }, 'yyyy-MM-dd'), 
+				</if>
+				<if test=" dsignationDate == 'null'">
+					null,
+				</if>
+				<if test=" dataStdDate != 'null'">
+					to_date(#{ dataStdDate }, 'yyyy-MM-dd') 
+				</if>
+				<if test=" dataStdDate == 'null'">
+					null
+				</if>
+					)
+	</insert>
+	
+	<select id="shelterAniBoardSelect" resultMap="shelterAnimalBoardVo">
+		select *
+		from shelterAnimalBoard
+		<where>
+			<if test="city != null and city != ''">
+				org_name like '%' || #{ city } || '%'
+			</if>
+			<if test="province != null and province != ''">
+				org_name like '%' || #{ city } || '%'
+			</if>
+			<if test="shelterName != null and shelterName != ''">
+				care_name like '%' || #{ shelterName } || '%'
+			</if>
+		</where>
+		order by shelter_no
+	</select>
+	<resultMap type="ShelterAnimalBoard" id="shelterAnimalBoardVo">
+		<result column="CARE_LAT" property="lat"></result>
+		<result column="CARE_LNG" property="lng"></result>
+	</resultMap>
+	
+	<select id="shelterAniBoardCount" resultType="_int">
+		select count(*)
+		from shelterAnimalBoard
+		<where>
+			<if test="city != null and city != ''">
+				org_name like '%' || #{ city } || '%'
+			</if>
+			<if test="province != null and province != ''">
+				org_name like '%' || #{ city } || '%'
+			</if>
+			<if test="shelterName != null and shelterName != ''">
+				care_name like '%' || #{ shelterName } || '%'
+			</if>
+		</where>
+	</select>
+	
+	<select id="shelterAniDetailSelect" resultMap="shelterAnimalBoardVo">
+		select *
+		from shelterAnimalBoard
+		where shelter_no = #{ shelterNo }
+	</select>
+
+	
+</mapper>
