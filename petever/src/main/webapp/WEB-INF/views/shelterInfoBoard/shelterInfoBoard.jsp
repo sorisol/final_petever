@@ -110,8 +110,16 @@
 				            {
 				                "targets": [0,1,2,3],
 				                "orderable": false
-				            } 
-				        ],
+				            },
+		                     {
+	                            "targets": 1,
+	                            "render": function(data,type,row){
+	                               return '<a href="${pageContext.request.contextPath}/shelterInfoBoard/shelterInfoBoardDetail.do">'+data+'</a>'
+	                            }
+	                        },
+				            
+				            ],
+				    
 				        dom: '<"html5buttons"B>lTfgtip',
 				        buttons: [
 			 	            {extend: 'copy'},

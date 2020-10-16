@@ -3,6 +3,7 @@ package com.kh.petever.reviewBoard.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.petever.admin.model.vo.Report;
 import com.kh.petever.animalboard.model.vo.AnimalAttach;
 import com.kh.petever.reviewBoard.model.vo.ReviewAttach;
 import com.kh.petever.reviewBoard.model.vo.ReviewBoard;
@@ -58,4 +59,8 @@ public interface ReviewBoardDAO {
 	//페이징
 	int reviewBoardCount();
 	
+	//신고하기
+	int insertReport(Report rep);
+
+	Report selectOneReport(Map<String, Object> param);	
 }
