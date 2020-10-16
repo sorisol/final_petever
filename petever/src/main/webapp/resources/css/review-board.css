@@ -194,20 +194,52 @@ td {
 	outline-color: #f2aa8a;	
 }
 
+.reviewList {
+    width: 850px;
+    margin: 0 auto;
+    text-align: left;
+    border-collapse: collapse;
+}
 
-/********** 전체컨테이너 **********/
-div#container	{}
+.reviewList th,
+td {
+    padding: 5px 10px;
+}
 
-/********** header **********/
-header div#header-container {height:100px;}
-header div#header-container h2 	{margin:30px 10px 0px 10px;}
+/* 페이징 */
 
+.pageBar {
+	text-align: center;
+    margin: 30px auto;
+}
+​
+.page-link {
+	width: 15px;
+    height: 15px;
+    color: #373b44;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 5px;
+	margin: 3px;
+​
+}
+.cPage{
+	width: 15px;
+    height: 15px;
+    color: #fffde4;
+    font-weight: bold;
+    font-size: 19px;
+    padding: 5px;
+    background-color: #373b44;
+    border-radius: 10px;
+	margin: 3px;
+}
+​
+.page-pre {
+	background-color: white;
+    border-radius: 10px;
+    color: darkgray;
+    padding: 4px;
+}
 
-/********** content **********/
-section#content		{min-height:600px;}
-
-
-/********** footer **********/
-footer	{background-color:#f8f9fa; background-clip:content-box; clear:both; height:95px; text-align:center;}
-footer p 	{margin-top:30px;}
 

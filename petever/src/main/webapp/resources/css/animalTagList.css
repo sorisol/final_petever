@@ -12,9 +12,31 @@
     overflow: hidden;
 }
 
+.sub-bar ul {
+	width: 1150px;
+    line-height: 45px;
+    margin: -15px auto;
+    text-align: center;
+    top: 40px;
+	position: absolute;
+}
+
+.sub-bar ul li {
+	padding: 0px 9px;
+    color: #373b44;
+    font-weight: bold;
+    font-size: 18px;
+    display: inline;
+    cursor: pointer;
+}
+
+.sub-bar ul li a{
+    color: darkslategrey;
+}
+
 .tag-wrap{
     width: 900px;
-    height: 295px;
+    height: 315px;
     margin: 0 auto;
     overflow: hidden;
     border: 0px solid black;
@@ -28,6 +50,7 @@
     float: left;
     padding: 20px;
     text-align: center;
+    margin-top: 20px;
 }
 
 

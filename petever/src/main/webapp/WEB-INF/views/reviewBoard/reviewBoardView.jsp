@@ -11,6 +11,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/slick-theme.css"/>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/slick.js"></script>
 	    <div id="main-wrap">
         <section class="main">
@@ -29,11 +30,8 @@
                                 <li onclick="sendMessage();">쪽지보내기</li>
                             </ul>
                         </div>
-                        
-                        <span class="write-time">
-                        	<fmt:parseDate value="${reviewBoard.rewBoRegDate}" var="rewBoRegDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-							<fmt:formatDate value="${regDate}" pattern="yyyy.MM.dd HH:mm"/>
-                        </span>
+                       
+                        <span class="write-time">${reviewBoard.rewBoRegDate}</span>
                         <a href="#board-comment-container" class="header-comment-view">댓글 ${totalComment}</a>
                     </div>
                     <div class="pet-info">
@@ -51,7 +49,7 @@
                         </div>
                         <c:if test="${ not empty commentList }">
                         	<c:forEach items="${commentList}" var="cl">
-                        		<c:if test="${cl.aniCoLevel == 1 }">
+                        		<c:if test="${cl.rewCoLevel == 1 }">
 			                        <div class="board-comment">
 			                            <span class="id-box">${cl.userId}</span>
 		                            	<c:if test="${not empty loginUser}">
@@ -59,25 +57,25 @@
 			                           		 	<img class="icon" src="${pageContext.request.contextPath}/resources/images/icon.png"/>
 					                            <div class="comment-menu">
 						                            <ul>
-						                                <li class="comment-edit" value="${cl.aniCoId}">수정</li>
-						                                <li class="comment-delete" value="${cl.aniCoId}">삭제</li>
+						                                <li class="comment-edit" value="${cl.rewCoId}">수정</li>
+						                                <li class="comment-delete" value="${cl.rewCoId}">삭제</li>
 						                            </ul>
 						                        </div>
 			                            	</c:if>
 			                            </c:if>
-			                            <p>${cl.aniCoContent}</p>
+			                            <p>${cl.rewCoContent}</p>
 			                            <span class="comment-time">
-			                            	<fmt:parseDate value="${cl.aniCoDate}" var="aniCoDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-											<fmt:formatDate value="${aniCoDate}" pattern="yyyy.MM.dd HH:mm"/>
+			                            	<fmt:parseDate value="${cl.rewCoDate}" var="rewCoDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+											<fmt:formatDate value="${rewCoDate}" pattern="yyyy.MM.dd HH:mm"/>
 			                            </span>
 			                            
 										<c:if test="${not empty loginUser}">
-				                            <button type="button" class="reply-btn" value="${cl.aniCoId}">답글쓰기</button>
+				                            <button type="button" class="reply-btn" value="${cl.rewCoId}">답글쓰기</button>
 				                            <div class="comment-reply-write" style="display: none;"></div>
 										</c:if>
 			                        </div>
 	                        	</c:if>
-                        		<c:if test="${cl.aniCoLevel == 2}">
+                        		<c:if test="${cl.rewCoLevel == 2}">
 			                        <div class="board-comment-reply">
 			                            <span class="id-box">&#8627; ${cl.userId}</span>
 		                            	<c:if test="${not empty loginUser}">
@@ -85,16 +83,16 @@
 				                            <div class="comment-menu">
 			                            		<c:if test="${loginUser.userId eq cl.userId || loginUser.userId == 'admin'}">
 						                            <ul>
-						                                <li class="comment-edit" value="${cl.aniCoId}">수정</li>
-						                                <li class="comment-delete" value="${cl.aniCoId}">삭제</li>
+						                                <li class="comment-edit" value="${cl.rewCoId}">수정</li>
+						                                <li class="comment-delete" value="${cl.rewCoId}">삭제</li>
 						                            </ul>
 				                            	</c:if>
 					                        </div>
 		                            	</c:if>
-			                            <p>${cl.aniCoContent}</p>
+			                            <p>${cl.rewCoContent}</p>
 			                            <span class="comment-time">
-			                            	<fmt:parseDate value="${cl.aniCoDate}" var="aniCoDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-											<fmt:formatDate value="${aniCoDate}" pattern="yyyy.MM.dd HH:mm"/>
+			                            	<fmt:parseDate value="${cl.rewCoDate}" var="rewCoDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+											<fmt:formatDate value="${rewCoDate}" pattern="yyyy.MM.dd HH:mm"/>
 										</span>
 			                        </div>
 	                        	</c:if>
@@ -103,13 +101,13 @@
                     </div>
                     <c:if test="${not empty loginUser}">
 	                    <div class="comment-write">
-	                    	<form action="${pageContext.request.contextPath}/animalboard/insertComment" method="post">
+	                    	<form action="${pageContext.request.contextPath}/reviewBoard/insertComment.do" method="post">
 		                        <input type="hidden" name="userId" value="${loginUser.userId}"/>
-		                        <input type="hidden" name="aniCoLevel" value="1"/>
-		                        <input type="hidden" name="aniBoId" value="${animalBoard.aniBoId}" />
-		                        <input type="hidden" name="aniCoRef" value="0"/>
+		                        <input type="hidden" name="rewCoLevel" value="1"/>
+		                        <input type="hidden" name="rewBoId" value="${reviewBoard.rewBoId}" />
+		                      <!--   <input type="hidden" name="rewCoRef" value="0"/> -->
 		                        <span>${loginUser.userId}</span>
-		                        <textarea rows="1" class="comment_inbox_text" placeholder="댓글을 입력하세요" name="aniCoContent"
+		                        <textarea rows="1" class="comment_inbox_text" placeholder="댓글을 입력하세요" name="rewCoContent"
 		                            onkeyup="xSize(this)"></textarea>
 		                        <div class="btn-align">
 		                            <button class="comment-reg-btn">등록</button>
@@ -119,23 +117,25 @@
                     </c:if>
                 </div>
                 <div class="btn-wrap">
-	                <button type="button" class="board-list-btn" onclick="location.href='${pageContext.request.contextPath}/reviewBoard'">글 목록</button>
-	                <c:if test="${loginUser.userId == animalBoard.userId || loginUser.userId == 'admin'}">
-		                <button type="button" class="board-delete-btn">삭제</button>
-		                <button type="button"class="board-edit-btn" onclick="location.href='${pageContext.request.contextPath}/animalboard/updateBoardFrm?no=${animalBoard.aniBoId}'">수정</button>
-	                </c:if>
+	                <button type="button" class="board-list-btn" onclick="location.href='${pageContext.request.contextPath}/reviewBoard/reviewBoard.do'">글 목록</button>
+	                <c:if test="${loginUser.userId == reviewBoard.userId || loginUser.userId == 'admin'}">
+		                <button type="button" class="board-delete-btn">삭제</button>			
+		                <button type="button"class="board-edit-btn" onclick="location.href='${pageContext.request.contextPath}/reviewBoard/updateFrm.do?no=${reviewBoard.rewBoId}'">수정</button>
+	              </c:if>
                 </div>
             </div>
         </section>
     </div>
 <script>
-	$(".board-delete-btn").on("click", function() {
+	
+ 	$(".board-delete-btn").on("click", function() {
 		if(!confirm("게시글을 삭제하시겠습니까?"))
 			return;
-		location.href="${pageContext.request.contextPath}/animalboard/deleteBoard?no="+${animalBoard.aniBoId};
+		location.href="${pageContext.request.contextPath}/reviewBoard/deleteBoard?no="+${reviewBoard.rewBoId};
 	});
+	
     function openReport() {
-        window.open("${pageContext.request.contextPath}/animalboard/reportFrm?no=${animalBoard.aniBoId}&&doUser=${loginUser.userId}", "신고하기",
+        window.open("${pageContext.request.contextPath}/reviewBoard/reportFrm?no=${reviewBoard.rewBoId}&&doUser=${loginUser.userId}", "신고하기",
             "width=500, height=330, toolbar=no, menubar=no, scrollbars=no, resizable=yes, top=300, left=500");
     }
 
@@ -148,13 +148,13 @@
      $(".reply-btn").on('click', function() {
     	 /* $(".comment-reply-write") */
     	 $(this).next().toggle();
-         var reply = '<form action="${pageContext.request.contextPath}/animalboard/insertComment" method="post">';
+         var reply = '<form action="${pageContext.request.contextPath}/reviewBoard/insertComment.do" method="post">';
          reply += '<input type="hidden" name="userId" value="${loginUser.userId}"/>';
-         reply += '<input type="hidden" name="aniCoLevel" value="2"/>';
-         reply += '<input type="hidden" name="aniBoId" value="${animalBoard.aniBoId}" />';
-         reply += '<input type="hidden" name="aniCoRef" value="'+$(this).val()+'"/>';
+         reply += '<input type="hidden" name="rewCoLevel" value="2"/>';
+         reply += '<input type="hidden" name="rewBoId" value="${reviewBoard.rewBoId}" />';
+/*          reply += '<input type="hidden" name="rewCoRef" value="'+$(this).val()+'"/>'; */
          reply += '<span class="id-box">${loginUser.userId}</span>';
-         reply += '<textarea rows="1" class="comment_inbox_text" placeholder="댓글을 입력하세요" onkeyup="xSize(this)" name="aniCoContent"></textarea>';
+         reply += '<textarea rows="1" class="comment_inbox_text" placeholder="댓글을 입력하세요" onkeyup="xSize(this)" name="rewCoContent"></textarea>';
          reply += '<div class="btn-align">';
          reply += '<button type="button" class="comment-cancle-btn" onclick="cancleBtn(this);">취소</button>';
          reply += '<button class="comment-reg-btn">등록</button>';
@@ -186,16 +186,17 @@
     $(".comment-delete").on("click",  function() {
     	if(!confirm("댓글을 삭제하시겠습니까?"))
 			return;
-		location.href="${pageContext.request.contextPath}/animalboard/deleteComment?no=${animalBoard.aniBoId}&commentNo="+$(this).val();
+		location.href="${pageContext.request.contextPath}/reviewBoard/deleteComment.do?no=${reviewBoard.rewBoId}&commentNo="+$(this).val();
     });
+    //댓글 수정 클릭시
     $(".comment-edit").on("click",  function() {
         $(this).parent().parent().toggle();
         var val = $(this).parent().parent().next().html();
-        var ht = '<form action="${pageContext.request.contextPath}/animalboard/editComment" method="post">'
-            	+'<textarea rows="1" class="edit comment_inbox_text" placeholder="댓글을 입력하세요" onkeyup="xSize(this)" name="aniCoContent">'+val+'</textarea>'
+        var ht = '<form action="${pageContext.request.contextPath}/reviewBoard/editComment.do" method="post">'
+            	+'<textarea rows="1" class="edit comment_inbox_text" placeholder="댓글을 입력하세요" onkeyup="xSize(this)" name="rewCoContent">'+val+'</textarea>'
         		+'<button type="submit" class="comment-edit-btn">수정</button>'
-        		+'<input type="hidden" name="aniCoId" value="'+$(this).val()+'" />'
-        		+'<input type="hidden" name="aniBoId" value="${animalBoard.aniBoId}" />'
+        		+'<input type="hidden" name="rewCoId" value="'+$(this).val()+'" />'
+        		+'<input type="hidden" name="rewBoId" value="${reviewBoard.rewBoId}" />'
         		+'</form>';
         $(this).parent().parent().next().html(ht);
         $(".edit").focus();

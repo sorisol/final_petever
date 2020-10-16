@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
-import com.kh.petever.animalboard.model.vo.AnimalAttach;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

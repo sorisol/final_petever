@@ -158,7 +158,7 @@ polyline{
     color: #ededed;
     cursor: pointer;
 }
-/* .content2 .stats-wrap ul .on{ */
+.content2 .stats-wrap ul .on{
     background-color: #55423B;
     color:white;
 }
@@ -166,4 +166,30 @@ polyline{
 .stats-wrap ul li:hover{
 	background-color: #55423B;
     color:white;
+}
+
+.checkList{
+	width:148px;
+	height:53px;
+	display:block;
+	position:fixed;
+	transition:0.5s;
+	border-radius: 30px;
+    text-align: center;
+    line-height: 53px;
+	background-color:white;
+	-webkit-box-shadow: -1px 4px 21px -8px rgba(136,136,136,1);
+	-moz-box-shadow: -1px 4px 21px -8px rgba(136,136,136,1);
+	box-shadow: -1px 4px 21px -8px rgba(136,136,136,1);
+	font-size:14px;
+}
+
+.checkList:hover{
+	background-color:#FFDD93;
+}
+
+.checkList svg{
+	position:relative;
+	top:3px;
+	left:-5px;
 }

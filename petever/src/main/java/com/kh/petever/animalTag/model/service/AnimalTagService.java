@@ -14,4 +14,6 @@ public interface AnimalTagService {
 
 	int animalTagCount(String userId);
 
+	AnimalTag selectOne(AnimalTag aniTag);
+
 }

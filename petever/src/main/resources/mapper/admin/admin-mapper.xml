@@ -64,8 +64,15 @@
 		<result column="rep_do_user" property="repDoUser"></result>
 	</resultMap>
 	
+	<delete id="reportRemove">
+		delete from animal_board ab
+		where exists(
+		    select * from report r where r.ani_bo_id = ab.ani_bo_id and r.ani_bo_id = #{no}
+		)
+	</delete>
+	
 	<delete id="reportDel">
-		delete from report where user_id = #{no}
+		delete from report where ani_bo_id = #{no}
 	</delete>
 	
 	<update id="reportYN">

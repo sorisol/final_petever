@@ -1,15 +1,15 @@
 package com.kh.petever.reviewBoard.model.service;
 
 import java.util.List;
-
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.petever.animalboard.model.vo.AnimalAttach;
 import com.kh.petever.reviewBoard.model.dao.ReviewBoardDAO;
 import com.kh.petever.reviewBoard.model.vo.ReviewAttach;
 import com.kh.petever.reviewBoard.model.vo.ReviewBoard;
+import com.kh.petever.reviewBoard.model.vo.ReviewComment;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,7 +37,7 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 		if(result == 0)
 			throw new RuntimeException("게시글 등록 오류");
 		
-//		2.attachment 테이블에 insert
+		//2.attachment 테이블에 insert
 		//첨부파일 수 만큼 행추가
 		List<ReviewAttach> attachList = reviewBoard.getAttachList();
 		//첨부파일이 있는 경우
@@ -74,6 +74,51 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 	@Override
 	public int deleteBoard(int no) {
 		return reviewBoardDAO.deleteBoard(no);
+	}
+
+	@Override
+	public int deleteAttach(int rewBoId) {
+		return reviewBoardDAO.deleteAttach(rewBoId);
+	}
+
+	@Override
+	public List<ReviewComment> selectCommentList(int no) {
+		return reviewBoardDAO.selectCommentList(no);
+	}
+
+	@Override
+	public int totalComment(int no) {
+		return reviewBoardDAO.totalComment(no);
+	}
+
+	@Override
+	public int insertComment(ReviewComment reviewComment) {
+		return reviewBoardDAO.insertComment(reviewComment);
+	}
+
+	@Override
+	public int deleteComment(int commentNo) {
+		return reviewBoardDAO.deleteComment(commentNo);
+	}
+
+	@Override
+	public int editComment(ReviewComment reviewComment) {
+		return reviewBoardDAO.editComment(reviewComment);
+	}
+
+	@Override
+	public List<ReviewBoard> searchBoardList(ReviewBoard reviewBoard) {
+		return reviewBoardDAO.searchBoardList(reviewBoard);
+	}
+
+	@Override
+	public List<ReviewAttach> selectAttachListOneBoard(int no) {
+		return reviewBoardDAO.selectAttachListOneBoard(no);
+	}
+
+	@Override
+	public int reviewBoardCount() {
+		return reviewBoardDAO.reviewBoardCount();
 	}
 
 }

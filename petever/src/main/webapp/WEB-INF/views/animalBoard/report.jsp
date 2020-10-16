@@ -16,8 +16,8 @@
 	<div class="report">
         <h3>신고하기</h3>
     </div>
-    <p><span>· 작성자</span> : ${animal.userId}</p>
     <p><span>· 제목</span> : [${animal.aniBoTag}] ${animal.aniBoTitle}</p>
+    <p><span>· 글쓴이</span> : ${animal.userId}</p>
     <hr width="485px" style="margin-left: 15px; height: 1px;border:none;background-color: #cac7c7;">
     <p style="font-size: 16px;">· 사유작성</p>
     <textarea name="repContent" id="repContent" cols="65" rows="10" required></textarea>
@@ -38,7 +38,6 @@ $(function() {
 	</c:if>
 });
 $("#submit-btn").on("click", function() {
-	console.log("실행");
 	var rep = {
 		aniBoId: ${animal.aniBoId},
 		userId: '${animal.userId}',

@@ -14,6 +14,7 @@ section {
 
 .signup {
     margin: 25px auto;
+    margin-top: 130px;
     width: 420px;
     padding: 30px;
     background-color: white;
@@ -93,4 +94,33 @@ button {
     letter-spacing: normal;
     display: inline-block;
     margin: 0;
+}
+
+#addr1 {
+    display: inline-block;
+    width: 140px;
+    height: 45px;
+    font-size: 18px;
+    padding-left: 15px;
+    margin: 0px 23px 15px 40px;
+    border: 1px solid #cdcdcd;
+    border-radius: 30px;
+}
+
+.btn-default {
+	width: 175px;
+    height: 50px;
+    background-color: #FFDD93;
+    border: 0px solid #FFDD93;
+    border-bottom: 0px solid #FFDD93;
+    text-align: center;
+    color: #373b44;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    margin: 0px auto 0px;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 30px;
+    outline: none;
 }

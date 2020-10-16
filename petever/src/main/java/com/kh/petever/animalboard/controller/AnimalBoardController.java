@@ -63,7 +63,7 @@ public class AnimalBoardController {
 		int totalContents = service.animalBoardCount();
 		
 		String url = request.getRequestURI() + "?";
-		String pageBar = Utils.getPageBarHtml(cPage, 10, totalContents, url);
+		String pageBar = Utils.getPageBarHtml(cPage, limit, totalContents, url);
 		
 		mav.addObject("pageBar", pageBar);
 		mav.addObject("boardList", boardList);
@@ -355,7 +355,7 @@ public class AnimalBoardController {
 		mav.addObject("animal", animal);
 		log.debug("animal = {}", animal);
 		
-		mav.setViewName("animalBoard/adoption-application");
+		mav.setViewName("adopt/adoption-application");
 		return mav;
 	}
 	
@@ -370,7 +370,17 @@ public class AnimalBoardController {
 			redirectAttr.addFlashAttribute("msg", "신청 실패");
 		}
 		
-		return "redirect:/";
+		return "redirect:/animalboard/boardView?no=" + application.getAniBoId();
+	}
+	
+	@GetMapping("/apply/applicationView")
+	public ModelAndView selectOneApplication(@RequestParam("no") int no , ModelAndView mav) {
+		
+		AdoptApplication application = service.selectOneApplication(no);
+
+		mav.addObject("adopt", application);
+		mav.setViewName("adopt/adoption-application-view");
+		return mav;
 	}
 	
 	@GetMapping("/animalboard/reportFrm")

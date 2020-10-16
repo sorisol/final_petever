@@ -5,7 +5,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,18 +21,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.petever.animalboard.model.vo.AnimalAttach;
-import com.kh.petever.animalboard.model.vo.AnimalBoard;
 import com.kh.petever.common.Utils;
 import com.kh.petever.reviewBoard.model.service.ReviewBoardService;
 import com.kh.petever.reviewBoard.model.vo.ReviewAttach;
 import com.kh.petever.reviewBoard.model.vo.ReviewBoard;
+import com.kh.petever.reviewBoard.model.vo.ReviewComment;
 
-import jdk.internal.org.jline.utils.Log;
+/*import jdk.internal.org.jline.utils.Log;*/
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -43,15 +46,20 @@ public class ReviewBoardController {
 
 	// 입양후기 게시판 연결
 	@GetMapping("/reviewBoard.do")
-	public String reviewBoardList(Model model, @RequestParam(defaultValue = "1") int cPage) {
+	public String reviewBoardList(Model model, @RequestParam(defaultValue = "1") int cPage, HttpServletRequest request) {
 		final int limit = 16;
 		int offset = (cPage - 1) * limit;
-		log.debug("연결");
-		System.out.println("연결");
 
 		List<ReviewBoard> list = reviewBoardService.selectReviewBoard(limit, offset);
+		//int totalContents = reviewBoardService.reviewBoardCount();
+		//count(*) from review_board
+		String url = request.getRequestURI() + "?";
+		//String pageBar = Utils.getPageBarHtml(cPage, limit, totalContents, url);
+		
 		log.debug("list = {}", list);
 		model.addAttribute("list", list);
+		//model.addAttribute("pageBar", pageBar);
+		
 		return "reviewBoard/reviewBoard";
 	}
 
@@ -116,7 +124,9 @@ public class ReviewBoardController {
 
 		return "redirect:/reviewBoard/reviewBoard.do";
 	}
-
+	  
+	
+	  //게시글조회
 	  @GetMapping("/reviewBoardView.do") 
 	  public ModelAndView ReviewBoardView(@RequestParam int no, ModelAndView mav) {
 	  log.debug("[{}]번 게시글 조회!", no);
@@ -126,41 +136,168 @@ public class ReviewBoardController {
 	  mav.addObject("reviewBoard", reviewBoard);
 	  log.debug("reviewBoard = {}", reviewBoard);
 
-
-		mav.setViewName("reviewBoard/reviewBoardView");
-		return mav;
+		//no번 게시글의 댓글
+		int totalComment = reviewBoardService.totalComment(no);
+		mav.addObject("totalComment", totalComment);
+		List<ReviewComment> commentList = reviewBoardService.selectCommentList(no);
+		mav.addObject("commentList", commentList);
+			mav.setViewName("reviewBoard/reviewBoardView");
+			return mav;
 	 
 	  }
-
-		  
-	  	// 게시글 수정 뷰
-		@GetMapping("/reviewBoardUpdateFrm")
-		public String updateFrm() {
-		return "reviewBoard/reviewBoardUpdateFrm";
 	
-				  
-		  }
-	    
-	  //게시글 수정
-		@RequestMapping(value = "/updateBoard", method = RequestMethod.POST)
-		public String updateBoard(ReviewBoard reviewBoard) {
-		
-		log.debug("update");
-		reviewBoardService.updateBoard(reviewBoard);
-		
-		return "redirect:/reviewBoard/reviewBoard";
+		//게시글수정 뷰
+		@GetMapping("/updateFrm.do")
+		public ModelAndView updateFrm(@RequestParam("no") int no, ModelAndView mav) {
+			ReviewBoard reviewBoard = reviewBoardService.selectOneBoard(no);
 			
+			mav.addObject("reviewBoard", reviewBoard);
+			log.debug("reviewBoard = {}", reviewBoard);
+			
+			
+			mav.setViewName("reviewBoard/updateFrm");
+			return mav;	
 		}
-	  
-	  //게시글 삭제
-		@RequestMapping(value = "/deleteBoard", method = RequestMethod.POST)
-		public String deleteBoard(ReviewBoard reviewBoard) {
-			
-		log.debug("delete");
-		reviewBoardService.deleteBoard(reviewBoard.getRewBoId());
 		
-		return "redirect:reviewBoard/reviewBoard";
 
+	    //게시글 삭제
+		@GetMapping("/deleteBoard")
+		public String deleteBoard(@RequestParam("no") int no, RedirectAttributes redirectAttr, HttpServletRequest request) {
+		
+		String filePath = request.getServletContext().getRealPath("/resources/editor/multiupload/");
+		List<ReviewAttach> list = reviewBoardService.selectAttachListOneBoard(no);
+		try {
+			int result = reviewBoardService.deleteBoard(no);
+			redirectAttr.addFlashAttribute("msg", "게시글 삭제 완료");
+			//사진 삭제
+			for(ReviewAttach attach : list) {
+				File f = new File(filePath, attach.getRewAtRenamedName());
+				f.delete();
+			}
+			
+		} catch(Exception e) {
+			log.error("게시글 삭제 오류", e);
+			redirectAttr.addFlashAttribute("msg", "게시글 삭제 실패");
 		}
+		return "redirect:/reviewBoard/reviewBoard.do";
+		}
+	
+		//게시글 수정
+		@PostMapping("/updateBoard.do")
+		public ModelAndView updateBoard(ModelAndView mav, ReviewBoard reviewBoard, HttpServletRequest req, RedirectAttributes redirectAttr) {
+			log.debug("reviewBoard = {}", reviewBoard);
+			
+			
+			Pattern pattern  =  Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
+
+			Matcher match = pattern.matcher(reviewBoard.getRewBoContent());
+			
+			List<String> imgTag = new ArrayList<>();
+			List<ReviewAttach> attachList = new ArrayList<>();
+			
+			//게시물 내용에서 img태그 추출
+			while(match.find()) {
+				imgTag.add(match.group());
+			}
+			
+			for(String s : imgTag) {
+				//img태그에서 서버에 저장된 파일이름
+				int startRname = s.indexOf("multiupload/");
+				int endRname = s.indexOf("\"", startRname);
+				String rName = s.substring(startRname+12, endRname);
+				//사용자가 올린 파일이름
+				int startOname = s.indexOf("\"", endRname+1);
+				int endOname = s.lastIndexOf("\"");
+				String oName = s.substring(startOname+1, endOname);
+				ReviewAttach attach = new ReviewAttach();
+				attach.setRewAtOriginalName(oName);
+				attach.setRewAtRenamedName(rName);
+				attachList.add(attach);
+			}
+			//reviewBoard vo에 list로 넣기
+			reviewBoard.setAttachList(attachList);
+
+			try {
+				//기존파일지우고 다시쓰기
+				int result1 = reviewBoardService.deleteAttach(reviewBoard.getRewBoId());
+				int result2 = reviewBoardService.updateBoard(reviewBoard);
+				redirectAttr.addFlashAttribute("msg", "게시글 수정 성공");
+			} catch(Exception e) {
+				log.error("게시글 수정 오류", e);
+				redirectAttr.addFlashAttribute("msg", "게시글수정 실패");
+			}
+			
+			mav.setViewName("redirect:/reviewBoard/reviewBoardView.do?no="+reviewBoard.getRewBoId());
+			return mav;
+		}
+		
+		//댓글 작성
+		@PostMapping("/insertComment.do")
+		public String insertComment(ReviewComment reviewComment, RedirectAttributes redirectAttr) {
+			log.debug("rewC = {}", reviewComment);
+			
+			try {
+				int result = reviewBoardService.insertComment(reviewComment);
+				redirectAttr.addFlashAttribute("msg", "댓글 등록 성공");
+			} catch(Exception e) {
+				log.error("댓글 등록 오류", e);
+				redirectAttr.addFlashAttribute("msg", "댓글 등록 실패");
+			}
+			
+			return "redirect:/reviewBoard/reviewBoardView.do?no="+reviewComment.getRewBoId();
+		}
+		
+	    //댓글 삭제
+		@GetMapping("/deleteComment")
+		public String deleteComment(@RequestParam("no") int no,@RequestParam("commentNo") int commentNo, RedirectAttributes redirectAttr) {
+				log.debug("no = {}, boardId={}", no, commentNo);
+			
+		try {
+			int result = reviewBoardService.deleteComment(commentNo);
+			redirectAttr.addFlashAttribute("msg", "댓글 삭제 완료");
+		} catch(Exception e) {
+			log.error("댓글 삭제 오류", e);
+			redirectAttr.addFlashAttribute("msg", "댓글 삭제 실패");
+		}
+		return "redirect:/reviewBoard/reviewBoardView.do?no="+no;
+		}
+		
+		//댓글 수정
+		@PostMapping("/editComment")
+		public String editComment(ReviewComment reviewComment, RedirectAttributes redirectAttr) {
+			log.debug("reviewComment = {}", reviewComment);
+			
+			try {
+				int result = reviewBoardService.editComment(reviewComment);
+				redirectAttr.addFlashAttribute("msg", "댓글 수정 완료");
+			} catch(Exception e) {
+				log.error("댓글 수정 오류", e);
+				redirectAttr.addFlashAttribute("msg", "댓글 수정 실패");
+			}
+			return "redirect:/reviewBoard/reviewBoardView.do?no="+reviewComment.getRewBoId();
+		}
+		
+			//검색
+			@PostMapping("/search.do")
+			public @ResponseBody Map<String, Object> search(ReviewBoard reviewBoard) {
+		
+			//사용자 입력값
+			log.debug("reviewBoard = {}", reviewBoard);
+			
+			//업무로직
+			List<ReviewBoard> boardList = reviewBoardService.searchBoardList(reviewBoard);
+			List<ReviewAttach> fileList = reviewBoardService.selectAttachList();
+//			log.debug("boardList = {}", boardList);
+//			log.debug("fileList = {}", fileList);
+
+			//뷰단 처리
+			Map<String, Object> result = new HashMap<>();
+			result.put("boardList", boardList);
+			result.put("fileList", fileList);
+			
+			return result;
+		}
+		
+	}
 	  
-}
+
