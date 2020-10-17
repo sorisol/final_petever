@@ -201,7 +201,7 @@ td {
     border-collapse: collapse;
 }
 
-.reviewList th,
+.tbl-board th,
 td {
     padding: 5px 10px;
 }
