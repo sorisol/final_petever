@@ -92,21 +92,6 @@
 	                    	</fieldset>
 	                    </div>
                    	</c:if>
-                    <div class="similar-container">
-                    	<fieldset>
-                    		<legend> 같은 지역에서 실종 신고된 동물 </legend>
-                    		<div class="slider">
-	                    		<c:forEach items="${shelterAniList}" var="sa">
-	                    			<div>
-	                    				<a href="${pageContext.request.contextPath}/shelterBoard/shelterAni?deserNo=${sa.desertionNo}">
-		                    				<img src="${sa.popfile}"/>
-	                    				</a>
-	                    			</div>
-	                    		</c:forEach>
-                    		</div>
-                    	</fieldset>
-                    </div>
->>>>>>> branch 'master' of https://github.com/rato12/petever.git
                     <div id="board-comment-container">
                         <div class="comment-header">
                             <span class="comment-view">댓글 ${totalComment}</span>
@@ -200,7 +185,7 @@ function sendLink() {
       title: '[${animalBoard.aniBoTag}] ${animalBoard.aniBoTitle}',
       description: '#${animalBoard.aniBoLocal} #${animalBoard.aniBoType} #${animalBoard.aniBoKind} #${animalBoard.aniBoGender} #${animalBoard.aniBoCha}',
       imageUrl:
-        'http://192.168.219.100:9090/petever/resources/editor/multiupload/202010141108341c53f1f4-ebe2-414d-ae95-50d9faa1f195.jpg',
+        'http://localhost:9090/petever/resources/editor/multiupload/202010141108341c53f1f4-ebe2-414d-ae95-50d9faa1f195.jpg',
       link: {
         mobileWebUrl: 'https://developers.kakao.com',
         webUrl: 'https://developers.kakao.com',
@@ -216,7 +201,7 @@ function sendLink() {
         title: '웹으로 보기',
         link: {
           mobileWebUrl: 'https://developers.kakao.com',
-          webUrl: 'http://192.168.219.100:9090/petever/animalboard/boardView?no=104',
+          webUrl: 'http://localhost:9090/petever/animalboard/boardView?no='+${animalBoard.aniBoId},
         },
       }
     ],
@@ -229,7 +214,7 @@ $(".board-delete-btn").on("click", function() {
 });
 function openReport() {
 	window.open("${pageContext.request.contextPath}/animalboard/reportFrm?no=${animalBoard.aniBoId}&&doUser=${loginUser.userId}", "신고하기",
-           "width=500, height=330, toolbar=no, menubar=no, scrollbars=no, resizable=yes, top=300, left=500");
+           "width=500, height=350, toolbar=no, menubar=no, scrollbars=no, resizable=yes, top=300, left=500");
 }
 
 //댓글입력창 자동 높이조절
@@ -238,9 +223,9 @@ function xSize(e) {
     e.style.height = (e.scrollHeight) + 'px';
 }
        
-<<<<<<< HEAD
 $(".reply-btn").on('click', function() {
 	/* $(".comment-reply-write") */
+	console.log($(this));
 	$(this).next().toggle();
     var reply = '<form action="${pageContext.request.contextPath}/animalboard/insertComment" method="post">';
 
@@ -299,7 +284,6 @@ $(".comment-edit").on("click",  function() {
     	+'</form>';
     $(this).parent().parent().next().html(ht);
     $(".edit").focus();
-=======
 	//태그 색상
     $(function() {
         var $tag = $(".board-title-tag");
@@ -340,7 +324,6 @@ $(".comment-edit").on("click",  function() {
     });
     $(".comment-edit-btn").on("click", function() {
     });
->>>>>>> branch 'master' of https://github.com/rato12/petever.git
     
 });
    
