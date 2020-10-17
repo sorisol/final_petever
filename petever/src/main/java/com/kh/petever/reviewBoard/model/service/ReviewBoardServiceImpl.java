@@ -132,4 +132,14 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 		return reviewBoardDAO.selectOneReport(param);
 	}
 
+	@Override
+	public int selectBoardTotalContents() {
+		return reviewBoardDAO.selectBoardTotalContents();
+	}
+
+	@Override
+	public List<ReviewBoard> selectBoardListOneWeek() {
+		return reviewBoardDAO.selectBoardListOneWeek();
+	}
+
 }
