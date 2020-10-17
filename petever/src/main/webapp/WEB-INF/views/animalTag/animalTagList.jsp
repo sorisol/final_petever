@@ -92,8 +92,8 @@ $(function(){
 		                    	<label class="ani-ssg1">연락처: </label><label class="ani-ssg2">${ list.ssgTel }</label>
 		                    	<label class="ani-ssg1">수령지: </label><label class="ani-ssg2"style="margin-bottom: 0px;">(${ list.ssgAddr0 }) ${ list.ssgAddr1 }</label>
 		                    	<label class="ani-ssg1"></label><label class="ani-ssg2" style="margin: 0px;">${ list.ssgAddr2 }</label>
-		                    	<label class="ani-ssg1">결제일시: </label><label class="ani-ssg2">${ list.buyDate }</label>
-		                    	<%-- <fmt:parseDate value="${ list.buyDate }" pattern="yyyy.MM.dd"/> --%>
+		                    	<fmt:parseDate value="${ list.buyDate }" pattern="yyyy-MM-dd HH:mm:ss" var="buyDate"/>
+		                    	<label class="ani-ssg1">결제일시: </label><label class="ani-ssg2"><fmt:formatDate value="${ buyDate }" pattern="yyyy-MM-dd HH:mm"/></label>
 		                    </div>
 		                    
 	                    </div>
