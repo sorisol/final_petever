@@ -44,8 +44,7 @@ function searchFunc() {
 		data: formData,
 		success: function(data) {
 			console.log(data);
-			var $table = $('#tbl-board');
-			
+			var $post = $('.post-wrap');	
 			var html = '';
 			html += '<tr><th>No</th><th>Title</th><th>UserId</th><th>Date</th><th>File</th></tr>';
 			if(data.boardList == null || data.boardList.length == 0) {
@@ -85,31 +84,39 @@ function searchFunc() {
  	
  	<p>총 ${totalContents}건의 게시물이 있습니다.</p> 
     <li><a href="${ pageContext.request.contextPath }/reviewBoard/reviewBoard.do">목록으로 보기</a></li>
-   <li><a href="${pageContext.request.contextPath}/reviewBoard/reviewBoardPhoto.do">썸네일로 보기</a></li> 
+    <li><a href="${pageContext.request.contextPath}/reviewBoard/reviewBoardPhoto.do">썸네일로 보기</a></li> 
 
   	 <hr style="height: 1px; border:none; background-color: lightgray; width: 1000px; margin: 30px 50px;">
 
-				
-	<table id="tbl-board" style="margin-left: auto; margin-right: auto;">
-	 	<tr>
-			<th>No</th>
-			<th>Title</th>
-			<th>UserId</th>
-			<th>Date</th>
-		</tr> 
-		<br>
-		<c:forEach items="${ list }" var="b">
-		<tr data-board-no="${ b.rewBoId }" >
-			<td>${ b.rewBoId }</td>	
-	 		<td>${ b.rewBoTitle }</td> 	
-			<td>${ b.userId }</td>
-			<td>
+	 <div class="post-wrap">
+			<c:forEach items="${ list }" var="b">
+				<div class="post">
+	<a href="${ pageContext.request.contextPath }/reviewBoard/reviewBoardView.do?no=${b.rewBoId}">
+                  <%--    <tr data-board-no="${ b.rewBoId }"> 	  --%>	
+						<c:forEach items="${attachList}" var="a">
+							  <c:if test="${ a.rewBoId.equals(b.rewBoId)}">
+							     <img src="${pageContext.request.contextPath}/resources/editor/multiupload/${a.rewAtRenamedName}">
+							  </c:if>
+						</c:forEach>
+	<!-- 조건 : 이미지가 없으면 지정한기본이미지 보여지게 하기
+			if(a.rewAtRenamedName!=null){
+							  }else{ <img src="${pageContext.request.contextPath}/기본이미지}"> -->							
+						
+			<br>
+			<p> ${ b.rewBoTitle}</p>	
+			<p>
 		        <fmt:parseDate value="${b.rewBoRegDate}" var="regDate" pattern="yyyy-MM-dd"/>
 				<fmt:formatDate value="${regDate}" pattern="yyyy.MM.dd"/>
-			</td>	
-		</tr>
-		</c:forEach>
-	</table>
+					</p>		
+						</tr>
+					</a>
+				</div>
+				</tr>
+			
+			</c:forEach>
+		</div>
+				
+
 </section> 
    
 	                    <hr style="height: 1px; border:none; background-color: lightgray; width: 860px; margin: 35px 50px 10px 50px;">

@@ -67,7 +67,7 @@
             </div>
             <li><a href="${ pageContext.request.contextPath }/animalboard">유기동물</a></li>
             <li><a href="${ pageContext.request.contextPath }/shelterBoard/shelterBoard.do">보호소동물</a></li>
-            <li><a href="${ pageContext.request.contextPath }/reviewBoard/reviewBoard.do">입양후기</a></li>
+            <li><a href="${ pageContext.request.contextPath }/reviewBoard/reviewBoardPhoto.do">입양후기</a></li>
             <li><a href="${ pageContext.request.contextPath }/animalTag/animalTag.do">인식표</a></li>
             <li><a href="${ pageContext.request.contextPath }/shelterInfoBoard/shelterInfoBoard.do">보호소</a></li>
             <li><a href="${ pageContext.request.contextPath }/statis/statis.do">통계</a></li>
