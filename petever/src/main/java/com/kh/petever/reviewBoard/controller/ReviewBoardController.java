@@ -32,6 +32,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.petever.admin.model.vo.Report;
 import com.kh.petever.animalboard.model.vo.AnimalAttach;
+import com.kh.petever.animalboard.model.vo.AnimalBoard;
 import com.kh.petever.common.Utils;
 import com.kh.petever.reviewBoard.model.service.ReviewBoardService;
 import com.kh.petever.reviewBoard.model.vo.ReviewPhoto;
@@ -373,7 +374,25 @@ public class ReviewBoardController {
 				
 				return map;
 			}	
-			
+
+			@RequestMapping("/index")
+			public @ResponseBody Map<String, Object> index(Model model) {
+				
+				//전체 게시글 조회
+				List<ReviewBoard> boardList = reviewBoardService.selectBoardListOneWeek();
+				log.debug("boardList = {}", boardList);
+				//첨부파일조회
+				List<ReviewAttach> attachList = reviewBoardService.selectAttachList();
+				log.debug("attachList = {}", attachList);
+				model.addAttribute("boardList", boardList);
+				model.addAttribute("attachList", attachList);
+				
+				Map<String, Object> result = new HashMap<>();
+				result.put("boardList", boardList);
+				result.put("attachList", attachList);
+				
+				return result;
+			}			
 			
 			//이 아래로는 파일 관련
 			@RequestMapping("/file_uploader")

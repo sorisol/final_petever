@@ -15,11 +15,6 @@
  <script>
 $(function(){
 
-	$("tr[data-board-no]").click(function(){
-		var no = $(this).attr("data-board-no");
-		location.href = "${ pageContext.request.contextPath }/reviewBoard/reviewBoardView.do?no=" + no;
-	});
-
 	$("#search").on("change", function() {
 		var $search = $("#search").val();
 		var $query = $("#query");
@@ -45,30 +40,40 @@ function searchFunc() {
 		success: function(data) {
 			console.log(data);
 			var $post = $('.post-wrap');	
+			//$post.html('');
 			var html = '';
-			html += '<tr><th>No</th><th>Title</th><th>UserId</th><th>Date</th><th>File</th></tr>';
 			if(data.boardList == null || data.boardList.length == 0) {
 				html += '<p align="center">조회된 게시물이 없습니다.</p>';		
 			}
 			else {
 				console.log(data);
-				//console.log(data.attachList);
+				console.log(data.attachList);
 				for(var i in data.boardList){
 					var b = data.boardList[i];
-					html += '<tr><td>'+ b.rewBoId +'</td>';
-					html += '<td>'+ b.rewBoTitle +'</td>';
-					html += '<td>'+ b.userId +'</td>';
-					html += '<td>'+b.rewBoRegDate.substring(0, 10).replaceAll('-', '.')+'</td></tr>';
+					html += '<div class="post">';
+					html += '<a href="${ pageContext.request.contextPath }/reviewBoard/reviewBoardView.do?no='+b.rewBoId+'">';
+
+					//사진
+            		for(var j in data.fileList) {
+						var f = data.fileList[j];
+						if(b.rewBoId == f.rewBoId) {
+							html += '<img src="${ pageContext.request.contextPath }/resources/editor/multiupload/'+f.rewAtRenamedName+'">';
+						}
+                    }
+					html += '<span id="post-title">'+b.rewBoTitle+'</span>';
+					html += '<span>'+b.rewBoRegDate.substring(0, 10).replaceAll('-', '.')+'</span>';
 				}
-				$table.html(html);
+
 			}
-			
+			html += '</a></div>';
+			$post.html(html);
 		},
 		error: function(xhr, status, err) {
 			console.log("처리실패", xhr, status, err);
 		}
 	});
 }
+
 </script> 
 	 <div id="main-wrap">
 	        <section class="main">
@@ -81,26 +86,44 @@ function searchFunc() {
                 <div class="border">
 			
    <section id="board-container" class="container" align="center">
- 	
  	<p>총 ${totalContents}건의 게시물이 있습니다.</p> 
-    <li><a href="${ pageContext.request.contextPath }/reviewBoard/reviewBoard.do">목록으로 보기</a></li>
-    <li><a href="${pageContext.request.contextPath}/reviewBoard/reviewBoardPhoto.do">썸네일로 보기</a></li> 
+ 	<br>
+ 	<b>
+ 	<a href="${pageContext.request.contextPath}/reviewBoard/reviewBoardPhoto.do">썸네일로 보기</a> | 
+    <a href="${ pageContext.request.contextPath }/reviewBoard/reviewBoard.do">목록으로 보기</a>
+	</b>
 
   	 <hr style="height: 1px; border:none; background-color: lightgray; width: 1000px; margin: 30px 50px;">
 
 	 <div class="post-wrap">
 			<c:forEach items="${ list }" var="b">
 				<div class="post">
-	<a href="${ pageContext.request.contextPath }/reviewBoard/reviewBoardView.do?no=${b.rewBoId}">
+				<a href="${ pageContext.request.contextPath }/reviewBoard/reviewBoardView.do?no=${b.rewBoId}">
                   <%--    <tr data-board-no="${ b.rewBoId }"> 	  --%>	
-						<c:forEach items="${attachList}" var="a">
-							  <c:if test="${ a.rewBoId.equals(b.rewBoId)}">
-							     <img src="${pageContext.request.contextPath}/resources/editor/multiupload/${a.rewAtRenamedName}">
-							  </c:if>
-						</c:forEach>
-	<!-- 조건 : 이미지가 없으면 지정한기본이미지 보여지게 하기
-			if(a.rewAtRenamedName!=null){
-							  }else{ <img src="${pageContext.request.contextPath}/기본이미지}"> -->							
+                 
+				<c:forEach items="${attachList}" var="a">
+  					<c:if test="${ a.rewBoId.equals(b.rewBoId) }">
+							<img src="${pageContext.request.contextPath}/resources/editor/multiupload/${a.rewAtRenamedName}">
+						</c:if>   
+		
+	
+		<!-- 			attach의 rewBoId와 board의 rewBoId가 일치하고 rewAtRenamedName이 null이 아니면 첨부된 이미지를 보여주고
+						그렇지 않으면 기본 이미지를 보여주기 --> 
+						
+						<%-- console.log(${ a.rewBoId.equals(b.rewBoId)});
+						console.log(${ a.rewAtRenamedName =! null });
+						console.log(${ a.rewBoId.equals(b.rewBoId)} and ${ a.rewAtRenamedName =! null }); 
+						<br />
+						<br /> --%>
+						<%-- <c:choose>
+							<c:when test="${ a.rewBoId.equals(b.rewBoId) }" >
+							<img src="${pageContext.request.contextPath}/resources/editor/multiupload/${a.rewAtRenamedName}">	
+							</c:when>
+							
+						</c:choose> --%> 
+			    		</c:forEach>
+			    		
+							
 						
 			<br>
 			<p> ${ b.rewBoTitle}</p>	
@@ -114,6 +137,7 @@ function searchFunc() {
 				</tr>
 			
 			</c:forEach>
+			
 		</div>
 				
 
