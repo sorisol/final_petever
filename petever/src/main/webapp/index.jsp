@@ -223,8 +223,8 @@ window.onload = function(){
 					var rev = '';
 					for(var i in data.boardList) {
 						var b = data.boardList[i];
-						rev += '<div>';
-						rev += '<a href="${ pageContext.request.contextPath }/reviewBoard/reviewBoardView?no='+b.rewBoId+'">';
+						rev += '<div class ="post">';
+						rev += '<a href="${ pageContext.request.contextPath }/reviewBoard/reviewBoardView.do?no='+b.rewBoId+'">';
 						for(var j in data.attachList) {
 							var a = data.attachList[j];
 							if(b.rewBoId == a.rewBoId){

@@ -30,11 +30,11 @@
  <script>
 $(function(){
 
-/* 	$("tr[data-board-no]").click(function(){
+ 	/* $("tr[data-board-no]").click(function(){
 		var no = $(this).attr("data-board-no");
-		location.href = "${ pageContext.request.contextPath }/reviewBoard/reviewBoardView.do?no=" + no;
-	});
- */
+		location.href = "${ pageContext.request.contextPath }/reviewBoard/reviewBoardView.do?no="+ no";
+	}); */
+ 
 	$("#search").on("change", function() {
 		var $search = $("#search").val();
 		var $query = $("#query");
@@ -44,8 +44,8 @@ $(function(){
 		else
 			$query.attr("name", "rewBoTitle");
 	});
-	
 });
+
 
 
 function searchFunc() {
@@ -71,12 +71,15 @@ function searchFunc() {
 				//console.log(data.attachList);
 				for(var i in data.boardList){
 					var b = data.boardList[i];
-					html += '<tr><td>'+ b.rewBoId +'</td>';
-					html += '<div class="post-title"><a href="${ pageContext.request.contextPath }/reviewBoard/reviewBoardView.do?no=${b.rewBoId}">';
+					
+					html += '<tr>'
+					html +=	'<a href="${ pageContext.request.contextPath }/reviewBoard/reviewBoardView.do?no='+b.rewBoId+'">';
+					html += '<td>'+ b.rewBoId +'</td>';			
 					html += '<td>'+ b.rewBoTitle +'</td>';
-					html += '</a></div>';
+					html += '</a>';
 					html += '<td>'+ b.userId +'</td>';
-					html += '<td>'+b.rewBoRegDate.substring(0, 10).replaceAll('-', '.')+'</td></tr>';
+					html += '<td>'+b.rewBoRegDate.substring(0, 10).replaceAll('-', '.')+'</td>';
+					html += '</tr>';
 				}
 				$table.html(html);
 			}
@@ -87,6 +90,7 @@ function searchFunc() {
 		}
 	});
 }
+
 </script> 
 	 <div id="main-wrap">
 	        <section class="main">
@@ -142,7 +146,9 @@ function searchFunc() {
 </section> 
    
 	                    <hr style="height: 1px; border:none; background-color: lightgray; width: 860px; margin: 35px 50px 10px 50px;">
+	                    <c:if test="${not empty loginUser}">
 	                    <button type="button" onclick="location.href='${pageContext.request.contextPath}/reviewBoard/reviewBoardFrm'" class="write-btn">글쓰기</button>
+	              		</c:if>
 	               <form id="searchFrm">
 	                    <div class="search-wrap">
 	                        <select name="search" id="search">

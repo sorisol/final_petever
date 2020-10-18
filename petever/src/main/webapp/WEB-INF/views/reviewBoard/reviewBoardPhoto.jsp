@@ -13,6 +13,18 @@
 	}
 	</style>
  <script>
+
+ var test = function test() {
+	$(".post").each(function(){
+	    console.log($(this).children().find("img")[0] == null );
+	    if($(this).children().find("img")[0] == null){
+	        console.log(111);
+	        var html = '<img src="${pageContext.request.contextPath}/resources/images/dog/petever.jpg">';
+	        $(this).children().prepend(html);
+	    }
+	});
+}
+	
 $(function(){
 
 	$("#search").on("change", function() {
@@ -24,6 +36,7 @@ $(function(){
 		else
 			$query.attr("name", "rewBoTitle");
 	});
+	test();
 	
 });
 
@@ -59,20 +72,25 @@ function searchFunc() {
 						if(b.rewBoId == f.rewBoId) {
 							html += '<img src="${ pageContext.request.contextPath }/resources/editor/multiupload/'+f.rewAtRenamedName+'">';
 						}
+					
                     }
 					html += '<span id="post-title">'+b.rewBoTitle+'</span>';
 					html += '<span>'+b.rewBoRegDate.substring(0, 10).replaceAll('-', '.')+'</span>';
+					html += '</a></div>';
 				}
 
 			}
-			html += '</a></div>';
 			$post.html(html);
+			test();
 		},
 		error: function(xhr, status, err) {
 			console.log("처리실패", xhr, status, err);
 		}
 	});
 }
+
+
+
 
 </script> 
 	 <div id="main-wrap">
@@ -144,8 +162,10 @@ function searchFunc() {
 </section> 
    
 	                    <hr style="height: 1px; border:none; background-color: lightgray; width: 860px; margin: 35px 50px 10px 50px;">
+	                    <c:if test="${not empty loginUser}">
 	                    <button type="button" onclick="location.href='${pageContext.request.contextPath}/reviewBoard/reviewBoardFrm'" class="write-btn">글쓰기</button>
-	               <form id="searchFrm">
+	             		</c:if>
+	               		<form id="searchFrm">
 	                    <div class="search-wrap">
 	                        <select name="search" id="search">
 	                            <option value="rewBoTitle">제목</option>
