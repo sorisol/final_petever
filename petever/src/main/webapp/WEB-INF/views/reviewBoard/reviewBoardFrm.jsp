@@ -19,6 +19,7 @@
             	 	action="${pageContext.request.contextPath}/reviewBoard/insertReviewBoard.do"
             	 	 enctype="multipart/form-data">
                     <h1>글쓰기</h1>
+
                     <input type="hidden" name="userId" value="honggd" />
                     <div class="title">
                         <input type="text" placeholder="제목을 입력해 주세요." name="rewBoTitle">
