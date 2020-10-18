@@ -61,7 +61,14 @@
 			user_id = #{ userId }
 		</delete>
 		
-
+		<select id="selectUserList" resultMap="userMapppp">
+			select
+				*
+			from
+				tb_user
+			where
+				user_phone = #{userPhone}
+		</select>
 		
 	</mapper>
 	

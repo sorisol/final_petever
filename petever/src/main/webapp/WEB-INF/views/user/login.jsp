@@ -10,7 +10,7 @@
             <form action="${pageContext.request.contextPath}/user/login.do" 
                   method="POST">
                <div class="login-body">
-                <input type="text" name="userId" placeholder="아이디">
+                <input type="text" name="userId" placeholder="아이디" id="userId">
                 <input type="password" name="userPwd" placeholder="비밀번호">
                 <button>로그인</button>
                 <div class="check">
@@ -20,7 +20,7 @@
                 </div>
             </form>
             <div id="search">
-                <a href="">아이디 찾기</a> |
+                <a class="find-id" onclick="javascript:findId();">아이디 찾기</a> |
                 <a href="">비밀번호 찾기</a>
             </div>
             <div id="my-signin2" class="g-signin2" data-width="232" data-height="50" data-longtitle="true" data-onsuccess="onSignIn"></div>
@@ -32,8 +32,6 @@
     </section>
 
  
-    <!-- <script src="js/kakao.js"></script> -->
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8">
     </script>
 
@@ -41,13 +39,18 @@
 
 
 <script type="text/javascript">
-    var naver_id_login = new naver_id_login("YOUR_CLIENT_ID", "YOUR_CALLBACK_URL");
+    /* var naver_id_login = new naver_id_login("YOUR_CLIENT_ID", "YOUR_CALLBACK_URL");
     var state = naver_id_login.getUniqState();
     naver_id_login.setButton("white", 3, 50);
     naver_id_login.setDomain("YOUR_SERVICE_URL");
     naver_id_login.setState(state);
     naver_id_login.setPopup();
-    naver_id_login.init_naver_id_login();
+    naver_id_login.init_naver_id_login(); */
+    
+function findId() {
+	window.open("${pageContext.request.contextPath}/user/findIdFrm.do", "아이디 찾기",
+           "width=500, height=330, toolbar=no, menubar=no, scrollbars=no, resizable=yes, top=300, left=500");
+}
 </script>
 
 
