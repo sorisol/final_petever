@@ -278,3 +278,15 @@ button:hover {
     padding: 5px;
     margin-right: 27px;	
 }
+.ico_share {
+	background: url(//t1.daumcdn.net/cafe_image/cf_img4/skin/W01/32_icon_share_default.svg);
+}
+.ico_bbs, .ico_bbs.ico_share {
+    width: 32px;
+    height: 32px;
+}
+.ico_bbs {
+    display: inline-block;
+    vertical-align: top;
+    text-indent: -9999px;
+}
