@@ -31,8 +31,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.petever.admin.model.vo.Report;
-import com.kh.petever.animalboard.model.vo.AnimalAttach;
-import com.kh.petever.animalboard.model.vo.AnimalBoard;
 import com.kh.petever.common.Utils;
 import com.kh.petever.reviewBoard.model.service.ReviewBoardService;
 import com.kh.petever.reviewBoard.model.vo.ReviewPhoto;
@@ -167,7 +165,7 @@ public class ReviewBoardController {
      		throw e;
 		}
 
-		return "redirect:/reviewBoard/reviewBoard.do";
+		return "redirect:/reviewBoard/reviewBoardPhoto.do";
 	}
 	  
 	
@@ -211,15 +209,15 @@ public class ReviewBoardController {
 		public String deleteBoard(@RequestParam("no") int no, RedirectAttributes redirectAttr, HttpServletRequest request) {
 		
 		String filePath = request.getServletContext().getRealPath("/resources/editor/multiupload/");
-		//List<ReviewAttach> list = reviewBoardService.selectAttachListOneBoard(no);
+		List<ReviewAttach> list = reviewBoardService.selectAttachListOneBoard(no);
 		try {
 			int result = reviewBoardService.deleteBoard(no);
 			redirectAttr.addFlashAttribute("msg", "게시글 삭제 완료");
 			//사진 삭제
-		//	for(ReviewAttach attach : list) {
-		//		File f = new File(filePath, attach.getRewAtRenamedName());
-		//		f.delete();
-		//	}
+			for(ReviewAttach attach : list) {
+				File f = new File(filePath, attach.getRewAtRenamedName());
+				f.delete();
+			}
 			
 		} catch(Exception e) {
 			log.error("게시글 삭제 오류", e);
