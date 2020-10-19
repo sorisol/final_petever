@@ -82,7 +82,7 @@
 		review_board 
 	set 
 		rew_bo_title = #{rewBoTitle},
-		rew_bo_content = #{RewBoContent}
+		rew_bo_content = #{rewBoContent}
 	where 
 		rew_bo_id = #{rewBoId}
 	</update>
