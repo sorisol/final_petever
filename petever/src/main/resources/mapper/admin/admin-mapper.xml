@@ -47,12 +47,121 @@
 	
 	
 	<select id="adminReport" resultMap="report">
-		select * from report
+		select r.ani_bo_id,
+            r.user_id,
+            r.rep_content,
+            r.rep_display,
+            r.rep_date,
+            r.rep_do_user
+		from report r
+		join animal_board b on  r.ani_bo_id = b.ani_bo_id
+		order by rep_date desc
+	</select>
+
+	<select id="adminReportDay" resultMap="report">
+		select r.ani_bo_id,
+            r.user_id,
+            r.rep_content,
+            r.rep_display,
+            r.rep_date,
+            r.rep_do_user
+		from report r
+		join animal_board b on  r.ani_bo_id = b.ani_bo_id
+		where r.rep_date <![CDATA[ >  ]]> #{day}
+		order by rep_date desc
+	</select>
+
+	<select id="animalDayCnt" resultType="_int">
+		select count(*)
+		from report r
+		join animal_board b on  r.ani_bo_id = b.ani_bo_id
+		where r.rep_date <![CDATA[ >  ]]> #{day}
+		order by rep_date desc
 	</select>
 	
 	<select id="searchReport" resultMap="report">
-		select * from report
-            where user_id like #{keyword}
+		select r.ani_bo_id,
+            r.user_id,
+            r.rep_content,
+            r.rep_display,
+            r.rep_date,
+            r.rep_do_user
+		from report r
+		join animal_board b on  r.ani_bo_id = b.ani_bo_id
+        where r.user_id like #{keyword}
+		order by rep_date desc
+	</select>
+
+	<select id="animalYn" resultMap="report">
+		select r.ani_bo_id,
+            r.user_id,
+            r.rep_content,
+            r.rep_display,
+            r.rep_date,
+            r.rep_do_user
+		from report r
+		join animal_board b on  r.ani_bo_id = b.ani_bo_id
+        where rep_display like #{yn}
+		order by rep_date desc
+	</select>
+	
+	<select id="reportReviewList" resultMap="report">
+		select r.ani_bo_id,
+            r.user_id,
+            r.rep_content,
+            r.rep_display,
+            r.rep_date,
+            r.rep_do_user
+		from report r
+		join review_board b on  r.ani_bo_id = b.rew_bo_id
+		order by rep_date desc
+	</select>
+
+	<select id="reportReviewListDay" resultMap="report">
+		select r.ani_bo_id,
+            r.user_id,
+            r.rep_content,
+            r.rep_display,
+            r.rep_date,
+            r.rep_do_user
+		from report r
+		join review_board b on  r.ani_bo_id = b.rew_bo_id
+			where r.rep_date <![CDATA[ >  ]]> #{day}
+		order by rep_date desc
+	</select>
+
+	<select id="reviewDayCnt" resultType="_int">
+		select count(*)
+		from report r
+		join review_board b on  r.ani_bo_id = b.rew_bo_id
+			where r.rep_date <![CDATA[ >  ]]> #{day}
+		order by rep_date desc
+	</select>
+
+	<select id="reportYn" resultMap="report">
+		select r.ani_bo_id,
+            r.user_id,
+            r.rep_content,
+            r.rep_display,
+            r.rep_date,
+            r.rep_do_user
+		from report r
+		join review_board b on  r.ani_bo_id = b.rew_bo_id
+		where rep_display like #{yn}
+		order by rep_date desc
+	</select>
+	
+	<select id="searchReviewReport" resultMap="report">
+		select r.ani_bo_id,
+            r.user_id,
+            r.rep_content,
+            r.rep_display,
+            r.rep_date,
+            r.rep_do_user
+		from report r
+		join review_board b on  r.ani_bo_id = b.rew_bo_id
+        where r.user_id like #{keyword}
+		order by rep_date desc
 	</select>
 	
 	<resultMap id="report" type="Report">
@@ -70,10 +179,17 @@
 		    select * from report r where r.ani_bo_id = ab.ani_bo_id and r.ani_bo_id = #{no}
 		)
 	</delete>
-	
-	<delete id="reportDel">
-		delete from report where ani_bo_id = #{no}
+
+	<delete id="reportReviewDel">
+		delete from review_board rb
+		where exists(
+		    select * from report r where r.ani_bo_id = rb.rew_bo_id and r.ani_bo_id = #{no}
+		)
 	</delete>
+	
+	<update id="reportDel">
+		delete from report where ani_bo_id = #{no}
+	</update>
 	
 	<update id="reportYN">
 		update report set rep_display
@@ -89,8 +205,66 @@
 	<select id="totalUser" resultType="_int">
 		select count(*) from tb_user
 	</select>
-	
-	<select id="totalReport" resultType="_int">
-		select count(*) from report
+
+	<select id="totalSearchUser" resultType="_int">
+		select count(*) from tb_user where user_id like #{keyword}
 	</select>
+	
+	<select id="totalAnimalReport" resultType="_int">
+		select count(*)
+		from report r
+		join animal_board b on  r.ani_bo_id = b.ani_bo_id
+	</select>
+
+	<select id="totalReviewReport" resultType="_int">
+		select count(*) 
+		from report r
+		join review_board b on  r.ani_bo_id = b.rew_bo_id
+	</select>
+	
+	<select id="totalAnimalSearchReport" resultType="_int">
+		select count(*)
+		from report r
+		join animal_board b on  r.ani_bo_id = b.ani_bo_id
+		where r.user_id like #{keyword}
+	</select>
+
+	<select id="totalReviewSearchReport" resultType="_int">
+		select count(*) 
+		from report r
+		join review_board b on  r.ani_bo_id = b.rew_bo_id
+		where r.user_id like #{keyword}
+	</select>
+	
+	<update id="adminRole">
+		update tb_user set user_role
+		<if test="role.equalsIgnoreCase('R')">
+				= 'U'
+		</if>
+		<if test="role.equalsIgnoreCase('U')">
+				= 'R'
+		</if>
+		where user_id = #{id}
+	</update>
+	
+	<select id="searchRole" resultMap="user">
+		SELECT  
+       		u.*, 
+       		NVL(r.Cnt, 0) as Cnt 
+		FROM tb_user u 
+		LEFT JOIN 
+    		(SELECT r.user_id, count(1) Cnt
+     			FROM report r
+    			GROUP BY r.user_id) r
+			ON u.user_id=r.user_id
+            where u.user_role like #{role}
+	</select>
+	
+	<select id="selectTagList" resultMap="animalTagVO">
+		select *
+		from animal_tag
+		order by buy_date desc
+	</select>
+	<resultMap type="AnimalTag" id="animalTagVO">
+	</resultMap>
 </mapper>

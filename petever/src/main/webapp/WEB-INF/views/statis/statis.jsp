@@ -619,6 +619,8 @@
             }
         });
     });
+
+    document.getElementById('endDay').value = new Date().toISOString().substring(0, 10);
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

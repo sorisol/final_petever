@@ -22,7 +22,7 @@ public class AdminUser implements Serializable {
 	private String userBirth;
 	private String userPhone;
 	private String userLocal;
-	private String userRole;
+	private char userRole;
 	private int cnt;
 	
 

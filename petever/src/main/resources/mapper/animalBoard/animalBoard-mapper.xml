@@ -118,10 +118,10 @@
 	</insert>
 	
 	<delete id="deleteBoard">
-		delete from
-			animal_board
-		where
-			ani_bo_id = #{no}
+		delete from animal_board ab
+		where exists(
+		    select * from report r where r.ani_bo_id = ab.ani_bo_id and r.ani_bo_id = #{no}
+		)
 	</delete>
 	
 	<delete id="deleteComment">
