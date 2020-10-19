@@ -90,9 +90,9 @@ function shelterAniDetail(shelterNo) {
                     <c:forEach items="${ list }" var="list">
                    	<tr>
                         <td class="tbl-th1">${ list.orgName }</td>
-                        <td class="tbl-th2" onclick="shelterAniDetail(${ list.shelterNo })">${ list.careName }</td>
+                        <td class="tbl-th2" onclick="shelterAniDetail(${ list.shelterNo })" style="cursor: pointer;">${ list.careName }</td>
                         <td class="tbl-th3">${ list.careTel}</td>
-                        <td class="tbl-th4">${ list.careAddr }</td>
+                        <td class="tbl-td4">${ list.careAddr }</td>
                     </tr>
                     </c:forEach>
                 </table>

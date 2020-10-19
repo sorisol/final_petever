@@ -40,5 +40,20 @@ public class UserServiceImpl implements UserService {
 		return userDAO.selectUserList(userPhone);
 	}
 
+	@Override
+	public User selectSearchPwd(User user) {
+		return userDAO.selectSearchPwd(user);
+	}
+
+	@Override
+	public int updateUserPwd(User userOk) {
+		return userDAO.updateUserPwd(userOk);
+	}
+
+	@Override
+	public int updateSigNo(User user) {
+		return userDAO.updateSigNo(user);
+	}
+
 
 }

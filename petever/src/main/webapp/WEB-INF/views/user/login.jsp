@@ -21,7 +21,7 @@
             </form>
             <div id="search">
                 <a class="find-id" onclick="javascript:findId();">아이디 찾기</a> |
-                <a href="">비밀번호 찾기</a>
+                <a class="find-pwd" onclick="javascript:findPwd();">비밀번호 찾기</a>
             </div>
             <div id="my-signin2" class="g-signin2" data-width="232" data-height="50" data-longtitle="true" data-onsuccess="onSignIn"></div>
             <div id="naver_id_login" style="width:232px;margin:20px auto;"></div>
@@ -50,6 +50,11 @@
 function findId() {
 	window.open("${pageContext.request.contextPath}/user/findIdFrm.do", "아이디 찾기",
            "width=500, height=330, toolbar=no, menubar=no, scrollbars=no, resizable=yes, top=300, left=500");
+}
+
+function findPwd() {
+	window.open("${pageContext.request.contextPath}/user/findPwdFrm.do", "비밀번호 찾기",
+    "width=500, height=330, toolbar=no, menubar=no, scrollbars=no, resizable=yes, top=300, left=500");
 }
 </script>
 
