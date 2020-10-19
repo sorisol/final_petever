@@ -143,6 +143,7 @@ public class ShelterAnimalBoardController {
 		String pageBar = Utils.getPageBarHtml(cPage, limit, totalContents, url);
 		
 		model.addAttribute("list", list);
+		model.addAttribute("param", param);
 		model.addAttribute("pageBar", pageBar);
 		
 		return "/shelter/shelterAnimalBoard";
