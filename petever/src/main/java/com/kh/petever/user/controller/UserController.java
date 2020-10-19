@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,7 @@ import com.kh.petever.user.model.service.UserService;
 import com.kh.petever.user.model.vo.User;
 
 import net.nurigo.java_sdk.api.Message;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 
 @Controller
@@ -297,7 +299,10 @@ public class UserController {
 	    String api_key = "NCSWW8V5EVEGRD4R";
 	    String api_secret = "ZCHDRIEFOUT4HEZQQCXE1SBDSQYLYOTD";
 	    Message coolsms = new Message(api_key, api_secret);
-	    int rndCode = (int)(Math.random()*1000000)+1;
+	    int rndCode = (int)(Math.floor(Math.random() * 1000000)+100000);
+        if(rndCode>1000000){
+           rndCode = rndCode - 100000;
+        }
 	    log.debug("{}", user);
 	    // 4 params(to, from, type, text) are mandatory. must be filled
 	    HashMap<String, String> params = new HashMap<>();
@@ -316,7 +321,6 @@ public class UserController {
 //	      log.error("문자 발송 오류", e.getMessage());
 //	      log.error("문자 발송 오류",e.getCode());
 //	      msg = "인증번호 전송에 실패하였습니다.";
-//	      result.put("text", "첫번째 보내는 테스트 문자 메시지!");
 //	    }
 	    result.put("msg", msg);
 	    result.put("verificationCode", rndCode);

@@ -79,9 +79,9 @@ $("#send-sms").on("click", function() {
 	});
 });
  $("#verification-check").on("click", function(){
-	console.log(verificationCode);
+	//console.log(verificationCode);
 	var $input = $("#userInput").val();
-	console.log($input);
+	//console.log($input);
 	if($input != verificationCode) {
 		alert("인증번호가 일치하지 않습니다.");
 	}
@@ -93,14 +93,14 @@ $("#send-sms").on("click", function() {
 			},
 			method: 'post',
 			success: function(data) {
-				console.log(data);
+				//console.log(data);
 				var html = '';
 				if(data == null || data == '') {
 					html += '<p>고객님의 정보와 일치하는 아이디가 없습니다.</p>';
 				} else {
 					html += '<p>고객님의 정보와 일치하는 아이디 목록입니다.</p>';
 					for(var i in data) {
-						html += '<input type="radio" value="'+data[i].userId+'" id="cuserId" />';
+						html += '<input type="radio" value="'+data[i].userId+'" name="cuserId" />';
 						html += '<label for="userId">'+data[i].userId+'</label></br>';
 					}
 					html += '<input type="button" value="로그인하기" id="login" onclick="moveLogin();" />'
@@ -111,7 +111,7 @@ $("#send-sms").on("click", function() {
 	}
 }); 
 function moveLogin(){
-	opener.document.getElementById("userId").value = $("#cuserId").val();
+	opener.document.getElementById("userId").value = $("input:radio[name='cuserId']:checked").val();;
 	window.close();
 }
 </script>
