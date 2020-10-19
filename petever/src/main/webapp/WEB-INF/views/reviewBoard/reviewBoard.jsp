@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/review-board.css">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<style>
-	tr[data-board-no] {
+	.post-title {
 		cursor: pointer;
 	}
 	
@@ -62,7 +62,7 @@ function searchFunc() {
 			var $table = $('#tbl-board');
 			
 			var html = '';
-			html += '<tr><th>No</th><th>Title</th><th>UserId</th><th>Date</th><th>File</th></tr>';
+			html += '<tr><th>No</th><th>Title</th><th>UserId</th><th>Date</th></tr>';
 			if(data.boardList == null || data.boardList.length == 0) {
 				html += '<p align="center">조회된 게시물이 없습니다.</p>';		
 			}
@@ -70,17 +70,17 @@ function searchFunc() {
 				console.log(data);
 				//console.log(data.attachList);
 				for(var i in data.boardList){
-					var b = data.boardList[i];
-					
-					html += '<tr>'
-					html +=	'<a href="${ pageContext.request.contextPath }/reviewBoard/reviewBoardView.do?no='+b.rewBoId+'">';
-					html += '<td>'+ b.rewBoId +'</td>';			
-					html += '<td>'+ b.rewBoTitle +'</td>';
-					html += '</a>';
-					html += '<td>'+ b.userId +'</td>';
-					html += '<td>'+b.rewBoRegDate.substring(0, 10).replaceAll('-', '.')+'</td>';
-					html += '</tr>';
+						var b = data.boardList[i];
+
+						html += '<tr>'
+						html += '<td>'+ b.rewBoId +'</td>';
+						html +=	'<td><a href="${ pageContext.request.contextPath }/reviewBoard/reviewBoardView.do?no='+b.rewBoId+'">';
+						html += b.rewBoTitle +'</a></td>';		
+						html += '<td>'+ b.userId +'</td>';
+						html += '<td>'+b.rewBoRegDate.substring(0, 10).replaceAll('-', '.')+'</td>';
+						html += '</tr>';					
 				}
+				console.log(html);
 				$table.html(html);
 			}
 			
