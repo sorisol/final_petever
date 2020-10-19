@@ -16,6 +16,12 @@ public interface UserService {
 
 	List<User> selectUserList(String userPhone);
 
+	User selectSearchPwd(User user);
+
+	int updateUserPwd(User userOk);
+
+	int updateSigNo(User user);
+
 
 
 

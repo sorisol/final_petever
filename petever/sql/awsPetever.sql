@@ -30,7 +30,7 @@ CREATE TABLE tb_user (
     constraints ck_user_role check(user_role in ('U','A')) 
 );
 
-
+alter table tb_user add sig_no varchar2(35);
 
 
 --CREATE TABLE message (

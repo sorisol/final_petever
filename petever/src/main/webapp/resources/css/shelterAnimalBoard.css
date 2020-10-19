@@ -82,14 +82,18 @@
     border-collapse: collapse;
     border-top:2px solid #E1533C;
     border-bottom:2px solid #E1533C;
+    table-layout: fixed;
+    width:865px;
 }
 
 .tbl-th4 {
 	width: 390px !important;
-	white-space: nowrap;
-	overflow:hidden;
-	text-overflow: ellipsis;
 }
+
+.tbl-td4 {
+	width: 390px !important;
+}
+
 
 .sehlter-board-wrap table tr th {
     border: 1px solid #e6e7e8;
@@ -98,7 +102,7 @@
     text-align: center;
     padding: 10px;
     background-color: #ffe5c3;
-    width: 130px;
+    width: 110px;
 }
 
 .sehlter-board-wrap table tr td {
@@ -108,7 +112,11 @@
     text-align: center;
     padding: 10px;
     font-family: '돋움', sans-serif;
-    width: 130px;
+    width: 110px;
+    height: 40px;
+   	white-space: nowrap;
+	overflow:hidden;
+	text-overflow: ellipsis;
 }
 
 

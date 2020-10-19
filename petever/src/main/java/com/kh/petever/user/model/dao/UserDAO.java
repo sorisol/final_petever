@@ -16,6 +16,12 @@ public interface UserDAO {
 	int userDelete(User user);
 
 	List<User> selectUserList(String userPhone);
+
+	User selectSearchPwd(User user);
+
+	int updateUserPwd(User userOk);
+
+	int updateSigNo(User user);
 	
 
 }

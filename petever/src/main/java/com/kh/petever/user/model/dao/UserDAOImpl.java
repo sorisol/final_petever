@@ -44,6 +44,21 @@ public class UserDAOImpl implements UserDAO {
 		return sqlSession.selectList("user.selectUserList", userPhone);
 	}
 
+	@Override
+	public User selectSearchPwd(User user) {
+		return sqlSession.selectOne("user.selectSearchPwd", user);
+	}
+
+	@Override
+	public int updateUserPwd(User userOk) {
+		return sqlSession.update("user.updateUserPwd", userOk);
+	}
+
+	@Override
+	public int updateSigNo(User user) {
+		return sqlSession.update("user.updateSigNo", user);
+	}
+
 
 }	
 
