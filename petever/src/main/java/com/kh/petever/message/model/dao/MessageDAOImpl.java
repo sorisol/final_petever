@@ -1,6 +1,7 @@
 package com.kh.petever.message.model.dao;
 
-import java.util.List;	
+import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -29,6 +30,17 @@ public class MessageDAOImpl implements MessageDAO{
 	@Override
 	public int insertMessage(Message message) {
 		return sqlSession.insert("message.insertMessage", message);
+	}
+
+	@Override
+	public int deleteMessage(Map<String, String> param) {
+		return sqlSession.delete("message.deleteMessage", param);
+	}
+
+
+	@Override
+	public List<Message> selectOneUser(Message msg) {
+		return sqlSession.selectList("message.selectOneUser", msg);
 	}
 
 	
