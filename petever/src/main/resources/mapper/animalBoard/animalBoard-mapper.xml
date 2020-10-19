@@ -155,7 +155,7 @@
 	        <if test="aniBoTag != null and aniBoTag != ''">
 	            and ani_bo_tag like '%'||#{aniBoTag}||'%'
 	        </if>
-	        <if test="aniBoLocal != null and aniBoLocal != ' '">
+	        <if test="aniBoLocal != null and aniBoLocal != ''">
 	            and ani_bo_local like '%'||#{aniBoLocal}||'%'
 	        </if>
 	        <if test="aniBoType != null and aniBoType != ''">
