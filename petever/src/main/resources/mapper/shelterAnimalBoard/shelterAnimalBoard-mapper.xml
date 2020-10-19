@@ -32,10 +32,10 @@
 				org_name like '%' || #{ city } || '%'
 			</if>
 			<if test="province != null and province != ''">
-				org_name like '%' || #{ city } || '%'
+				and org_name like '%' || #{ province } || '%'
 			</if>
 			<if test="shelterName != null and shelterName != ''">
-				care_name like '%' || #{ shelterName } || '%'
+				and care_name like '%' || #{ shelterName } || '%'
 			</if>
 		</where>
 		order by shelter_no
@@ -53,10 +53,10 @@
 				org_name like '%' || #{ city } || '%'
 			</if>
 			<if test="province != null and province != ''">
-				org_name like '%' || #{ city } || '%'
+				and org_name like '%' || #{ province } || '%'
 			</if>
 			<if test="shelterName != null and shelterName != ''">
-				care_name like '%' || #{ shelterName } || '%'
+				and care_name like '%' || #{ shelterName } || '%'
 			</if>
 		</where>
 	</select>

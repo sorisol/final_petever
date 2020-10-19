@@ -1,7 +1,8 @@
 package com.kh.petever.message.controller;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -62,9 +64,7 @@ public class MessageController {
 	
 	@RequestMapping("/message/messageForm.do")
 	public ModelAndView messageForm(@RequestParam("receiveId")String receiveId, ModelAndView mav) {
-		
-//		mav.addObject("sendId1",animalBoard.getUserId());
-//		mav.addObject("sendId2",reviewBoard.getUserId());
+
 		
 		mav.setViewName("message/messageForm");
 		mav.addObject("receiveId", receiveId);
@@ -72,22 +72,57 @@ public class MessageController {
 	}
 	
 	
-	@RequestMapping("/message/insertmessage") 
-	public String insertBoard(Message message, RedirectAttributes redirectAttr, HttpServletRequest req){
+	@RequestMapping("/message/insertmessage")
+	@ResponseBody
+	public Map<String, Object> insertBoard(Message message, RedirectAttributes redirectAttr, HttpServletRequest req){
 		//로그인한 사용자 아이디
 		log.debug("Message = {}", message);
 		
-		
+		Map<String, Object> msg = new HashMap<>();
 		try {
 			int result = messageService.insertMessage(message);
-			redirectAttr.addFlashAttribute("msg", "게시글 등록 성공");
+			msg.put("msg", "메세지 보내기 성공");
 		} catch(Exception e) {
-			log.error("게시글 등록 오류", e);
-			redirectAttr.addFlashAttribute("msg", "게시글 등록 실패");
+			log.error("메세지 등록 오류", e);
+			msg.put("msg", "메세지 보내기실패");
 		}
-		return "close();";
+		return msg;
 	}
 	
+	
+    @RequestMapping("/message/messageDetail")
+    public @ResponseBody Map<String, Object> detail(Message msg){
+    	log.debug("msg = {}", msg);
+    	Map<String, Object> map = new HashMap<>();
+    	List<Message> msgDetail = messageService.selectOneUser(msg);
+    	List<Message> msgDetailDate = messageService.selectGetDate(msg);
+    	log.debug("msgDetail = {}", msgDetail);
+    	log.debug("msgDetailDate = {}", msgDetailDate);
+    	
+    	map.put("msgDetailDate", msgDetailDate);
+    	map.put("msgDetail", msgDetail);
+    	
+    	return map;
+    }
+    
+    
+    @RequestMapping("/message/messageDetailSend")
+	public @ResponseBody Map<String, Object> messageDetailSend(Message message ){
+		//로그인한 사용자 아이디
+		log.debug("Message = {}", message);
+		
+		Map<String, Object> map = new HashMap<>();
+		try {
+			int result = messageService.insertMessage(message);
+			map.put("msg", "성공");
+		} catch(Exception e) {
+			log.error("게시글 등록 오류", e);
+			map.put("msg", "실패");
+		}
+		return map;
+	}
+	
+    
 	
 
 }

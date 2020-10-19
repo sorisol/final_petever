@@ -38,7 +38,7 @@
                         <c:if test="${not empty loginUser}">
 	                        <div class="writer-menu">
 	                            <ul>
-	                                <li onClick="sendMessage('${animalBoard.userId}');" >쪽지보내기</li>
+	                                <li onClick="javascript:sendMessage('${animalBoard.userId}');" >쪽지보내기</li>
 	                                <li><a href="${pageContext.request.contextPath}/apply/adopt?no=${animalBoard.aniBoId}">입양신청하기</a></li>
 	                            </ul>
 	                        </div>

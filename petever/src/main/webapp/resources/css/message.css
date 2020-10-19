@@ -1,10 +1,59 @@
 
 section{
-	    background-color: #e8c2b7;
-	
+	background-color: #e8c2b7	;
 	
 }
+.main-content{
+	width: 1000px;
+	background-color: white;
+	border-radius: 20px
+}
+div h3{
+	padding: 20px;
+}
 section.msg-content{
-	padding-top:300px;
+	padding-top:200px;
     padding-left: 250px;
+}
+
+.message-detail{
+	width: 800px; height: max-content;
+}
+.message-Date{
+	 margin-top: 30px;
+}
+.empty-login-message{
+	text-align: center;
+}
+.userId{
+	padding-left: 10px;
+}
+.message-userTable{
+	padding-top:20px; padding-left: 10px;
+}
+.msg-background{
+ 	background-color:#e8c2b7; border: solid 1px black ; overflow:auto; width: 800px; height: 300px; position: relative; left: 100px
+}
+.message-detail-date{
+	text-align: center; background-color: white; padding: 10px; clear:both; background-color: rgb(197,165,156); color: white; border-radius: 20px;
+}
+.message-detail-receive{
+	width: max-content; background-color: white;  padding: 1em; border-top-right-radius:20px; border-bottom-right-radius: 20px;
+}
+.message-detail-send{
+width: max-content;  padding: 1em; border-top-left-radius:20px; border-bottom-left-radius: 20px; float: right ; background-color: rgb(255,221,147);
+}
+.sendBtn{
+	clear:both;  padding-top: 10px;
+	
+}
+.sendBtn input[type=text]{
+	width: 683px; height: 32px;
+}
+
+.sendBtn input[type=submit]{
+	width: 100px; height: 32px;
+}
+.msg-background {
+	display: none;
 }
