@@ -56,4 +56,5 @@ public interface AnimalBoardService {
 
 	AdoptApplication selectOneApplication(int no);
 
+
 }

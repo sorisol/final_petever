@@ -58,4 +58,6 @@ public interface AnimalBoardDAO {
 
 	AdoptApplication selectOneApplication(int no);
 
+	int insertMessage(AdoptApplication application);
+
 }
