@@ -65,6 +65,12 @@ input[type=tel] {
 <script>
 var verificationCode;
 $("#send-sms").on("click", function() {
+	var $userPhone = $("#userPhone").val();
+	if($userPhone.trim().length != 11){
+		alert("유효한 번호를 입력해주세요");
+		return;
+	}
+	
 	$.ajax({
 		url: '${pageContext.request.contextPath}/user/sendMsg.do',
 		data: {
@@ -73,7 +79,7 @@ $("#send-sms").on("click", function() {
 		method: 'post',
 		success: function(data) {
 			alert(data.msg);
-			console.log(data.verificationCode);
+			//console.log(data.verificationCode);
 			verificationCode = data.verificationCode;
 		}
 	});
