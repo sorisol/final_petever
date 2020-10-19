@@ -7,9 +7,17 @@
 
 	<select id="selectMessageList" resultMap="MessageMap">
 		select	
-			*
+			m.*
 		from 
-			message
+			(select 
+              	msg_num,
+              	user_id,
+              	receive_id,
+              	msg_content,
+              	row_number() over(partition by user_Id order by msg_num desc)as rowIdx
+            from message) m
+		where
+			rowIdx = 1			
 	</select>
 
 	<select id="selectOneMessage" resultMap="MessageMap">
@@ -21,13 +29,21 @@
 			msg_num = #{msgNo}
 	</select>
 	
+	<select id="selectLastMessage" resultMap="MessageMap">
+		select
+			*
+		from
+			message
+		where msg_num = (SELECT max(msg_num) FROM message where receive_id = ${receiveId}) ;
+	</select>
+	
 	<select id="selectMessageTotalContents" resultType="_int">
 	    select 
 	    	count(*) 
 	    from 
 	    	message 	
 	    <where>
-			user_Id like '%'||#{recieveId}||'%'	    
+			user_Id like '%'||#{receiveId}||'%'	    
 	    </where> 
 	    
 	</select>
@@ -47,10 +63,23 @@
 		)
 	</insert>
 	
+	<select id="selectOneUser" resultMap="MessageMap">
+		select
+			*
+		from
+			message
+		where
+			(user_id = #{userId}
+			and receive_id = #{receiveId})
+			or user_id = #{receiveId}
+		order by 
+			msg_num asc
+	</select>
+	
 	
 	
 	<resultMap id="MessageMap" type="message">
-
+		<id column="msg_num" property="msgNo"></id>
 	</resultMap>
 	
 </mapper>

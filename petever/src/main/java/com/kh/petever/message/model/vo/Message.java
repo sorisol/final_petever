@@ -22,7 +22,7 @@ public class Message implements Serializable{
 	private String userId;
 	private String receiveId;
 	private String msgContent;
-	private Date msgTime;
+	private String msgTime;
 	
 	
 	
