@@ -144,7 +144,18 @@ public class AnimalBoardServiceimpl implements AnimalBoardService {
 
 	@Override
 	public int insertApplication(AdoptApplication application) {
-		return dao.insertApplication(application);
+		int result = 0;
+		
+		//1.application 테이블에 insert
+		result = dao.insertApplication(application);
+		log.debug("result = {}", result);
+		if(result == 0)
+			throw new RuntimeException("게시글 등록 오류");
+		
+//		2.message 테이블에 insert
+		result = dao.insertMessage(application);
+		
+		return result;
 	}
 
 	@Override
@@ -176,6 +187,5 @@ public class AnimalBoardServiceimpl implements AnimalBoardService {
 	public AdoptApplication selectOneApplication(int no) {
 		return dao.selectOneApplication(no);
 	}
-	
-	
+
 }

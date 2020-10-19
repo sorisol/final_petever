@@ -1,6 +1,7 @@
 package com.kh.petever.message.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,22 @@ public class MessageServiceImpl  implements MessageService{
 		result = messageDAO.insertMessage(message);
 		
 		return result;
+	}
+
+	@Override
+	public int deleteMessage(Map<String, String> param) {
+		// TODO Auto-generated method stub
+		return messageDAO.deleteMessage(param);
+	}
+
+	@Override
+	public List<Message> selectOneUser(Message msg) {
+		return messageDAO.selectOneUser(msg);
+	}
+
+	@Override
+	public List<Message> selectGetDate(Message msg) {
+		return messageDAO.selectGetDate(msg);
 	}
 	
 	

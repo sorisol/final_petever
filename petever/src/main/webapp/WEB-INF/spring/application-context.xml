@@ -9,20 +9,18 @@
 	
 	
 	<context:property-placeholder location="classpath:datasource.properties" />
+	<context:property-placeholder location="classpath:emaildatasource.properties" />
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- #5.1. datasource & mybatis 관련 빈 등록 -->
 	<!-- #10.1. log4jdbc ProxyDatasource 빈 설정 -->
-	<bean class="org.apache.commons.dbcp.BasicDataSource"
-		  id="realDataSource"
-		  destroy-method="close">
+	<bean class="org.apache.commons.dbcp.BasicDataSource" id="realDataSource" destroy-method="close">
 		<property name="driverClassName" value="${datasource.driver}"/>
 		<property name="url" value="${datasource.url}"/>
 		<property name="username" value="${datasource.username}"/>
 		<property name="password" value="${datasource.password}"/>
 	</bean>
-	<bean class="net.sf.log4jdbc.Log4jdbcProxyDataSource"
-		  id="dataSource">
+	<bean class="net.sf.log4jdbc.Log4jdbcProxyDataSource" id="dataSource">
 		<constructor-arg ref="realDataSource"/>
 		<property name="logFormatter">
 			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
@@ -32,8 +30,7 @@
 		</property>
 	</bean>
 	
-	<bean class="org.mybatis.spring.SqlSessionFactoryBean"
-		  id="sqlSessionFactoryBean">
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean">
 		<!-- ref속성으로 dataSource빈을 참조한다. -->
 		<property name="dataSource" ref="dataSource"/>
 		<!-- mybatis관련 설정파일은 target/classes에서 참조한다. -->
@@ -55,4 +52,7 @@
 		
 	<!-- #13.2 @Transational 어노테이션에 대해 Transaction Advice 적용 -->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+
+
 </beans>

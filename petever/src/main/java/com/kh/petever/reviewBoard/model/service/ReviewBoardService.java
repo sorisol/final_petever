@@ -29,6 +29,8 @@ public interface ReviewBoardService {
 	
 	int totalComment(int no);
 	
+	int selectBoardTotalContents();
+	
 	int insertComment(ReviewComment reviewComment);
 	
 	int deleteComment(int commentNo);
@@ -44,6 +46,8 @@ public interface ReviewBoardService {
 	int insertReport(Report rep);
 
 	Report selectOneReport(Map<String, Object> param);	
+	
+	List<ReviewBoard> selectBoardListOneWeek();
 	
 }
  

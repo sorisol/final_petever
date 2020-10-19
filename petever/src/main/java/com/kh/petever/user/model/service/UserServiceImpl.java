@@ -1,5 +1,7 @@
 package com.kh.petever.user.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -31,6 +33,26 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int userDelete(User user) {
 		return userDAO.userDelete(user);
+	}
+
+	@Override
+	public List<User> selectUserList(String userPhone) {
+		return userDAO.selectUserList(userPhone);
+	}
+
+	@Override
+	public User selectSearchPwd(User user) {
+		return userDAO.selectSearchPwd(user);
+	}
+
+	@Override
+	public int updateUserPwd(User userOk) {
+		return userDAO.updateUserPwd(userOk);
+	}
+
+	@Override
+	public int updateSigNo(User user) {
+		return userDAO.updateSigNo(user);
 	}
 
 

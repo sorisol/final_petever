@@ -12,6 +12,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/slick.js"></script>
+<script type="text/JavaScript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 	    <div id="main-wrap">
         <section class="main">
 
@@ -37,7 +38,7 @@
                         <c:if test="${not empty loginUser}">
 	                        <div class="writer-menu">
 	                            <ul>
-	                                <li onClick="sendMessage('${animalBoard.userId}');" >쪽지보내기</li>
+	                                <li onClick="javascript:sendMessage('${animalBoard.userId}');" >쪽지보내기</li>
 	                                <li><a href="${pageContext.request.contextPath}/apply/adopt?no=${animalBoard.aniBoId}">입양신청하기</a></li>
 	                            </ul>
 	                        </div>
@@ -69,20 +70,28 @@
 							<fmt:formatDate value="${missDate}" pattern="yyyy.MM.dd"/>
                         </span>
                     </div>
-                    <div class="similar-container">
-                    	<fieldset>
-                    		<legend> 같은 지역에서 실종 신고된 동물 </legend>
-                    		<div class="slider">
-	                    		<c:forEach items="${shelterAniList}" var="sa">
-	                    			<div>
-	                    				<a href="${pageContext.request.contextPath}/shelterBoard/shelterAni?deserNo=${sa.desertionNo}">
-		                    				<img src="${sa.popfile}"/>
-	                    				</a>
-	                    			</div>
-	                    		</c:forEach>
-                    		</div>
-                    	</fieldset>
+                    <span class="ico_bbs ico_share">공유하기</span>
+                    <div>
+	                    <a id="kakao-link-btn" href="javascript:sendLink()" style="float: right;">
+						  <img src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" width="25px"/>
+						</a>
                     </div>
+                   	<c:if test="${not empty shelterAniList}">
+	                    <div class="similar-container">
+	                    	<fieldset>
+	                    		<legend> 같은 지역에서 실종 신고된 동물 </legend>
+	                    		<div class="slider">
+		                    		<c:forEach items="${shelterAniList}" var="sa">
+		                    			<div>
+		                    				<a href="${pageContext.request.contextPath}/shelterBoard/shelterAni?deserNo=${sa.desertionNo}">
+			                    				<img src="${sa.popfile}"/>
+		                    				</a>
+		                    			</div>
+		                    		</c:forEach>
+	                    		</div>
+	                    	</fieldset>
+	                    </div>
+                   	</c:if>
                     <div id="board-comment-container">
                         <div class="comment-header">
                             <span class="comment-view">댓글 ${totalComment}</span>
@@ -168,40 +177,113 @@
         </section>
     </div>
 <script>
-	$(".board-delete-btn").on("click", function() {
-		if(!confirm("게시글을 삭제하시겠습니까?"))
-			return;
-		location.href="${pageContext.request.contextPath}/animalboard/deleteBoard?no="+${animalBoard.aniBoId};
-	});
-    function openReport() {
-        window.open("${pageContext.request.contextPath}/animalboard/reportFrm?no=${animalBoard.aniBoId}&&doUser=${loginUser.userId}", "신고하기",
-            "width=500, height=330, toolbar=no, menubar=no, scrollbars=no, resizable=yes, top=300, left=500");
-    }
+function sendLink() {
+	Kakao.init("127b0f341e46ad8b0a7b6e38df529a1b");
+	Kakao.Link.sendDefault({
+    objectType: 'feed',
+    content: {
+      title: '[${animalBoard.aniBoTag}] ${animalBoard.aniBoTitle}',
+      description: '#${animalBoard.aniBoLocal} #${animalBoard.aniBoType} #${animalBoard.aniBoKind} #${animalBoard.aniBoGender} #${animalBoard.aniBoCha}',
+      imageUrl:
+        'http://localhost:9090/petever/resources/editor/multiupload/202010141108341c53f1f4-ebe2-414d-ae95-50d9faa1f195.jpg',
+      link: {
+        mobileWebUrl: 'https://developers.kakao.com',
+        webUrl: 'https://developers.kakao.com',
+      },
+    },
+    social: {
+      likeCount: 286,
+      commentCount: 45,
+      sharedCount: 845,
+    },
+    buttons: [
+      {
+        title: '웹으로 보기',
+        link: {
+          mobileWebUrl: 'https://developers.kakao.com',
+          webUrl: 'http://localhost:9090/petever/animalboard/boardView?no='+${animalBoard.aniBoId},
+        },
+      }
+    ],
+  })
+}
+$(".board-delete-btn").on("click", function() {
+	if(!confirm("게시글을 삭제하시겠습니까?"))
+		return;
+	location.href="${pageContext.request.contextPath}/animalboard/deleteBoard?no="+${animalBoard.aniBoId};
+});
+function openReport() {
+	window.open("${pageContext.request.contextPath}/animalboard/reportFrm?no=${animalBoard.aniBoId}&&doUser=${loginUser.userId}", "신고하기",
+           "width=500, height=350, toolbar=no, menubar=no, scrollbars=no, resizable=yes, top=300, left=500");
+}
 
-     //댓글입력창 자동 높이조절
-     function xSize(e) {
-         e.style.height = '1px';
-         e.style.height = (e.scrollHeight) + 'px';
-     }
-        
-     $(".reply-btn").on('click', function() {
-    	 /* $(".comment-reply-write") */
-    	 $(this).next().toggle();
-         var reply = '<form action="${pageContext.request.contextPath}/animalboard/insertComment" method="post">';
-         reply += '<input type="hidden" name="userId" value="${loginUser.userId}"/>';
-         reply += '<input type="hidden" name="aniCoLevel" value="2"/>';
-         reply += '<input type="hidden" name="aniBoId" value="${animalBoard.aniBoId}" />';
-         reply += '<input type="hidden" name="aniCoRef" value="'+$(this).val()+'"/>';
-         reply += '<span class="id-box">${loginUser.userId}</span>';
-         reply += '<textarea rows="1" class="comment_inbox_text" placeholder="댓글을 입력하세요" onkeyup="xSize(this)" name="aniCoContent"></textarea>';
-         reply += '<div class="btn-align">';
-         reply += '<button type="button" class="comment-cancle-btn" onclick="cancleBtn(this);">취소</button>';
-         reply += '<button class="comment-reg-btn">등록</button>';
-         reply += '</div>';
-         reply += '</form>';
-          $(this).next().html(reply);
-      });
+//댓글입력창 자동 높이조절
+function xSize(e) {
+    e.style.height = '1px';
+    e.style.height = (e.scrollHeight) + 'px';
+}
        
+$(".reply-btn").on('click', function() {
+	/* $(".comment-reply-write") */
+	console.log($(this));
+	$(this).next().toggle();
+    var reply = '<form action="${pageContext.request.contextPath}/animalboard/insertComment" method="post">';
+
+    reply += '<input type="hidden" name="userId" value="${loginUser.userId}"/>';
+    reply += '<input type="hidden" name="aniCoLevel" value="2"/>';
+    reply += '<input type="hidden" name="aniBoId" value="${animalBoard.aniBoId}" />';
+    reply += '<input type="hidden" name="aniCoRef" value="'+$(this).val()+'"/>';
+    reply += '<span class="id-box">${loginUser.userId}</span>';
+    reply += '<textarea rows="1" class="comment_inbox_text" placeholder="댓글을 입력하세요" onkeyup="xSize(this)" name="aniCoContent"></textarea>';
+    reply += '<div class="btn-align">';
+    reply += '<button type="button" class="comment-cancle-btn" onclick="cancleBtn(this);">취소</button>';
+    reply += '<button class="comment-reg-btn">등록</button>';
+    reply += '</div>';
+    reply += '</form>';
+    $(this).next().html(reply);
+});
+      
+//태그 색상
+$(function() {
+    var $tag = $(".board-title-tag");
+    if($tag.text().includes('실종'))
+        $tag.css('color', '#F08080');
+    else if($tag.text().includes('목격'))
+        $tag.css('color', '#F0EF97');
+    else if($tag.text().includes('보호'))
+        $tag.css('color', '#5F9EA0');
+});
+      
+//아이디 클릭시 메뉴
+$(".writer").click(function() {
+    $(".writer-menu").toggle();
+});
+//공유하기 이미지 클릭시
+$(".ico_bbs").click(function() {
+	$("#kakao-link-btn").toggel();
+});
+//댓글 이미지 클릭시
+$(".icon").click(function() {
+    $(this).next().toggle();
+});
+//댓글 삭제 클릭시
+$(".comment-delete").on("click",  function() {
+  	if(!confirm("댓글을 삭제하시겠습니까?"))
+		return;
+	location.href="${pageContext.request.contextPath}/animalboard/deleteComment?no=${animalBoard.aniBoId}&commentNo="+$(this).val();
+});
+
+$(".comment-edit").on("click",  function() {
+    $(this).parent().parent().toggle();
+    var val = $(this).parent().parent().next().html();
+    var ht = '<form action="${pageContext.request.contextPath}/animalboard/editComment" method="post">'
+        +'<textarea rows="1" class="edit comment_inbox_text" placeholder="댓글을 입력하세요" onkeyup="xSize(this)" name="aniCoContent">'+val+'</textarea>'
+    	+'<button type="submit" class="comment-edit-btn">수정</button>'
+    	+'<input type="hidden" name="aniCoId" value="'+$(this).val()+'" />'
+    	+'<input type="hidden" name="aniBoId" value="${animalBoard.aniBoId}" />'
+    	+'</form>';
+    $(this).parent().parent().next().html(ht);
+    $(".edit").focus();
 	//태그 색상
     $(function() {
         var $tag = $(".board-title-tag");
@@ -243,16 +325,18 @@
     $(".comment-edit-btn").on("click", function() {
     });
     
-    function cancleBtn(btn) {
-		var $btn = $(btn);
-      	$btn.parent().parent().parent().toggle();
-    }
-    
-    $('.slider').slick({
-    	  infinite: true,
-    	  slidesToShow: 5,
-    	  slidesToScroll: 4
-    });
+});
+   
+function cancleBtn(btn) {
+	var $btn = $(btn);
+    $btn.parent().parent().parent().toggle();
+}
+  
+$('.slider').slick({
+	infinite: true,
+	slidesToShow: 5,
+	slidesToScroll: 4
+});
     		
 </script>
 	

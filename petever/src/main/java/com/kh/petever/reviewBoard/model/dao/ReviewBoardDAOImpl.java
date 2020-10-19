@@ -121,6 +121,16 @@ public class ReviewBoardDAOImpl implements ReviewBoardDAO {
 		return sqlSession.selectOne("reviewboard.selectOneReport", param);
 	}
 
+	@Override
+	public int selectBoardTotalContents() {
+		return sqlSession.selectOne("reviewboard.selectBoardTotalContents");
+	}
+
+	@Override
+	public List<ReviewBoard> selectBoardListOneWeek() {
+		return sqlSession.selectList("reviewboard.selectBoardListOneWeek");
+	}
+
 	
 
 

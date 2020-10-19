@@ -115,7 +115,7 @@
 	                        </tr>
 	                    </table>
 	
-	                    <hr style="height: 1px; border:none; background-color: lightgray; width: 860px; margin: 30px 50px;">
+	                    <hr style="height: 1px; border:none; background-color: lightgray; width: 880px; margin: 30px 50px;">
 						
 	                    <div class="post-wrap">
 	                    <c:forEach items="${boardList}" var="b">
@@ -146,8 +146,10 @@
 	                        </div>
 	                    </c:forEach>
 	                    </div>
-	                    <hr style="height: 1px; border:none; background-color: lightgray; width: 860px; margin: 35px 50px 10px 50px;">
-	                    <button type="button" onclick="location.href='${pageContext.request.contextPath}/animalboard/boardFrm'" class="write-btn">글쓰기</button>
+	                    <hr style="height: 1px; border:none; background-color: lightgray; width: 880px; margin: 35px 50px 10px 50px;">
+	                    <c:if test="${not empty loginUser}">
+		                    <button type="button" onclick="location.href='${pageContext.request.contextPath}/animalboard/boardFrm'" class="write-btn">글쓰기</button>
+	                    </c:if>
 	                    <div class="search-wrap">
 	                        <select name="search" id="search">
 	                            <option value="aniBoTitle">제목</option>

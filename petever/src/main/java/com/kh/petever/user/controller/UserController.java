@@ -1,13 +1,23 @@
 package com.kh.petever.user.controller;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -20,6 +30,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,6 +45,9 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import com.kh.petever.user.model.service.KakaoAPI;
 import com.kh.petever.user.model.service.UserService;
 import com.kh.petever.user.model.vo.User;
+
+import jdk.nashorn.internal.ir.RuntimeNode.Request;
+import net.nurigo.java_sdk.api.Message;
 
 
 @Controller
@@ -105,33 +119,69 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
-	public String userLogin(@RequestParam String userId, @RequestParam String userPwd, Model model,
-			RedirectAttributes redirectAttr, HttpSession session) {
+	public String userLogin(@RequestParam String userId, 
+							@RequestParam String userPwd, 
+							Model model,
+							RedirectAttributes redirectAttr, 
+							HttpServletRequest request,
+							HttpServletResponse response,
+							HttpSession session) throws IOException, ServletException {
 
 		log.debug("userId = {}, userPwd = {}", userId, userPwd);
 
+		//userId로 회원정보 조회하기 
 		User user = userService.selectOneUser(userId);
 		log.debug("user = {}", user);
 
 		String location = "/";
+		String saveId = request.getParameter("saveId");
 
 		// 로그인 성공
 		if (user != null && bcryptPasswordEncoder.matches(userPwd, user.getUserPwd())) {
 
+			//세션처리
 			model.addAttribute("loginUser", user);
-
+			
+			//세션에 next값 가져오기 
 			String next = (String) session.getAttribute("next");
 			location = next != null ? next : location;
 			session.removeAttribute("next");
-
-			// 로그인 실패
-		} else {
+			
+			//세션 유효시간설정
+			session.setMaxInactiveInterval(30*60);
+			
+			//세션에 로그인한 사용자 정보 저장
+			session.setAttribute("loginUser", user);
+			
+			//쿠키(SaveId) 처리 
+			Cookie c = new Cookie("saveId", userId);
+			c.setPath(request.getContextPath());
+			
+			log.debug("saveId = {}", saveId);
+			
+			//SaveId 체크한 경우 : 쿠키 생성
+			if(saveId != null) {
+				c.setMaxAge(7*24*60*60); //7일
+				
+			}
+			else {
+				c.setMaxAge(0); //브라우저에서 즉시 삭제하기
+			}
+			response.addCookie(c);
+			
+			//리다이렉트처리
+			//response.sendRedirect(request.getContextPath());
+			
+		} 
+		// 로그인 실패
+		else {
 			redirectAttr.addFlashAttribute("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
 
 		}
 
 		return "redirect:/"+location;
 	}
+	
 
 	// 로그아웃 - 세션 무효화
 
@@ -283,4 +333,50 @@ public class UserController {
 		
 		return map;
 	}
+	
+	@GetMapping("/findIdFrm.do")
+	public String findIdFrm() {
+		return "/user/find-id";
+	}
+	
+	@RequestMapping("/sendMsg.do")
+	public @ResponseBody Map<String, Object> sendMsg(User user){
+	    String api_key = "NCSWW8V5EVEGRD4R";
+	    String api_secret = "ZCHDRIEFOUT4HEZQQCXE1SBDSQYLYOTD";
+	    Message coolsms = new Message(api_key, api_secret);
+	    int rndCode = (int)(Math.random()*1000000)+1;
+	    log.debug("{}", user);
+	    // 4 params(to, from, type, text) are mandatory. must be filled
+	    HashMap<String, String> params = new HashMap<>();
+	    params.put("to", user.getUserPhone());	// 수신전화번호
+	    params.put("from", "01041148802");	// 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
+	    params.put("type", "SMS");
+	    params.put("text", String.valueOf(rndCode));
+	    params.put("app_version", "test app 1.2"); // application name and version
+
+	    HashMap<String, Object> result = new HashMap<>();
+	    String msg = "인증번호를 발송했습니다. 인증번호가 오지 않으면 입력하신 정보가 회원정보와 일치하는지 확인해 주세요.";
+//	    try {
+//	      JSONObject obj = (JSONObject) coolsms.send(params);
+//	      log.debug("{}", obj.toString());
+//	    } catch (CoolsmsException e) {
+//	      log.error("문자 발송 오류", e.getMessage());
+//	      log.error("문자 발송 오류",e.getCode());
+//	      msg = "인증번호 전송에 실패하였습니다.";
+//	      result.put("text", "첫번째 보내는 테스트 문자 메시지!");
+//	    }
+	    result.put("msg", msg);
+	    result.put("verificationCode", rndCode);
+	    
+	    return result;
+	}
+	
+	@RequestMapping("/selectOneUser.do")
+	@ResponseBody
+	public List<User> selectOneUser(User user) {
+		List<User> list = userService.selectUserList(user.getUserPhone());
+		return list;
+	}
+	
+	
 }
