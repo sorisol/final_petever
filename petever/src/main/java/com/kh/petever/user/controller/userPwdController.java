@@ -89,14 +89,34 @@ public class userPwdController {
 			// 메일 내용 
 			String recipient = user.getUserEmail(); //받는 사람의 메일주소를 입력해주세요. 
 			String subject = "[petever] 비밀번호 찾기입니다."; //메일 제목 입력해주세요. 
-			String body = userOne.getUserId() + "님 안녕하세요??" //메일 내용 입력해주세요. 
-					+ "<img src='http://image.dongascience.com/Photo/2020/03/5bddba7b6574b95d37b6079c199d7101.jpg' alt='' onclick='location.href="+"http://localhost:9090/petever/user/login.do"+"'/>"
-					+ "<form action='http://localhost:9090/petever/user/mailPwdFrm.do' method='Post'>"
+			String body = "<HTML>"
+					+ "<body style='font-size: 13px; margin-left: 90px;'>"
+					+ "<script src='${ pageContext.request.contextPath }/resources/js/jquery-3.3.1.min.js'></script>"
+					+ userOne.getUserId() + "님 안녕하세요??" //메일 내용 입력해주세요. 
+					+ "<br>"
+					+ "PassWord 잃어버리지 마세요 ㅠ"
+					+ "<br>"
+					+ "<a href='http://localhost:9090/petever/user/mailPwdFrm.do?userId="+userOne.getUserId()+"&sigNo=" + userOne.getSigNo() + "'>"
+					+ "<img src='http://image.dongascience.com/Photo/2020/03/5bddba7b6574b95d37b6079c199d7101.jpg' alt='' style='width: 250px;'"
+					+ "onclick='pageMove();'/>"
+					+ "</a>"
+					+ "<form id='pwdChange' action='http://localhost:9090/petever/user/mailPwdFrm.do' method='Post'>"
 					+ "<input type='hidden' name='userId' value='" + userOne.getUserId() + "' />"
 					+ "<input type='hidden' name='sigNo' value='" + userOne.getSigNo() + "' />"
 					+ ""
-					+ "<input type='submit' value='홈페이지 이동'/>"
-					+ "</form>"; 
+					+ "<input type='submit' value='홈페이지 이동' style='padding: 5px; width: 110px; height: 35px; border-radius: 10px;" 
+					+ "border: 1px solid darkgray; background-color: beige; font-weight: bold; font-size: 11px; margin-left: 60px;'/>"
+					+ "</form>"
+					+ "<script>"
+					+ "$(function() {"
+					+ "	function pageMove(){"
+					+ "		console.log(111);"
+					+ "		$('#pwdChange').submit();"
+					+ "	}"
+					+ "})"
+					+ "</script>"
+					+ "</body>"
+					+ "</HTML>"; 
 			Properties props = System.getProperties(); // 정보를 담기 위한 객체 생성 
 			
 			// SMTP 서버 정보 설정 
