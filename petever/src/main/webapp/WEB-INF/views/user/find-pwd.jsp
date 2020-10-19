@@ -64,15 +64,6 @@ input[type=tel] {
 		</div>
 		<div class="second"></div>
 	</div>
-	<img src="http://image.dongascience.com/Photo/2020/03/5bddba7b6574b95d37b6079c199d7101.jpg" alt="" 
-		onclick="location.href='http://localhost:9090/petever/user/login.do'" style="width:300px; height:150px"/>
-	<a href="http://localhost:9090/petever/user/login.do" >고고</a> 
-	
-	<form action="http://localhost:9090/petever/user/mailPwdFrm.do?userId=" + userOne.getUserId() + "&sigNo=" + userOne.getSigNo()" method="Post">
-		<input type="hidden" name='userId' value='userOne.getUserId()' />
-		
-		<input type='submit' value='홈페이지 이동'/>
-	</form>
 <script>
  $("#verification-check").on("click", function(){
 	
