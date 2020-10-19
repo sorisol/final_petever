@@ -30,6 +30,10 @@
               	<div class="protect slider" data-slick='{"slidesToShow": 5, "slidesToScroll": 5}'>
               			
                	</div>
+ 				<p class="review-title">■ 입양후기</p>
+              	<div class="review slider" data-slick='{"slidesToShow": 5, "slidesToScroll": 5}'>
+              			
+               	</div>               	
             </article>
             <article class="total-wrap">
 					<h1 class="totalStatis">총 ${ allCnt } 마리</h1>
@@ -207,6 +211,37 @@ function numberWithCommas(x) {
 }
     
 window.onload = function(){
+    /* 입양후기 슬라이드쇼 */
+	 
+	  $.ajax({
+			url : "${pageContext.request.contextPath}/reviewBoard/index",
+			method : "GET",
+			success : function(data){
+				if(data.boardList != null) {
+					var $review = $('.review');
+					
+					var rev = '';
+					for(var i in data.boardList) {
+						var b = data.boardList[i];
+						rev += '<div class ="post">';
+						rev += '<a href="${ pageContext.request.contextPath }/reviewBoard/reviewBoardView.do?no='+b.rewBoId+'">';
+						for(var j in data.attachList) {
+							var a = data.attachList[j];
+							if(b.rewBoId == a.rewBoId){
+									rev += '<img src="${pageContext.request.contextPath}/resources/editor/multiupload/'+a.rewAtRenamedName+'" alt="입양후기사진">';
+							}
+						}
+						rev += '<p class="post-title">['+b.rewBoTitle+']</p>';
+						rev += '</a></div>';
+					}
+				}
+				$review.append(rev);
+			},
+			error : function(xhr, status, err){
+				console.log("처리실패", xhr, status, err);
+	 		}
+		}); 
+	
 	
 	 $.ajax({
 		url : "${pageContext.request.contextPath}/animalboard/index",
@@ -252,6 +287,7 @@ window.onload = function(){
 			console.log("처리실패", xhr, status, err);
  		}
 	});
+		
 	$.noConflict();
 	function slickCarousel() {
 	 	$('.slider').slick({
@@ -490,6 +526,7 @@ $(document).ready(function(){
         }
     });
 });
+
 </script>
  <script src="${ pageContext.request.contextPath }/resources/js/d3.min.js"></script>
  <script src="${ pageContext.request.contextPath }/resources/js/map.js"></script>

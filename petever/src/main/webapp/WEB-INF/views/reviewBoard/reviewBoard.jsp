@@ -11,15 +11,30 @@
 	tr[data-board-no] {
 		cursor: pointer;
 	}
+	
+	.tbl-board {
+    width: 770px;
+    margin: 0 auto;
+/*     border: 1px solid #bcbcbc; */
+    background-color: rgb(255,249,238); 
+    }
+    
+    th{
+    background-color : rgb(255,193,63); 
+	text-align: left;
+        }
+    
+    
+
 	</style>
  <script>
 $(function(){
 
-	$("tr[data-board-no]").click(function(){
+ 	/* $("tr[data-board-no]").click(function(){
 		var no = $(this).attr("data-board-no");
-		location.href = "${ pageContext.request.contextPath }/reviewBoard/reviewBoardView.do?no=" + no;
-	});
-
+		location.href = "${ pageContext.request.contextPath }/reviewBoard/reviewBoardView.do?no="+ no";
+	}); */
+ 
 	$("#search").on("change", function() {
 		var $search = $("#search").val();
 		var $query = $("#query");
@@ -29,8 +44,8 @@ $(function(){
 		else
 			$query.attr("name", "rewBoTitle");
 	});
-	
 });
+
 
 
 function searchFunc() {
@@ -56,10 +71,15 @@ function searchFunc() {
 				//console.log(data.attachList);
 				for(var i in data.boardList){
 					var b = data.boardList[i];
-					html += '<tr><td>'+ b.rewBoId +'</td>';
+					
+					html += '<tr>'
+					html +=	'<a href="${ pageContext.request.contextPath }/reviewBoard/reviewBoardView.do?no='+b.rewBoId+'">';
+					html += '<td>'+ b.rewBoId +'</td>';			
 					html += '<td>'+ b.rewBoTitle +'</td>';
+					html += '</a>';
 					html += '<td>'+ b.userId +'</td>';
-					html += '<td>'+b.rewBoRegDate.substring(0, 10).replaceAll('-', '.')+'</td></tr>';
+					html += '<td>'+b.rewBoRegDate.substring(0, 10).replaceAll('-', '.')+'</td>';
+					html += '</tr>';
 				}
 				$table.html(html);
 			}
@@ -70,6 +90,7 @@ function searchFunc() {
 		}
 	});
 }
+
 </script> 
 	 <div id="main-wrap">
 	        <section class="main">
@@ -84,36 +105,50 @@ function searchFunc() {
    <section id="board-container" class="container" align="center">
  	
  	<p>총 ${totalContents}건의 게시물이 있습니다.</p> 
-    <li><a href="${ pageContext.request.contextPath }/reviewBoard/reviewBoard.do">목록으로 보기</a></li>
-   <li><a href="${pageContext.request.contextPath}/reviewBoard/reviewBoardPhoto.do">썸네일로 보기</a></li> 
+	<br>
+ 	<b>
+ 	<a href="${pageContext.request.contextPath}/reviewBoard/reviewBoardPhoto.do">썸네일로 보기</a> | 
+    <a href="${ pageContext.request.contextPath }/reviewBoard/reviewBoard.do">목록으로 보기</a>
+	</b>
+	</section>	
 
   	 <hr style="height: 1px; border:none; background-color: lightgray; width: 1000px; margin: 30px 50px;">
 
-				
-	<table id="tbl-board" style="margin-left: auto; margin-right: auto;">
-	 	<tr>
-			<th>No</th>
-			<th>Title</th>
-			<th>UserId</th>
-			<th>Date</th>
-		</tr> 
-		<br>
-		<c:forEach items="${ list }" var="b">
-		<tr data-board-no="${ b.rewBoId }" >
-			<td>${ b.rewBoId }</td>	
-	 		<td>${ b.rewBoTitle }</td> 	
-			<td>${ b.userId }</td>
-			<td>
-		        <fmt:parseDate value="${b.rewBoRegDate}" var="regDate" pattern="yyyy-MM-dd"/>
-				<fmt:formatDate value="${regDate}" pattern="yyyy.MM.dd"/>
-			</td>	
-		</tr>
-		</c:forEach>
-	</table>
+
+	<section id="board-container2">
+		<table id="tbl-board" class="tbl-board" width = "800">            
+		 	<tr>
+				<th>No</th>
+				<th>Title</th>
+				<th>UserId</th>
+				<th>Date</th>
+			</tr> 
+			<br>
+			<c:forEach items="${ list }" var="b">    
+			<tr data-board-no="${ b.rewBoId }" >
+				<td>${ b.rewBoId }</td>	
+		 		<td>
+		 		<div class="post-title">
+		 		<a href="${ pageContext.request.contextPath }/reviewBoard/reviewBoardView.do?no=${b.rewBoId}">
+		    	${ b.rewBoTitle }
+		    	</a>
+		    	</div>
+		    	</td>  	    	
+				<td>${ b.userId }</td>
+				<td>
+			        <fmt:parseDate value="${b.rewBoRegDate}" var="regDate" pattern="yyyy-MM-dd"/>
+					<fmt:formatDate value="${regDate}" pattern="yyyy.MM.dd"/>
+				</td>	
+			</tr>
+		
+			</c:forEach>
+		</table>
 </section> 
    
 	                    <hr style="height: 1px; border:none; background-color: lightgray; width: 860px; margin: 35px 50px 10px 50px;">
+	                    <c:if test="${not empty loginUser}">
 	                    <button type="button" onclick="location.href='${pageContext.request.contextPath}/reviewBoard/reviewBoardFrm'" class="write-btn">글쓰기</button>
+	              		</c:if>
 	               <form id="searchFrm">
 	                    <div class="search-wrap">
 	                        <select name="search" id="search">

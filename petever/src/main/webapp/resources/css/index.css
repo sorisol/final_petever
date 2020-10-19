@@ -18,7 +18,7 @@ section.content-wrap {
     width: 1200px;
 }
 
-.content-wrap .content .missing-title, .protect-title {
+.content-wrap .content .missing-title, .protect-title, .review-title {
     font-size: 24px;
 }
 .content-wrap .content .missing-title {
@@ -27,6 +27,10 @@ section.content-wrap {
 .content-wrap .content .protect-title {
 	margin-top: 50px;
     color: #5F9EA0;
+}
+.content-wrap .content .review-title {
+	margin-top: 50px;
+    color: rgb(68, 167, 240);
 }
 
 .slider div {

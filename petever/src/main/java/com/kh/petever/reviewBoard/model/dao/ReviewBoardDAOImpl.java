@@ -128,7 +128,7 @@ public class ReviewBoardDAOImpl implements ReviewBoardDAO {
 
 	@Override
 	public List<ReviewBoard> selectBoardListOneWeek() {
-		return sqlSession.selectOne("reviewboard.selectBoardListOneWeek");
+		return sqlSession.selectList("reviewboard.selectBoardListOneWeek");
 	}
 
 	
