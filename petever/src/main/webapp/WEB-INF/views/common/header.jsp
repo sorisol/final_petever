@@ -19,17 +19,18 @@
 	    <c:if test="${not empty msg }">
 	    	alert('${ msg }');
 	    </c:if>
-    </script>
-    <script>   
      function sendMessage(param){
         var url = "${pageContext.request.contextPath}/message/messageForm.do?receiveId=";
         var name = "messageForm";
         var option = "width = 500, height = 500, top = 100, left = 200, location = no";
     	//var receiveId = param;
         
-    	url += param;
     	
-        window.open(url, name, option);
+    			url += param;
+		        window.open(url, name, option);
+        
+        
+        
         
     }
     

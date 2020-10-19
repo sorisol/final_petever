@@ -18,5 +18,7 @@ public interface MessageDAO {
 
 	List<Message> selectOneUser(Message msg);
 
+	List<Message> selectGetDate(Message msg);
+
 
 }

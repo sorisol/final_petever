@@ -21,5 +21,7 @@ public interface MessageService {
 
 	List<Message> selectOneUser(Message msg);
 
+	List<Message> selectGetDate(Message msg);
+
 
 }

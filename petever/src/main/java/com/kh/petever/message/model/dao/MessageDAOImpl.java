@@ -43,6 +43,11 @@ public class MessageDAOImpl implements MessageDAO{
 		return sqlSession.selectList("message.selectOneUser", msg);
 	}
 
+	@Override
+	public List<Message> selectGetDate(Message msg) {
+		return sqlSession.selectList("message.selectGetDate", msg);
+	}
+
 	
 	
 
