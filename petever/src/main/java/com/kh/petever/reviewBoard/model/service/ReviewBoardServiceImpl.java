@@ -1,11 +1,12 @@
 package com.kh.petever.reviewBoard.model.service;
 
 import java.util.List;
+
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.kh.petever.admin.model.vo.Report;
 import com.kh.petever.reviewBoard.model.dao.ReviewBoardDAO;
 import com.kh.petever.reviewBoard.model.vo.ReviewAttach;
 import com.kh.petever.reviewBoard.model.vo.ReviewBoard;
@@ -68,7 +69,30 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 
 	@Override
 	public int updateBoard(ReviewBoard reviewBoard) {
-		return reviewBoardDAO.updateBoard(reviewBoard);
+		int result = 0;
+		
+	//1.board 테이블에 update
+		result = reviewBoardDAO.updateBoard(reviewBoard);
+		log.debug("result = {}", result);
+		if(result == 0)
+			throw new RuntimeException("게시글 수정 오류");
+		
+//		2.attachment 테이블에 update
+		//첨부파일 수 만큼 행추가
+		List<ReviewAttach> attachList = reviewBoard.getAttachList();
+		//첨부파일이 있는 경우
+		if(attachList != null) {
+			for(ReviewAttach attach : attachList) {
+				attach.setRewBoId(reviewBoard.getRewBoId());
+				log.debug("attach = {}", attach);
+				result = reviewBoardDAO.insertAttachment(attach);
+				
+				if(result == 0)
+					throw new RuntimeException("첨부파일 등록 오류");
+			}
+		}
+		
+		return result;
 	}
 
 	@Override
@@ -119,6 +143,26 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 	@Override
 	public int reviewBoardCount() {
 		return reviewBoardDAO.reviewBoardCount();
+	}
+
+	@Override
+	public int insertReport(Report rep) {
+		return reviewBoardDAO.insertReport(rep);
+	}
+
+	@Override
+	public Report selectOneReport(Map<String, Object> param) {
+		return reviewBoardDAO.selectOneReport(param);
+	}
+
+	@Override
+	public int selectBoardTotalContents() {
+		return reviewBoardDAO.selectBoardTotalContents();
+	}
+
+	@Override
+	public List<ReviewBoard> selectBoardListOneWeek() {
+		return reviewBoardDAO.selectBoardListOneWeek();
 	}
 
 }

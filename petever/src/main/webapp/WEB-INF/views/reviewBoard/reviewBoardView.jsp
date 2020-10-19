@@ -40,12 +40,14 @@
                     <div class="board-content">
 						${reviewBoard.rewBoContent }
                     </div>
-                    
+                 
 
                     <div id="board-comment-container">
                         <div class="comment-header">
                             <span class="comment-view">댓글 ${totalComment}</span>
+                            <div class ="cursor">
                             <a class="report-btn" onclick="javascript:openReport();">신고</a>
+                            </div>
                         </div>
                         <c:if test="${ not empty commentList }">
                         	<c:forEach items="${commentList}" var="cl">
@@ -117,7 +119,7 @@
                     </c:if>
                 </div>
                 <div class="btn-wrap">
-	                <button type="button" class="board-list-btn" onclick="location.href='${pageContext.request.contextPath}/reviewBoard/reviewBoard.do'">글 목록</button>
+	                <button type="button" class="board-list-btn" onclick="location.href='${pageContext.request.contextPath}/reviewBoard/reviewBoardPhoto.do'">글 목록</button>
 	                <c:if test="${loginUser.userId == reviewBoard.userId || loginUser.userId == 'admin'}">
 		                <button type="button" class="board-delete-btn">삭제</button>			
 		                <button type="button"class="board-edit-btn" onclick="location.href='${pageContext.request.contextPath}/reviewBoard/updateFrm.do?no=${reviewBoard.rewBoId}'">수정</button>
@@ -133,9 +135,9 @@
 			return;
 		location.href="${pageContext.request.contextPath}/reviewBoard/deleteBoard?no="+${reviewBoard.rewBoId};
 	});
-	
+	//신고하기
     function openReport() {
-        window.open("${pageContext.request.contextPath}/reviewBoard/reportFrm?no=${reviewBoard.rewBoId}&&doUser=${loginUser.userId}", "신고하기",
+        window.open("${pageContext.request.contextPath}/reviewBoard/reportFrm.do?no=${reviewBoard.rewBoId}&&doUser=${loginUser.userId}", "신고하기",
             "width=500, height=330, toolbar=no, menubar=no, scrollbars=no, resizable=yes, top=300, left=500");
     }
 
@@ -217,5 +219,8 @@
     });
     		
 </script>
-	
+<style>
+.cursor {
+	cursor: pointer;
+}</style>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

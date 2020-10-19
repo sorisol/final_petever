@@ -1,5 +1,7 @@
 package com.kh.petever.user.model.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -35,6 +37,26 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public int userDelete(User user) {
 		return sqlSession.delete("user.userDelete", user);
+	}
+
+	@Override
+	public List<User> selectUserList(String userPhone) {
+		return sqlSession.selectList("user.selectUserList", userPhone);
+	}
+
+	@Override
+	public User selectSearchPwd(User user) {
+		return sqlSession.selectOne("user.selectSearchPwd", user);
+	}
+
+	@Override
+	public int updateUserPwd(User userOk) {
+		return sqlSession.update("user.updateUserPwd", userOk);
+	}
+
+	@Override
+	public int updateSigNo(User user) {
+		return sqlSession.update("user.updateSigNo", user);
 	}
 
 

@@ -60,7 +60,7 @@
 		<c:forEach items="${ list }" var="b">
 			<c:if test="${loginUser.userId eq b.receiveId || loginUser.userId eq b.userId }">
 				<c:if test="${loginUser.userId eq b.receiveId }">
-
+ 
 					<br>
 					<div class="message-detail">
 						<div class="message-userTable">

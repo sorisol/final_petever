@@ -29,6 +29,7 @@ public class User implements Serializable {
 	private String userLocal;
 	private String userLocalDetail;
 	private String userRole;
+	private String sigNo;
 	
 
 }

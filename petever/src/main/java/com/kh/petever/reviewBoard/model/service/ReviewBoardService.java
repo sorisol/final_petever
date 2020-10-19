@@ -3,6 +3,7 @@ package com.kh.petever.reviewBoard.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.petever.admin.model.vo.Report;
 import com.kh.petever.reviewBoard.model.vo.ReviewAttach;
 import com.kh.petever.reviewBoard.model.vo.ReviewBoard;
 import com.kh.petever.reviewBoard.model.vo.ReviewComment;
@@ -28,6 +29,8 @@ public interface ReviewBoardService {
 	
 	int totalComment(int no);
 	
+	int selectBoardTotalContents();
+	
 	int insertComment(ReviewComment reviewComment);
 	
 	int deleteComment(int commentNo);
@@ -39,6 +42,12 @@ public interface ReviewBoardService {
 	List<ReviewAttach> selectAttachListOneBoard(int no);
 	
 	int reviewBoardCount();
+	
+	int insertReport(Report rep);
+
+	Report selectOneReport(Map<String, Object> param);	
+	
+	List<ReviewBoard> selectBoardListOneWeek();
 	
 }
  

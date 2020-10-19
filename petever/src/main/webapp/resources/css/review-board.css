@@ -194,14 +194,14 @@ td {
 	outline-color: #f2aa8a;	
 }
 
-.reviewList {
+.tbl-board {
     width: 850px;
     margin: 0 auto;
     text-align: left;
     border-collapse: collapse;
 }
 
-.reviewList th,
+.tbl-board th,
 td {
     padding: 5px 10px;
 }

@@ -30,7 +30,7 @@ CREATE TABLE tb_user (
     constraints ck_user_role check(user_role in ('U','A')) 
 );
 
-
+alter table tb_user add sig_no varchar2(35);
 
 
 --CREATE TABLE message (
@@ -258,3 +258,37 @@ create table adoption_application(
                                     references tb_user(user_id)
                                     on delete set null
 );
+
+create table shelterAnimalBoard(
+    shelter_no number,
+    care_name varchar2(100),
+    care_addr varchar2(300),
+    care_tel varchar2(15),
+    care_lat varchar2(30),
+    care_lng varchar2(30),
+    division_name varchar2(30),
+    save_animal varchar2(500),
+    week_opr_stime varchar2(5),
+    week_opr_etime varchar2(5),
+    weekend_opr_stime varchar2(5),
+    weekend_opr_etime varchar2(5),
+    week_cell_stime varchar2(5),
+    week_cell_etime varchar2(5),
+    weekend_cell_stime varchar2(5),
+    weekend_cell_etime varchar2(5),
+    close_day varchar2(500),
+    vet_person_cnt number,
+    specs_person_cnt number,
+    medical_cnt number,
+    breed_cnt number,
+    quarabtine_cnt number,
+    feed_cnt number,
+    transCar_cnt number,
+    org_name varchar2(50),
+    dsignation_date Date,
+    data_std_date Date,
+    constraints pk_shelter_no primary key(shelter_no)
+);
+
+create sequence seq_shelter_no;
+

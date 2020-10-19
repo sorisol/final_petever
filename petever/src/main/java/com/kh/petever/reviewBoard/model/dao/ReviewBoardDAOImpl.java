@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.petever.admin.model.vo.Report;
 import com.kh.petever.reviewBoard.model.vo.ReviewAttach;
 import com.kh.petever.reviewBoard.model.vo.ReviewBoard;
 import com.kh.petever.reviewBoard.model.vo.ReviewComment;
@@ -106,7 +107,28 @@ public class ReviewBoardDAOImpl implements ReviewBoardDAO {
 
 	@Override
 	public int reviewBoardCount() {
-		return sqlSession.selectOne("reiewboard.reviewBoardCount");
+		return sqlSession.selectOne("reviewboard.reviewBoardCount");
+	}
+
+	@Override
+	public int insertReport(Report rep) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("reviewboard.insertReport", rep);
+	}
+
+	@Override
+	public Report selectOneReport(Map<String, Object> param) {
+		return sqlSession.selectOne("reviewboard.selectOneReport", param);
+	}
+
+	@Override
+	public int selectBoardTotalContents() {
+		return sqlSession.selectOne("reviewboard.selectBoardTotalContents");
+	}
+
+	@Override
+	public List<ReviewBoard> selectBoardListOneWeek() {
+		return sqlSession.selectList("reviewboard.selectBoardListOneWeek");
 	}
 
 	

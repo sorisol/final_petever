@@ -3,15 +3,15 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="reviewboard">
-<!-- 게시판목록 -->
-<select id="selectReviewBoardList" resultMap="reviewBoardMap">
-	select 
-		*
-	from 
-		review_board 
-    order by 
-      	rew_bo_id desc
-</select>
+	<!-- 게시판목록 -->
+	<select id="selectReviewBoardList" resultMap="reviewBoardMap">
+		select 
+			*
+		from 
+			review_board 
+	    order by 
+	      	rew_bo_id desc
+	</select>
  
 	<!-- 게시판 글 작성  -->
   	<insert id="insertReviewBoard">
@@ -67,14 +67,14 @@
 			review_attach
 	</select>
 	
- 	<select id="selectOneBoardAttachList" resultMap="reviewAttachMap">
+  	<select id="selectOneBoardAttachList" resultMap="reviewAttachMap">
 		select
 			*
 		from
 			review_attach
 		where
 			rew_bo_id = #{no}
-	</select>
+	</select> 
 	
 	<!-- 수정 -->
 	<update id="updateBoard">
@@ -82,7 +82,7 @@
 		review_board 
 	set 
 		rew_bo_title = #{rewBoTitle},
-		rew_bo_content = #{RewBoContent}
+		rew_bo_content = #{rewBoContent}
 	where 
 		rew_bo_id = #{rewBoId}
 	</update>
@@ -97,13 +97,14 @@
 	</delete>
 	
 	<!-- 첨부파일삭제 -->
-	<delete id="deleteAttach">
-		delete from
+ 	<delete id="deleteAttach">
+		delete 
+			from
 			review_attach
 		where
 			rew_bo_id = #{rewBoId}
 	</delete>
-	
+
 	<!-- 댓글조회 -->
 	<select id="selectCommentList" resultMap="reviewCommentMap">
 	select
@@ -122,7 +123,15 @@
 			review_comment
 		where
 			rew_bo_id = #{no}
-	</select>	
+	</select>
+		
+	<!-- total 게시글 -->
+	<select id="selectBoardTotalContents" resultType="_int">
+	    select 
+	    	count(*) 
+	    from 
+	    	review_board 	
+	</select>		
 	
 	<!-- 댓글작성 -->
 	<insert id="insertComment">
@@ -174,13 +183,55 @@
 	</select>
 
 	<!-- 페이징 -->
-<!-- 	<select id="reviewBoardCount" resultType="_int">
+ 	<select id="reviewBoardCount" resultType="_int">
 		select
 			count(*)
 		from
 			review_board
-	</select>  -->
+	</select>
 	
+	<!-- 신고하기 -->
+	<insert id="insertReport">
+		insert into
+			report
+		values(
+			#{aniBoId},
+			#{userId},
+			#{repContent},
+			default,
+			default,
+			#{repDoUser},
+			seq_report_id.nextval
+		)
+	</insert>
+	
+	<select id="selectOneReport" resultMap="reportMap">
+		select
+			*
+		from
+			report
+		where
+			ani_bo_id = #{aniBoId}
+			and rep_do_user = #{repDoUser}
+	</select>	
+
+	<select id="selectAttachListOneBoard" resultMap="reviewAttachMap">
+		select
+			*
+		from
+			review_attach
+		where
+			rew_bo_id = #{no}
+	</select>	
+
+	<select id="selectBoardListOneWeek" resultMap="reviewBoardMap">
+		select
+			*
+		from
+			review_board
+	</select>
+	
+	<resultMap id="reportMap" type="report"></resultMap>	
 	<resultMap id="reviewCommentMap" type="reviewComment"></resultMap>
 	<resultMap id="reviewAttachMap" type="reviewAttach"></resultMap>
 	<resultMap id="reviewBoardMap" type="reviewBoard"></resultMap>

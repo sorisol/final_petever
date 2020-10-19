@@ -13,7 +13,7 @@
 					#{ userBirth },
 					#{ userPhone },
 					#{ userLocal }, default,
-					#{ postNo }, #{ userLocalDetail }
+					#{ postNo }, #{ userLocalDetail }, null
 					)
 		</insert>
 		
@@ -61,7 +61,33 @@
 			user_id = #{ userId }
 		</delete>
 		
-
+		<select id="selectUserList" resultMap="userMapppp">
+			select
+				*
+			from
+				tb_user
+			where
+				user_phone = #{userPhone}
+		</select>
+		
+		<select id="selectSearchPwd" resultMap="userMapppp">
+			select *
+			from tb_user
+			where user_id = #{ userId } and user_email = #{ userEmail }
+		</select>
+		
+		<update id="updateUserPwd">
+			update tb_user
+			set user_pwd = #{ userPwd },
+				sig_no = null
+			where user_id = #{ userId }
+		</update>
+		
+		<update id="updateSigNo">
+			update tb_user
+			set sig_no = #{ sigNo }
+			where user_id = #{ userId }
+		</update>
 		
 	</mapper>
 	

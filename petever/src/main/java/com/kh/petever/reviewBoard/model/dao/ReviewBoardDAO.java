@@ -1,8 +1,10 @@
 package com.kh.petever.reviewBoard.model.dao;
 
 import java.util.List;
+
 import java.util.Map;
 
+import com.kh.petever.admin.model.vo.Report;
 import com.kh.petever.animalboard.model.vo.AnimalAttach;
 import com.kh.petever.reviewBoard.model.vo.ReviewAttach;
 import com.kh.petever.reviewBoard.model.vo.ReviewBoard;
@@ -17,7 +19,7 @@ public interface ReviewBoardDAO {
 	//게시글 작성
 	int insertReviewBoard(ReviewBoard reviewBoard);
 	
-	//첨부파일
+	//첨부파일 작성
 	int insertAttachment(ReviewAttach attach);
 
 	List<ReviewAttach> selectAttachList();
@@ -40,6 +42,9 @@ public interface ReviewBoardDAO {
 	//댓글 Total
 	int totalComment(int no);
 	
+	//게시글 Total
+	int selectBoardTotalContents();
+	
 	//댓글쓰기
 	int insertComment(ReviewComment reviewComment);
 	
@@ -52,10 +57,17 @@ public interface ReviewBoardDAO {
 	//게시글검색 리스트
 	List<ReviewBoard> searchBoardList(ReviewBoard reviewBoard);
 	
+	//페이징
+	int reviewBoardCount();
+	
+	//신고하기
+	int insertReport(Report rep);
+
+	Report selectOneReport(Map<String, Object> param);	
+	
 	//첨부파일조회
 	List<ReviewAttach> selectAttachListOneBoard(int no);
 	
-	//페이징
-	int reviewBoardCount();
+	List<ReviewBoard> selectBoardListOneWeek();
 	
 }

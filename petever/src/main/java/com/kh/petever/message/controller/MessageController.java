@@ -116,9 +116,7 @@ public class MessageController {
 		return map;
 	}
 	
-	
-	
-	
+    
 	
 
 }
