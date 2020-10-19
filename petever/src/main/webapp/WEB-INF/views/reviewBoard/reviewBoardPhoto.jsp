@@ -74,9 +74,11 @@ function searchFunc() {
 						}
 					
                     }
-					html += '<span id="post-title">'+b.rewBoTitle+'</span>';
-					html += '<span>'+b.rewBoRegDate.substring(0, 10).replaceAll('-', '.')+'</span>';
+                    html += '<br>'
+					html += '<p>' +b.rewBoTitle+ '</p>'
+					html += '<p>'+b.rewBoRegDate.substring(0, 10).replaceAll('-', '.')+'</p>';
 					html += '</a></div>';
+
 				}
 
 			}
