@@ -209,7 +209,17 @@
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-    
+//등록된 사진없으면 기본 이미지 보여주기
+var defaultImg = function defaultImg() {
+	$(".post").each(function(){
+	    //console.log($(this).children().find("img")[0] == null );
+	    if($(this).children().find("img")[0] == null){
+	        console.log(111);
+	        var html = '<img src="${pageContext.request.contextPath}/resources/images/dog/baset.jpg">';
+	        $(this).children().prepend(html);
+	    }
+	}); 
+}
 window.onload = function(){
     /* 입양후기 슬라이드쇼 */
 	 
@@ -281,6 +291,7 @@ window.onload = function(){
 			}
 			$missing.append(miss);
 			$protect.append(prot);
+			defaultImg();
 			slickCarousel();
 		},
 		error : function(xhr, status, err){
@@ -516,15 +527,6 @@ $(document).ready(function(){
 	 	$('.checkList').css("top",(window.innerHeight-70)+"px");
 	 	$('.checkList').css("left",(window.innerWidth-180)+"px");
 	 }
-	 //등록된 사진없으면 기본 이미지 보여주기
-    $(".post").each(function(){
-        //console.log($(this).children().find("img")[0] == null );
-        if($(this).children().find("img")[0] == null){
-            console.log(111);
-            var html = '<img src="${pageContext.request.contextPath}/resources/images/dog/baset.jpg">';
-            $(this).children().prepend(html);
-        }
-    });
 });
 
 </script>

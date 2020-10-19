@@ -17,7 +17,6 @@
             <div class="content">
                 <div class="border">
                     <form id="searchFrm">
-                	<input type="button" onclick="location.href = '${pageContext.request.contextPath}/apply/applicationView?no=21'" value="연결"/>
 	                    <table class="pet-info">
 	                        <tr>
 	                            <th>동물종류</th>
@@ -216,7 +215,7 @@ function searchFunc() {
 				}
 			}
 			$post.html(html);
-			test();
+			defaultImg();
 		},
 		error: function(xhr, status, err) {
 			console.log("처리실패", xhr, status, err);
@@ -224,7 +223,7 @@ function searchFunc() {
 	});
 }
 
-var test = function test() {
+var defaultImg = function defaultImg() {
 //사진여부 검사 : 없으면 기본이미지 보여주기
     $(".post").each(function(){
         //console.log($(this).children().find("img")[0] == null );
@@ -236,7 +235,7 @@ var test = function test() {
 }
 	
 $(function() {
-	test();
+	defaultImg();
     
 	$("#search").on("change", function() {
 		var $query = $("#query");
