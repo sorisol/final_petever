@@ -78,7 +78,7 @@ public class ReviewBoardController {
 	//게시글 사진으로 조회
 	@GetMapping("/reviewBoardPhoto.do")
 	public String reviewBoardPhoto(Model model, @RequestParam(defaultValue = "1") int cPage, HttpServletRequest request) {
-		final int limit = 12;
+		final int limit = 16;
 		int offset = (cPage - 1) * limit;
 		
 		//전체게시글 조회하기
