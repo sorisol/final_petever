@@ -1,5 +1,6 @@
 package com.kh.petever.user.controller;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -13,7 +14,10 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -42,6 +46,7 @@ import com.kh.petever.user.model.service.KakaoAPI;
 import com.kh.petever.user.model.service.UserService;
 import com.kh.petever.user.model.vo.User;
 
+import jdk.nashorn.internal.ir.RuntimeNode.Request;
 import net.nurigo.java_sdk.api.Message;
 
 
@@ -114,33 +119,69 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
-	public String userLogin(@RequestParam String userId, @RequestParam String userPwd, Model model,
-			RedirectAttributes redirectAttr, HttpSession session) {
+	public String userLogin(@RequestParam String userId, 
+							@RequestParam String userPwd, 
+							Model model,
+							RedirectAttributes redirectAttr, 
+							HttpServletRequest request,
+							HttpServletResponse response,
+							HttpSession session) throws IOException, ServletException {
 
 		log.debug("userId = {}, userPwd = {}", userId, userPwd);
 
+		//userId로 회원정보 조회하기 
 		User user = userService.selectOneUser(userId);
 		log.debug("user = {}", user);
 
 		String location = "/";
+		String saveId = request.getParameter("saveId");
 
 		// 로그인 성공
 		if (user != null && bcryptPasswordEncoder.matches(userPwd, user.getUserPwd())) {
 
+			//세션처리
 			model.addAttribute("loginUser", user);
-
+			
+			//세션에 next값 가져오기 
 			String next = (String) session.getAttribute("next");
 			location = next != null ? next : location;
 			session.removeAttribute("next");
-
-			// 로그인 실패
-		} else {
+			
+			//세션 유효시간설정
+			session.setMaxInactiveInterval(30*60);
+			
+			//세션에 로그인한 사용자 정보 저장
+			session.setAttribute("loginUser", user);
+			
+			//쿠키(SaveId) 처리 
+			Cookie c = new Cookie("saveId", userId);
+			c.setPath(request.getContextPath());
+			
+			log.debug("saveId = {}", saveId);
+			
+			//SaveId 체크한 경우 : 쿠키 생성
+			if(saveId != null) {
+				c.setMaxAge(7*24*60*60); //7일
+				
+			}
+			else {
+				c.setMaxAge(0); //브라우저에서 즉시 삭제하기
+			}
+			response.addCookie(c);
+			
+			//리다이렉트처리
+			//response.sendRedirect(request.getContextPath());
+			
+		} 
+		// 로그인 실패
+		else {
 			redirectAttr.addFlashAttribute("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
 
 		}
 
 		return "redirect:/"+location;
 	}
+	
 
 	// 로그아웃 - 세션 무효화
 

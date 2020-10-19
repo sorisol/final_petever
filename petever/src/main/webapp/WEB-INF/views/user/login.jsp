@@ -2,6 +2,34 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ page import = "com.kh.petever.user.model.vo.User" %>
+<%@ page import = "com.kh.petever.user.model.service.UserService" %>
+
+<%
+	//session : 선언없이 사용할 수 있는 jsp내장객체
+	User loginUser = (User)session.getAttribute("loginUser");
+	//getAttribute의 리턴타입은 오브젝트다. User로 형변환해줌
+		
+	//쿠키관련
+	Cookie[] cookies = request.getCookies();
+	boolean saveIdChecked = false;
+	String saveIdValue = "";
+	
+	if(cookies != null) {
+
+		for(Cookie c : cookies){
+			String k = c.getName();
+			String v = c.getValue();
+			
+			//saveId 쿠키 존재여부 확인
+			if("SaveId".equals(k)){
+				saveIdChecked = true;
+				saveIdValue = v;
+			}
+		}
+	}
+
+%>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/login.css">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
@@ -10,14 +38,23 @@
             <form action="${pageContext.request.contextPath}/user/login.do" 
                   method="POST">
                <div class="login-body">
-                <input type="text" name="userId" placeholder="아이디" id="userId">
+                <input type="text" name="userId" placeholder="아이디" id="userId" value="<%= saveIdChecked ? saveIdValue : "" %>"/>
                 <input type="password" name="userPwd" placeholder="비밀번호">
                 <button>로그인</button>
-                <div class="check">
-                    <input type="checkbox" id="switch" /><label for="switch"></label>
+                <br>
+ 					 <div class="check">
+		                <input type="checkbox" name="saveId" id="saveId" <%= saveIdChecked ? "checked" : "" %>/>
+						<label for="saveId"></label>
+						<p>로그인 상태 유지</p>
+					</div>
+  			   </div>
+  		   </form>
+        <!--  <div class="check">
+                    <input type="checkbox" id="saveId" name="saveId">
+                    <label for="switch"></label>
                     <p>로그인 상태 유지</p>
-                  </div>
-                </div>
+                  </div> -->
+          
             </form>
             <div id="search">
                 <a class="find-id" onclick="javascript:findId();">아이디 찾기</a> |
