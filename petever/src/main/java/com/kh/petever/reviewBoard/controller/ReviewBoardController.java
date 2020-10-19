@@ -52,7 +52,7 @@ public class ReviewBoardController {
 	// 입양후기 게시판 연결
 	@GetMapping("/reviewBoard.do")
 	public String reviewBoardList(Model model, @RequestParam(defaultValue = "1") int cPage, HttpServletRequest request) {
-		final int limit = 12;
+		final int limit = 16;
 		int offset = (cPage - 1) * limit;
 
 		List<ReviewBoard> list = reviewBoardService.selectReviewBoard(limit, offset);
