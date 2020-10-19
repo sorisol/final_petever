@@ -72,31 +72,37 @@ public class MessageController {
 	}
 	
 	
-	@RequestMapping("/message/insertmessage") 
-	public String insertBoard(Message message, RedirectAttributes redirectAttr, HttpServletRequest req){
+	@RequestMapping("/message/insertmessage")
+	@ResponseBody
+	public Map<String, Object> insertBoard(Message message, RedirectAttributes redirectAttr, HttpServletRequest req){
 		//로그인한 사용자 아이디
 		log.debug("Message = {}", message);
 		
-		
+		Map<String, Object> msg = new HashMap<>();
 		try {
 			int result = messageService.insertMessage(message);
-			redirectAttr.addFlashAttribute("msg", "게시글 등록 성공");
+			msg.put("msg", "메세지 보내기 성공");
 		} catch(Exception e) {
-			log.error("게시글 등록 오류", e);
-			redirectAttr.addFlashAttribute("msg", "게시글 등록 실패");
+			log.error("메세지 등록 오류", e);
+			msg.put("msg", "메세지 보내기실패");
 		}
-		return "S";
+		return msg;
 	}
 	
-    
+	
     @RequestMapping("/message/messageDetail")
-    public @ResponseBody List<Message> detail(Message msg){
+    public @ResponseBody Map<String, Object> detail(Message msg){
     	log.debug("msg = {}", msg);
-    	
+    	Map<String, Object> map = new HashMap<>();
     	List<Message> msgDetail = messageService.selectOneUser(msg);
+    	List<Message> msgDetailDate = messageService.selectGetDate(msg);
     	log.debug("msgDetail = {}", msgDetail);
+    	log.debug("msgDetailDate = {}", msgDetailDate);
     	
-    	return msgDetail;
+    	map.put("msgDetailDate", msgDetailDate);
+    	map.put("msgDetail", msgDetail);
+    	
+    	return map;
     }
     
     

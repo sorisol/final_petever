@@ -47,6 +47,11 @@ public class MessageServiceImpl  implements MessageService{
 	public List<Message> selectOneUser(Message msg) {
 		return messageDAO.selectOneUser(msg);
 	}
+
+	@Override
+	public List<Message> selectGetDate(Message msg) {
+		return messageDAO.selectGetDate(msg);
+	}
 	
 	
 	

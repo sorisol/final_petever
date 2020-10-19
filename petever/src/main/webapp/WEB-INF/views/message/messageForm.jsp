@@ -42,9 +42,7 @@ form .form-icons .fa {
 
 	<div id="message-main">
 
-		<form name="messageForm" id="messageForm" method="post"
-			action="${pageContext.request.contextPath}/message/insertmessage"
-			enctype="multipart/form-data">
+		<form name="messageForm" id="messageForm" method="post">
 
 			<input type="hidden" name="userId" value="${loginUser.userId}" />
 			 <input type="hidden" name="receiveId" value="${receiveId}" />
@@ -66,35 +64,43 @@ form .form-icons .fa {
 			</div>
 
 
-			<button class="button expanded" id="msgSubmitBtn">쪽지 보내기</button>
-			<button class="button expanded" id="msgCloseBtn">닫기</button>
+			<button type="button" class="button expanded" id="msgSubmitBtn">쪽지 보내기</button>
+			<button type="button" class="button expanded" id="msgCloseBtn">닫기</button>
 		</form>
 
 	</div>
 	<script>
-		$("#msgSubmitBtn").click(
-				function() {
-					//컨텐츠 없으면 안보내지기
-					var $userId = $("[name=loginUser.userId]").val();
-
-					//내용 유효성검사
-					if (msgContent == "" || msgContent == null
-							|| msgContent == '&nbsp;'
-							|| msgContent == '<p>&nbsp;</p>') {
-						alert("내용을 입력하세요.");
-						return;
-					}
-
-					$("#boardFrm").submit();
-					success:
-
-				})
+		$("#msgSubmitBtn").click(function() {
+			var formData = $("#messageForm").serialize();
+			console.log(formData);
+			//컨텐츠 없으면 안보내지기
+			var $userId = $("[name=userId]").val();
+			//내용 유효성검사
+			if (msgContent == "" || msgContent == null
+					|| msgContent == '&nbsp;'
+					|| msgContent == '<p>&nbsp;</p>') {
+				alert("내용을 입력하세요.");
+				return;
+			}
+	
+			$.ajax({
+				url: "${pageContext.request.contextPath}/message/insertmessage",
+				data: formData,
+				method: "post",
+				success: function(data) {
+					alert(data.msg);
+					window.close();
+				},
+				error: function(xhr, status, err) {
+					console.log("처리실패", xhr, status, err);
+				}
+			});
+		});
 
 		$("#msgCloseBtn").click(function() {
 
-			self.close();
-
-		})
+			 window.close();
+		});
 	</script>
 
 

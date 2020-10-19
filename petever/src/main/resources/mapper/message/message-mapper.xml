@@ -14,7 +14,8 @@
               	user_id,
               	receive_id,
               	msg_content,
-              	row_number() over(partition by user_Id order by msg_num desc)as rowIdx
+              	msg_Time,
+              	row_number() over(partition by user_Id, receive_id order by msg_num desc)as rowIdx
             from message) m
 		where
 			rowIdx = 1			
@@ -46,6 +47,16 @@
 			user_Id like '%'||#{receiveId}||'%'	    
 	    </where> 
 	    
+	</select>
+	
+	<select id="selectGetDate" resultMap="MessageMap">
+		select 
+			distinct(trunc(msg_time)) as msgTime
+		from 
+			message 
+		where 
+			(user_id=#{userId} and receive_id=#{receiveId}) or (receive_id=#{receiveId} and user_id=#{userId})
+	
 	</select>
 	
 	
