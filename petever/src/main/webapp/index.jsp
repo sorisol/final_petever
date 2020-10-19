@@ -225,7 +225,7 @@ window.onload = function(){
 						var a = data.attachList[j];
 						if(b.aniBoId == a.aniBoId){
 							if(b.aniBoTag == '실종') {
-								miss += '<div>';
+								miss += '<div class="post">';
 								miss += '<a href="${ pageContext.request.contextPath }/animalboard/boardView?no='+b.aniBoId+'">';
 								miss += '<img src="${pageContext.request.contextPath}/resources/editor/multiupload/'+a.aniAtRenamedName+'" alt="실종 및 보호 동물 사진">';
 								miss += '<p class="post-title">['+b.aniBoTitle+']</p>';
@@ -233,7 +233,7 @@ window.onload = function(){
 								miss += '</a></div>';
 							}
 							else if(b.aniBoTag == '보호') {
-								prot += '<div>';
+								prot += '<div class="post">';
 								prot += '<a href="${ pageContext.request.contextPath }/animalboard/boardView?no='+b.aniBoId+'">';
 								prot += '<img src="${pageContext.request.contextPath}/resources/editor/multiupload/'+a.aniAtRenamedName+'" alt="실종 및 보호 동물 사진">';
 								prot += '<p class="post-title">['+b.aniBoTitle+']</p>';
@@ -474,13 +474,22 @@ window.onload = function(){
  		});
     
     }
-    $(document).ready(function(){
-    setInterval(function(){size()},500);
-    function size(){
-    	$('.checkList').css("top",(window.innerHeight-70)+"px");
-    	$('.checkList').css("left",(window.innerWidth-180)+"px");
-    }
+$(document).ready(function(){
+	 setInterval(function(){size()},500);
+	 function size(){
+	 	$('.checkList').css("top",(window.innerHeight-70)+"px");
+	 	$('.checkList').css("left",(window.innerWidth-180)+"px");
+	 }
+	 //등록된 사진없으면 기본 이미지 보여주기
+    $(".post").each(function(){
+        //console.log($(this).children().find("img")[0] == null );
+        if($(this).children().find("img")[0] == null){
+            console.log(111);
+            var html = '<img src="${pageContext.request.contextPath}/resources/images/dog/baset.jpg">';
+            $(this).children().prepend(html);
+        }
     });
+});
 </script>
  <script src="${ pageContext.request.contextPath }/resources/js/d3.min.js"></script>
  <script src="${ pageContext.request.contextPath }/resources/js/map.js"></script>
