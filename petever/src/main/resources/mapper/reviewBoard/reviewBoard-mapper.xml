@@ -113,6 +113,9 @@
 			review_comment
 		where
 			rew_bo_id = #{no}
+		start with rew_co_level = 1
+		connect by prior rew_co_id = rew_co_ref
+		order siblings by rew_co_id asc
 	</select>
 	
 	<!-- total 댓글 -->
@@ -143,7 +146,13 @@
 		#{userId},
 		#{rewCoContent},
 		#{rewCoLevel},
-		sysdate
+		sysdate,
+		<if test="rewCoRef == 0">
+		null
+		</if>
+		<if test="rewCoRef != 0">
+		#{rewCoRef}
+		</if>
 		)
 	</insert>
 	
