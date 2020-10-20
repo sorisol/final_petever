@@ -44,11 +44,9 @@
 
                     <div id="board-comment-container">
                         <div class="comment-header">
-                            <span class="comment-view">댓글 ${totalComment}</span>
-                            <div class ="cursor">
+                            <span class="comment-view">댓글 ${totalComment}</span>   
                             <a class="report-btn" onclick="javascript:openReport();">신고</a>
                             </div>
-                        </div>
                         <c:if test="${ not empty commentList }">
                         	<c:forEach items="${commentList}" var="cl">
                         		<c:if test="${cl.rewCoLevel == 1 }">
@@ -108,7 +106,7 @@
 		                        <input type="hidden" name="rewCoLevel" value="1"/>
 		                        <input type="hidden" name="rewBoId" value="${reviewBoard.rewBoId}" />
 		                      <!--   <input type="hidden" name="rewCoRef" value="0"/> -->
-		                        <span>${loginUser.userId}</span>
+		                        <span>${loginUser.userId}</span><br />
 		                        <textarea rows="1" class="comment_inbox_text" placeholder="댓글을 입력하세요" name="rewCoContent"
 		                            onkeyup="xSize(this)"></textarea>
 		                        <div class="btn-align">
@@ -154,7 +152,7 @@
          reply += '<input type="hidden" name="userId" value="${loginUser.userId}"/>';
          reply += '<input type="hidden" name="rewCoLevel" value="2"/>';
          reply += '<input type="hidden" name="rewBoId" value="${reviewBoard.rewBoId}" />';
-/*          reply += '<input type="hidden" name="rewCoRef" value="'+$(this).val()+'"/>'; */
+         reply += '<input type="hidden" name="rewCoRef" value="'+$(this).val()+'"/>'; 
          reply += '<span class="id-box">${loginUser.userId}</span>';
          reply += '<textarea rows="1" class="comment_inbox_text" placeholder="댓글을 입력하세요" onkeyup="xSize(this)" name="rewCoContent"></textarea>';
          reply += '<div class="btn-align">';

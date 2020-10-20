@@ -76,6 +76,7 @@ function searchFunc() {
                     }
                     html += '<br>'
 					html += '<p>' +b.rewBoTitle+ '</p>'
+				/* 	html += '<span id="post-title">' +${b.rewBoTitle}+ '</span>' */
 					html += '<p>'+b.rewBoRegDate.substring(0, 10).replaceAll('-', '.')+'</p>';
 					html += '</a></div>';
 
@@ -125,28 +126,13 @@ function searchFunc() {
   					<c:if test="${ a.rewBoId.equals(b.rewBoId) }">
 							<img src="${pageContext.request.contextPath}/resources/editor/multiupload/${a.rewAtRenamedName}">
 						</c:if>   
-		
-	
-		<!-- 			attach의 rewBoId와 board의 rewBoId가 일치하고 rewAtRenamedName이 null이 아니면 첨부된 이미지를 보여주고
-						그렇지 않으면 기본 이미지를 보여주기 --> 
-						
-						<%-- console.log(${ a.rewBoId.equals(b.rewBoId)});
-						console.log(${ a.rewAtRenamedName =! null });
-						console.log(${ a.rewBoId.equals(b.rewBoId)} and ${ a.rewAtRenamedName =! null }); 
-						<br />
-						<br /> --%>
-						<%-- <c:choose>
-							<c:when test="${ a.rewBoId.equals(b.rewBoId) }" >
-							<img src="${pageContext.request.contextPath}/resources/editor/multiupload/${a.rewAtRenamedName}">	
-							</c:when>
-							
-						</c:choose> --%> 
 			    		</c:forEach>
 			    		
 							
 						
 			<br>
-			<p> ${ b.rewBoTitle}</p>	
+		<%-- 	<p> ${ b.rewBoTitle}</p>	 --%>
+			<span id="post-title">${b.rewBoTitle}</span>
 			<p>
 		        <fmt:parseDate value="${b.rewBoRegDate}" var="regDate" pattern="yyyy-MM-dd"/>
 				<fmt:formatDate value="${regDate}" pattern="yyyy.MM.dd"/>
