@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.petever.user.model.service.UserService;
 import com.kh.petever.user.model.vo.User;
@@ -156,15 +157,30 @@ public class userPwdController {
 	}
 	
 	@PostMapping("/user/mailPwdFrm.do")
-	public String mailPwdFrm(@RequestParam String userId, @RequestParam String sigNo, Model model) {
-		model.addAttribute("userId", userId);
-		model.addAttribute("sigNo", sigNo);
+	public String mailPwdFrm(@RequestParam String userId, @RequestParam String sigNo, Model model, RedirectAttributes redirectAttr) {
+		log.debug("userId {}, sigNo {}", userId, sigNo);
 		
-		return "/user/userPwdChange";
+		User user = userService.selectOneUser(userId);
+		
+		String msg = "";
+		String location = "";
+		if(user != null && user.getSigNo().equals(sigNo)) {
+			System.out.println("111");
+			model.addAttribute("userId", userId);
+			model.addAttribute("sigNo", sigNo);
+			location = "/user/userPwdChange";
+		} else {
+			System.out.println("222");
+//			msg = "ID 혹은 최신 key값이 아닙니다. ^^\n 다시 진행해주세요";
+//			redirectAttr.addFlashAttribute("msg", msg);
+			location = "/user/mailPwdFrmFail";
+		}
+		
+		return location;
 	}
 	
 	@PostMapping("/user/mailPwdChange.do")
-	public String mailPwdChange(User user, @RequestParam String sigNo, Model model) {
+	public String mailPwdChange(User user, @RequestParam String sigNo, Model model, RedirectAttributes redirectAttr) {
 		log.debug("user{}, sigNo {}", user, sigNo);
 		
 		User userOk = userService.selectOneUser(user.getUserId());
@@ -172,19 +188,22 @@ public class userPwdController {
 		
 		int result = 0;
 		String location = "";
+		String msg = "";
 		if(userOk != null && userOk.getSigNo().equals(sigNo)) {
 			String rawPassword = user.getUserPwd();
 			String encryptPassword = bcryptPasswordEncoder.encode(rawPassword);
 			userOk.setUserPwd(encryptPassword);
 			
 			result = userService.updateUserPwd(userOk);
-		} else {
 			
+			msg = (result > 0) ? "PASSWORD 수정 성공" : "PASSWORD 수정 실패";
+		} else {
+			msg = "ID 혹은 최신 key값이 아닙니다.";
 		}
 		
-		String msg = (result > 0) ? "PASSWORD 수정 성공" : "PASSWORD 수정 실패";
-		location = (result > 0) ? "/user/login" : "redirect:/";
+		redirectAttr.addFlashAttribute("msg", msg);
 		
+		location = (result > 0) ? "/user/login" : "redirect:/";
 		return location;
 	}
 	

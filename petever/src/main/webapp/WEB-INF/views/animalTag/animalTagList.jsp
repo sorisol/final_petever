@@ -7,6 +7,7 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <!-- google font -->
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&family=Sunflower:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
 <script>
 $(function(){
 	
