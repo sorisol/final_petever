@@ -6,19 +6,13 @@
 
 
 	<select id="selectMessageList" resultMap="MessageMap">
-		select	
-			m.*
-		from 
-			(select 
-              	msg_num,
-              	user_id,
-              	receive_id,
-              	msg_content,
-              	msg_Time,
-              	row_number() over(partition by user_Id, receive_id order by msg_num desc)as rowIdx
-            from message) m
-		where
-			rowIdx = 1			
+		select * 
+		from (select M.*, Row_Number() Over(Partition By sub Order By Msg_Num Desc)As Rowidx
+		        from(select Msg_Num, User_Id, Receive_Id, Msg_Content, msg_time, replace(concat(user_id, receive_id), #{ userId }, '') as sub
+		            from Message) M
+		        where user_id = #{ userId })
+		Where Rowidx = 1
+		order by msg_time desc
 	</select>
 
 	<select id="selectOneMessage" resultMap="MessageMap">

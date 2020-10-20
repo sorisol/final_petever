@@ -7,10 +7,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.petever.message.model.service.MessageService;
 import com.kh.petever.message.model.vo.Message;
 //import com.kh.petever.reviewBoard.model.vo.ReviewBoard;
+import com.kh.petever.user.model.vo.User;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,28 +37,27 @@ public class MessageController {
 	
 	
 	@RequestMapping("/message/messageList.do")
-	public ModelAndView msglist(ModelAndView mav, 
-								@RequestParam(defaultValue = "1",
-												value="cPage") int cPage,
-									HttpSession session) {
+	public ModelAndView msglist(ModelAndView mav, @RequestParam(defaultValue = "1", value="cPage") int cPage, HttpSession session
+								) {
+		//1.사용자 입력값 
+		final int limit = 10;
+		int offset = (cPage - 1) * limit;
+		RowBounds rowBound = new RowBounds(offset, limit);
+		User user = (User)session.getAttribute("loginUser");
+		log.debug("loginUser22{}", user);
 		
-				//1.사용자 입력값 
-				final int limit = 10;
-				int offset = (cPage - 1) * limit;
-				
-				//2. 업무로직
-				List<Message> messageList = messageService.selectMessageList(limit, offset);
-				log.debug("list = {}", messageList);
-				
-				//전체컨텐츠수 구하기
-				int totalContents = messageService.selectMessageTotalContents();
-				
-				session.getAttribute("userId");
-				
-				//3. view단 처리
-				mav.addObject("totalContents", totalContents);
-				mav.addObject("list", messageList);
-				mav.setViewName("message/messageList");
+		//2. 업무로직
+		List<Message> messageList = messageService.selectMessageList(user, rowBound);
+		log.debug("list = {}", messageList);
+		
+		//전체컨텐츠수 구하기
+		int totalContents = messageService.selectMessageTotalContents();
+		
+		
+		//3. view단 처리
+		mav.addObject("totalContents", totalContents);
+		mav.addObject("list", messageList);
+		mav.setViewName("message/messageList");
 		
 		return mav;
 	}

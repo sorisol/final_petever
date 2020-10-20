@@ -119,19 +119,15 @@ public class UserController {
 	public String login(HttpServletRequest request, HttpSession session) {
 		String referer = request.getHeader("referer");
 		log.debug("referer = {}", referer);
-		session.setAttribute("next", referer);
+		String next = referer.replaceAll("http://localhost:9090/petever/", "");
+		session.setAttribute("next", next);
 		
 		return "user/login";
 	}
 
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
-	public String userLogin(@RequestParam String userId, 
-							@RequestParam String userPwd, 
-							Model model,
-							RedirectAttributes redirectAttr, 
-							HttpServletRequest request,
-							HttpServletResponse response,
-							HttpSession session) throws IOException, ServletException {
+	public String userLogin(@RequestParam String userId, @RequestParam String userPwd, Model model,RedirectAttributes redirectAttr, 
+		HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException, ServletException {
 
 		log.debug("userId = {}, userPwd = {}", userId, userPwd);
 
@@ -150,10 +146,7 @@ public class UserController {
 			
 			//세션에 next값 가져오기 
 			String next = (String)session.getAttribute("next");
-//			next = next != null ? next.replace(request.getContextPath(), "") : "";
 			location = next != null ? next : location;
-			log.debug("next = {}", next);
-			log.debug("location = {}", location);
 			session.removeAttribute("next");
 			
 			//세션 유효시간설정
@@ -182,17 +175,16 @@ public class UserController {
 			//response.sendRedirect(request.getContextPath());
 //			String uri = request.getRequestURI(); // /spring/board/boardForm.do
 //			uri = uri.replace(request.getContextPath(), "");
+			redirectAttr.addFlashAttribute("msg", "로그인 성공.");
+			return "redirect:/"+location;
 			
 		} 
 		// 로그인 실패
 		else {
 			log.debug("1111");
 			redirectAttr.addFlashAttribute("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
+			return "redirect:/user/login.do";
 		}
-
-		return "redirect:/";
-//		return "redirect:/"+location;
-	
 	}
 	
 

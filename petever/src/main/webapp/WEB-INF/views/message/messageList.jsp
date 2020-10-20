@@ -25,34 +25,27 @@
 			<h3>총 ${ totalContents }건의 메세지가 있습니다.</h3><!-- 수정 -->
 			<hr>
 			</c:if>
-		<c:forEach items="${ list }" var="b">
-			<c:if test="${loginUser.userId eq b.receiveId || loginUser.userId eq b.userId }">
-				<c:if test="${loginUser.userId eq b.receiveId }">
- 
-					<br>
-					<div class="message-detail">
-						<div class="message-userTable">
-							<span> 
-							<img src="${pageContext.request.contextPath}/resources/images/userIcon.png" width="50px" height="50px">
-							</span> 
-							<span>${ b.msgContent }</span> 
-							<span class="message-Date">
-								<fmt:parseDate value="${b.msgTime}" var="msgTime" pattern="yyyy-MM-dd HH:mm:ss"/>
-								<fmt:formatDate value="${msgTime}" pattern="yyyy.MM.dd"/>
-							</span>
-						</div>
-						<div class="userId">${b.userId }</div>
+			<c:forEach items="${ list }" var="b">
+				<br>
+				<div class="message-detail">
+					<div class="message-userTable">
+						<span> 
+						<img src="${pageContext.request.contextPath}/resources/images/userIcon.png" width="50px" height="50px">
+						</span> 
+						<span>${ b.msgContent }</span> 
+						<span class="message-Date">
+							<fmt:parseDate value="${b.msgTime}" var="msgTime" pattern="yyyy-MM-dd HH:mm:ss"/>
+							<fmt:formatDate value="${msgTime}" pattern="yyyy.MM.dd"/>
+						</span>
 					</div>
-					<div class="msg-background"></div>
-					<br>
-					<hr>
-				</c:if>
-				
-			
-			</c:if>
-		</c:forEach>
-		<br><br>
-		<hr>
+					<div class="userId">${b.sub }</div>
+				</div>
+				<div class="msg-background"></div>
+				<br>
+				<hr>
+			</c:forEach>
+			<br><br>
+			<hr>
 
 
 
