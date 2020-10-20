@@ -269,7 +269,7 @@ window.onload = function(){
 						var a = data.attachList[j];
 						if(b.aniBoId == a.aniBoId){
 							if(b.aniBoTag == '실종') {
-								miss += '<div>';
+								miss += '<div class="post">';
 								miss += '<a href="${ pageContext.request.contextPath }/animalboard/boardView?no='+b.aniBoId+'">';
 								miss += '<img src="${pageContext.request.contextPath}/resources/editor/multiupload/'+a.aniAtRenamedName+'" alt="실종 및 보호 동물 사진">';
 								miss += '<p class="post-title">['+b.aniBoTitle+']</p>';
@@ -277,7 +277,7 @@ window.onload = function(){
 								miss += '</a></div>';
 							}
 							else if(b.aniBoTag == '보호') {
-								prot += '<div>';
+								prot += '<div class="post">';
 								prot += '<a href="${ pageContext.request.contextPath }/animalboard/boardView?no='+b.aniBoId+'">';
 								prot += '<img src="${pageContext.request.contextPath}/resources/editor/multiupload/'+a.aniAtRenamedName+'" alt="실종 및 보호 동물 사진">';
 								prot += '<p class="post-title">['+b.aniBoTitle+']</p>';
@@ -290,8 +290,8 @@ window.onload = function(){
 			}
 			$missing.append(miss);
 			$protect.append(prot);
-			slickCarousel();
 			defaultImg();
+			slickCarousel();
 		},
 		error : function(xhr, status, err){
 			console.log("처리실패", xhr, status, err);
@@ -520,52 +520,14 @@ window.onload = function(){
  		});
     
     }
-    $(document).ready(function(){
-    setInterval(function(){size()},500);
-    function size(){
-    	$('.checkList').css("top",(window.innerHeight-70)+"px");
-    	$('.checkList').css("left",(window.innerWidth-180)+"px");
-    }
-    });
+$(document).ready(function(){
+	 setInterval(function(){size()},500);
+	 function size(){
+	 	$('.checkList').css("top",(window.innerHeight-70)+"px");
+	 	$('.checkList').css("left",(window.innerWidth-180)+"px");
+	 }
+});
 
-
-    /* /* 입양후기 슬라이드쇼 */
-	 /*
-	 $.ajax({
-			url : "${pageContext.request.contextPath}/reviewBoard/index",
-			method : "GET",
-			success : function(data){
-				if(data.boardList != null) {
-					var $review = $('.review');
-					
-					var rev = '';
-					for(var i in data.boardList) {
-						var b = data.boardList[i];
-						rev += '<div>';
-						rev += '<a href="${ pageContext.request.contextPath }/reviewBoard/reviewBoardView?no='+b.rewBoId+'">';
-						for(var j in data.attachList) {
-							var a = data.attachList[j];
-							if(b.rewBoId == a.rewBoId){
-									rev += '<img src="${pageContext.request.contextPath}/resources/editor/multiupload/'+a.aniAtRenamedName+'" alt="입양후기사진">';
-							}
-						}
-						rev += '<p class="post-title">['+b.rewBoTitle+']</p>';
-						rev += '</a></div>';
-					}
-				}
-				$review.append(rew);
-				slickCarousel();
-			},
-			error : function(xhr, status, err){
-				console.log("처리실패", xhr, status, err);
-	 		}
-		}); */
-		
-		
-
-		
-
-    
 </script>
  <script src="${ pageContext.request.contextPath }/resources/js/d3.min.js"></script>
  <script src="${ pageContext.request.contextPath }/resources/js/map.js"></script>

@@ -13,6 +13,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
+          <!-- Bootstrap core JavaScript-->
+        <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="${pageContext.request.contextPath}/resources/js/sb-admin-2.min.js"></script>
+  
 <script>
 <c:if test="${ not empty msg }">
 	alert('${ msg }');
@@ -28,7 +38,7 @@
 
   <!-- Custom styles for this template-->
   <link href="${pageContext.request.contextPath}/resources/css/sb-admin-2.min.css" rel="stylesheet">
-
+<link href="${pageContext.request.contextPath}/resources/css/admin.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -40,7 +50,7 @@
     <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #373b44;">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="${ pageContext.request.contextPath }/admin/admin.do">
           <div class="sidebar-brand-icon">
               <img src="${pageContext.request.contextPath}/resources/images/adminlogo.png" alt="" style="width: 45px;">
             </div>
@@ -51,8 +61,8 @@
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+      <li class="nav-item">
+        <a class="nav-link" href="${ pageContext.request.contextPath }/admin/admin.do">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>AdminPage</span></a>
       </li>
@@ -65,15 +75,20 @@
         Interface
       </div>
 
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item active">
-        <a class="nav-link collapsed" href="${ pageContext.request.contextPath }/admin/adminReport.do" >
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="${ pageContext.request.contextPath }/admin/adminAnimalReport.do" >
           <i class="fas fa-fw fa-cog"></i>
-          <span>신고게시글</span>
+          <span>신고게시글(유기동물)</span>
+        </a>
+      </li>
+      
+      <li class="nav-item active">
+        <a class="nav-link collapsed" href="${ pageContext.request.contextPath }/admin/adminReviewReport.do" >
+          <i class="fas fa-fw fa-cog"></i>
+          <span>신고게시글(리뷰)</span>
         </a>
       </li>
 
-      <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="${ pageContext.request.contextPath }/admin/adminUser.do">
           <i class="fas fa-fw fa-wrench"></i>
@@ -163,8 +178,15 @@
                 <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                   <div class="row">
                     <div class="col-sm-12 col-md-6">
-                      <div id="dataTable_filter" class="dataTables_filter"><label>Search:<input id="adminSearch" type="search"
-                            class="form-control form-control-sm" placeholder="" aria-controls="dataTable"></label></div>
+                      <div id="dataTable_filter" class="dataTables_filter">
+                      	<label>Search:<input id="adminSearch" type="search" class="form-control form-control-sm" placeholder="" aria-controls="dataTable"></label>
+                      	<a href="#" id="searchYn" class="btn btn-success btn-circle btn-sm" style="font-weight: bold; font-size: 16px;">
+                	        Y
+                        </a>
+                        <a href="#" id="searchyN" class="btn btn-warning btn-circle btn-sm" style="font-weight: bold; font-size: 16px;">
+                        	N
+                       	</a>
+                      </div>
                     </div>
                   </div>
                   <div class="row">
@@ -196,9 +218,12 @@
                           </tr>
                         </thead>
                         <tbody id="reportTable">
+                        <form action="" id="setRows">
+							<input type="hidden" name="rowPerPage" value="10">
+						</form>
                         <c:forEach var="rep" items="${list}">
-                          <tr role="row" class="odd">
-                            <td style="text-align:center;" class=""> <a href="${pageContext.request.contextPath}/animalboard/boardView?no=${rep.aniBoId}" style="color:#858796;">${rep.aniBoId}</a></td>
+                          <tr role="row" class="odd eval-contents">
+                            <td style="text-align:center;" class=""> <a href="${pageContext.request.contextPath}/reviewBoard/reviewBoardView.do?no=${rep.aniBoId}" style="color:#858796;">${rep.aniBoId}</a></td>
                             <td class="sorting_1">${rep.userId}</td>
                             <td>${rep.repDoUser}</td>
                             <td style="background: #f8f9fc;font-size:14px;">${rep.repContent}</td>
@@ -224,21 +249,11 @@
                               </td>
                           </tr>
                           </c:forEach>
+                          <script src="${pageContext.request.contextPath}/resources/js/paging.js"></script>
                         </tbody>
                       </table>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-sm-12 col-md-5">
-                    <div class="col-sm-12 col-md-7">
-                      <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                        <ul class="pagination">
-							${ pageBar }
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -248,24 +263,17 @@
 </div>
 <form name="reportDelFrm" action="reportDel.do" method="POST">
 	<input type="hidden" name="no"/>
+	<input type="hidden" name="col"/>
 </form>
 <form name="reportRemoveFrm" action="reportRemove.do" method="POST">
 	<input type="hidden" name="no"/>
+	<input type="hidden" name="col"/>
 </form>
 <form name="reportYNFrm" action="reportYN.do" method="POST">
 	<input type="hidden" name="no"/>
 	<input type="hidden" name="yn"/>
+	<input type="hidden" name="col"/>
 </form>
-
-        <!-- Bootstrap core JavaScript-->
-        <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-        <!-- Core plugin JavaScript-->
-        <script src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-        <!-- Custom scripts for all pages-->
-        <script src="${pageContext.request.contextPath}/resources/js/sb-admin-2.min.js"></script>
 
 </body>
 <script>
@@ -275,6 +283,7 @@ function reportRemove(num){
 	var frm = document.reportRemoveFrm;
 
 	frm.no.value = num;
+	frm.col.value = "review";
 	frm.submit();
 }
 function reportDel(num){
@@ -283,6 +292,7 @@ function reportDel(num){
 	var frm = document.reportDelFrm;
 
 	frm.no.value = num;
+	frm.col.value = "review";
 	frm.submit();
 }
 function reportYN(num,reportYn){
@@ -292,22 +302,242 @@ function reportYN(num,reportYn){
 
 	frm.no.value = num;
 	frm.yn.value = reportYn;
+	frm.col.value = "review";
 	frm.submit();
 }
+
+$("#searchYn").click(function() { 
+	$.ajax({
+		url : "${ pageContext.request.contextPath}/admin/reportYn.do",
+		data : {
+			yn : 'Y'
+		},
+		dataType:"json",
+		method : "GET",
+		success : function(data){
+			displayResultTable("reportTable", data.list);
+			var $setRows = $('#setRows');
+
+			$setRows.submit(function (e) {
+				e.preventDefault();
+				var rowPerPage = $('[name="rowPerPage"]').val() * 1;// 1 을  곱하여 문자열을 숫자형로 변환
+
+				var zeroWarning = 'Sorry, but we cat\'t display "0" rows page. + \nPlease try again.'
+				if (!rowPerPage) {
+					alert(zeroWarning);
+					return;
+				}
+				$('#nav').remove();
+				var $products = $('#dataTable');
+
+				$products.after('<div id="nav" class="paging pagination">');
+				
+				var $tr = $($products).find('.eval-contents');
+				var rowTotals = $tr.length;
+
+				var pageTotal = Math.ceil(rowTotals/ rowPerPage);
+				var i = 0;
+
+				for (; i < pageTotal; i++) {
+					$('<a></a>')
+							.attr('rel', i)
+							.html(i + 1)
+							.appendTo('#nav');
+				}
+
+				$tr.addClass('off-screen')
+						.slice(0, rowPerPage)
+						.removeClass('off-screen');
+
+				var $pagingLink = $('#nav a');
+				$pagingLink.on('click', function (evt) {
+					evt.preventDefault();
+					var $this = $(this);
+					if ($this.hasClass('active')) {
+						return;
+					}
+					$pagingLink.removeClass('active');
+					$this.addClass('active');
+
+					var currPage = $this.attr('rel');
+					var startItem = currPage * rowPerPage;
+					var endItem = startItem + rowPerPage;
+
+					$tr.css('opacity', '0.0')
+							.addClass('off-screen')
+							.slice(startItem, endItem)
+							.removeClass('off-screen')
+							.animate({opacity: 1}, 100);
+
+				});
+
+				$pagingLink.filter(':first').addClass('active');
+
+			});
+
+
+			$setRows.submit();
+				
+		},
+		error : function(xhr, status, err){
+			console.log("처리실패", xhr, status, err);
+		}
+	});	
+});
+
+$("#searchyN").click(function() { 
+	$.ajax({
+		url : "${ pageContext.request.contextPath}/admin/reportYn.do",
+		data : {
+			yn : 'N'
+		},
+		dataType:"json",
+		method : "GET",
+		success : function(data){
+			displayResultTable("reportTable", data.list);
+			var $setRows = $('#setRows');
+
+			$setRows.submit(function (e) {
+				e.preventDefault();
+				var rowPerPage = $('[name="rowPerPage"]').val() * 1;// 1 을  곱하여 문자열을 숫자형로 변환
+
+				var zeroWarning = 'Sorry, but we cat\'t display "0" rows page. + \nPlease try again.'
+				if (!rowPerPage) {
+					alert(zeroWarning);
+					return;
+				}
+				$('#nav').remove();
+				var $products = $('#dataTable');
+
+				$products.after('<div id="nav" class="paging pagination">');
+				
+				var $tr = $($products).find('.eval-contents');
+				var rowTotals = $tr.length;
+
+				var pageTotal = Math.ceil(rowTotals/ rowPerPage);
+				var i = 0;
+
+				for (; i < pageTotal; i++) {
+					$('<a></a>')
+							.attr('rel', i)
+							.html(i + 1)
+							.appendTo('#nav');
+				}
+
+				$tr.addClass('off-screen')
+						.slice(0, rowPerPage)
+						.removeClass('off-screen');
+
+				var $pagingLink = $('#nav a');
+				$pagingLink.on('click', function (evt) {
+					evt.preventDefault();
+					var $this = $(this);
+					if ($this.hasClass('active')) {
+						return;
+					}
+					$pagingLink.removeClass('active');
+					$this.addClass('active');
+
+					var currPage = $this.attr('rel');
+					var startItem = currPage * rowPerPage;
+					var endItem = startItem + rowPerPage;
+
+					$tr.css('opacity', '0.0')
+							.addClass('off-screen')
+							.slice(startItem, endItem)
+							.removeClass('off-screen')
+							.animate({opacity: 1}, 100);
+
+				});
+
+				$pagingLink.filter(':first').addClass('active');
+
+			});
+
+
+			$setRows.submit();
+				
+		},
+		error : function(xhr, status, err){
+			console.log("처리실패", xhr, status, err);
+		}
+	});	
+});
 
 $("#adminSearch").keyup(function() { 
 	var keyword = $(this).val();
 	console.log(keyword);
 	$.ajax({
-		url : "${ pageContext.request.contextPath}/admin/reportSearch.do",
+		url : "${ pageContext.request.contextPath}/admin/reportReviewSearch.do",
 		data : {
 			keyword : keyword
 		},
 		dataType:"json",
 		method : "GET",
 		success : function(data){
-			console.log(data);
 			displayResultTable("reportTable", data.list);
+			var $setRows = $('#setRows');
+
+			$setRows.submit(function (e) {
+				e.preventDefault();
+				var rowPerPage = $('[name="rowPerPage"]').val() * 1;// 1 을  곱하여 문자열을 숫자형로 변환
+
+				var zeroWarning = 'Sorry, but we cat\'t display "0" rows page. + \nPlease try again.'
+				if (!rowPerPage) {
+					alert(zeroWarning);
+					return;
+				}
+				$('#nav').remove();
+				var $products = $('#dataTable');
+
+				$products.after('<div id="nav" class="paging pagination">');
+				
+				var $tr = $($products).find('.eval-contents');
+				var rowTotals = $tr.length;
+
+				var pageTotal = Math.ceil(rowTotals/ rowPerPage);
+				var i = 0;
+
+				for (; i < pageTotal; i++) {
+					$('<a></a>')
+							.attr('rel', i)
+							.html(i + 1)
+							.appendTo('#nav');
+				}
+
+				$tr.addClass('off-screen')
+						.slice(0, rowPerPage)
+						.removeClass('off-screen');
+
+				var $pagingLink = $('#nav a');
+				$pagingLink.on('click', function (evt) {
+					evt.preventDefault();
+					var $this = $(this);
+					if ($this.hasClass('active')) {
+						return;
+					}
+					$pagingLink.removeClass('active');
+					$this.addClass('active');
+
+					var currPage = $this.attr('rel');
+					var startItem = currPage * rowPerPage;
+					var endItem = startItem + rowPerPage;
+
+					$tr.css('opacity', '0.0')
+							.addClass('off-screen')
+							.slice(startItem, endItem)
+							.removeClass('off-screen')
+							.animate({opacity: 1}, 100);
+
+				});
+
+				$pagingLink.filter(':first').addClass('active');
+
+			});
+
+
+			$setRows.submit();
+				
 		},
 		error : function(xhr, status, err){
 			console.log("처리실패", xhr, status, err);
@@ -319,12 +549,11 @@ function displayResultTable(id, data){
 	var $container = $("#" + id);
 
 	var html = "";
-	console.log(data);
-	console.log(Object.keys(data).length);
 	if(Object.keys(data).length > 0){
+		html += "<form action='' id='setRows'><input type='hidden' name='rowPerPage' value='10'></form>"
 		for(var i in data){
 			var list = data[i];
-			html += "<tr role='row' class='odd'>";
+			html += "<tr role='row' class='odd eval-contents'>";
 			html += "<td style='text-align:center;'> <a href='${pageContext.request.contextPath}/animalboard/boardView?no="+list.aniBoId +"' style='color:#858796;'>"+list.aniBoId +"</a></td>";
 			html += "<td>" + list.userId + "</td>";
 			html += "<td>" + list.repDoUser + "</td>";
@@ -333,10 +562,14 @@ function displayResultTable(id, data){
 			html += "<td style='text-align:center;font-size:24px;'>" + list.repDisplay + "</td>";			
 			html += "<td> <a href='#'  id='reportDel' class='btn btn-info btn-circle btn-sm mr-1'  onclick='reportDel("+list.aniBoId +")'> <i class='align-middle fas fa-fw fa-sync-alt'></i> </a>";
 			if(list.repDisplay=='Y'){
-				html += "<a href='#' id='reportYN' class='btn btn-warning btn-circle btn-sm mr-1' style='font-weight: bold; font-size: 16px;' onclick='reportYN("+list.aniBoId+"','"+list.repDisplay+"')>N</a>";
+				html += `<a href='#' id='reportYN' class='btn btn-warning btn-circle btn-sm mr-1' style='font-weight: bold; font-size: 16px;' onclick="reportYN(`
+				html += "'"+list.aniBoId+"','"+list.repDisplay+"'";
+				html += `)">N</a>`;
 			}
 			if(list.repDisplay=='N'){
-				html += "<a href='#' id='reportYN' class='btn btn-success btn-circle btn-sm mr-1' style='font-weight: bold; font-size: 16px;' onclick='reportYN("+list.aniBoId+"','"+list.repDisplay+"')>Y</a>";
+				html += `<a href='#' id='reportYN' class='btn btn-success btn-circle btn-sm mr-1' style='font-weight: bold; font-size: 16px;' onclick="reportYN(`
+				html += "'"+list.aniBoId+"','"+list.repDisplay+"'";
+				html += `)">Y</a>`;
 			}
 			html += "<a href='#'  id='reportRemove' class='btn btn-danger btn-circle btn-sm'  onclick='reportRemove("+list.aniBoId+")'>X</a>"			
 			html += "</td>";
@@ -344,7 +577,7 @@ function displayResultTable(id, data){
 		}
 	}
 	else {
-		html += "<tr><td colspan='6'>검색된 결과가 없습니다.</td></tr>";
+		html += "<tr><td colspan='7'>검색된 결과가 없습니다.</td></tr>";
 	}	 
 
 	$container.html(html);

@@ -234,6 +234,7 @@ function searchFunc() {
 
 $(function() {	
 	defaultImg();
+    
 	$("#search").on("change", function() {
 		var $query = $("#query");
 		var $search = $("#search");

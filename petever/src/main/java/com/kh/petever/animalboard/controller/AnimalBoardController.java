@@ -377,8 +377,10 @@ public class AnimalBoardController {
 	public ModelAndView selectOneApplication(@RequestParam("no") int no , ModelAndView mav) {
 		
 		AdoptApplication application = service.selectOneApplication(no);
+		AnimalBoard animalBoard = service.selectOneBoard(application.getAniBoId());
 
 		mav.addObject("adopt", application);
+		mav.addObject("animal", animalBoard);
 		mav.setViewName("adopt/adoption-application-view");
 		return mav;
 	}

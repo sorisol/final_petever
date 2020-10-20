@@ -153,7 +153,7 @@
 		                        <input type="hidden" name="aniCoLevel" value="1"/>
 		                        <input type="hidden" name="aniBoId" value="${animalBoard.aniBoId}" />
 		                        <input type="hidden" name="aniCoRef" value="0"/>
-		                        <span>${loginUser.userId}</span>
+		                        <span>${loginUser.userId}</span><br />
 		                        <textarea rows="1" class="comment_inbox_text" placeholder="댓글을 입력하세요" name="aniCoContent"
 		                            onkeyup="xSize(this)"></textarea>
 		                        <div class="btn-align">
@@ -182,10 +182,10 @@ function sendLink() {
       title: '[${animalBoard.aniBoTag}] ${animalBoard.aniBoTitle}',
       description: '#${animalBoard.aniBoLocal} #${animalBoard.aniBoType} #${animalBoard.aniBoKind} #${animalBoard.aniBoGender} #${animalBoard.aniBoCha}',
       imageUrl:
-        'http://localhost:9090/petever/resources/editor/multiupload/202010141108341c53f1f4-ebe2-414d-ae95-50d9faa1f195.jpg',
+        '${pageContext.request.contextPath}/resources/editor/multiupload/202010141108341c53f1f4-ebe2-414d-ae95-50d9faa1f195.jpg',
       link: {
         mobileWebUrl: 'https://developers.kakao.com',
-        webUrl: 'https://developers.kakao.com',
+        webUrl: 'http://localhost:9090/petever/animalboard/boardView?no='+${animalBoard.aniBoId},
       },
     },
     social: {
