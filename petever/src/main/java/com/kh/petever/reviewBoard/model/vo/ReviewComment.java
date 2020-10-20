@@ -19,5 +19,6 @@ public class ReviewComment {
 	private String rewCoContent;
 	private int rewCoLevel;
 	private String rewCoDate;
+	private int rewCoRef;
 
 }

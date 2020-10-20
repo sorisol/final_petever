@@ -17,81 +17,129 @@
             <div class="content">
                 <div class="border">
                     <form id="searchFrm">
-	                    <table class="pet-info">
+	                   <table class="pet-info">
 	                        <tr>
 	                            <th>동물종류</th>
 	                            <td>
 	                                <input type="checkbox" name="aniBoType" id="kind-dog" value="개">
-	                                <label for="kind-dog">강아지</label>
+	                                <label class="check-label" for="kind-dog">
+	                                	<div></div>
+	                                </label>
+	                                <label class="label-text" for="kind-dog">강아지</label>
 	                            </td>
 	                            <td>
 	                                <input type="checkbox" name="aniBoType" id="kind-cat" value="고양이">
-	                                <label for="kind-cat">고양이</label>
+	                                <label class="check-label" for="kind-cat">
+	                                	<div></div>
+	                                </label>
+	                                <label class="label-text" for="kind-cat">고양이</label>
 	                            </td>
 	                            <td style="padding-right: 20px;">
 	                                <input type="checkbox" name="aniBoType" id="kind-etc" value="기타">
-	                                <label for="kind-etc">기타</label>
+	                                <label class="check-label" for="kind-etc">
+	                                	<div></div>
+	                                </label>
+	                                <label class="label-text" for="kind-etc">기타</label>
 	                            </td>
 	                            <th>성별</th>
 	                            <td>
 	                                <input type="checkbox" name="aniBoGender" id="gender-f" value="암컷">
-	                                <label for="gender-f">암컷</label>
+	                                <label class="check-label" for="gender-f">
+	                                	<div></div>
+	                                </label>
+	                                <label class="label-text" for="gender-f">암컷</label>
 	                            </td>
 	                            <td>
 	                                <input type="checkbox" name="aniBoGender" id="gender-m" value="수컷">
-	                                <label for="gender-m">수컷</label>
+	                                <label class="check-label" for="gender-m">
+	                                	<div></div>
+	                                </label>
+	                                <label class="label-text" for="gender-m">수컷</label>
 	                            </td>
 	                        </tr>
 	                        <tr>
 	                            <th>나이</th>
 	                            <td>
 	                                <input type="checkbox" name="aniBoAge" id="age-3" value="3">
-	                                <label for="age-3">0~3</label>
+	                                <label class="check-label" for="age-3">
+	                                	<div></div>
+	                                </label>
+	                                <label class="label-text" for="age-3">0~3</label>
 	                            </td>
 	                            <td>
 	                                <input type="checkbox" name="aniBoAge" id="age-7" value="7">
-	                                <label for="age-7">4~7</label>
+	                                <label class="check-label" for="age-7">
+	                                	<div></div>
+	                                </label>
+	                                <label class="label-text" for="age-7">4~7</label>
 	                            </td>
 	                            <td>
 	                                <input type="checkbox" name="aniBoAge" id="age-8" value="8">
-	                                <label for="age-8">8살이상</label>
+	                                <label class="check-label" for="age-8">
+	                                	<div></div>
+	                                </label>
+	                                <label class="label-text" for="age-8">8살이상</label>
 	                            </td>
 	                            <th>색상</th>
 	                            <td>
 	                                <input type="checkbox" name="aniBoColor" id="color-black" value="검">
-	                                <label for="color-black">블랙</label>
+	                                <label class="check-label" for="color-black">
+	                                	<div></div>
+	                                </label>
+	                                <label class="label-text" for="color-black">블랙</label>
 	                            </td>
 	                            <td>
 	                                <input type="checkbox" name="aniBoColor" id="color-white" value="흰">
-	                                <label for="color-white">화이트</label>
+	                                <label class="check-label" for="color-white">
+	                                	<div></div>
+	                                </label>
+	                                <label class="label-text" for="color-white">화이트</label>
 	                            </td>
 	                            <td>
 	                                <input type="checkbox" name="aniBoColor" id="color-brown" value="갈">
-	                                <label for="color-brown">브라운</label>
+	                                <label class="check-label" for="color-brown">
+	                                	<div></div>
+	                                </label>
+	                                <label class="label-text" for="color-brown">브라운</label>
 	                            </td>
 	                        </tr>
 	                        <tr>
 	                            <th>무게</th>
 	                            <td>
 	                                <input type="checkbox" name="aniBoSize" id="weight-5" value="5">
-	                                <label for="weight-5">5kg 미만</label>
+	                                <label class="check-label" for="weight-5">
+	                                	<div></div>
+	                                </label>
+	                                <label class="label-text" for="weight-5">5kg 미만</label>
 	                            </td>
 	                            <td>
 	                                <input type="checkbox" name="aniBoSize" id="weight-10" value="9">
-	                                <label for="weight-10">5~9kg</label>
+	                                <label class="check-label" for="weight-10">
+	                                	<div></div>
+	                                </label>
+	                                <label class="label-text" for="weight-10">5~9kg</label>
 	                            </td>
 	                            <td>
 	                                <input type="checkbox" name="aniBoSize" id="weight-15" value="10">
-	                                <label for="weight-15">10kg 이상</label>
+	                                <label class="check-label" for="weight-15">
+	                                	<div></div>
+	                                </label>
+	                                <label class="label-text" for="weight-15">10kg 이상</label>
 	                            </td>
 	                            <th>털길이</th>
 	                            <td>
 	                                <input type="checkbox" name="aniBoHair" id="hair-s" value="단모종">
-	                                <label for="hair-s">단모종</label>
+	                                <label class="check-label" for="hair-s">
+	                                	<div></div>
+	                                </label>
+	                                <label class="label-text" for="hair-s">단모종</label>
 	                            </td>
 	                            <td>
 	                                <input type="checkbox" name="aniBoHair" id="hair-l" value="장모종">
-	                                <label for="hair-l">장모종</label>
+	                                <label class="check-label" for="hair-l">
+	                                	<div></div>
+	                                </label>
+	                                <label class="label-text" for="hair-l">장모종</label>
 	                            </td>
 	                        </tr>
 	                        <tr>
@@ -188,6 +236,7 @@ function searchFunc() {
 				console.log(data.attachList); */
 				for(var i in data.boardList) {
 					var b = data.boardList[i];
+					//console.log(b.aniBoDate);
 					html += '<div class="post">';
 					html += '<a href="${ pageContext.request.contextPath }/animalboard/boardView?no='+b.aniBoId+'">';
 
@@ -210,7 +259,7 @@ function searchFunc() {
 					html += '<p>종류 : <strong>'+b.aniBoType+'</strong></p>';
 					html += '<p>지역 : <strong>'+b.aniBoLocal+'</strong></p><hr>';
 					html += '<span>'+b.userId+'</span>';
-					html += '<span>'+b.aniBoDate.substring(0, 10).replaceAll('-', '.')+'</span>';
+					html += '<span>'+b.aniBoDate.substring(0, 10).replace(/-/g, '.')+'</span>';
 					html += '</a></div>';
 				}
 			}
