@@ -335,10 +335,10 @@ public class AnimalBoardController {
 		
 		//전체 게시글 조회
 		List<AnimalBoard> boardList = service.selectBoardListOneWeek();
-		log.debug("boardList = {}", boardList);
+//		log.debug("boardList = {}", boardList);
 		//첨부파일조회
 		List<AnimalAttach> attachList = service.selectAttachList();
-		log.debug("attachList = {}", attachList);
+//		log.debug("attachList = {}", attachList);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("attachList", attachList);
 		

@@ -17,7 +17,6 @@
             <div class="content">
                 <div class="border">
                     <form id="searchFrm">
-                	<input type="button" onclick="location.href = '${pageContext.request.contextPath}/apply/applicationView?no=21'" value="연결"/>
 	                    <table class="pet-info">
 	                        <tr>
 	                            <th>동물종류</th>
@@ -168,10 +167,19 @@
         </section>
     </div>
 <script>
+//기본이미지
+var defaultImg = function defaultImg() {
+	$(".post").each(function(){
+	    if($(this).children().find("img")[0] == null){
+	        var html = '<img src="${pageContext.request.contextPath}/resources/images/dog/petever.jpg">';
+	        $(this).children().prepend(html);
+	    }
+	});
+}
 function searchFunc() {
 	var formData = $("#searchFrm").serialize();
 	//var formData = $("form[name=searchFrm]").serialize();
-	console.log(formData);
+	//console.log(formData);
 	$.ajax({
 		url: '${pageContext.request.contextPath}/animalboard/search',
 		dataType: 'json',
@@ -216,6 +224,7 @@ function searchFunc() {
 				}
 			}
 			$post.html(html);
+			defaultImg();
 		},
 		error: function(xhr, status, err) {
 			console.log("처리실패", xhr, status, err);
@@ -224,6 +233,7 @@ function searchFunc() {
 }
 
 $(function() {	
+	defaultImg();
 	$("#search").on("change", function() {
 		var $query = $("#query");
 		var $search = $("#search");

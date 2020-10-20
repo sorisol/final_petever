@@ -378,10 +378,10 @@ public class ReviewBoardController {
 				
 				//전체 게시글 조회
 				List<ReviewBoard> boardList = reviewBoardService.selectBoardListOneWeek();
-				log.debug("boardList = {}", boardList);
+//				log.debug("boardList = {}", boardList);
 				//첨부파일조회
 				List<ReviewAttach> attachList = reviewBoardService.selectAttachList();
-				log.debug("attachList = {}", attachList);
+//				log.debug("attachList = {}", attachList);
 				model.addAttribute("boardList", boardList);
 				model.addAttribute("attachList", attachList);
 				

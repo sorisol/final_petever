@@ -209,6 +209,15 @@
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+//기본 이미지 설정
+var defaultImg = function defaultImg() {
+	$(".post").each(function(){
+	    if($(this).children().find("img")[0] == null){
+	        var html = '<img src="${pageContext.request.contextPath}/resources/images/dog/petever.jpg">';
+	        $(this).children().prepend(html);
+	    }
+	});
+}
     
 window.onload = function(){
     /* 입양후기 슬라이드쇼 */
@@ -282,6 +291,7 @@ window.onload = function(){
 			$missing.append(miss);
 			$protect.append(prot);
 			slickCarousel();
+			defaultImg();
 		},
 		error : function(xhr, status, err){
 			console.log("처리실패", xhr, status, err);

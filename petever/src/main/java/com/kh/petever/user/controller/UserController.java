@@ -8,12 +8,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +25,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,12 +35,12 @@ import org.springframework.web.servlet.FlashMap;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
+import org.springframework.web.util.UrlPathHelper;
 
 import com.kh.petever.user.model.service.KakaoAPI;
 import com.kh.petever.user.model.service.UserService;
 import com.kh.petever.user.model.vo.User;
 
-import jdk.nashorn.internal.ir.RuntimeNode.Request;
 import net.nurigo.java_sdk.api.Message;
 
 
@@ -114,7 +108,10 @@ public class UserController {
 
 	// 로그인 페이지 연결
 	@RequestMapping("/login.do")
-	public String login() {
+	public String login(HttpServletRequest req) {
+		String referer = req.getHeader("referer"); //로그인을 요청한 페이지
+		log.debug("{}", referer);
+
 		return "user/login";
 	}
 
@@ -173,8 +170,12 @@ public class UserController {
 			//response.sendRedirect(request.getContextPath());
 			
 		} 
+		//신고된 사용자
+		else if(user != null && !user.getUserRole().equals("R")) {
+			redirectAttr.addFlashAttribute("msg", "귀하는 신고로 인해 사이트 이용이 중지되었습니다. 고객센터로 연락해주세요.");
+		}
 		// 로그인 실패
-		else {
+		else{
 			redirectAttr.addFlashAttribute("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
 
 		}

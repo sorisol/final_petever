@@ -47,6 +47,10 @@ input[type=tel] {
 	width: 50px;
 	height: 26px;
 }
+#cuserId {
+	margin: 10px;
+}
+
 </style>
 </head>
 <body>
@@ -106,6 +110,7 @@ $("#send-sms").on("click", function() {
 					html += '<input type="button" value="로그인하기" id="login" onclick="moveLogin();" />'
 				}
 				$(".content-wrap").html(html);
+				$(".content-wrap").css('text-align', 'center');
 			}
 		});
 	}
