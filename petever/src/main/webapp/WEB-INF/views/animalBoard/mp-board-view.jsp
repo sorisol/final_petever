@@ -98,6 +98,19 @@
                         	<c:forEach items="${commentList}" var="cl">
                         		<c:if test="${cl.aniCoLevel == 1 }">
 			                        <div class="board-comment">
+			                            <span class="user-thum ${fn:substring(cl.userId,0,1)}">${fn:substring(cl.userId,0,1)}</span>
+			                        <script>
+			                        function setRandomColor(dec) {
+			                        	
+			                      	  $(".${fn:substring(cl.userId,0,1)}").css("background-color", '#'+dec);
+			                      	}
+			                      	var id = Number('${cl.userId}'.charCodeAt(0))*2;
+			                      	var id1 = Number('${cl.userId}'.charCodeAt(1));
+			                      	var id2 = Number('${cl.userId}'.charCodeAt(2));
+			                      	var dec = ((id*id1*id2* ${fn:length(cl.userId)}).toString(16)).substring(0,6);
+			                      	console.log(dec);
+			                      	setRandomColor(dec);
+			                        </script>
 			                            <span class="id-box">${cl.userId}</span>
 		                            	<c:if test="${not empty loginUser}">
 		                            		<c:if test="${loginUser.userId eq cl.userId || loginUser.userId == 'admin'}">
@@ -124,7 +137,32 @@
 	                        	</c:if>
                         		<c:if test="${cl.aniCoLevel == 2}">
 			                        <div class="board-comment-reply">
-			                            <span class="id-box">&#8627; ${cl.userId}</span>
+			                        <span class="user-thum thum-sub ${fn:substring(cl.userId,0,1)}">${fn:substring(cl.userId,0,1)}</span>
+			                            <span class="id-box">
+			                            	<svg width="10" height="10" xmlns="http://www.w3.org/2000/svg">
+											 <g>
+											  <title>background</title>
+											  <rect fill="none" id="canvas_background" height="12" width="12" y="-1" x="-1"/>
+											 </g>
+											 <g>
+											  <title>Layer 1</title>
+											  <path fill="#000000" fill-rule="evenodd" stroke-width="NaN" id="path4483" d="m0,3.627304l0,-3.627304l1.812638,0l0,3.627304c0,0.453444 0.453163,0.906861 0.906326,0.906861l4.531602,0l-2.718964,-2.720494l0.906313,-0.906849l4.531602,4.534153l-4.531602,4.534166l-0.906313,-0.906849l2.718964,-2.720494l-4.531602,0c-1.586057,0 -2.718964,-1.133545 -2.718964,-2.720494z"/>
+											 </g>
+											</svg>
+											${cl.userId}
+										</span>
+			                            <script>
+			                        function setRandomColor(dec) {
+			                        	
+			                      	  $(".${fn:substring(cl.userId,0,1)}").css("background-color", '#'+dec);
+			                      	}
+			                      	var id = Number('${cl.userId}'.charCodeAt(0))*2;
+			                      	var id1 = Number('${cl.userId}'.charCodeAt(1));
+			                      	var id2 = Number('${cl.userId}'.charCodeAt(2));
+			                      	var dec = ((id*id1*id2* ${fn:length(cl.userId)}).toString(16)).substring(0,6);
+			                      	console.log(dec);
+			                      	setRandomColor(dec);
+			                        </script>
 		                            	<c:if test="${not empty loginUser}">
 				                            <img class="icon" src="${pageContext.request.contextPath}/resources/images/icon.png"/>
 				                            <div class="comment-menu">
@@ -347,7 +385,7 @@ $('.slider').slick({
 	slidesToShow: 5,
 	slidesToScroll: 4
 });
-    		
+
 </script>
 	
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

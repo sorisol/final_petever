@@ -302,3 +302,25 @@ button:hover {
     margin-top: 5px;
     color: #808080;
 }
+
+.user-thum{
+	width: 32px;
+    height: 32px;
+    display: inline-block;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 32px;
+    font-size: 19px;
+    font-weight: bold;
+    position: absolute;
+    left: 50px;
+}
+
+.thum-sub{
+	left:80px;
+}
+
+.id-box svg{
+	position: relative;
+	top:7px;
+}

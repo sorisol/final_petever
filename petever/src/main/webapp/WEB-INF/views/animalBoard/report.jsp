@@ -14,6 +14,7 @@
 </head>
 <body>
 	<div class="report">
+		<img src="https://ssl.pstatic.net/imgstock/images5/ico_report.gif" alt="" />
         <h3>신고하기</h3>
     </div>
     <p><span>· 제목</span> : [${animal.aniBoTag}] ${animal.aniBoTitle}</p>
