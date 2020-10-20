@@ -17,13 +17,11 @@ import lombok.ToString;
 @ToString
 public class Message implements Serializable{
 
-	
 	private int msgNo;
 	private String userId;
 	private String receiveId;
 	private String msgContent;
 	private String msgTime;
-	
-	
+	private String sub;
 	
 }

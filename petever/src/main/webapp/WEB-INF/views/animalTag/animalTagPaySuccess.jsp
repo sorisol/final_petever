@@ -7,6 +7,7 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <!-- google font -->
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&family=Sunflower:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap" rel="stylesheet">
 <script>
 $(function(){
 	
@@ -26,11 +27,11 @@ $(function(){
 		var $color = $(this).attr('value');
 
         if ($color == 'silver') {
-            $($(this)).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_silver_2.png)');
+            $($(this)).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/aniTag_silver_3.png)');
         } else if ($color == 'gold') {
-            $($(this)).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_gold_2.png)');
+            $($(this)).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/aniTag_gold_3.png)');
         } else if ($color == 'rosegold') {
-            $($(this)).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_rosegold_2.png)');
+            $($(this)).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/aniTag_rosegold_3.png)');
         }
     });
 
@@ -38,12 +39,32 @@ $(function(){
     	var $kind = $(this).attr('value');
         
 		if($kind == '포메라니안'){
-			$(this).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/ani_pome.png)');
+			$(this).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_pome.png)');
 		} else if($kind == '진돗개'){
-			$(this).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/ani_jindo.png)');
+			$(this).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_jindo.png)');
 		} else if($kind == '시바견'){
-			$(this).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/ani_siba.png)');
-		}
+			$(this).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_siba.png)');
+		} else if($kind == '리트리버'){
+			$(this).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_retriver.png)');
+		} else if($kind == '말티즈'){
+			$(this).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_maitese.png)');
+		} else if($kind == '보더콜리'){
+			$(this).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_borderCollie.png)');
+		} else if($kind == '불독'){
+			$(this).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_bulldog.png)');
+		} else if($kind == '비숑프리제'){
+			$(this).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_bichon.png)');
+		} else if($kind == '시츄'){
+			$(this).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_shihTzu.png)');
+		} else if($kind == '웰시코기'){
+			$(this).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_welshCorgi.png)');
+		} else if($kind == '요크셔테리어'){
+    		$(this).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_yorkie.png)');
+		} else if($kind == '치와와'){
+			$(this).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_chihuahua.png)');
+		} else if($kind == '푸들'){
+			$(this).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_pudel.png)');
+		} 
     });
 
      $(".animal-tag-font").each(function() {

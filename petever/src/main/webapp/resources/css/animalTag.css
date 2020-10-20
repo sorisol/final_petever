@@ -50,7 +50,7 @@
     float: left;
     padding: 20px;
     text-align: center;
-    background: url("../images/animalTag_back2.png") no-repeat bottom;
+    background: url("../images/aniTag/animalTag_back2.png") no-repeat bottom;
 }
 
 #ani-info-tag1 {
@@ -64,7 +64,7 @@
     transition:  all 1s;
     transition-duration: 1s;
     transition-timing-function: ease-in-out;
-    background-image: url(/petever/resources/images/aniTag_gold_2.png);
+    background-image: url(../images/aniTag/aniTag_gold_3.png);
 }
 
 #ani-info-tag2 {
@@ -79,7 +79,7 @@
     transition:  all 1s;
     transition-duration: 1s;
     transition-timing-function: ease-in-out;
-    background-image: url(/petever/resources/images/aniTag_gold_2.png);
+    background-image: url(../images/aniTag/aniTag_gold_3.png);
 }
 
 .animal-tag-font {
@@ -190,6 +190,10 @@
 
 .font_Sunflower {
     font-family: 'Sunflower', sans-serif !important;
+}
+
+.font_EastSeaDokdo {
+	font-family: 'East Sea Dokdo', sans-serif !important
 }
 
 .btn {

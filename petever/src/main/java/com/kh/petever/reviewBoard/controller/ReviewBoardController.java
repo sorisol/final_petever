@@ -66,7 +66,7 @@ public class ReviewBoardController {
 		String url = request.getRequestURI() + "?";
 		String pageBar = Utils.getPageBarHtml(cPage, limit, totalContents, url);
 						
-		log.debug("list = {}", list);
+//		log.debug("list = {}", list);
 		model.addAttribute("totalContents", totalContents);
 		model.addAttribute("list", list);
 		model.addAttribute("pageBar", pageBar);
@@ -93,8 +93,8 @@ public class ReviewBoardController {
 		String url = request.getRequestURI() + "?";
 		String pageBar = Utils.getPageBarHtml(cPage, limit, totalContents, url);
 						
-		log.debug("list = {}", list);
-		log.debug("attachList = {}", attachList);
+//		log.debug("list = {}", list);
+//		log.debug("attachList = {}", attachList);
 		model.addAttribute("totalContents", totalContents);
 		model.addAttribute("list", list);
 		model.addAttribute("pageBar", pageBar);
@@ -118,7 +118,7 @@ public class ReviewBoardController {
 	public String insertReviewBoard(ReviewBoard reviewBoard, HttpServletRequest request,
 			RedirectAttributes redirectAttr) {
 
-		log.debug("reviewBoard = {}", reviewBoard);
+//		log.debug("reviewBoard = {}", reviewBoard);
 
 		List<ReviewAttach> boardAttachList = new ArrayList<>();
 
@@ -132,7 +132,7 @@ public class ReviewBoardController {
 		while (match.find()) {
 			img.add(match.group());
 		}
-		log.debug("img = {}", img);
+//		log.debug("img = {}", img);
 		for (String s : img) {
 			// 서버에 저장될 파일이름
 			int startRname = s.indexOf("multiupload/");
@@ -150,7 +150,7 @@ public class ReviewBoardController {
 			// 리스트로 만들기
 			boardAttachList.add(attach);
 		}
-		log.debug("boardAttachList = {}", boardAttachList);
+//		log.debug("boardAttachList = {}", boardAttachList);
 
 		reviewBoard.setAttachList(boardAttachList);
 		// 2. 게시글, 첨부파일정보를 DB에 저장
@@ -172,12 +172,12 @@ public class ReviewBoardController {
 	  //게시글 조회
 	  @GetMapping("/reviewBoardView.do") 
 	  public ModelAndView ReviewBoardView(@RequestParam int no, ModelAndView mav) {
-	  log.debug("[{}]번 게시글 조회!", no);
+//	  log.debug("[{}]번 게시글 조회!", no);
 	  
 	  //게시글 번호로 조회 
 	  ReviewBoard reviewBoard = reviewBoardService.selectOneBoard(no);
 	  mav.addObject("reviewBoard", reviewBoard);
-	  log.debug("reviewBoard = {}", reviewBoard);
+//	  log.debug("reviewBoard = {}", reviewBoard);
 
 		//no번 게시글의 댓글
 		int totalComment = reviewBoardService.totalComment(no);
@@ -196,8 +196,7 @@ public class ReviewBoardController {
 			ReviewBoard reviewBoard = reviewBoardService.selectOneBoard(no);
 			
 			mav.addObject("reviewBoard", reviewBoard);
-			log.debug("reviewBoard = {}", reviewBoard);
-			
+//			log.debug("reviewBoard = {}", reviewBoard);
 			
 			mav.setViewName("reviewBoard/updateFrm");
 			return mav;	
@@ -229,7 +228,7 @@ public class ReviewBoardController {
 		//게시글 수정
 		@PostMapping("/updateBoard.do")
 		public ModelAndView updateBoard(ModelAndView mav, ReviewBoard reviewBoard, HttpServletRequest req, RedirectAttributes redirectAttr) {
-			log.debug("reviewBoard = {}", reviewBoard);
+//			log.debug("reviewBoard = {}", reviewBoard);
 			
 			
 			Pattern pattern  =  Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
@@ -278,7 +277,7 @@ public class ReviewBoardController {
 		//댓글 작성
 		@PostMapping("/insertComment.do")
 		public String insertComment(ReviewComment reviewComment, RedirectAttributes redirectAttr) {
-			log.debug("rewC = {}", reviewComment);
+//			log.debug("rewC = {}", reviewComment);
 			
 			try {
 				int result = reviewBoardService.insertComment(reviewComment);
@@ -294,7 +293,7 @@ public class ReviewBoardController {
 	    //댓글 삭제
 		@GetMapping("/deleteComment")
 		public String deleteComment(@RequestParam("no") int no,@RequestParam("commentNo") int commentNo, RedirectAttributes redirectAttr) {
-				log.debug("no = {}, boardId={}", no, commentNo);
+//				log.debug("no = {}, boardId={}", no, commentNo);
 			
 		try {
 			int result = reviewBoardService.deleteComment(commentNo);
@@ -309,7 +308,7 @@ public class ReviewBoardController {
 		//댓글 수정
 		@PostMapping("/editComment")
 		public String editComment(ReviewComment reviewComment, RedirectAttributes redirectAttr) {
-			log.debug("reviewComment = {}", reviewComment);
+//			log.debug("reviewComment = {}", reviewComment);
 			
 			try {
 				int result = reviewBoardService.editComment(reviewComment);
@@ -326,7 +325,7 @@ public class ReviewBoardController {
 			public @ResponseBody Map<String, Object> search(ReviewBoard reviewBoard) {
 		
 			//사용자 입력값
-			log.debug("reviewBoard = {}", reviewBoard);
+//			log.debug("reviewBoard = {}", reviewBoard);
 			
 			//업무로직
 			List<ReviewBoard> boardList = reviewBoardService.searchBoardList(reviewBoard);
@@ -348,7 +347,7 @@ public class ReviewBoardController {
 				param.put("repDoUser", doUser);
 				
 				Report rep = reviewBoardService.selectOneReport(param);
-				log.debug("rep = {}", rep);
+//				log.debug("rep = {}", rep);
 				mav.addObject("reviewBoard", reviewBoard);
 				mav.addObject("doUser", doUser);
 				mav.addObject("rep", rep);
@@ -359,7 +358,7 @@ public class ReviewBoardController {
 			//신고하기
 			@PostMapping("/report.do")
 			public @ResponseBody Map<String, Object> insertReport(@RequestBody Report rep) {
-				log.debug("rep = {}", rep);
+//				log.debug("rep = {}", rep);
 				String msg = "신고 완료";
 				try {
 					int result = reviewBoardService.insertReport(rep);
@@ -378,10 +377,10 @@ public class ReviewBoardController {
 				
 				//전체 게시글 조회
 				List<ReviewBoard> boardList = reviewBoardService.selectBoardListOneWeek();
-				log.debug("boardList = {}", boardList);
+//				log.debug("boardList = {}", boardList);
 				//첨부파일조회
 				List<ReviewAttach> attachList = reviewBoardService.selectAttachList();
-				log.debug("attachList = {}", attachList);
+//				log.debug("attachList = {}", attachList);
 				model.addAttribute("boardList", boardList);
 				model.addAttribute("attachList", attachList);
 				

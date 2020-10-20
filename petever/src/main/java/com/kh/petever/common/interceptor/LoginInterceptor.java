@@ -16,13 +16,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LoginInterceptor extends HandlerInterceptorAdapter {@Override
 
-	public boolean preHandle(HttpServletRequest request, 
-							 HttpServletResponse response, 
-							 Object handler)
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		log.debug("로그인 여부 체크!");
 		HttpSession session = request.getSession();
-		User loginUser = (User)session.getAttribute("loginMember");
+		User loginUser = (User)session.getAttribute("loginUser");
 		
 		if(loginUser == null) {
 			//FlashMap을 통한 사용자 피드백
@@ -38,9 +36,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {@Override
 			
 			String param = request.getQueryString();// "" | no=12&name=abc
 			
-			uri += (!"".equals(param)) ?
-					 "?" + param :
-						 param;
+			uri += (!"".equals(param)) ? "?" + param : param;
 			log.debug("uri = {}", uri);
 			
 			session.setAttribute("next", uri);
