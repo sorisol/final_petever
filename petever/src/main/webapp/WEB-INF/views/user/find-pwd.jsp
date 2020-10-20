@@ -95,10 +95,6 @@ input[type=tel] {
 	});
 	
 }); 
-function moveLogin(){
-	opener.document.getElementById("userId").value = $("#cuserId").val();
-	window.close();
-}
 </script>
 </body>
 </html>

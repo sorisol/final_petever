@@ -109,7 +109,7 @@ public class UserController {
 	}
 
 	// 로그인 페이지 연결
-	@RequestMapping("/login.do")
+	@RequestMapping(value="/login.do", method=RequestMethod.GET)
 	public String login(HttpServletRequest request, HttpSession session) {
 		String referer = request.getHeader("referer"); //로그인을 요청한 페이지
 //		log.debug("{}", referer);
@@ -183,7 +183,7 @@ public class UserController {
 		else {
 			log.debug("1111");
 			redirectAttr.addFlashAttribute("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
-			return "redirect:/user/login.do";
+			return "user/login";
 		}
 	}
 	

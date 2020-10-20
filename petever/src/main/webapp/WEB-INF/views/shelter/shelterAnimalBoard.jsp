@@ -84,7 +84,7 @@ function shelterAniDetail(shelterNo) {
            <p>전국 동물 보호 센터 입니다. </p>
            <div class="content">
 			<form action="${pageContext.request.contextPath}/shelter/shelterAnimalBoardXml.do" method="POST">
-				<input type="submit" value="전송" style="" />
+				<input type="submit" value="전송" style="display:none;" />
 			</form>
            		<!-- 여기에 작성하시면 됩니다.! -->
             <div class="shelter-search-wrap">
@@ -98,6 +98,7 @@ function shelterAniDetail(shelterNo) {
                     <input type="submit" value="검색" id="search-btn">
                 </form>
             </div>
+            <hr style="height: 1px; border: none; background-color: lightgray; width: 880px; margin: 20px 123px 40px;"/>
             <div class="sehlter-board-wrap">
                 <table>
                     <tr>

@@ -20,10 +20,8 @@
             <p></p>
             <div class="content">
                 <div class="border">
-                    <table class="preference">
-                        
-                    </table>
-                    <hr style="height: 1px; border:none; background-color: #373b44; width: 860px; margin: 35px 50px;">
+                    
+                    <hr style="height: 1px; border:none; background-color: lightgray; width: 880px; margin: 35px 50px;">
 
                     <div class="post-wrap">
 						

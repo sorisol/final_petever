@@ -7,7 +7,7 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <!-- google font -->
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&family=Sunflower:wght@500&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
 <script>
 $(function(){
 	
@@ -15,11 +15,11 @@ $(function(){
 		var $color = $(this).attr('value');
 
         if ($color == 'silver') {
-            $($(this)).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_silver_2.png)');
+            $($(this)).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/aniTag_silver_3.png)');
         } else if ($color == 'gold') {
-            $($(this)).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_gold_2.png)');
+            $($(this)).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/aniTag_gold_3.png)');
         } else if ($color == 'rosegold') {
-            $($(this)).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_rosegold_2.png)');
+            $($(this)).css('background-image', 'url(${pageContext.request.contextPath}/resources/images//aniTaganiTag_rosegold_3.png)');
         }
     });
 
