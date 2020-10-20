@@ -77,7 +77,7 @@ function searchFunc() {
 						html +=	'<td><a href="${ pageContext.request.contextPath }/reviewBoard/reviewBoardView.do?no='+b.rewBoId+'">';
 						html += b.rewBoTitle +'</a></td>';		
 						html += '<td>'+ b.userId +'</td>';
-						html += '<td>'+b.rewBoRegDate.substring(0, 10).replaceAll('-', '.')+'</td>';
+						html += '<td>'+b.rewBoRegDate.substring(0, 10).replace(/-/g, '.')+'</td>';
 						html += '</tr>';					
 				}
 				console.log(html);
