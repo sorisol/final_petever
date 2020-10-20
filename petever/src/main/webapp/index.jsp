@@ -13,8 +13,9 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/slick.js"></script>
-<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <script src="${pageContext.request.contextPath}/resources/js/loading.js"></script>
+
+<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
    <div id="main-wrap">
         <section class="main">
@@ -113,7 +114,7 @@
                             <div class="stats  bar">
     
                                 <canvas id="barChart" class="chartjs"
-                                    style="display: block; width: 285px; height:300px"></canvas>
+                                    style="display: block; width: 400px; height:300px"></canvas>
                             </div>
                         </div>
                     </div>

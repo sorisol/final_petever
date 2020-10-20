@@ -139,6 +139,8 @@ option {
 	font-size: 15px;
     padding: 2px;
     width: 105px;
+    height: 36px;
+    border: 1px solid lightgray;
 }
 
 #btn-search {

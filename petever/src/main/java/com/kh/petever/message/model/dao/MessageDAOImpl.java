@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.petever.message.model.vo.Message;
+import com.kh.petever.user.model.vo.User;
 
 @Repository
 public class MessageDAOImpl implements MessageDAO{
@@ -17,9 +18,8 @@ public class MessageDAOImpl implements MessageDAO{
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public List<Message> selectMessageList(int limit, int offset) {
-		RowBounds rowBounds = new RowBounds(offset, limit);
-		return sqlSession.selectList("message.selectMessageList",null,rowBounds);
+	public List<Message> selectMessageList(User user, RowBounds rowBounds) {
+		return sqlSession.selectList("message.selectMessageList", user, rowBounds);
 	}
 
 	@Override

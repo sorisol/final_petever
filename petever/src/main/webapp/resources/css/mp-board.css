@@ -91,7 +91,7 @@ td {
 .pet-info tr td select {
     height: 36px;
     border: 1px solid #ebecef;
-	
+	border-radius: 5px;
 }
 .pet-info tr td select:focus {
     border: 1px solid #FFDD93;
@@ -106,6 +106,7 @@ td {
     color: #373b44;
     font-size: 16px;
     font-weight: bold;
+    border-radius: 5px;
 }
 #top-search-btn:focus {
 	outline-color: #f2aa8a;	
@@ -124,10 +125,10 @@ td {
 }
 #query {
 	width: 200px;
-	margin: 0px 10px;
-	height: 32px;
+	height: 34px;
     padding: 0px 12px;
     border: 1px solid #ebecef;
+    float:left;
 }
 .search-wrap select {
     width: 100px;
@@ -136,6 +137,7 @@ td {
     font-size: 16px;
     size: 34px;
     border: 1px solid #ebecef;
+    float:left;
 }
 
 .search-wrap select:focus {
@@ -145,20 +147,22 @@ td {
 
 .search-wrap input:focus {
     width: 202px;
-    height: 34px;
+    height: 36px;
     padding: 0px 12px;
     border: 1px solid #FFDD93;
     outline-color: #FFDD93;
 }
 
 .search-wrap button {
-    width: 56px;
+    width: 70px;
     height: 36px;
     border: 1px solid #FFDD93;
     background-color: #FFDD93;
     color: #373b44;
     font-size: 16px;
     font-weight: bold;
+    line-height:36px;
+    float:left;
 }
 .search-wrap button:focus {
 	outline-color: #f2aa8a;	
@@ -204,8 +208,8 @@ td {
     font-size: 16px;
     padding: 5px;
 	margin: 3px;
-​
 }
+
 .cPage{
 	width: 15px;
     height: 15px;
@@ -217,10 +221,39 @@ td {
     border-radius: 10px;
 	margin: 3px;
 }
-​
+
 .page-pre {
 	background-color: white;
     border-radius: 10px;
     color: darkgray;
     padding: 4px;
+}
+
+.pet-info tr td *{
+	position: relative;
+}
+
+.pet-info tr td input[type="checkbox"]{
+	display: none;
+}
+
+.check-label{
+    border: 1px solid #888;
+    display: inline-block;
+    padding: 2px;
+    border-radius: 3px;
+    top: 3px;
+}
+
+.check-label div{
+	width: 12px;
+	height:12px;
+}
+
+.label-text{
+	top: -1px;
+}
+
+input[type="checkbox"]:checked + label div {
+	background-color: #FFDD93;
 }

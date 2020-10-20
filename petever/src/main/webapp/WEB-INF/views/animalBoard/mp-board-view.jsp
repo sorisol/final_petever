@@ -257,7 +257,7 @@ $(".writer").click(function() {
 });
 //공유하기 이미지 클릭시
 $(".ico_bbs").click(function() {
-	$("#kakao-link-btn").toggel();
+	$("#kakao-link-btn").toggle();
 });
 //댓글 이미지 클릭시
 $(".icon").click(function() {

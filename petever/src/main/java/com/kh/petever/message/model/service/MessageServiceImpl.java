@@ -3,12 +3,14 @@ package com.kh.petever.message.model.service;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.petever.message.model.dao.MessageDAO;
 import com.kh.petever.message.model.vo.Message;
+import com.kh.petever.user.model.vo.User;
 
 @Service
 public class MessageServiceImpl  implements MessageService{
@@ -22,8 +24,8 @@ public class MessageServiceImpl  implements MessageService{
 	}
 
 	@Override
-	public List<Message> selectMessageList(int limit, int offset) {
-		return messageDAO.selectMessageList(limit,offset);
+	public List<Message> selectMessageList(User user, RowBounds rowBound) {
+		return messageDAO.selectMessageList(user, rowBound);
 	}
 
 	@Transactional(rollbackFor = {Exception.class})
