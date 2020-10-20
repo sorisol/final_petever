@@ -49,9 +49,6 @@
                         </span>
                         <a href="#board-comment-container" class="header-comment-view">댓글 ${totalComment}</a>
                     </div>
-                    <div class="pet-info">
-
-                    </div>
                     <div class="board-content">
 						${animalBoard.aniBoContent }
                     </div>
@@ -69,12 +66,6 @@
 	                        <fmt:parseDate value="${animalBoard.aniBoMissDate}" var="missDate" pattern="yyyy-MM-dd HH:mm:ss"/>
 							<fmt:formatDate value="${missDate}" pattern="yyyy.MM.dd"/>
                         </span>
-                    </div>
-                    <span class="ico_bbs ico_share">공유하기</span>
-                    <div>
-	                    <a id="kakao-link-btn" href="javascript:sendLink()" style="float: right;">
-						  <img src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" width="25px"/>
-						</a>
                     </div>
                    	<c:if test="${not empty shelterAniList}">
 	                    <div class="similar-container">
@@ -95,7 +86,13 @@
                     <div id="board-comment-container">
                         <div class="comment-header">
                             <span class="comment-view">댓글 ${totalComment}</span>
-                            <a class="report-btn" onclick="javascript:openReport();">신고</a>
+                            <div>
+                            	<a class="report-btn" onclick="javascript:openReport();">신고</a>
+			                    <a id="kakao-link-btn" href="javascript:sendLink()">
+			                    <span class="ico_bbs ico_share">공유하기</span>
+								  <!-- <img src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" width="25px"/> -->
+								</a>
+                            </div>
                         </div>
                         <c:if test="${ not empty commentList }">
                         	<c:forEach items="${commentList}" var="cl">

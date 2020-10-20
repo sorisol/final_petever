@@ -335,10 +335,10 @@ public class AnimalBoardController {
 		
 		//전체 게시글 조회
 		List<AnimalBoard> boardList = service.selectBoardListOneWeek();
-		log.debug("boardList = {}", boardList);
+//		log.debug("boardList = {}", boardList);
 		//첨부파일조회
 		List<AnimalAttach> attachList = service.selectAttachList();
-		log.debug("attachList = {}", attachList);
+//		log.debug("attachList = {}", attachList);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("attachList", attachList);
 		
@@ -377,8 +377,10 @@ public class AnimalBoardController {
 	public ModelAndView selectOneApplication(@RequestParam("no") int no , ModelAndView mav) {
 		
 		AdoptApplication application = service.selectOneApplication(no);
+		AnimalBoard animalBoard = service.selectOneBoard(application.getAniBoId());
 
 		mav.addObject("adopt", application);
+		mav.addObject("animal", animalBoard);
 		mav.setViewName("adopt/adoption-application-view");
 		return mav;
 	}

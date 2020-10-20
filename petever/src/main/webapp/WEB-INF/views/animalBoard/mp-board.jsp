@@ -215,6 +215,15 @@
         </section>
     </div>
 <script>
+//기본이미지
+var defaultImg = function defaultImg() {
+	$(".post").each(function(){
+	    if($(this).children().find("img")[0] == null){
+	        var html = '<img src="${pageContext.request.contextPath}/resources/images/dog/petever.jpg">';
+	        $(this).children().prepend(html);
+	    }
+	});
+}
 function searchFunc() {
 	var formData = $("#searchFrm").serialize();
 	//var formData = $("form[name=searchFrm]").serialize();
@@ -272,18 +281,7 @@ function searchFunc() {
 	});
 }
 
-var defaultImg = function defaultImg() {
-//사진여부 검사 : 없으면 기본이미지 보여주기
-    $(".post").each(function(){
-        //console.log($(this).children().find("img")[0] == null );
-        if($(this).children().find("img")[0] == null){
-            var html = '<img src="${pageContext.request.contextPath}/resources/images/dog/baset.jpg">';
-            $(this).children().prepend(html);
-        }
-    });
-}
-	
-$(function() {
+$(function() {	
 	defaultImg();
     
 	$("#search").on("change", function() {
