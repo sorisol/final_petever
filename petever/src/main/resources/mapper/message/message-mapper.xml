@@ -10,7 +10,7 @@
 		from (select M.*, Row_Number() Over(Partition By sub Order By Msg_Num Desc)As Rowidx
 		        from(select Msg_Num, User_Id, Receive_Id, Msg_Content, msg_time, replace(concat(user_id, receive_id), #{ userId }, '') as sub
 		            from Message) M
-		        where user_id = #{ userId })
+		        where user_id = #{ userId } or receive_id = #{ userId} )
 		Where Rowidx = 1
 		order by msg_time desc
 	</select>

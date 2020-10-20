@@ -214,7 +214,6 @@ form span {
 .reply-btn {
 	border: none;
     background-color: white;
-    float: left;
 }
 .reply-btn:focus {
 	outline: none;
@@ -294,4 +293,12 @@ button:hover {
     vertical-align: top;
     text-indent: -9999px;
     float: left;
+}
+.cnt {
+	font-weight: lighter;
+    font-size: 12px;
+    float: right;
+    margin-right: 20px;
+    margin-top: 5px;
+    color: #808080;
 }
