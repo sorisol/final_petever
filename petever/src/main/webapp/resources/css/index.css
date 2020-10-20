@@ -68,6 +68,7 @@ section.content-wrap {
     background-color: #E6BCB0;
     text-align: center;
     margin-top: 100px;
+    padding-bottom:20px;
 }
 .total-wrap h1{
     font-size: 38px;
@@ -138,6 +139,10 @@ polyline{
     float: left;
 }
 
+.content2 .stats-wrap .bar {
+    width: 400px;
+}
+
 .content2 .stats-wrap .stats:nth-child(1){
     margin-left: 115px;
     margin-right: 25px; 
@@ -159,7 +164,7 @@ polyline{
     font-size: 18px;
     font-weight: bold;
     border-radius: 30px;
-    color: #ededed;
+    color: #55423B;
     cursor: pointer;
 }
 .content2 .stats-wrap ul .on{

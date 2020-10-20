@@ -113,7 +113,7 @@
                             <div class="stats  bar">
     
                                 <canvas id="barChart" class="chartjs"
-                                    style="display: block; width: 285px; height:300px"></canvas>
+                                    style="display: block; width: 400px; height:300px"></canvas>
                             </div>
                         </div>
                     </div>

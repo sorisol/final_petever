@@ -67,7 +67,7 @@
             r.rep_do_user
 		from report r
 		join animal_board b on  r.ani_bo_id = b.ani_bo_id
-		where r.rep_date <![CDATA[ >  ]]> #{day}
+		where r.rep_date <![CDATA[ >  ]]> to_date(#{day},'yy/mm/dd')
 		order by rep_date desc
 	</select>
 
@@ -75,7 +75,7 @@
 		select count(*)
 		from report r
 		join animal_board b on  r.ani_bo_id = b.ani_bo_id
-		where r.rep_date <![CDATA[ >  ]]> #{day}
+		where r.rep_date <![CDATA[ >  ]]> to_date(#{day},'yy/mm/dd')
 		order by rep_date desc
 	</select>
 	
@@ -126,7 +126,7 @@
             r.rep_do_user
 		from report r
 		join review_board b on  r.ani_bo_id = b.rew_bo_id
-			where r.rep_date <![CDATA[ >  ]]> #{day}
+			where r.rep_date <![CDATA[ >  ]]> to_date(#{day},'yy/mm/dd')
 		order by rep_date desc
 	</select>
 
@@ -134,7 +134,7 @@
 		select count(*)
 		from report r
 		join review_board b on  r.ani_bo_id = b.rew_bo_id
-			where r.rep_date <![CDATA[ >  ]]> #{day}
+			where r.rep_date <![CDATA[ >  ]]> to_date(#{day},'yy/mm/dd')
 		order by rep_date desc
 	</select>
 
