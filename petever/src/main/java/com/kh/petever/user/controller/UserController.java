@@ -116,7 +116,11 @@ public class UserController {
 
 	// 로그인 페이지 연결
 	@RequestMapping("/login.do")
-	public String login() {
+	public String login(HttpServletRequest request, HttpSession session) {
+		String referer = request.getHeader("referer");
+		log.debug("referer = {}", referer);
+		session.setAttribute("next", referer);
+		
 		return "user/login";
 	}
 
@@ -145,8 +149,11 @@ public class UserController {
 			model.addAttribute("loginUser", user);
 			
 			//세션에 next값 가져오기 
-			String next = (String) session.getAttribute("next");
+			String next = (String)session.getAttribute("next");
+//			next = next != null ? next.replace(request.getContextPath(), "") : "";
 			location = next != null ? next : location;
+			log.debug("next = {}", next);
+			log.debug("location = {}", location);
 			session.removeAttribute("next");
 			
 			//세션 유효시간설정
@@ -173,15 +180,19 @@ public class UserController {
 			
 			//리다이렉트처리
 			//response.sendRedirect(request.getContextPath());
+//			String uri = request.getRequestURI(); // /spring/board/boardForm.do
+//			uri = uri.replace(request.getContextPath(), "");
 			
 		} 
 		// 로그인 실패
 		else {
+			log.debug("1111");
 			redirectAttr.addFlashAttribute("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
-
 		}
 
-		return "redirect:/"+location;
+		return "redirect:/";
+//		return "redirect:/"+location;
+	
 	}
 	
 

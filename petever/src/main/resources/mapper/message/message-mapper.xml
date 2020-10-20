@@ -55,7 +55,8 @@
 		from 
 			message 
 		where 
-			(user_id=#{userId} and receive_id=#{receiveId}) or (receive_id=#{receiveId} and user_id=#{userId})
+			(user_id=#{userId} and receive_id=#{receiveId}) or (receive_id=#{userId} and user_id=#{receiveId})
+		order by msgTime asc
 	
 	</select>
 	

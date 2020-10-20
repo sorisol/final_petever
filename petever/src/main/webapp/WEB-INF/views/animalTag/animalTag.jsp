@@ -7,6 +7,7 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <!-- google font -->
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&family=Sunflower:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap" rel="stylesheet">
 <!-- 주소검색API -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
     <script>
@@ -43,14 +44,14 @@
                 var $color = $(this);
 
                 if ($color.val() == 'silver') {
-	                $("#ani-info-tag1").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_silver_2.png)');
-	                $("#ani-info-tag2").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_silver_2.png)');
+	                $("#ani-info-tag1").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/aniTag_silver_3.png)');
+	                $("#ani-info-tag2").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/aniTag_silver_3.png)');
                 } else if ($color.val() == 'gold') {
-	                $("#ani-info-tag1").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_gold_2.png)');
-	                $("#ani-info-tag2").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_gold_2.png)');
+	                $("#ani-info-tag1").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/aniTag_gold_3.png)');
+	                $("#ani-info-tag2").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/aniTag_gold_3.png)');
                 } else if ($color.val() == 'rosegold') {
-	                $("#ani-info-tag1").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_rosegold_2.png)');
-	                $("#ani-info-tag2").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_rosegold_2.png)');
+	                $("#ani-info-tag1").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/aniTag_rosegold_3.png)');
+	                $("#ani-info-tag2").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/aniTag_rosegold_3.png)');
                 }
             });
 
@@ -59,12 +60,32 @@
 				console.log($aniKind.val());
 
 				if($aniKind.val() == '포메라니안'){
-					$("#aniaml-tag-img").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/ani_pome.png)');
+					$("#aniaml-tag-img").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_pome.png)');
 				} else if($aniKind.val() == '진돗개'){
-					$("#aniaml-tag-img").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/ani_jindo.png)');
+					$("#aniaml-tag-img").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_jindo.png)');
 				} else if($aniKind.val() == '시바견'){
-					$("#aniaml-tag-img").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/ani_siba.png)');
-				}
+					$("#aniaml-tag-img").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_siba.png)');
+				} else if($aniKind.val() == '리트리버'){
+					$("#aniaml-tag-img").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_retriver.png)');
+				} else if($aniKind.val() == '말티즈'){
+					$("#aniaml-tag-img").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_maitese.png)');
+				} else if($aniKind.val() == '보더콜리'){
+					$("#aniaml-tag-img").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_borderCollie.png)');
+				} else if($aniKind.val() == '불독'){
+					$("#aniaml-tag-img").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_bulldog.png)');
+				} else if($aniKind.val() == '비숑프리제'){
+					$("#aniaml-tag-img").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_bichon.png)');
+				} else if($aniKind.val() == '시츄'){
+					$("#aniaml-tag-img").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_shihTzu.png)');
+				} else if($aniKind.val() == '웰시코기'){
+					$("#aniaml-tag-img").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_welshCorgi.png)');
+				} else if($aniKind.val() == '요크셔테리어'){
+					$("#aniaml-tag-img").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_yorkie.png)');
+				} else if($aniKind.val() == '치와와'){
+					$("#aniaml-tag-img").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_chihuahua.png)');
+				} else if($aniKind.val() == '푸들'){
+					$("#aniaml-tag-img").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_pudel.png)');
+				} 
 
             });
 
@@ -423,8 +444,10 @@
                             <label class="ani-radio font_DoHyeon" for="font_DoHyeon">도현체</label>
                             <input type="radio" name="tagFont" id="font_Jua" value="Jua">
                             <label class="ani-radio font_Jua" for="font_Jua">주아체</label>
-                            <input type="radio" name="tagFont" id="font_Sunflower" value="Sunflower">
-                            <label class="ani-radio font_Sunflower" for="font_Sunflower">선플라워체</label>
+                            <input type="radio" name="tagFont" id="font_EastSeaDokdo" value="East Sea Dokdo">
+                            <label class="ani-radio font_EastSeaDokdo" for="font_EastSeaDokdo">동해독도체</label>
+                            <!-- <input type="radio" name="tagFont" id="font_Sunflower" value="Sunflower">
+                            <label class="ani-radio font_Sunflower" for="font_Sunflower">선플라워체</label> -->
                             <br>
                             <label for="ani-name" class="ani-label">동물이름</label>
                             <input type="text" name="tagAniName" id="ani-name" placeholder="한영(5자), 영문(10자) 이내">
@@ -470,7 +493,7 @@
 				                <h3>제품이미지#1</h3>
 				                <span></span>
 				            </div>
-				            <img src="${pageContext.request.contextPath}/resources/images/tag1.jpg" alt="">
+				            <img src="${pageContext.request.contextPath}/resources/images/aniTag/tag1.jpg" alt="">
 				        </li>
 				
 				        <li>
@@ -478,7 +501,7 @@
 				                <h3>제품이미지#2</h3>
 				                <span></span>
 				            </div>
-				            <img src="${pageContext.request.contextPath}/resources/images/tag2.jpg" alt="">
+				            <img src="${pageContext.request.contextPath}/resources/images/aniTag/tag2.jpg" alt="">
 				        </li>
 				
 				        <li>
@@ -486,35 +509,35 @@
 				                <h3>제품이미지#3</h3>
 				                <span></span>
 				            </div>
-				            <img src="${pageContext.request.contextPath}/resources/images/tag3.jpg" alt="">
+				            <img src="${pageContext.request.contextPath}/resources/images/aniTag/tag3.jpg" alt="">
 				        </li>
 				        <li>
 				            <div>
 				                <h3>사용예시#1</h3>
 				                <span></span>
 				            </div>
-				            <img src="${pageContext.request.contextPath}/resources/images/tag5.jpg" alt="">
+				            <img src="${pageContext.request.contextPath}/resources/images/aniTag/tag5.jpg" alt="">
 				        </li>
 				        <li>
 				            <div>
 				                <h3>사용예시#2</h3>
 				                <span></span>
 				            </div>
-				            <img src="${pageContext.request.contextPath}/resources/images/tag6.jpg" alt="">
+				            <img src="${pageContext.request.contextPath}/resources/images/aniTag/tag6.jpg" alt="">
 				        </li>
 				        <li>
 				            <div>
 				                <h3>사용예시#3</h3>
 				                <span></span>
 				            </div>
-				            <img src="${pageContext.request.contextPath}/resources/images/tag7.jpg" alt="">
+				            <img src="${pageContext.request.contextPath}/resources/images/aniTag/tag7.jpg" alt="">
 				        </li>
 				        <li>
 				            <div>
 				                <h3>사용예시#4</h3>
 				                <span></span>
 				            </div>
-				            <img src="${pageContext.request.contextPath}/resources/images/tag8.jpg" alt="">
+				            <img src="${pageContext.request.contextPath}/resources/images/aniTag/tag8.jpg" alt="">
 				        </li>
 				    </ul>
 				

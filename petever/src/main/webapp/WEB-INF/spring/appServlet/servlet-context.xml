@@ -33,6 +33,22 @@
 	<context:component-scan base-package="com.kh.petever.*" />
 	<!-- <context:component-scan base-package="com.kh.petever.*" /> -->
 	
+	<!-- #9. Handler Interceptor 등록 -->
+	<interceptors>
+		<!-- <interceptor>
+			<mapping path="/**"/>
+			<beans:bean class="com.kh.petever.common.interceptor.LoggerInterceptor" id="LoggerInterceptor"/>
+		</interceptor> -->
+		<interceptor>
+			<mapping path="/animalboard/**"/>
+			<!-- spring 3.2 이상 사용가능 -->
+			<exclude-mapping path="/animalboard"/>
+			<exclude-mapping path="/animalboard/boardView"/>
+			<exclude-mapping path="/animalboard/index"/>
+			<exclude-mapping path="/animalboard/search"/>
+			<beans:bean class="com.kh.petever.common.interceptor.LoginInterceptor" id="loginInterceptor"/>
+		</interceptor>
+	</interceptors>
 
 	
 </beans:beans>

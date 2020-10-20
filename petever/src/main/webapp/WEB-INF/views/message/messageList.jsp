@@ -26,7 +26,7 @@
 			<hr>
 			</c:if>
 		<c:forEach items="${ list }" var="b">
-			<<c:if test="${loginUser.userId eq b.receiveId || loginUser.userId eq b.userId }">
+			<c:if test="${loginUser.userId eq b.receiveId || loginUser.userId eq b.userId }">
 				<c:if test="${loginUser.userId eq b.receiveId }">
  
 					<br>
@@ -88,35 +88,38 @@ $(".message-detail").on('click', function() {
 				html += detailDate[j].msgTime.substring(0,10);
 				html += '</div>';
 				for(var i in detail) {
-					if(receiver == detail[i].receiveId) {
-						/* for(var j in detailDate){
-							if(detailDate[j] == detailDate[j+1])
-								break;
-						} */
-						
-						html += '<br/>';
-						 html += '<div class="messge-detail-content">';
-						 html += '<span>'+detail[i].msgTime.substring(11,16)+'</span>';
-						if(detail[i].msgContent.includes('입양신청이 도착했습니다.')){
-							html += '<a href="${pageContext.request.contextPath}/apply/applicationView?no='+detail[i].msgContent.substring(0, detail[i].msgContent.indexOf(' '))+'">'
-							html += '<div class="message-detail-receive">'+detail[i].msgContent.substring(detail[i].msgContent.indexOf(' '))+'</div>';
-							html += '</a>';
-						} else {
-							html += '<div class="message-detail-receive">'+detail[i].msgContent+'</div>';
+					if(detailDate[j].msgTime.substring(0,10) == detail[i].msgTime.substring(0,10)) {
+					
+						if(receiver == detail[i].receiveId) {
+							/* for(var j in detailDate){
+								if(detailDate[j] == detailDate[j+1])
+									break;
+							} */
+							
+							html += '<br/>';
+							 html += '<div class="messge-detail-content">';
+							 html += '<span>'+detail[i].msgTime.substring(11,16)+'</span>';
+							if(detail[i].msgContent.includes('입양신청이 도착했습니다.')){
+								html += '<a href="${pageContext.request.contextPath}/apply/applicationView?no='+detail[i].msgContent.substring(0, detail[i].msgContent.indexOf(' '))+'">'
+								html += '<div class="message-detail-receive">'+detail[i].msgContent.substring(detail[i].msgContent.indexOf(' '))+'</div>';
+								html += '</a>';
+							} else {
+								html += '<div class="message-detail-receive">'+detail[i].msgContent+'</div>';
+							}
+							html += '</span></div>';
 						}
-						html += '</span></div>';
-					}
-				
-	            
-					else if(receiver == detail[i].userId && detail[i].receiveId == $sender) {
-						//html += '<div class="message-detail-date">';
-						//html += detail[i].msgTime;
-						//html += '</div>';
-						html += '<br>';
-						html += '<div class="messge-detail-content">';
-						html += '<span>'+detail[i].msgTime.substring(11,16)+'</span>';
-						html += '<div class="message-detail-send">'+detail[i].msgContent+'</div>';
-						html += '</div>';
+					
+		            
+						else if(receiver == detail[i].userId && detail[i].receiveId == $sender) {
+							//html += '<div class="message-detail-date">';
+							//html += detail[i].msgTime;
+							//html += '</div>';
+							html += '<br>';
+							html += '<div class="messge-detail-content">';
+							html += '<span>'+detail[i].msgTime.substring(11,16)+'</span>';
+							html += '<div class="message-detail-send">'+detail[i].msgContent+'</div>';
+							html += '</div>';
+						}
 					}
 				}
 			}
