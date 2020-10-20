@@ -210,17 +210,16 @@
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-//등록된 사진없으면 기본 이미지 보여주기
+//기본 이미지 설정
 var defaultImg = function defaultImg() {
 	$(".post").each(function(){
-	    //console.log($(this).children().find("img")[0] == null );
 	    if($(this).children().find("img")[0] == null){
-	        console.log(111);
-	        var html = '<img src="${pageContext.request.contextPath}/resources/images/dog/baset.jpg">';
+	        var html = '<img src="${pageContext.request.contextPath}/resources/images/dog/petever.jpg">';
 	        $(this).children().prepend(html);
 	    }
-	}); 
+	});
 }
+    
 window.onload = function(){
     /* 입양후기 슬라이드쇼 */
 	 
