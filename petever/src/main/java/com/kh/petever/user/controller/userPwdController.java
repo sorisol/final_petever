@@ -164,7 +164,7 @@ public class userPwdController {
 		
 		String msg = "";
 		String location = "";
-		if(user != null && user.getSigNo().equals(sigNo)) {
+		if(user != null && sigNo.equals(user.getSigNo())) {
 			System.out.println("111");
 			model.addAttribute("userId", userId);
 			model.addAttribute("sigNo", sigNo);

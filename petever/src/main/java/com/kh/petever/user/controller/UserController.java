@@ -132,7 +132,7 @@ public class UserController {
 
 		String location = "/";
 		String saveId = request.getParameter("saveId");
-
+		log.debug("saveId {}", saveId);
 		// 로그인 성공
 		if (user != null && bcryptPasswordEncoder.matches(userPwd, user.getUserPwd())) {
 
@@ -159,7 +159,6 @@ public class UserController {
 			//SaveId 체크한 경우 : 쿠키 생성
 			if(saveId != null) {
 				c.setMaxAge(7*24*60*60); //7일
-				
 			}
 			else {
 				c.setMaxAge(0); //브라우저에서 즉시 삭제하기
@@ -183,7 +182,7 @@ public class UserController {
 		else {
 			log.debug("1111");
 			redirectAttr.addFlashAttribute("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
-			return "user/login";
+			return "redirect:/user/login.do";
 		}
 	}
 	
