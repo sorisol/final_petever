@@ -111,7 +111,12 @@
 			                      	console.log(dec);
 			                      	setRandomColor(dec);
 			                        </script>
-			                            <span class="id-box">${cl.userId}</span>
+			                            <span class="id-box">${cl.userId}  
+				                            <span class="comment-time"> |
+				                            	<fmt:parseDate value="${cl.aniCoDate}" var="aniCoDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+												<fmt:formatDate value="${aniCoDate}" pattern="yyyy.MM.dd HH:mm"/>
+				                            </span>
+			                            </span>
 		                            	<c:if test="${not empty loginUser}">
 		                            		<c:if test="${loginUser.userId eq cl.userId || loginUser.userId == 'admin'}">
 			                           		 	<img class="icon" src="${pageContext.request.contextPath}/resources/images/icon.png"/>
@@ -124,13 +129,8 @@
 			                            	</c:if>
 			                            </c:if>
 			                            <p>${cl.aniCoContent}</p>
-			                            <span class="comment-time">
-			                            	<fmt:parseDate value="${cl.aniCoDate}" var="aniCoDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-											<fmt:formatDate value="${aniCoDate}" pattern="yyyy.MM.dd HH:mm"/>
-			                            </span>
-			                            
 										<c:if test="${not empty loginUser}">
-				                            <button type="button" class="reply-btn" value="${cl.aniCoId}">답글쓰기</button>
+				                            <button type="button" class="reply-btn" value="${cl.aniCoId}"><img data-v-0e41a35e="" src="https://talk.op.gg/images/icon-reply@2x.png" width="16" alt="">답글쓰기</button>
 				                            <div class="comment-reply-write" style="display: none;"></div>
 										</c:if>
 			                        </div>
@@ -192,7 +192,7 @@
 		                        <input type="hidden" name="aniBoId" value="${animalBoard.aniBoId}" />
 		                        <input type="hidden" name="aniCoRef" value="0"/>
 		                        <span>${loginUser.userId}</span><br />
-		                        <textarea rows="1" class="comment_inbox_text" placeholder="댓글을 입력하세요" name="aniCoContent"
+		                        <textarea rows="1" class="comment_inbox_text" placeholder="주제와 무관한 댓글, 타인의 권리를 침해하거나 명예를 훼손하는 게시물은 별도의 통보 없이 제재를 받을 수 있습니다." name="aniCoContent"
 		                            onkeyup="xSize(this)"></textarea>
 		                        <div class="btn-align">
 		                            <button class="comment-reg-btn">등록</button>
@@ -269,7 +269,7 @@ $(".reply-btn").on('click', function() {
     reply += '<input type="hidden" name="aniBoId" value="${animalBoard.aniBoId}" />';
     reply += '<input type="hidden" name="aniCoRef" value="'+$(this).val()+'"/>';
     reply += '<span class="id-box">${loginUser.userId}</span>';
-    reply += '<textarea rows="1" class="comment_inbox_text" placeholder="댓글을 입력하세요" onkeyup="xSize(this)" name="aniCoContent"></textarea>';
+    reply += '<textarea rows="1" class="comment_inbox_text" placeholder="주제와 무관한 댓글, 타인의 권리를 침해하거나 명예를 훼손하는 게시물은 별도의 통보 없이 제재를 받을 수 있습니다." onkeyup="xSize(this)" name="aniCoContent"></textarea>';
     reply += '<div class="btn-align">';
     reply += '<button type="button" class="comment-cancle-btn" onclick="cancleBtn(this);">취소</button>';
     reply += '<button class="comment-reg-btn">등록</button>';

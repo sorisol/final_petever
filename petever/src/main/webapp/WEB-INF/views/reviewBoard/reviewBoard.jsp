@@ -104,15 +104,15 @@ function searchFunc() {
 			
    <section id="board-container" class="container" align="center">
  	
- 	<p>총 ${totalContents}건의 게시물이 있습니다.</p> 
+ 	<p>총 <span style="font-size:18px;">${totalContents}</span>건의 게시물이 있습니다.</p> 
 	<br>
  	<b>
- 	<a href="${pageContext.request.contextPath}/reviewBoard/reviewBoardPhoto.do">썸네일로 보기</a> | 
-    <a href="${ pageContext.request.contextPath }/reviewBoard/reviewBoard.do">목록으로 보기</a>
+ 	<a href="${pageContext.request.contextPath}/reviewBoard/reviewBoardPhoto.do"><img class="review-icon" src="${pageContext.request.contextPath}/resources/images/img.png" alt="" />썸네일로 보기</a> | 
+    <a href="${ pageContext.request.contextPath }/reviewBoard/reviewBoard.do"><img class="review-icon" src="${pageContext.request.contextPath}/resources/images/list.png" alt="" />목록으로 보기</a>
 	</b>
 	</section>	
 
-  	 <hr style="height: 1px; border:none; background-color: lightgray; width: 1000px; margin: 30px 50px;">
+  	 <hr style="height: 1px; border:none; background-color: lightgray; width: 860px; margin: 30px 50px;">
 
 
 	<section id="board-container2">
@@ -147,7 +147,9 @@ function searchFunc() {
    
 	                    <hr style="height: 1px; border:none; background-color: lightgray; width: 860px; margin: 35px 50px 10px 50px;">
 	                    <c:if test="${not empty loginUser}">
-	                    <button type="button" onclick="location.href='${pageContext.request.contextPath}/reviewBoard/reviewBoardFrm'" class="write-btn">글쓰기</button>
+	                    <div class="write-wrap">
+	                    	<button type="button" onclick="location.href='${pageContext.request.contextPath}/reviewBoard/reviewBoardFrm'" class="write-btn">글쓰기</button>
+	                    </div>
 	              		</c:if>
 	               <form id="searchFrm">
 	                    <div class="search-wrap">
