@@ -50,7 +50,7 @@
     <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #373b44;">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
           <div class="sidebar-brand-icon">
               <img src="${pageContext.request.contextPath}/resources/images/adminlogo.png" alt="" style="width: 45px;">
             </div>
@@ -114,7 +114,7 @@
         <!-- Topbar -->
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-          <a href="${pageContext.request.contextPath}/index.jsp" class="btn btn-warning btn-icon-split">
+          <a href="${pageContext.request.contextPath}" class="btn btn-warning btn-icon-split">
             <span class="icon text-white-50">
               <i class="fas fa-arrow-right"></i>
             </span>

@@ -49,7 +49,7 @@
     <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #373b44;">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
           <div class="sidebar-brand-icon">
               <img src="${pageContext.request.contextPath}/resources/images/adminlogo.png" alt="" style="width: 45px;">
             </div>
@@ -113,7 +113,7 @@
         <!-- Topbar -->
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-          <a href="${pageContext.request.contextPath}/index.jsp" class="btn btn-warning btn-icon-split">
+          <a href="${pageContext.request.contextPath}" class="btn btn-warning btn-icon-split">
             <span class="icon text-white-50">
               <i class="fas fa-arrow-right"></i>
             </span>
@@ -297,7 +297,7 @@
 		
         <div class="container mt-3">
         <div class="card-header py-3 shadow">
-              <h6 class="m-0 font-weight-bold text-primary">반려동물 인식표<span style="font-size:14px;float:right;">최근(3일) : ${reviewCnt }</span></h6>
+              <h6 class="m-0 font-weight-bold text-primary">반려동물 인식표</h6>
             </div>
 		  <div id="dataTable" class="row row-cols-1 row-cols-sm-2 row-cols-md-2" style="margin-left:0px;">
 		  <form action="" id="setRows" style="display:none;">
@@ -309,7 +309,7 @@
 				    <div class="col-md-4">
 				      <div class="ani-tag-front">
                         <div class="ani-info-tag1" value="${ list.tagColor }">
-                        	<div class="animal-tag-img" id="ani-kind-${ list.tagAniKind }" value="${ list.tagAniKind }" ></div><br />
+                        	<div class="animal-tag-img" id="" value="${ list.tagAniKind }" ></div><br />
                         	<label class="animal-tag-font" id="preview-name" value="${ list.tagFont }" for="">${ list.tagAniName }</label>
                         </div>
                        <label class="preview-label preview-front" for="">앞면</label>
@@ -385,11 +385,11 @@ $(function(){
 		var $color = $(this).attr('value');
 
         if ($color == 'silver') {
-            $($(this)).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_silver_2.png)');
+            $($(this)).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/aniTag_silver_3.png)');
         } else if ($color == 'gold') {
-            $($(this)).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_gold_2.png)');
+            $($(this)).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/aniTag_gold_3.png)');
         } else if ($color == 'rosegold') {
-            $($(this)).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_rosegold_2.png)');
+            $($(this)).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/aniTag_rosegold_3.png)');
         }
     });
 
@@ -397,24 +397,47 @@ $(function(){
 		var $color = $(this).attr('value');
 
         if ($color == 'silver') {
-            $($(this)).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_silver_2.png)');
+            $($(this)).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/aniTag_silver_3.png)');
         } else if ($color == 'gold') {
-            $($(this)).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_gold_2.png)');
+            $($(this)).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/aniTag_gold_3.png)');
         } else if ($color == 'rosegold') {
-            $($(this)).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag_rosegold_2.png)');
+            $($(this)).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/aniTag_rosegold_3.png)');
         }
     });
 
     $(".animal-tag-img").each(function() {
-    	var $kind = $(this).attr('value');
-        
-		if($kind == '포메라니안'){
-			$(this).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/ani_pome.png)');
-		} else if($kind == '진돗개'){
-			$(this).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/ani_jindo.png)');
-		} else if($kind == '시바견'){
-			$(this).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/ani_siba.png)');
-		}
+    	var $Kind = $(this);
+        $(".animal-tag-img").each(function() {
+        	var $kind = $(this).attr('value');
+            
+    		if($kind == '포메라니안'){
+    			$(this).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_pome.png)');
+    		} else if($kind == '진돗개'){
+    			$(this).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_jindo.png)');
+    		} else if($kind == '시바견'){
+    			$(this).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_siba.png)');
+    		} else if($kind == '리트리버'){
+				$("#aniaml-tag-img").css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_retriver.png)');
+			} else if($kind == '말티즈'){
+				$(this).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_maitese.png)');
+			} else if($kind == '보더콜리'){
+				$(this).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_borderCollie.png)');
+			} else if($kind == '불독'){
+				$(this).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_bulldog.png)');
+			} else if($kind == '비숑프리제'){
+				$(this).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_bichon.png)');
+			} else if($kind == '시츄'){
+				$(this).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_shihTzu.png)');
+			} else if($kind == '웰시코기'){
+				$(this).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_welshCorgi.png)');
+			} else if($kind == '요크셔테리어'){
+				$(this).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_yorkie.png)');
+			} else if($kind == '치와와'){
+				$(this).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_chihuahua.png)');
+			} else if($kind == '푸들'){
+				$(this).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/ani_pudel.png)');
+			}
+        });
     });
 
      $(".animal-tag-font").each(function() {

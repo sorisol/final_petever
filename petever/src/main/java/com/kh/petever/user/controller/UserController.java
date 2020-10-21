@@ -132,7 +132,7 @@ public class UserController {
 
 		String location = "/";
 		String saveId = request.getParameter("saveId");
-
+		log.debug("saveId {}", saveId);
 		// 로그인 성공
 		if (user != null && bcryptPasswordEncoder.matches(userPwd, user.getUserPwd())) {
 

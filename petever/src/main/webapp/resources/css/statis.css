@@ -95,7 +95,8 @@
     color: white;
     line-height: 25px;
     margin-top: 10px;
+    
 }
-.menu a, .main-bar a{
+.menu *, .main-bar *{
 	color:white;	
 }

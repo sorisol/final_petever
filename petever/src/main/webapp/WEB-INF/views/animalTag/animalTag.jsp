@@ -232,7 +232,7 @@
                 } 
 
                 var $tagAniSsn = $('[name=tagAniSsn]').val();
-                if(/^[0-9]{12}$|^{}$/.test($tagAniSsn) == false) {
+                if(/^[0-9]{15}$|^{}$/.test($tagAniSsn) == false) {
                 	alert("반려 동물의 등록번호가 있다면 숫자 12자리 입력\n반려 동물의 등록번호가 없다면 빈칸으로 제출해주세요.");
     				return false;
                 }
@@ -453,7 +453,7 @@
                             <input type="text" name="tagAniName" id="ani-name" placeholder="한영(5자), 영문(10자) 이내">
                             <br>
                             <label for="ani-ssn" class="ani-label">동물등록번호</label>
-                            <input type="text" name="tagAniSsn" id="ani-ssn" placeholder="숫자 12자리">
+                            <input type="text" name="tagAniSsn" id="ani-ssn" placeholder="410(국가번호) 숫자 15자리">
                             <br>
                             <label for="person-name" class="ani-label">보호자 이름</label>
                             <input type="text" name="tagPersonName" id="person-name" placeholder="한글 6자 이내">
