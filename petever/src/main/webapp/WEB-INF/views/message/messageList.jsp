@@ -37,7 +37,7 @@
 							<fmt:parseDate value="${b.msgTime}" var="msgTime" pattern="yyyy-MM-dd HH:mm:ss"/>
 							<fmt:formatDate value="${msgTime}" pattern="yyyy.MM.dd"/>
 						</span>
-					</div>
+					</div>	
 					<div class="userId">${b.sub }</div>
 				</div>
 				<div class="msg-background"></div>
@@ -55,8 +55,6 @@
 
 <script>
 $(".message-detail").on('click', function() {
-	console.log(moment(new Date()).format('YYYY-MM-DD HH:mms'));
-	console.log($(this).next());
 	var $tag = $(this).next();
 	$tag.toggle();
 	var $sender = $(this).find("div.userId").text(); //sinsa
@@ -69,12 +67,11 @@ $(".message-detail").on('click', function() {
 			receiveId: receiver
 		},
 		success: function(data) {
-			console.log(data.msgDetail);
-			console.log(data.msgDetailDate);
+			//console.log(data.msgDetail);
+			//console.log(data.msgDetailDate);
 			var detail = data.msgDetail;
 			var detailDate = data.msgDetailDate;
 			//detailDate == detail[i].msgTime.substring(0, 10);
-			console.log(detailDate[0].msgTime);
 			var html='';
 			for(var j in detailDate){
 				html += '<div class="message-detail-date">';
@@ -82,24 +79,18 @@ $(".message-detail").on('click', function() {
 				html += '</div>';
 				for(var i in detail) {
 					if(detailDate[j].msgTime.substring(0,10) == detail[i].msgTime.substring(0,10)) {
-					
 						if(receiver == detail[i].receiveId) {
-							/* for(var j in detailDate){
-								if(detailDate[j] == detailDate[j+1])
-									break;
-							} */
-							
 							html += '<br/>';
-							 html += '<div class="messge-detail-content">';
-							 html += '<span>'+detail[i].msgTime.substring(11,16)+'</span>';
-							if(detail[i].msgContent.includes('입양신청이 도착했습니다.')){
+							 html += '<div class="messge-detail-content other">';
+							if(detail[i].msgContent.includes('입양신청이 있습니다.')){
 								html += '<a href="${pageContext.request.contextPath}/apply/applicationView?no='+detail[i].msgContent.substring(0, detail[i].msgContent.indexOf(' '))+'">'
 								html += '<div class="message-detail-receive">'+detail[i].msgContent.substring(detail[i].msgContent.indexOf(' '))+'</div>';
 								html += '</a>';
 							} else {
 								html += '<div class="message-detail-receive">'+detail[i].msgContent+'</div>';
 							}
-							html += '</span></div>';
+						 	html += '<span class="time">'+detail[i].msgTime.substring(11,16)+'</span>';
+							html += '</div>';
 						}
 					
 		            
@@ -108,8 +99,8 @@ $(".message-detail").on('click', function() {
 							//html += detail[i].msgTime;
 							//html += '</div>';
 							html += '<br>';
-							html += '<div class="messge-detail-content">';
-							html += '<span>'+detail[i].msgTime.substring(11,16)+'</span>';
+							html += '<div class="messge-detail-content mine">';
+							html += '<span class="time">'+detail[i].msgTime.substring(11,16)+'</span>';
 							html += '<div class="message-detail-send">'+detail[i].msgContent+'</div>';
 							html += '</div>';
 						}
@@ -120,6 +111,7 @@ $(".message-detail").on('click', function() {
 			html += '<input type="hidden" value="'+$sender+'" id="detail-receiver">';
 			html += '<input type="submit" value="보내기" id="send-btn"></div>';
 			$tag.html(html);
+			$(":text").focus();
 		}
 	});
 });

@@ -19,7 +19,7 @@
 	    console.log($(this).children().find("img")[0] == null );
 	    if($(this).children().find("img")[0] == null){
 	        console.log(111);
-	        var html = '<img src="${pageContext.request.contextPath}/resources/images/dog/petever.jpg">';
+	        var html = '<img src="${pageContext.request.contextPath}/resources/images/dog/petever.png">';
 	        $(this).children().prepend(html);
 	    }
 	});

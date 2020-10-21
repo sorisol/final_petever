@@ -191,8 +191,14 @@
 		                        <input type="hidden" name="aniCoLevel" value="1"/>
 		                        <input type="hidden" name="aniBoId" value="${animalBoard.aniBoId}" />
 		                        <input type="hidden" name="aniCoRef" value="0"/>
+<<<<<<< HEAD
 		                        <span>${loginUser.userId}</span><br />
 		                        <textarea rows="1" class="comment_inbox_text" placeholder="주제와 무관한 댓글, 타인의 권리를 침해하거나 명예를 훼손하는 게시물은 별도의 통보 없이 제재를 받을 수 있습니다." name="aniCoContent"
+=======
+		                        <span>${loginUser.userId}</span>
+		                        <span class="cnt"></span>
+		                        <textarea rows="1" class="comment_inbox_text" placeholder="댓글을 입력하세요" name="aniCoContent"
+>>>>>>> branch 'master' of https://github.com/rato12/petever.git
 		                            onkeyup="xSize(this)"></textarea>
 		                        <div class="btn-align">
 		                            <button class="comment-reg-btn">등록</button>
@@ -269,7 +275,12 @@ $(".reply-btn").on('click', function() {
     reply += '<input type="hidden" name="aniBoId" value="${animalBoard.aniBoId}" />';
     reply += '<input type="hidden" name="aniCoRef" value="'+$(this).val()+'"/>';
     reply += '<span class="id-box">${loginUser.userId}</span>';
+<<<<<<< HEAD
     reply += '<textarea rows="1" class="comment_inbox_text" placeholder="주제와 무관한 댓글, 타인의 권리를 침해하거나 명예를 훼손하는 게시물은 별도의 통보 없이 제재를 받을 수 있습니다." onkeyup="xSize(this)" name="aniCoContent"></textarea>';
+=======
+    reply += '<span class="cnt"></span>';
+    reply += '<textarea rows="1" class="comment_inbox_text" placeholder="댓글을 입력하세요" onkeyup="xSize(this)" name="aniCoContent"></textarea>';
+>>>>>>> branch 'master' of https://github.com/rato12/petever.git
     reply += '<div class="btn-align">';
     reply += '<button type="button" class="comment-cancle-btn" onclick="cancleBtn(this);">취소</button>';
     reply += '<button class="comment-reg-btn">등록</button>';
@@ -287,6 +298,17 @@ $(function() {
         $tag.css('color', '#F0EF97');
     else if($tag.text().includes('보호'))
         $tag.css('color', '#5F9EA0');
+
+    //글자수 제한
+    $(document).on("keyup", "textarea", function(){
+        var $textarea = $(this);
+		var len = $textarea.val().length;
+		$textarea.parent().find(".cnt").html(len+"/300");
+		if(len > 300) {
+			alert("300자까지 작성할 수 있습니다.");
+			$textarea.val($textarea.val().substring(0, 300));
+		}
+    });
 });
       
 //아이디 클릭시 메뉴

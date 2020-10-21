@@ -305,6 +305,14 @@ button:hover {
     position: relative;
     top: -7px;
 }
+.cnt {
+	font-weight: lighter;
+    font-size: 12px;
+    float: right;
+    margin-right: 20px;
+    margin-top: 5px;
+    color: #808080;
+}
 
 .user-thum{
 	width: 32px;
