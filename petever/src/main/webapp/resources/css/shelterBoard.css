@@ -46,6 +46,12 @@
 /*게시글 말머리*/
 .post :nth-child(3) {
     font-size: 13px;
+    font-size: 13px;
+    width: 190px;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .post p,

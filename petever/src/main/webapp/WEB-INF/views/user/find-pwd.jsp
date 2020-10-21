@@ -52,7 +52,7 @@ input[type=tel] {
 </head>
 <body>
 	<div class="content-wrap">
-		<p>아이디 찾기</p>
+		<p>비밀번호 찾기</p>
 		<div class="first">
 			<label for="userId">아이디</label>
 			<input type="text" id="userId" />
