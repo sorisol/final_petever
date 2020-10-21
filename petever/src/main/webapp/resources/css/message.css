@@ -44,11 +44,17 @@ section.msg-content{
 	padding-top:20px; padding-left: 10px;
 }
 .msg-background{
- 	background-color:#e8c2b7; overflow:auto; width: 800px; height: 300px; position: relative; left: 100px
+ 	margin-top: 10px;
+ 	background-color:#e8c2b7;
+ 	overflow:auto;
+ 	width: 800px;
+ 	height: 300px;
+ 	position: relative;
+ 	left: 100px;
 }
 .message-detail-date{
 	text-align: center;
-	padding: 10px;
+	padding: 7px;
 	clear:both;
 	background-color: rgb(197,165,156);
 	color: white;
@@ -56,21 +62,33 @@ section.msg-content{
 	margin: 10px 0px;
 }
 .message-detail-receive{
-	width: max-content;
+	max-width: 350px;
+    padding: 1em;
 	background-color: white;
-	padding: 1em;
 	border-top-right-radius:20px;
 	border-bottom-right-radius: 20px;
     float: left;
+    word-break:break-all;
+    margin: 5px 0px;
+    font-size: 14px;
 }
 .time{
 	display: block;
     margin: 30px 5px 0px 5px;
     font-size: 12px;
+    color: #898989;
 }
 
 .message-detail-send{
-width: max-content;  padding: 1em; border-top-left-radius:20px; border-bottom-left-radius: 20px; float: right ; background-color: rgb(255,221,147);
+    max-width: 350px;
+    padding: 1em;
+    border-top-left-radius:20px;
+    border-bottom-left-radius: 20px;
+    float: right;
+    background-color: rgb(255,221,147);
+    word-break:break-all;
+    margin: 5px 0px;
+    font-size: 14px;
 }
 .messge-detail-content > span {
     display: inline-block;
@@ -84,11 +102,30 @@ width: max-content;  padding: 1em; border-top-left-radius:20px; border-bottom-le
 }
 .sendBtn input[type=text]{
 	width: 683px; height: 32px;
+	border: none;
+}
+.sendBtn input[type=text]:focus{
+	outline-color: #f2aa8a;
+	border: 1px solid rgb(255,221,147);
 }
 
 .sendBtn input[type=submit]{
 	width: 100px; height: 32px;
+	background-color: rgb(255,221,147);
+	border: none;
+	font-weight: bold;
+	color: #373b44;
+	font-size: 15px;
+}
+.sendBtn input[type=submit]:focus{
+	outline-color: #f2aa8a;
 }
 .msg-background {
 	display: none;
+}
+.message-userTable :nth-child(2) {
+	display: inline-block;
+	width: 600px;
+	margin-left: 30px;
+	word-break:break-all;
 }
