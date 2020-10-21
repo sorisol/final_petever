@@ -219,7 +219,7 @@
 var defaultImg = function defaultImg() {
 	$(".post").each(function(){
 	    if($(this).children().find("img")[0] == null){
-	        var html = '<img src="${pageContext.request.contextPath}/resources/images/dog/petever.jpg">';
+	        var html = '<img src="${pageContext.request.contextPath}/resources/images/dog/petever.png">';
 	        $(this).children().prepend(html);
 	    }
 	});
