@@ -217,7 +217,7 @@ public class UserController {
 	// 회원정보보기, 수정
 	@RequestMapping("/userDetail.do")
 	public String userDetail(Principal principal, Model model) {
-		log.debug("principal = {}", principal);
+		//log.debug("principal = {}", principal);
 		model.addAttribute("loginUser", principal);
 		
 		return "user/userDetail";
