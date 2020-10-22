@@ -29,25 +29,38 @@
 				<br>
 				<div class="message-detail">
 					<div class="message-userTable">
-						<span> 
-						<img src="${pageContext.request.contextPath}/resources/images/userIcon.png" width="50px" height="50px">
+						<span class="${fn:substring(b.sub,0,1)} sendUser"> 
+							${fn:toUpperCase(fn:substring(b.sub,0,1))}
 						</span> 
-						<c:if test="${b.msgContent.contains('입양신청이 있습니다')}">
-							<c:set var="a" value="${fn:indexOf(b.msgContent, ' ')}" />
-
-							<span class="title">${fn:substring(b.msgContent, a, fn:length(b.msgContent)) }</span> 
-						</c:if>
-						<c:if test="${!b.msgContent.contains('입양신청이 있습니다')}">
-							<span class="title">${ b.msgContent }</span> 
-						</c:if>
-						<span class="message-Date">
-							<fmt:parseDate value="${b.msgTime}" var="msgTime" pattern="yyyy-MM-dd HH:mm:ss"/>
-							<fmt:formatDate value="${msgTime}" pattern="yyyy.MM.dd"/>
-						</span>
+						<div class="msg-preview"><span class="userId">${b.sub }</span>
+							<span class="message-Date">
+								<fmt:parseDate value="${b.msgTime}" var="msgTime" pattern="yyyy-MM-dd HH:mm:ss"/>
+								<fmt:formatDate value="${msgTime}" pattern="yyyy.MM.dd"/>
+							</span> <br /><br />
+							<c:if test="${b.msgContent.contains('입양신청이 있습니다')}">
+								<c:set var="a" value="${fn:indexOf(b.msgContent, ' ')}" />
+	
+								<span class="title">${fn:substring(b.msgContent, a, fn:length(b.msgContent)) }</span> 
+							</c:if>
+							<c:if test="${!b.msgContent.contains('입양신청이 있습니다')}">
+								<span class="title">${ b.msgContent }</span> 
+							</c:if>
+						</div>
 					</div>	
-					<div class="userId">${b.sub }</div>
+					<script>
+                        function setRandomColor(dec) {
+                        	
+                      	  $(".${fn:substring(b.sub,0,1)}").css("background-color", '#'+dec);
+                      	}
+                      	var id = Number('${b.sub }'.charCodeAt(0))*2;
+                      	var id1 = Number('${b.sub }'.charCodeAt(1));
+                      	var id2 = Number('${b.sub }'.charCodeAt(2));
+                      	var dec = ((id*id1*id2* ${fn:length(b.sub)}).toString(16)).substring(0,6);
+                      	setRandomColor(dec);
+                     </script>
 				</div>
 				<div class="msg-background"></div>
+				<div class="msg-send-wrap" style="display:none;"></div>
 				<br>
 				<hr>
 			</c:forEach>
@@ -63,8 +76,10 @@
 <script>
 $(".message-detail").on('click', function() {
 	var $tag = $(this).next();
+	var $sendWrap = $(this).next().next();
 	$tag.toggle();
-	var $sender = $(this).find("div.userId").text(); //sinsa
+	$sendWrap.toggle();
+	var $sender = $(this).find("span.userId").text(); //sinsa
 	var receiver = '${loginUser.userId}'; //honggd
 	$.ajax({
 		url: '${pageContext.request.contextPath}/message/messageDetail',
@@ -115,11 +130,20 @@ $(".message-detail").on('click', function() {
 					}
 				}
 			}
-			html += '<div class="sendMsg"><input type="text" name="msgContent">';
+			/* html += '<div class="sendMsg"><input type="text" name="msgContent">';
 			html += '<input type="hidden" value="'+$sender+'" id="detail-receiver">';
-			html += '<input type="submit" value="보내기" class="send-btn"></div>';
+			html += '<input type="submit" value="보내기" class="send-btn"></div>'; */
 			$tag.html(html);
-			$(":text").focus();
+			var sendHtml = '';
+			sendHtml += '<div class="sendMsg"><input type="text" name="msgContent">';
+			sendHtml += '<input type="hidden" value="'+$sender+'" id="detail-receiver">';
+			sendHtml += '<input type="submit" value="보내기" class="send-btn"></div>';
+			$sendWrap.html(sendHtml);
+			$tag.scrollTop(6000);
+			var msgBox = $('.mine');
+			for(var i=0;i<msgBox.length;i++){
+				msgBox[i].childNodes[0].style.top = timeHeight(msgBox[i].offsetHeight);
+			}
 		}
 	});
 });
@@ -127,9 +151,9 @@ $(document).on("click", ".send-btn", function(){
 	var sender = '${loginUser.userId}';
 	var receiver = $(this).prev().val();
 	var message = $(this).prev().prev();
-	var $recentMsg = $(this).parent().prev();
+	var $recentMsg = $(this).parent().parent().prev().children().last();
 	var getdate = $("send-btn.msgTime").val();
-	var $title = $(this).parent().parent().prev().children().find(".title");
+	var $title = $(this).parent().parent().prev().prev().children().find(".title");
 
 	//console.log(message);
 	//console.log($recentMsg);
@@ -160,11 +184,29 @@ $(document).on("click", ".send-btn", function(){
 				message.val('');
 				$recentMsg.after(html);
 			}
-			
+			$('.msg-background').scrollTop(6000);
+			var msgBox = $('.mine');
+			for(var i=0;i<msgBox.length;i++){
+				msgBox[i].childNodes[0].style.top = timeHeight(msgBox[i].offsetHeight);
+			}
 		}
 	});
 	
 });
+
+/*
+ * 시간 세로 길이 구하는 함수
+ 세로 길이 = 메세지div세로길이-시간span세로길이-마진css.top30-9(밑에서9px띄우기)
+	104		16	30	9
+	54		16	30	9
+	85		16	30	9
+ */
+
+ function timeHeight(height){
+	var h = Number(height) - 55;
+	return h;
+}
+
 </script>
 
 
