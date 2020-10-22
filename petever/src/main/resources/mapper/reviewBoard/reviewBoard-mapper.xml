@@ -5,12 +5,18 @@
 <mapper namespace="reviewboard">
 	<!-- 게시판목록 -->
 	<select id="selectReviewBoardList" resultMap="reviewBoardMap">
-		select 
+	      	
+		select
 			*
-		from 
-			review_board 
-	    order by 
-	      	rew_bo_id desc
+		from
+			review_board A left join report R
+							on(A.rew_bo_id = r.ani_bo_id)
+		where
+			rep_display = 'Y' or rep_display is null
+			    order by 
+			      	rew_bo_id desc
+			      	
+				      	
 	</select>
  
 	<!-- 게시판 글 작성  -->
@@ -234,10 +240,18 @@
 	</select>	
 
 	<select id="selectBoardListOneWeek" resultMap="reviewBoardMap">
+			
 		select
 			*
 		from
-			review_board
+			review_board A left join report R
+							on(A.rew_bo_id = r.ani_bo_id)
+		where
+			rep_display = 'Y' or rep_display is null
+			    order by 
+			      	rew_bo_id desc
+			      	
+			
 	</select>
 	
 	<resultMap id="reportMap" type="report"></resultMap>	
