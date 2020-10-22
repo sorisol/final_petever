@@ -125,18 +125,16 @@ function searchFunc() {
 				<c:forEach items="${attachList}" var="a">
   					<c:if test="${ a.rewBoId.equals(b.rewBoId) }">
 							<img src="${pageContext.request.contextPath}/resources/editor/multiupload/${a.rewAtRenamedName}">
-						</c:if>   
-			    		</c:forEach>
+					</c:if>   
+			    </c:forEach>
 
 			<span id="post-title">${b.rewBoTitle}</span>
 			<p>
 		        <fmt:parseDate value="${b.rewBoRegDate}" var="regDate" pattern="yyyy-MM-dd"/>
 				<fmt:formatDate value="${regDate}" pattern="yyyy.MM.dd"/>
-					</p>		
-						</tr>
-					</a>
-				</div>
-				</tr>
+			</p>		
+			</a>
+	</div>
 			
 			</c:forEach>
 			
