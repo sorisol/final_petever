@@ -335,3 +335,6 @@ button:hover {
 	position: relative;
 	top:7px;
 }
+.board-content img{
+	max-width: 100%;
+}

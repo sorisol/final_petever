@@ -84,7 +84,7 @@ $(function() {
 });
 function findId() {
 	window.open("${pageContext.request.contextPath}/user/findIdFrm.do", "아이디 찾기",
-           "width=500, height=330, toolbar=no, menubar=no, scrollbars=no, resizable=yes, top=300, left=500");
+           "width=600, height=330, toolbar=no, menubar=no, scrollbars=no, resizable=yes, top=300, left=500");
 }
 
 function findPwd() {
