@@ -13,7 +13,7 @@
         </section>
         <section class="content-wrap">
             <h1>유기동물 게시판</h1>
-            <p>남은 겨울이 라이너 별 어머니, 불러 덮어 이름과, 까닭입니다.</p>
+            <p>반려동물을 목격, 실종, 임보에 관한 글올려주세요.</p>
             <div class="content">
                 <div class="border">
                     <form id="searchFrm">

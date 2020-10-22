@@ -12,7 +12,7 @@ public interface MessageDAO {
 
 	List<Message> selectMessageList(User user, RowBounds rowBound);
 
-	int selectMessageTotalContents();
+	int selectMessageTotalContents(User user);
 
 	int insertMessage(Message message);
 

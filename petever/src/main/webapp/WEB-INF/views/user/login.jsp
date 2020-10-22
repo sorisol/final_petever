@@ -77,7 +77,11 @@
     naver_id_login.setState(state);
     naver_id_login.setPopup();
     naver_id_login.init_naver_id_login(); */
-    
+$(function() {
+	$("#saveId").change(function() {
+	console.log($("#saveId").is(":checked"));
+		});
+});
 function findId() {
 	window.open("${pageContext.request.contextPath}/user/findIdFrm.do", "아이디 찾기",
            "width=500, height=330, toolbar=no, menubar=no, scrollbars=no, resizable=yes, top=300, left=500");

@@ -19,8 +19,8 @@ public class MessageServiceImpl  implements MessageService{
 	private MessageDAO messageDAO;
 
 	@Override
-	public int selectMessageTotalContents() {
-		return messageDAO.selectMessageTotalContents();
+	public int selectMessageTotalContents(User user) {
+		return messageDAO.selectMessageTotalContents(user);
 	}
 
 	@Override

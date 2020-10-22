@@ -167,20 +167,18 @@ public class UserController {
 			
 			//리다이렉트처리
 			//response.sendRedirect(request.getContextPath());
-//			String uri = request.getRequestURI(); // /spring/board/boardForm.do
-//			uri = uri.replace(request.getContextPath(), "");
-			redirectAttr.addFlashAttribute("msg", "로그인 성공.");
+			
+//			redirectAttr.addFlashAttribute("msg", "로그인 성공.");
 			return "redirect:/"+location;
 			
 		} 
 		//신고된 사용자
-		else if(user != null && !user.getUserRole().equals("R")) {
+		else if(user != null && bcryptPasswordEncoder.matches(userPwd, user.getUserPwd()) && !user.getUserRole().equals("R")) {
 			redirectAttr.addFlashAttribute("msg", "귀하는 신고로 인해 사이트 이용이 중지되었습니다. 고객센터로 연락해주세요.");
 			return "redirect:/user/login.do";
 		}
 		// 로그인 실패
 		else {
-			log.debug("1111");
 			redirectAttr.addFlashAttribute("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
 			return "redirect:/user/login.do";
 		}

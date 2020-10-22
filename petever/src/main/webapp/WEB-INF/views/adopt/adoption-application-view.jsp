@@ -64,5 +64,9 @@
             <input type="radio" name="A13" id="A13-N" value="아니오" ${adopt.a13 eq '아니오' ? 'checked' : ''}  onclick="return(false);">
             <label for="A13-N" class="radio-label">아니오</label>
         </div>
+        <div class="button-wrap">
+	        <input type="button" value="메세지창으로 가기" onclick="javascript:history.go(-1);"/>
+    	    <input type="button" value="게시글 보러 가기" onclick="location.href='${pageContext.request.contextPath}/animalboard/boardView?no=${adopt.aniBoId}'"/>
+        </div>
     </section>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
