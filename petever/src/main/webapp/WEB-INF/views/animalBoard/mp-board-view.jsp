@@ -223,7 +223,7 @@ function sendLink() {
       imageUrl:
         '${pageContext.request.contextPath}/resources/editor/multiupload/202010141108341c53f1f4-ebe2-414d-ae95-50d9faa1f195.jpg',
       link: {
-        mobileWebUrl: 'https://developers.kakao.com',
+        mobileWebUrl: 'http://localhost:9090/petever/animalboard/boardView?no='+${animalBoard.aniBoId},
         webUrl: 'http://localhost:9090/petever/animalboard/boardView?no='+${animalBoard.aniBoId},
       },
     },
@@ -236,7 +236,7 @@ function sendLink() {
       {
         title: '웹으로 보기',
         link: {
-          mobileWebUrl: 'https://developers.kakao.com',
+          mobileWebUrl: 'http://localhost:9090/petever/animalboard/boardView?no='+${animalBoard.aniBoId},
           webUrl: 'http://localhost:9090/petever/animalboard/boardView?no='+${animalBoard.aniBoId},
         },
       }
