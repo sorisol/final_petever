@@ -75,16 +75,16 @@ public class AnimalBoardController {
 	
 	@GetMapping("/animalboard/boardView")
 	public ModelAndView animalboardView(@RequestParam int no, ModelAndView mav) {
-		log.debug("{}번 게시글 조회", no);
+		//log.debug("{}번 게시글 조회", no);
 		
 		//no번 게시글 조회
 		AnimalBoard animalBoard = service.selectOneBoard(no);
 		mav.addObject("animalBoard", animalBoard);
-		log.debug("animalBoard = {}", animalBoard);
+		//log.debug("animalBoard = {}", animalBoard);
 		
 		//no번 게시글과 보호소 동물 조회
 		List<ShelterAnimal> shelterAniList = service.selectShelterAnimalList(animalBoard);
-		log.debug("shelterAniList={}", shelterAniList);
+//		log.debug("shelterAniList={}", shelterAniList);
 		mav.addObject("shelterAniList", shelterAniList);
 		
 		//no번 게시글의 댓글

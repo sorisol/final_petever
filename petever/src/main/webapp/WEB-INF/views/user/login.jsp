@@ -22,7 +22,7 @@
 			String v = c.getValue();
 			
 			//saveId 쿠키 존재여부 확인
-			if("SaveId".equals(k)){
+			if("saveId".equals(k)){
 				saveIdChecked = true;
 				saveIdValue = v;
 			}
@@ -45,17 +45,11 @@
  					 <div class="check">
 		                <input type="checkbox" name="saveId" id="saveId" <%= saveIdChecked ? "checked" : "" %>/>
 						<label for="saveId"></label>
-						<p>로그인 상태 유지</p>
+						<p>아이디 기억하기</p>
 					</div>
   			   </div>
   		   </form>
-        <!--  <div class="check">
-                    <input type="checkbox" id="saveId" name="saveId">
-                    <label for="switch"></label>
-                    <p>로그인 상태 유지</p>
-                  </div> -->
-          
-            </form>
+
             <div id="search">
                 <a class="find-id" onclick="javascript:findId();">아이디 찾기</a> |
                 <a class="find-pwd" onclick="javascript:findPwd();">비밀번호 찾기</a>
@@ -90,7 +84,7 @@ $(function() {
 });
 function findId() {
 	window.open("${pageContext.request.contextPath}/user/findIdFrm.do", "아이디 찾기",
-           "width=500, height=330, toolbar=no, menubar=no, scrollbars=no, resizable=yes, top=300, left=500");
+           "width=600, height=330, toolbar=no, menubar=no, scrollbars=no, resizable=yes, top=300, left=500");
 }
 
 function findPwd() {

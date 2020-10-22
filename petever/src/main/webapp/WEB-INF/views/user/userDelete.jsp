@@ -10,7 +10,7 @@
 	
 		<section>
 			<div class="signup">
-			<form action="userDelete.do" method="post">
+			<form action="${pageContext.request.contextPath}/user/userDelete.do" method="post">
 				<div class="form-group has-feedback">
 					<label class="control-label" for="userId">아이디</label>
 					<input type="text" class="form-control" name="userId" id="userId"  value="${loginUser.userId}" readonly required>
@@ -36,9 +36,7 @@
 		$(document).ready(function(){
 			// 취소
 			$(".cencle").on("click", function(){
-				
-				location.href = "/";
-						    
+				history.back();	    
 			})
 		
 			$("#submit").on("click", function(){
@@ -48,9 +46,6 @@
 					return false;
 				}	
 			});
-			
-				
-			
 		})
 	</script>
   

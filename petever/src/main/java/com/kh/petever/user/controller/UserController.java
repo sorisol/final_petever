@@ -43,7 +43,8 @@ import com.kh.petever.user.model.service.UserService;
 import com.kh.petever.user.model.vo.User;
 
 import net.nurigo.java_sdk.api.Message;
-import net.nurigo.java_sdk.exceptions.CoolsmsException;
+
+
 
 
 @Controller
@@ -132,7 +133,12 @@ public class UserController {
 
 		String location = "/";
 		String saveId = request.getParameter("saveId");
-
+		log.debug("saveId {}", saveId);
+		//신고된 사용자
+		if(user != null && bcryptPasswordEncoder.matches(userPwd, user.getUserPwd()) && user.getUserRole().equals("R")) {
+			redirectAttr.addFlashAttribute("msg", "귀하는 신고로 인해 사이트 이용이 중지되었습니다. 고객센터로 연락해주세요.");
+			return "redirect:/user/login.do";
+		}
 		// 로그인 성공
 		if (user != null && bcryptPasswordEncoder.matches(userPwd, user.getUserPwd())) {
 
@@ -172,11 +178,6 @@ public class UserController {
 			return "redirect:/"+location;
 			
 		} 
-		//신고된 사용자
-		else if(user != null && bcryptPasswordEncoder.matches(userPwd, user.getUserPwd()) && !user.getUserRole().equals("R")) {
-			redirectAttr.addFlashAttribute("msg", "귀하는 신고로 인해 사이트 이용이 중지되었습니다. 고객센터로 연락해주세요.");
-			return "redirect:/user/login.do";
-		}
 		// 로그인 실패
 		else {
 			redirectAttr.addFlashAttribute("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
@@ -214,7 +215,7 @@ public class UserController {
 	// 회원정보보기, 수정
 	@RequestMapping("/userDetail.do")
 	public String userDetail(Principal principal, Model model) {
-		log.debug("principal = {}", principal);
+		//log.debug("principal = {}", principal);
 		model.addAttribute("loginUser", principal);
 		
 		return "user/userDetail";
@@ -256,24 +257,29 @@ public class UserController {
 	}
 	
 	// 회원 탈퇴 post
-	@RequestMapping(value="/userDelete", method = RequestMethod.POST)
+	@RequestMapping(value="/userDelete.do", method = RequestMethod.POST)
 	public String userDelete(User user, HttpSession session, RedirectAttributes rttr, SessionStatus sessionStatus) {
-		//세션에 있는 user를 가져와 userDelete변수에 넣어준다. 
-		User u = (User) session.getAttribute("user");
+		log.debug("param {}", user);
+//		String voPass = bcryptPasswordEncoder.encode(user.getUserPwd());
 		
-		// 세션에있는 비밀번호
-		String sessionPass = user.getUserPwd();
-		// vo로 들어오는 비밀번호
-		String voPass = bcryptPasswordEncoder.encode(user.getUserPwd());
-
-		if(!(bcryptPasswordEncoder.matches(sessionPass, voPass))) {
+		User u = userService.selectOneUser(user.getUserId());
+		
+//		log.debug("비밀번호 {}", voPass);
+		log.debug("조회 {}", u);
+		System.out.println(bcryptPasswordEncoder.matches(user.getUserPwd(), u.getUserPwd()));
+		if(!(bcryptPasswordEncoder.matches(user.getUserPwd(), u.getUserPwd()))) {
 			rttr.addFlashAttribute("msg", false);
 			return "redirect:/user/userDelete";
 		}
+		log.debug("000");
 		int result = userService.userDelete(user);
+		log.debug("111");
+
 		if(result == 0) {
+			log.debug("222");
 			rttr.addFlashAttribute("msg", "회원탈퇴 실패");
 		}
+		log.debug("333");
 		userLogout(sessionStatus, session);
 		return "redirect:/";
 	}

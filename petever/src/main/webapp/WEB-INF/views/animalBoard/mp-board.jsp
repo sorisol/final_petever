@@ -195,7 +195,9 @@
 	                    </div>
 	                    <hr style="height: 1px; border:none; background-color: lightgray; width: 880px; margin: 35px 50px 10px 50px;">
 	                    <c:if test="${not empty loginUser}">
-		                    <button type="button" onclick="location.href='${pageContext.request.contextPath}/animalboard/boardFrm'" class="write-btn">글쓰기</button>
+	                    	<div class="write-wrap">
+		                    	<button type="button" onclick="location.href='${pageContext.request.contextPath}/animalboard/boardFrm'" class="write-btn">글쓰기</button>
+		                    </div>
 	                    </c:if>
 	                    <div class="search-wrap">
 	                        <select name="search" id="search">
@@ -274,6 +276,7 @@ function searchFunc() {
 			}
 			$post.html(html);
 			defaultImg();
+			$(".pageBar").hide();
 		},
 		error: function(xhr, status, err) {
 			console.log("처리실패", xhr, status, err);

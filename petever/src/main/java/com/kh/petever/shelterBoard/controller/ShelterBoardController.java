@@ -110,7 +110,7 @@ public class ShelterBoardController {
 	public String shelterBoard(Model model, @RequestParam(defaultValue = "1", value="cPage") int cPage, HttpServletRequest request,
 			@RequestParam(value="kind", defaultValue="", required = false) String kind, @RequestParam(value="gender", defaultValue="", required = false) String gender,
 			@RequestParam(value="age", defaultValue="0", required = false) int age, @RequestParam(value="color", defaultValue="", required = false) String color,
-			@RequestParam(value="weight", defaultValue="0", required = false) float weight, @RequestParam(value="state", defaultValue="", required = false) String state,
+			@RequestParam(value="weight", defaultValue="0", required = false) int weight, @RequestParam(value="state", defaultValue="", required = false) String state,
 			@RequestParam(value="sido", defaultValue="", required = false) String sido, @RequestParam(value="sigugun", defaultValue="", required = false) String sigugun) {
 		//page 처리
 		final int limit = 16;

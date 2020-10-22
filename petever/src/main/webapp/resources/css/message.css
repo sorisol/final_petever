@@ -96,20 +96,20 @@ section.msg-content{
 .messge-detail-content.mine {
     text-align: right;
 }
-.sendBtn{
+.sendMsg{
 	clear:both;  padding-top: 10px;
 	
 }
-.sendBtn input[type=text]{
+.sendMsg input[type=text]{
 	width: 683px; height: 32px;
 	border: none;
 }
-.sendBtn input[type=text]:focus{
+.sendMsg input[type=text]:focus{
 	outline-color: #f2aa8a;
 	border: 1px solid rgb(255,221,147);
 }
 
-.sendBtn input[type=submit]{
+.sendMsg input[type=submit]{
 	width: 100px; height: 32px;
 	background-color: rgb(255,221,147);
 	border: none;
@@ -117,7 +117,7 @@ section.msg-content{
 	color: #373b44;
 	font-size: 15px;
 }
-.sendBtn input[type=submit]:focus{
+.sendMsg input[type=submit]:focus{
 	outline-color: #f2aa8a;
 }
 .msg-background {

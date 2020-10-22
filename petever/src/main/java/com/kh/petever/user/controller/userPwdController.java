@@ -59,32 +59,22 @@ public class userPwdController {
 			sigNoResult = userService.updateSigNo(userOne);
 		}
 		
-		
-		
 		if(userOne != null && sigNoResult > 0) {
 			//properties 파일 가져오기
-//			URL sqlScriptUrl = userPwdController.class.getClassLoader().getResource("/emaildatasource.properties");
-
 			String fileName = "/emaildatasource.properties"; 
 			Properties properties = new Properties();
-			
-//			log.debug("경로 {}", sqlScriptUrl);
-			
 			try {
 				Reader reader = Resources.getResourceAsReader(fileName);
 				properties.load(reader);
 				
-//				log.debug("emaildatasource.host{}", properties.getProperty("emaildatasource.host"));
-//				log.debug("emaildatasource.port{}", properties.getProperty("emaildatasource.port"));
-//				log.debug("emaildatasource.username{}", properties.getProperty("emaildatasource.username"));
-//				log.debug("emaildatasource.password{}", properties.getProperty("emaildatasource.password"));
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
 			
 			String host = properties.getProperty("emaildatasource.host"); 
-			final String username = properties.getProperty("emaildatasource.username"); //네이버 아이디를 입력해주세요. @nave.com은 입력하지 마시구요. 
-			final String password = properties.getProperty("emaildatasource.password"); //네이버 이메일 비밀번호를 입력해주세요. 
+			final String username = properties.getProperty("emaildatasource.username"); //아이디 입력 
+			final String password = properties.getProperty("emaildatasource.password"); //비밀번호
+			final String sendEmail = properties.getProperty("emaildatasource.sendemail"); //발송 Email 주소
 			int port=465; //포트번호
 
 			// 메일 내용 
@@ -138,11 +128,8 @@ public class userPwdController {
 			session.setDebug(true); //for debug 
 			Message mimeMessage = new MimeMessage(session); //MimeMessage 생성 
 			try {
-				mimeMessage.setFrom(new InternetAddress("pts1989@naver.com"));
-				//발신자 셋팅 , 보내는 사람의 이메일주소를 한번 더 입력합니다. 이때는 이메일 풀 주소를 다 작성해주세요. 
-				mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient)); 
-				//수신자셋팅 //.TO 외에 .CC(참조) .BCC(숨은참조) 도 있음
-				
+				mimeMessage.setFrom(new InternetAddress(sendEmail));//발신자 셋팅 
+				mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient)); //수신자셋팅 
 				mimeMessage.setSubject(subject); //제목셋팅 
 //				mimeMessage.setText(body); //내용셋팅 
 				mimeMessage.setContent(body, "text/html; charset=euc-kr");
@@ -150,8 +137,6 @@ public class userPwdController {
 			} catch (MessagingException e) {
 				e.printStackTrace();
 			} 
-
-			
 		}
 		return userOne;
 	}
@@ -164,18 +149,15 @@ public class userPwdController {
 		
 		String msg = "";
 		String location = "";
-		if(user != null && user.getSigNo().equals(sigNo)) {
-			System.out.println("111");
+		if(user != null && sigNo.equals(user.getSigNo())) {
 			model.addAttribute("userId", userId);
 			model.addAttribute("sigNo", sigNo);
 			location = "/user/userPwdChange";
 		} else {
-			System.out.println("222");
 //			msg = "ID 혹은 최신 key값이 아닙니다. ^^\n 다시 진행해주세요";
 //			redirectAttr.addFlashAttribute("msg", msg);
 			location = "/user/mailPwdFrmFail";
 		}
-		
 		return location;
 	}
 	
@@ -187,24 +169,18 @@ public class userPwdController {
 		log.debug("user = {}", userOk);
 		
 		int result = 0;
-		String location = "";
 		String msg = "";
 		if(userOk != null && userOk.getSigNo().equals(sigNo)) {
 			String rawPassword = user.getUserPwd();
 			String encryptPassword = bcryptPasswordEncoder.encode(rawPassword);
 			userOk.setUserPwd(encryptPassword);
-			
 			result = userService.updateUserPwd(userOk);
-			
 			msg = (result > 0) ? "PASSWORD 수정 성공" : "PASSWORD 수정 실패";
 		} else {
 			msg = "ID 혹은 최신 key값이 아닙니다.";
 		}
-		
 		redirectAttr.addFlashAttribute("msg", msg);
-		
-		location = (result > 0) ? "/user/login" : "redirect:/";
-		return location;
+		return "redirect:/";
 	}
 	
 	public String randomSigNo() {

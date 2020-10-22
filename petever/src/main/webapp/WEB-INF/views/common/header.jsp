@@ -50,6 +50,8 @@
 	            <li><a href="${ pageContext.request.contextPath }/user/logout.do">로그아웃</a></li>
 	            <li><a href="${ pageContext.request.contextPath }/message/messageList.do">메세지</a></li>
 	            <li><a href="${ pageContext.request.contextPath }/user/userDetail.do">마이페이지</a></li>
+            </c:if>
+            <c:if test="${not empty loginUser && loginUser.userRole eq 'A'}">
 	            <li><a href="${ pageContext.request.contextPath }/admin/adminUser.do">관리자</a></li>
             </c:if>
                 <li><a href="">고객센터</a></li>

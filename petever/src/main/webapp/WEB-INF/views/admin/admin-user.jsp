@@ -54,7 +54,7 @@
 			style="background-color: #373b44;">
 
 			<!-- Sidebar - Brand -->
-			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
 				<div class="sidebar-brand-icon">
 					<img src="${pageContext.request.contextPath}/resources/images/adminlogo.png" alt=""
 						style="width: 45px;">
@@ -114,7 +114,7 @@
 				<!-- Topbar -->
 				<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-					<a href="${pageContext.request.contextPath}/index.jsp" class="btn btn-warning btn-icon-split"> <span class="icon text-white-50">
+					<a href="${pageContext.request.contextPath}" class="btn btn-warning btn-icon-split"> <span class="icon text-white-50">
 							<i class="fas fa-arrow-right"></i>
 					</span> <span class="text">메인페이지 돌아가기</span>
 					</a>
@@ -174,7 +174,7 @@
 											<div id="dataTable_filter" class="dataTables_filter">
 												<label>Search:<input id="adminSearch" type="search" class="form-control form-control-sm"
 													placeholder="" aria-controls="dataTable"></label>
-													<a href="#" id="searchRole" class="btn btn-secondary">휴면회원 확인하기</a>
+													<a href="#" id="searchRole" class="btn btn-secondary">정지회원 확인하기</a>
 													<a href="#" id="searchBack" class="btn btn-light" style="border:1px solid #ebebeb;">회원보기</a>
 											</div>
 										</div>

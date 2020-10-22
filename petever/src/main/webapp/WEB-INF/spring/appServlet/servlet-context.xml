@@ -41,11 +41,42 @@
 		</interceptor> -->
 		<interceptor>
 			<mapping path="/animalboard/**"/>
+			<mapping path="/aniTag/**"/>
+			<mapping path="/message/**"/>
+			<mapping path="/admin/**"/>
+			<mapping path="/user/**"/>
+			<mapping path="/reviewBoard/**"/>
+			
 			<!-- spring 3.2 이상 사용가능 -->
 			<exclude-mapping path="/animalboard"/>
+			<exclude-mapping path="/animalboard/reportFrm"/>
 			<exclude-mapping path="/animalboard/boardView"/>
 			<exclude-mapping path="/animalboard/index"/>
 			<exclude-mapping path="/animalboard/search"/>
+
+			<exclude-mapping path="/reviewBoard/reviewBoardPhoto.do"/>
+			<exclude-mapping path="/reviewBoard/reviewBoard.do"/>
+			<exclude-mapping path="/reviewBoard/reviewBoardView.do"/>
+			<exclude-mapping path="/reviewBoard/search.do"/>
+			<exclude-mapping path="/reviewBoard/index"/>
+			<exclude-mapping path="/reviewBoard/reportFrm.do"/>
+			
+			<exclude-mapping path="/aniTag/animalTag.do"/>
+			
+			<exclude-mapping path="/user/signup.do"/>
+			<exclude-mapping path="/user/login.do"/>
+			<exclude-mapping path="/user/checkIdDuplicate1.do"/>
+			<exclude-mapping path="/user/kakaologin.do"/>
+			<exclude-mapping path="/user/checkIdDuplicate2.do"/>
+			<exclude-mapping path="/user/findIdFrm.do"/>
+			<exclude-mapping path="/user/selectOneUser.do"/>
+			<exclude-mapping path="/user/sendMsg.do"/>
+			<exclude-mapping path="/user/findPwdFrm.do"/>
+			<exclude-mapping path="/user/selectSearchPwd.do"/>
+			<exclude-mapping path="/user/mailPwdFrm.do"/>
+			<exclude-mapping path="/user/mailPwdChange.do"/>
+			
+			
 			<beans:bean class="com.kh.petever.common.interceptor.LoginInterceptor" id="loginInterceptor"/>
 		</interceptor>
 	</interceptors>
