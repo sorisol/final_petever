@@ -257,7 +257,11 @@ public class UserController {
 	
 	// 회원 탈퇴 post
 	@RequestMapping(value="/userDelete", method = RequestMethod.POST)
-	public String userDelete(User user, HttpSession session, RedirectAttributes rttr, SessionStatus sessionStatus) {
+	public String userDelete(User user, 
+							HttpSession session, 
+							RedirectAttributes rttr, 
+							SessionStatus sessionStatus) {
+		
 		//세션에 있는 user를 가져와 userDelete변수에 넣어준다. 
 		User u = (User) session.getAttribute("user");
 		

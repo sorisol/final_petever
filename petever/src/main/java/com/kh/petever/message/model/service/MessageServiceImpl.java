@@ -18,6 +18,7 @@ public class MessageServiceImpl  implements MessageService{
 	@Autowired
 	private MessageDAO messageDAO;
 
+
 	@Override
 	public int selectMessageTotalContents(User user) {
 		return messageDAO.selectMessageTotalContents(user);
