@@ -97,7 +97,7 @@
 				                </tr>
                     		</table>
                     	</c:forEach>
-                    		<button id="btn-back" onclick="location.href='${pageContext.request.contextPath}/shelterBoard/shelterBoard.do'">목록</button>
+                    		<button id="btn-back" onclick="history.back();">목록</button>
                     </div>
                 </div>
             </div>
