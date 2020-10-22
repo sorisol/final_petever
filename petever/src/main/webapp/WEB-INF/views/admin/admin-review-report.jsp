@@ -114,7 +114,7 @@
         <!-- Topbar -->
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-          <a href="${pageContext.request.contextPath}/index.jsp" class="btn btn-warning btn-icon-split">
+          <a href="${pageContext.request.contextPath}" class="btn btn-warning btn-icon-split">
             <span class="icon text-white-50">
               <i class="fas fa-arrow-right"></i>
             </span>

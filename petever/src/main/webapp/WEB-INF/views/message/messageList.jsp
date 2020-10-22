@@ -32,7 +32,14 @@
 						<span> 
 						<img src="${pageContext.request.contextPath}/resources/images/userIcon.png" width="50px" height="50px">
 						</span> 
-						<span>${ b.msgContent }</span> 
+						<c:if test="${b.msgContent.contains('입양신청이 있습니다')}">
+							<c:set var="a" value="${fn:indexOf(b.msgContent, ' ')}" />
+
+							<span class="title">${fn:substring(b.msgContent, a, fn:length(b.msgContent)) }</span> 
+						</c:if>
+						<c:if test="${!b.msgContent.contains('입양신청이 있습니다')}">
+							<span class="title">${ b.msgContent }</span> 
+						</c:if>
 						<span class="message-Date">
 							<fmt:parseDate value="${b.msgTime}" var="msgTime" pattern="yyyy-MM-dd HH:mm:ss"/>
 							<fmt:formatDate value="${msgTime}" pattern="yyyy.MM.dd"/>
@@ -94,38 +101,44 @@ $(".message-detail").on('click', function() {
 					
 		            
 						else if(receiver == detail[i].userId && detail[i].receiveId == $sender) {
-							//html += '<div class="message-detail-date">';
-							//html += detail[i].msgTime;
-							//html += '</div>';
 							html += '<div class="messge-detail-content mine">';
 							html += '<span class="time">'+detail[i].msgTime.substring(11,16)+'</span>';
-							html += '<div class="message-detail-send">'+detail[i].msgContent+'</div>';
+							if(detail[i].msgContent.includes('입양신청이 있습니다.')){
+								html += '<a href="${pageContext.request.contextPath}/apply/applicationView?no='+detail[i].msgContent.substring(0, detail[i].msgContent.indexOf(' '))+'">'
+								html += '<div class="message-detail-send">'+detail[i].msgContent.substring(detail[i].msgContent.indexOf(' '))+'</div>';
+								html += '</a>';
+							} else {
+								html += '<div class="message-detail-send">'+detail[i].msgContent+'</div>';
+							}
 							html += '</div>';
 						}
 					}
 				}
 			}
-			html += '<div class="sendBtn"><input type="text" name="msgContent">';
+			html += '<div class="sendMsg"><input type="text" name="msgContent">';
 			html += '<input type="hidden" value="'+$sender+'" id="detail-receiver">';
-			html += '<input type="submit" value="보내기" id="send-btn"></div>';
+			html += '<input type="submit" value="보내기" class="send-btn"></div>';
 			$tag.html(html);
 			$(":text").focus();
 		}
 	});
 });
-$(document).on("click", "#send-btn", function(){
+$(document).on("click", ".send-btn", function(){
 	var sender = '${loginUser.userId}';
-	var receiver = $("#detail-receiver").val();
-	var message = $("input[name=msgContent]");
+	var receiver = $(this).prev().val();
+	var message = $(this).prev().prev();
 	var $recentMsg = $(this).parent().prev();
-	console.log($recentMsg);
 	var getdate = $("send-btn.msgTime").val();
+	var $title = $(this).parent().parent().prev().children().find(".title");
+
+	//console.log(message);
+	//console.log($recentMsg);
+	//console.log(receiver);
+	//console.log($title);
+	//console.log(message.val());
 	
 	var date = new Date();
 	
-	
-	console.log(sender);
-	console.log(receiver);
 	$.ajax({
 		url: '${pageContext.request.contextPath}/message/messageDetailSend',
 		method: 'post',
@@ -135,7 +148,7 @@ $(document).on("click", "#send-btn", function(){
 			msgContent: message.val()
 		},
 		success: function(res) {
-			console.log(res.msg);
+			//console.log(res.msg);
 			var html = '';
 			var date = new Date ;
 			if(res.msg == '성공'){
@@ -143,6 +156,7 @@ $(document).on("click", "#send-btn", function(){
 				html += '<span class="time">'+moment(new Date()).format('HH:mm')+'</span>';
 				html += '<div class="message-detail-send">'+message.val()+'</div>';
 				html += '</div>';
+				$title.html(message.val());
 				message.val('');
 				$recentMsg.after(html);
 			}
