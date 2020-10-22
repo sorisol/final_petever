@@ -83,13 +83,13 @@ $("#send-sms").on("click", function() {
 		method: 'post',
 		success: function(data) {
 			alert(data.msg);
-			//console.log(data.verificationCode);
+			console.log(data.verificationCode);
 			verificationCode = data.verificationCode;
 		}
 	});
 });
  $("#verification-check").on("click", function(){
-	//console.log(verificationCode);
+	console.log(verificationCode);
 	var $input = $("#userInput").val();
 	//console.log($input);
 	if($input != verificationCode) {

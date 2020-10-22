@@ -9,6 +9,7 @@
 .border {
     margin: auto;
     width: 980px;
+    overflow:hidden;
 }
 
 .content-wrap .content img {
@@ -114,8 +115,8 @@ td {
 
 /*하단 검색부분*/
 .content .search-wrap {
-    width: 420px;
-    margin: 50px auto;
+    width: 360px;
+    margin: 30px auto 50px;
     text-align: center;
     overflow: hidden;
 }
@@ -131,6 +132,7 @@ td {
     font-size: 16px;
     size: 34px;
     border: 1px solid #ebecef;
+    float:left;
 }
 
 .search-wrap select:focus {
@@ -140,10 +142,10 @@ td {
 
 .search-wrap input {
     width: 200px;
-    height: 32px;
+    height: 36px;
     padding: 0px 12px;
-    margin: 0px 10px;
     border: 1px solid #ebecef;
+    float:left;
 }
 
 .search-wrap input:focus {
@@ -162,6 +164,7 @@ td {
     color: #373b44;
     font-size: 16px;
     font-weight: bold;
+    float:left;
 }
 .search-wrap button:focus {
 	outline-color: #f2aa8a;	
@@ -179,17 +182,21 @@ td {
 .protect {
     color: #5F9EA0;
 }
-.write-btn {
+.write-wrap{
+	width:100%;
+	overflow:hidden;
+}
+.write-btn{
 	float: right;
 	width: 68px;
     height: 36px;
     margin-right: 80px;
-    margin-bottom: 20px;
     border: 1px solid #FFDD93;
     background-color: #FFDD93;
     color: #373b44;
     font-size: 16px;
     font-weight: bold;
+    cursor:pointer;
 }
 .write-btn:focus {
 	outline-color: #f2aa8a;	
@@ -243,4 +250,15 @@ td {
     padding: 4px;
 }
 
+#tbl-board tr:nth-child(n+1):hover{
+	background-color:rgb(255,193,63,0.6);
+}
 
+.container a .review-icon{
+    width: 16px;
+    height: 16px;
+    border-radius: 0;
+    position: relative;
+    top: 3px;
+    margin-right: 5px;
+}

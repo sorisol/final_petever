@@ -106,7 +106,8 @@
 		                        <input type="hidden" name="rewCoLevel" value="1"/>
 		                        <input type="hidden" name="rewBoId" value="${reviewBoard.rewBoId}" />
 		                      <!--   <input type="hidden" name="rewCoRef" value="0"/> -->
-		                        <span>${loginUser.userId}</span><br />
+		                        <span>${loginUser.userId}</span>
+		                        <span class="cnt"></span>
 		                        <textarea rows="1" class="comment_inbox_text" placeholder="댓글을 입력하세요" name="rewCoContent"
 		                            onkeyup="xSize(this)"></textarea>
 		                        <div class="btn-align">
@@ -154,6 +155,7 @@
          reply += '<input type="hidden" name="rewBoId" value="${reviewBoard.rewBoId}" />';
          reply += '<input type="hidden" name="rewCoRef" value="'+$(this).val()+'"/>'; 
          reply += '<span class="id-box">${loginUser.userId}</span>';
+         reply += '<span class="cnt"></span>';
          reply += '<textarea rows="1" class="comment_inbox_text" placeholder="댓글을 입력하세요" onkeyup="xSize(this)" name="rewCoContent"></textarea>';
          reply += '<div class="btn-align">';
          reply += '<button type="button" class="comment-cancle-btn" onclick="cancleBtn(this);">취소</button>';
@@ -172,6 +174,17 @@
             $tag.css('color', '#F0EF97');
         else if($tag.text().includes('보호'))
             $tag.css('color', '#5F9EA0');
+
+      //글자수 제한
+        $(document).on("keyup", "textarea", function(){
+            var $textarea = $(this);
+    		var len = $textarea.val().length;
+    		$textarea.parent().find(".cnt").html(len+"/300");
+    		if(len > 300) {
+    			alert("300자까지 작성할 수 있습니다.");
+    			$textarea.val($textarea.val().substring(0, 300));
+    		}
+        });
     });
        
 	//아이디 클릭시 메뉴

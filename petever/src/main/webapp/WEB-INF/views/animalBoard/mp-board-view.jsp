@@ -98,7 +98,25 @@
                         	<c:forEach items="${commentList}" var="cl">
                         		<c:if test="${cl.aniCoLevel == 1 }">
 			                        <div class="board-comment">
-			                            <span class="id-box">${cl.userId}</span>
+			                            <span class="user-thum ${fn:substring(cl.userId,0,1)}">${fn:substring(cl.userId,0,1)}</span>
+			                        <script>
+			                        function setRandomColor(dec) {
+			                        	
+			                      	  $(".${fn:substring(cl.userId,0,1)}").css("background-color", '#'+dec);
+			                      	}
+			                      	var id = Number('${cl.userId}'.charCodeAt(0))*2;
+			                      	var id1 = Number('${cl.userId}'.charCodeAt(1));
+			                      	var id2 = Number('${cl.userId}'.charCodeAt(2));
+			                      	var dec = ((id*id1*id2* ${fn:length(cl.userId)}).toString(16)).substring(0,6);
+			                      	console.log(dec);
+			                      	setRandomColor(dec);
+			                        </script>
+			                            <span class="id-box">${cl.userId}  
+				                            <span class="comment-time"> |
+				                            	<fmt:parseDate value="${cl.aniCoDate}" var="aniCoDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+												<fmt:formatDate value="${aniCoDate}" pattern="yyyy.MM.dd HH:mm"/>
+				                            </span>
+			                            </span>
 		                            	<c:if test="${not empty loginUser}">
 		                            		<c:if test="${loginUser.userId eq cl.userId || loginUser.userId == 'admin'}">
 			                           		 	<img class="icon" src="${pageContext.request.contextPath}/resources/images/icon.png"/>
@@ -111,20 +129,40 @@
 			                            	</c:if>
 			                            </c:if>
 			                            <p>${cl.aniCoContent}</p>
-			                            <span class="comment-time">
-			                            	<fmt:parseDate value="${cl.aniCoDate}" var="aniCoDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-											<fmt:formatDate value="${aniCoDate}" pattern="yyyy.MM.dd HH:mm"/>
-			                            </span>
-			                            
 										<c:if test="${not empty loginUser}">
-				                            <button type="button" class="reply-btn" value="${cl.aniCoId}">답글쓰기</button>
+				                            <button type="button" class="reply-btn" value="${cl.aniCoId}"><img data-v-0e41a35e="" src="https://talk.op.gg/images/icon-reply@2x.png" width="16" alt="">답글쓰기</button>
 				                            <div class="comment-reply-write" style="display: none;"></div>
 										</c:if>
 			                        </div>
 	                        	</c:if>
                         		<c:if test="${cl.aniCoLevel == 2}">
 			                        <div class="board-comment-reply">
-			                            <span class="id-box">&#8627; ${cl.userId}</span>
+			                        <span class="user-thum thum-sub ${fn:substring(cl.userId,0,1)}">${fn:substring(cl.userId,0,1)}</span>
+			                            <span class="id-box">
+			                            	<svg width="10" height="10" xmlns="http://www.w3.org/2000/svg">
+											 <g>
+											  <title>background</title>
+											  <rect fill="none" id="canvas_background" height="12" width="12" y="-1" x="-1"/>
+											 </g>
+											 <g>
+											  <title>Layer 1</title>
+											  <path fill="#000000" fill-rule="evenodd" stroke-width="NaN" id="path4483" d="m0,3.627304l0,-3.627304l1.812638,0l0,3.627304c0,0.453444 0.453163,0.906861 0.906326,0.906861l4.531602,0l-2.718964,-2.720494l0.906313,-0.906849l4.531602,4.534153l-4.531602,4.534166l-0.906313,-0.906849l2.718964,-2.720494l-4.531602,0c-1.586057,0 -2.718964,-1.133545 -2.718964,-2.720494z"/>
+											 </g>
+											</svg>
+											${cl.userId}
+										</span>
+			                            <script>
+			                        function setRandomColor(dec) {
+			                        	
+			                      	  $(".${fn:substring(cl.userId,0,1)}").css("background-color", '#'+dec);
+			                      	}
+			                      	var id = Number('${cl.userId}'.charCodeAt(0))*2;
+			                      	var id1 = Number('${cl.userId}'.charCodeAt(1));
+			                      	var id2 = Number('${cl.userId}'.charCodeAt(2));
+			                      	var dec = ((id*id1*id2* ${fn:length(cl.userId)}).toString(16)).substring(0,6);
+			                      	console.log(dec);
+			                      	setRandomColor(dec);
+			                        </script>
 		                            	<c:if test="${not empty loginUser}">
 				                            <img class="icon" src="${pageContext.request.contextPath}/resources/images/icon.png"/>
 				                            <div class="comment-menu">
@@ -153,8 +191,14 @@
 		                        <input type="hidden" name="aniCoLevel" value="1"/>
 		                        <input type="hidden" name="aniBoId" value="${animalBoard.aniBoId}" />
 		                        <input type="hidden" name="aniCoRef" value="0"/>
+<<<<<<< HEAD
 		                        <span>${loginUser.userId}</span><br />
+		                        <textarea rows="1" class="comment_inbox_text" placeholder="주제와 무관한 댓글, 타인의 권리를 침해하거나 명예를 훼손하는 게시물은 별도의 통보 없이 제재를 받을 수 있습니다." name="aniCoContent"
+=======
+		                        <span>${loginUser.userId}</span>
+		                        <span class="cnt"></span>
 		                        <textarea rows="1" class="comment_inbox_text" placeholder="댓글을 입력하세요" name="aniCoContent"
+>>>>>>> branch 'master' of https://github.com/rato12/petever.git
 		                            onkeyup="xSize(this)"></textarea>
 		                        <div class="btn-align">
 		                            <button class="comment-reg-btn">등록</button>
@@ -231,7 +275,12 @@ $(".reply-btn").on('click', function() {
     reply += '<input type="hidden" name="aniBoId" value="${animalBoard.aniBoId}" />';
     reply += '<input type="hidden" name="aniCoRef" value="'+$(this).val()+'"/>';
     reply += '<span class="id-box">${loginUser.userId}</span>';
+<<<<<<< HEAD
+    reply += '<textarea rows="1" class="comment_inbox_text" placeholder="주제와 무관한 댓글, 타인의 권리를 침해하거나 명예를 훼손하는 게시물은 별도의 통보 없이 제재를 받을 수 있습니다." onkeyup="xSize(this)" name="aniCoContent"></textarea>';
+=======
+    reply += '<span class="cnt"></span>';
     reply += '<textarea rows="1" class="comment_inbox_text" placeholder="댓글을 입력하세요" onkeyup="xSize(this)" name="aniCoContent"></textarea>';
+>>>>>>> branch 'master' of https://github.com/rato12/petever.git
     reply += '<div class="btn-align">';
     reply += '<button type="button" class="comment-cancle-btn" onclick="cancleBtn(this);">취소</button>';
     reply += '<button class="comment-reg-btn">등록</button>';
@@ -249,6 +298,17 @@ $(function() {
         $tag.css('color', '#F0EF97');
     else if($tag.text().includes('보호'))
         $tag.css('color', '#5F9EA0');
+
+    //글자수 제한
+    $(document).on("keyup", "textarea", function(){
+        var $textarea = $(this);
+		var len = $textarea.val().length;
+		$textarea.parent().find(".cnt").html(len+"/300");
+		if(len > 300) {
+			alert("300자까지 작성할 수 있습니다.");
+			$textarea.val($textarea.val().substring(0, 300));
+		}
+    });
 });
       
 //아이디 클릭시 메뉴
@@ -334,7 +394,7 @@ $('.slider').slick({
 	slidesToShow: 5,
 	slidesToScroll: 4
 });
-    		
+
 </script>
 	
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

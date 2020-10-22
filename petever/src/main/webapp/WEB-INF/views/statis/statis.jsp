@@ -23,7 +23,7 @@
 	<section class="content-wrap">
 		<h1>유기동물 통계</h1>
 		<form action="${pageContext.request.contextPath}/statis/statisXml.do"
-			method="POST">
+			method="POST" style="display:none;">
 			<input type="submit" value="전송" style="" />
 		</form>
 		<p>전국 모든지역 유기동물 현황</p>

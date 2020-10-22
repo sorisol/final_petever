@@ -7,7 +7,7 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <!-- google font -->
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&family=Sunflower:wght@500&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
 <!-- 주소검색API -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
     <script>
@@ -232,7 +232,7 @@
                 } 
 
                 var $tagAniSsn = $('[name=tagAniSsn]').val();
-                if(/^[0-9]{12}$|^{}$/.test($tagAniSsn) == false) {
+                if(/^[0-9]{15}$|^{}$/.test($tagAniSsn) == false) {
                 	alert("반려 동물의 등록번호가 있다면 숫자 12자리 입력\n반려 동물의 등록번호가 없다면 빈칸으로 제출해주세요.");
     				return false;
                 }
@@ -444,8 +444,8 @@
                             <label class="ani-radio font_DoHyeon" for="font_DoHyeon">도현체</label>
                             <input type="radio" name="tagFont" id="font_Jua" value="Jua">
                             <label class="ani-radio font_Jua" for="font_Jua">주아체</label>
-                            <input type="radio" name="tagFont" id="font_EastSeaDokdo" value="East Sea Dokdo">
-                            <label class="ani-radio font_EastSeaDokdo" for="font_EastSeaDokdo">동해독도체</label>
+                            <input type="radio" name="tagFont" id="font_Gugi" value="Gugi">
+                            <label class="ani-radio font_Gugi" for="font_Gugi">구기체</label>
                             <!-- <input type="radio" name="tagFont" id="font_Sunflower" value="Sunflower">
                             <label class="ani-radio font_Sunflower" for="font_Sunflower">선플라워체</label> -->
                             <br>
@@ -453,7 +453,7 @@
                             <input type="text" name="tagAniName" id="ani-name" placeholder="한영(5자), 영문(10자) 이내">
                             <br>
                             <label for="ani-ssn" class="ani-label">동물등록번호</label>
-                            <input type="text" name="tagAniSsn" id="ani-ssn" placeholder="숫자 12자리">
+                            <input type="text" name="tagAniSsn" id="ani-ssn" placeholder="410(국가번호) 숫자 15자리">
                             <br>
                             <label for="person-name" class="ani-label">보호자 이름</label>
                             <input type="text" name="tagPersonName" id="person-name" placeholder="한글 6자 이내">

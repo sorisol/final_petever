@@ -115,7 +115,7 @@ td {
 /*하단 검색부분*/
 .content .search-wrap {
     width: 420px;
-    margin: 50px auto;
+    margin: 30px auto 50px;
     text-align: center;
     overflow: hidden;
 }
@@ -180,17 +180,21 @@ td {
 .protect {
     color: #5F9EA0;
 }
-.write-btn {
+.write-wrap{
+	width:100%;
+	overflow:hidden;
+}
+.write-btn{
 	float: right;
 	width: 68px;
     height: 36px;
     margin-right: 80px;
-    margin-bottom: 20px;
     border: 1px solid #FFDD93;
     background-color: #FFDD93;
     color: #373b44;
     font-size: 16px;
     font-weight: bold;
+    cursor:pointer;
 }
 .write-btn:focus {
 	outline-color: #f2aa8a;	

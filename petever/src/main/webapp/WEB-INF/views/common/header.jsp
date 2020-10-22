@@ -16,13 +16,9 @@
     <script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.min.js"></script>
     <script>
 	    <%--RedirectAttributes에 등록된 msg값 존재여부 확인 후 출력 --%>
-	    <c:if test="${not empty msg }">
-	    	alert('${ msg }');
-	    	console.log(1111~~~);
-	    </c:if>
-	    <c:if test="${ empty msg }">
-	    	console.log('2222~~~');
-	    </c:if>
+	<c:if test="${not empty msg }">
+		alert('${ msg }');
+	</c:if>
 	    
      function sendMessage(param){
         var url = "${pageContext.request.contextPath}/message/messageForm.do?receiveId=";
@@ -43,21 +39,20 @@
         <div class="main-bar">
             <ul>
             <c:if test="${ empty loginUser }">
-                <li><a href="${ pageContext.request.contextPath }/user/login.do">로그인</a></li>
-                &nbsp;
-                <li><a href="${ pageContext.request.contextPath }/user/signup.do">회원가입</a></li>
-                </c:if>
-                <c:if test="${not empty loginUser}">
-                <a href="#">${loginUser.userId }</a>님, 환영합니다!
-                &nbsp;
-                
-                 <li><a href="${ pageContext.request.contextPath }/user/logout.do">로그아웃</a></li>
-                
-                </c:if>
-                <li><a href="${ pageContext.request.contextPath }/message/messageList.do">메세지</a></li>
-                <li><a href="${ pageContext.request.contextPath }/user/userDetail.do">마이페이지</a></li>
+	            <li><a href="${ pageContext.request.contextPath }/user/login.do">로그인</a></li>
+	            &nbsp;
+	            <li><a href="${ pageContext.request.contextPath }/user/signup.do">회원가입</a></li>
+            </c:if>
+            <c:if test="${not empty loginUser}">
+	            <a href="#">${loginUser.userId }</a>님, 환영합니다!
+	            &nbsp;
+	            
+	            <li><a href="${ pageContext.request.contextPath }/user/logout.do">로그아웃</a></li>
+	            <li><a href="${ pageContext.request.contextPath }/message/messageList.do">메세지</a></li>
+	            <li><a href="${ pageContext.request.contextPath }/user/userDetail.do">마이페이지</a></li>
+	            <li><a href="${ pageContext.request.contextPath }/admin/adminUser.do">관리자</a></li>
+            </c:if>
                 <li><a href="">고객센터</a></li>
-                <li><a href="${ pageContext.request.contextPath }/admin/adminUser.do">관리자</a></li>
             </ul>
         </div>
     </header>

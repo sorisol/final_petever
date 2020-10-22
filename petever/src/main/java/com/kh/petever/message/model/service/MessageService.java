@@ -12,7 +12,7 @@ import com.kh.petever.user.model.vo.User;
 public interface MessageService {
 
 
-	int selectMessageTotalContents();
+	int selectMessageTotalContents(User user);
 
 	List<Message> selectMessageList(User user, RowBounds rowBound);
 

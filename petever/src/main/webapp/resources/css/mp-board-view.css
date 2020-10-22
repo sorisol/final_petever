@@ -58,7 +58,7 @@
 
 .report-btn {
     float: left;
-    margin-bottom: 10px;
+    margin-top: 7px;
     background: url(https://ssl.pstatic.net/imgstock/images5/ico_report.gif) no-repeat left;
     display: block;
     width: 40px;
@@ -214,7 +214,6 @@ form span {
 .reply-btn {
 	border: none;
     background-color: white;
-    float: left;
 }
 .reply-btn:focus {
 	outline: none;
@@ -222,6 +221,11 @@ form span {
 
 .reply-btn:hover, .writer:hover {
 	cursor: pointer;
+}
+.reply-btn img{
+	margin: 0px 5px 0px 0px;
+    position: relative;
+    top: 3px;
 }
 /*하단 수정삭제 버튼*/
 .board-delete-btn, .board-edit-btn{
@@ -282,16 +286,52 @@ button:hover {
     padding: 5px;
     margin-right: 27px;	
 }
-.ico_share {
-	background: url(//t1.daumcdn.net/cafe_image/cf_img4/skin/W01/32_icon_share_default.svg);
+
+#kakao-link-btn{
+	float:left;
 }
-.ico_bbs, .ico_bbs.ico_share {
-    width: 32px;
-    height: 32px;
+
+.ico_share {
+	background: url('../../resources/images/kakaolink.png');
 }
 .ico_bbs {
     display: inline-block;
     vertical-align: top;
     text-indent: -9999px;
-    float: left;
+    width: 150px;
+    height: 35px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: relative;
+    top: -7px;
+}
+.cnt {
+	font-weight: lighter;
+    font-size: 12px;
+    float: right;
+    margin-right: 20px;
+    margin-top: 5px;
+    color: #808080;
+}
+
+.user-thum{
+	width: 32px;
+    height: 32px;
+    display: inline-block;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 32px;
+    font-size: 19px;
+    font-weight: bold;
+    position: absolute;
+    left: 50px;
+}
+
+.thum-sub{
+	left:80px;
+}
+
+.id-box svg{
+	position: relative;
+	top:7px;
 }

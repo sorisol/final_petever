@@ -362,7 +362,7 @@
 			seq_msg_no.nextval,
 			#{senderId},
 			#{receiverId},
-			#{adoptId}||' '||#{aniBoId}||' 번 게시글에 대한 입양신청이 도착했습니다.',
+			#{adoptId}||' '||#{aniBoId}||' 번 게시글에 대한 입양신청이 있습니다.',
 			default)
 	</insert>
 	

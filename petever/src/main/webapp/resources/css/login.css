@@ -62,6 +62,7 @@ button {
     text-decoration: none;
     text-align: center;
     color: #373b44;
+    cursor: pointer;
 }
 
 #search {

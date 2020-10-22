@@ -23,15 +23,15 @@
         </section>
         <section class="content-wrap">
             <article class="content">
-                <p class="missing-title">■ 실종된 동물</p>
+            	<a href="${pageContext.request.contextPath}/animalboard" class="missing-title">■ 실종된 동물</a>
               	<div class="missing slider" data-slick='{"slidesToShow": 5, "slidesToScroll": 5}'>
               			
                	</div>
-                <p class="protect-title">■ 보호중인 동물</p>
+            	<a href="${pageContext.request.contextPath}/animalboard" class="protect-title">■ 보호중인 동물</a>
               	<div class="protect slider" data-slick='{"slidesToShow": 5, "slidesToScroll": 5}'>
               			
                	</div>
- 				<p class="review-title">■ 입양후기</p>
+ 				<a href="${pageContext.request.contextPath}/reviewBoard/reviewBoardPhoto.do" class="review-title">■ 입양후기</a>
               	<div class="review slider" data-slick='{"slidesToShow": 5, "slidesToScroll": 5}'>
               			
                	</div>               	
@@ -214,7 +214,7 @@ function numberWithCommas(x) {
 var defaultImg = function defaultImg() {
 	$(".post").each(function(){
 	    if($(this).children().find("img")[0] == null){
-	        var html = '<img src="${pageContext.request.contextPath}/resources/images/dog/petever.jpg">';
+	        var html = '<img src="${pageContext.request.contextPath}/resources/images/dog/petever.png">';
 	        $(this).children().prepend(html);
 	    }
 	});

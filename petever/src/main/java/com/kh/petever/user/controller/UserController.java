@@ -109,7 +109,7 @@ public class UserController {
 	}
 
 	// 로그인 페이지 연결
-	@RequestMapping("/login.do")
+	@RequestMapping(value="/login.do", method=RequestMethod.GET)
 	public String login(HttpServletRequest request, HttpSession session) {
 		String referer = request.getHeader("referer"); //로그인을 요청한 페이지
 //		log.debug("{}", referer);
@@ -132,7 +132,7 @@ public class UserController {
 
 		String location = "/";
 		String saveId = request.getParameter("saveId");
-
+		log.debug("saveId {}", saveId);
 		// 로그인 성공
 		if (user != null && bcryptPasswordEncoder.matches(userPwd, user.getUserPwd())) {
 
@@ -159,7 +159,6 @@ public class UserController {
 			//SaveId 체크한 경우 : 쿠키 생성
 			if(saveId != null) {
 				c.setMaxAge(7*24*60*60); //7일
-				
 			}
 			else {
 				c.setMaxAge(0); //브라우저에서 즉시 삭제하기
@@ -168,20 +167,18 @@ public class UserController {
 			
 			//리다이렉트처리
 			//response.sendRedirect(request.getContextPath());
-//			String uri = request.getRequestURI(); // /spring/board/boardForm.do
-//			uri = uri.replace(request.getContextPath(), "");
-			redirectAttr.addFlashAttribute("msg", "로그인 성공.");
+			
+//			redirectAttr.addFlashAttribute("msg", "로그인 성공.");
 			return "redirect:/"+location;
 			
 		} 
 		//신고된 사용자
-		else if(user != null && !user.getUserRole().equals("R")) {
+		else if(user != null && bcryptPasswordEncoder.matches(userPwd, user.getUserPwd()) && !user.getUserRole().equals("R")) {
 			redirectAttr.addFlashAttribute("msg", "귀하는 신고로 인해 사이트 이용이 중지되었습니다. 고객센터로 연락해주세요.");
 			return "redirect:/user/login.do";
 		}
 		// 로그인 실패
 		else {
-			log.debug("1111");
 			redirectAttr.addFlashAttribute("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
 			return "redirect:/user/login.do";
 		}
