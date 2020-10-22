@@ -35,14 +35,15 @@
     margin-left: 25px;
 }
 
-/*게시글 말머리*/
-.post :nth-child(3) {
-    font-size: 20px;
-}
+
 
 /*게시글 제목 밑에 간격*/
 .post :nth-child(5) {
     margin-top: 10px;
+}
+
+.post{
+	    display: inline-block;
 }
 
 .post p,
