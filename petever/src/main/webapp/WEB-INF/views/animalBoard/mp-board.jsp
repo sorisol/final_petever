@@ -276,6 +276,7 @@ function searchFunc() {
 			}
 			$post.html(html);
 			defaultImg();
+			$(".pageBar").hide();
 		},
 		error: function(xhr, status, err) {
 			console.log("처리실패", xhr, status, err);
