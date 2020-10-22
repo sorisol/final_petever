@@ -59,6 +59,7 @@
 			<exclude-mapping path="/reviewBoard/reviewBoardView.do"/>
 			<exclude-mapping path="/reviewBoard/search.do"/>
 			<exclude-mapping path="/reviewBoard/index"/>
+			<exclude-mapping path="/reviewBoard/reportFrm.do"/>
 			
 			<exclude-mapping path="/aniTag/animalTag.do"/>
 			
