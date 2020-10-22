@@ -97,9 +97,10 @@
 	<delete id="deleteBoard">
 	delete
 		from 
-	review_board
-	 	where
-	 rew_bo_id = #{rewBoId}
+	review_board A left join report R
+					on(A.rew_bo_id = r.ani_bo_id)
+		where
+			rew_bo_id = #{rewBoId}
 	</delete>
 	
 	<!-- 첨부파일삭제 -->
