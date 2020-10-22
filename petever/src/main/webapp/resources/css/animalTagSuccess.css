@@ -95,7 +95,7 @@
 .animal-tag-font {
     display: inline-block;
     text-shadow: 0px 0px 2px black;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .aniaml-tag-img {
@@ -114,7 +114,7 @@
 }
 
 #preview-ssn {
-    margin-top: 100px;
+    margin-top: 108px;
     margin-bottom: 5px;
 }
 

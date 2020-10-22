@@ -38,7 +38,7 @@
 	    from 
 	    	message 	
 	    <where>
-			user_Id = #{userId} or receive_id = #{userId} 
+			user_Id = #{ userId } or receive_id = #{ userId }	    
 	    </where> 
 	    
 	</select>

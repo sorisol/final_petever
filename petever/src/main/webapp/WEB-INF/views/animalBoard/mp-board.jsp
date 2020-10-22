@@ -13,7 +13,7 @@
         </section>
         <section class="content-wrap">
             <h1>유기동물 게시판</h1>
-            <p>남은 겨울이 라이너 별 어머니, 불러 덮어 이름과, 까닭입니다.</p>
+            <p>반려동물을 목격, 실종, 임보에 관한 글올려주세요.</p>
             <div class="content">
                 <div class="border">
                     <form id="searchFrm">
@@ -195,7 +195,9 @@
 	                    </div>
 	                    <hr style="height: 1px; border:none; background-color: lightgray; width: 880px; margin: 35px 50px 10px 50px;">
 	                    <c:if test="${not empty loginUser}">
-		                    <button type="button" onclick="location.href='${pageContext.request.contextPath}/animalboard/boardFrm'" class="write-btn">글쓰기</button>
+	                    	<div class="write-wrap">
+		                    	<button type="button" onclick="location.href='${pageContext.request.contextPath}/animalboard/boardFrm'" class="write-btn">글쓰기</button>
+		                    </div>
 	                    </c:if>
 	                    <div class="search-wrap">
 	                        <select name="search" id="search">

@@ -41,6 +41,7 @@ public class MessageController {
 		log.debug("list = {}", messageList);
 		//전체컨텐츠수 구하기
 		int totalContents = messageService.selectMessageTotalContents(user);
+
 		//3. view단 처리
 		mav.addObject("totalContents", totalContents);
 		mav.addObject("list", messageList);
