@@ -257,28 +257,29 @@ public class UserController {
 	}
 	
 	// 회원 탈퇴 post
-	@RequestMapping(value="/userDelete", method = RequestMethod.POST)
-	public String userDelete(User user, 
-							HttpSession session, 
-							RedirectAttributes rttr, 
-							SessionStatus sessionStatus) {
+	@RequestMapping(value="/userDelete.do", method = RequestMethod.POST)
+	public String userDelete(User user, HttpSession session, RedirectAttributes rttr, SessionStatus sessionStatus) {
+		log.debug("param {}", user);
+//		String voPass = bcryptPasswordEncoder.encode(user.getUserPwd());
 		
-		//세션에 있는 user를 가져와 userDelete변수에 넣어준다. 
-		User u = (User) session.getAttribute("user");
+		User u = userService.selectOneUser(user.getUserId());
 		
-		// 세션에있는 비밀번호
-		String sessionPass = user.getUserPwd();
-		// vo로 들어오는 비밀번호
-		String voPass = bcryptPasswordEncoder.encode(user.getUserPwd());
-
-		if(!(bcryptPasswordEncoder.matches(sessionPass, voPass))) {
+//		log.debug("비밀번호 {}", voPass);
+		log.debug("조회 {}", u);
+		System.out.println(bcryptPasswordEncoder.matches(user.getUserPwd(), u.getUserPwd()));
+		if(!(bcryptPasswordEncoder.matches(user.getUserPwd(), u.getUserPwd()))) {
 			rttr.addFlashAttribute("msg", false);
 			return "redirect:/user/userDelete";
 		}
+		log.debug("000");
 		int result = userService.userDelete(user);
+		log.debug("111");
+
 		if(result == 0) {
+			log.debug("222");
 			rttr.addFlashAttribute("msg", "회원탈퇴 실패");
 		}
+		log.debug("333");
 		userLogout(sessionStatus, session);
 		return "redirect:/";
 	}

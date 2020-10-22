@@ -40,7 +40,9 @@
 				                </tr>
 				                <tr>
 				                	<th>구조대상동물</th>
-				                	<td colspan="2">${ sab.saveAnimal }</td>
+				                	<c:set var="temp1" value="${ sab.saveAnimal }"/>
+				                	<c:set var="saveAnimal" value="${ fn:replace(temp1, '+', ', ') }"/>
+				                	<td colspan="2">${ saveAnimal }</td>
 				                	<th>동물보호센터지정일자</th>
 				                	<fmt:parseDate value="${ sab.dsignationDate }" pattern="yyyy-MM-dd HH:mm:ss" var="dsignationDate"/>
 				                	<td colspan="2" style="border-right: 0px solid white;"><fmt:formatDate value="${ dsignationDate }" pattern="yyyy-MM-dd"/></td>
