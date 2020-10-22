@@ -1,5 +1,6 @@
 package com.kh.petever.common.interceptor;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -18,7 +19,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {@Override
 
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		log.debug("로그인 여부 체크!");
+//		log.debug("로그인 여부 체크!");
 		HttpSession session = request.getSession();
 		User loginUser = (User)session.getAttribute("loginUser");
 		
@@ -37,7 +38,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {@Override
 			String param = request.getQueryString();// "" | no=12&name=abc
 			
 			uri += (!"".equals(param)) ? "?" + param : param;
-			log.debug("uri = {}", uri);
+//			log.debug("uri = {}", uri);
 			
 			session.setAttribute("next", uri);
 			

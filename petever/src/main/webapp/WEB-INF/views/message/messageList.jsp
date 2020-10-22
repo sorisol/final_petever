@@ -80,7 +80,6 @@ $(".message-detail").on('click', function() {
 				for(var i in detail) {
 					if(detailDate[j].msgTime.substring(0,10) == detail[i].msgTime.substring(0,10)) {
 						if(receiver == detail[i].receiveId) {
-							html += '<br/>';
 							 html += '<div class="messge-detail-content other">';
 							if(detail[i].msgContent.includes('입양신청이 있습니다.')){
 								html += '<a href="${pageContext.request.contextPath}/apply/applicationView?no='+detail[i].msgContent.substring(0, detail[i].msgContent.indexOf(' '))+'">'
@@ -98,7 +97,6 @@ $(".message-detail").on('click', function() {
 							//html += '<div class="message-detail-date">';
 							//html += detail[i].msgTime;
 							//html += '</div>';
-							html += '<br>';
 							html += '<div class="messge-detail-content mine">';
 							html += '<span class="time">'+detail[i].msgTime.substring(11,16)+'</span>';
 							html += '<div class="message-detail-send">'+detail[i].msgContent+'</div>';
@@ -141,12 +139,10 @@ $(document).on("click", "#send-btn", function(){
 			var html = '';
 			var date = new Date ;
 			if(res.msg == '성공'){
-			//	console.log(date.format('yyyy-MM-dd'));
-				html += '<div class="message-detail-date">';
-				html += moment(new Date()).format('YYYY-MM-DD HH:mm');
-				html += '</div></br><div class="messge-detail-content"><span>';
+				html += '</div><div class="messge-detail-content mine">';
+				html += '<span class="time">'+moment(new Date()).format('HH:mm')+'</span>';
 				html += '<div class="message-detail-send">'+message.val()+'</div>';
-				html += '</span></div>';
+				html += '</div>';
 				message.val('');
 				$recentMsg.after(html);
 			}

@@ -19,7 +19,7 @@ $(function(){
         } else if ($color == 'gold') {
             $($(this)).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/aniTag_gold_3.png)');
         } else if ($color == 'rosegold') {
-            $($(this)).css('background-image', 'url(${pageContext.request.contextPath}/resources/images//aniTaganiTag_rosegold_3.png)');
+            $($(this)).css('background-image', 'url(${pageContext.request.contextPath}/resources/images/aniTag/aniTag_rosegold_3.png)');
         }
     });
 
