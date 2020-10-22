@@ -127,11 +127,7 @@ function searchFunc() {
 							<img src="${pageContext.request.contextPath}/resources/editor/multiupload/${a.rewAtRenamedName}">
 						</c:if>   
 			    		</c:forEach>
-			    		
-							
-						
-			<br>
-		<%-- 	<p> ${ b.rewBoTitle}</p>	 --%>
+
 			<span id="post-title">${b.rewBoTitle}</span>
 			<p>
 		        <fmt:parseDate value="${b.rewBoRegDate}" var="regDate" pattern="yyyy-MM-dd"/>
