@@ -61,8 +61,8 @@ public class CheckController {
 			break;
 		case "aba" :  
 			dog[0]="바센지";
-			dog[1]="프렌치불독";
-			dog[2]="보스턴테리어";
+			dog[1]="프렌치 불독";
+			dog[2]="보스턴 테리어";
 			dogEx[0]="■ 수명<br/>12–16년\r\n<br />" + 
 					"■ 성격<br/>애정이 풍부한, 에너제틱한, 총명한, 호기심이 많은, 장난스러운, 경계심이 많은\r\n<br />" + 
 					"■ 높이<br/>수컷: 41–43 센티미터, 암컷: 38–41 센티미터\r\n<br />" + 
@@ -125,7 +125,7 @@ public class CheckController {
 			dogImg[2]="biggle.jpg";
 			break;
 		case "abb" :  
-			dog[0]="웰시코기";
+			dog[0]="웰시 코기 펨브로크";
 			dog[1]="코카 스파니엘";
 			dog[2]="샤페이";
 			dogEx[0]="■ 수명<br/>펨브록 웰시 코기: 12 – 15년, 카디건 웰시 코기: 12 – 15년\r\n<br />" + 
@@ -144,9 +144,9 @@ public class CheckController {
 			dogImg[2]="shapay.jpg";
 			break;
 		case "acb" :  
-			dog[0]="래브라도 리트리버";
+			dog[0]="라브라도 리트리버";
 			dog[1]="허스키";
-			dog[2]="케인코르소";
+			dog[2]="케인 코르소";
 			dogEx[0]="■ 수명<br/>10–12년\r\n<br />" + 
 					"■ 성격<br/>부드러운, 총명한, 민첩한, 외향적인, Trusting, 침착한, 온화한\r\n<br />" + 
 					"■ 높이<br/>수컷: 57–62 센티미터, 암컷: 55–60 센티미터\r\n<br />" + 
@@ -189,8 +189,8 @@ public class CheckController {
 			dogImg[2]="york.jpg";
 			break;
 		case "bba" :  
-			dog[0]="킹찰스스파니엘";
-			dog[1]="라사압소";
+			dog[0]="코카 스파니엘";
+			dog[1]="라사 압소";
 			dog[2]="스피츠";
 			dogEx[0]="■ 수명<br/>9–14년\r\n<br />" + 
 					"■ 성격<br/>사교성 좋은, 애정이 풍부한, 인내심 있는, 겁이 없는, 장난스러운, Adaptable\r\n<br />" + 
@@ -213,7 +213,7 @@ public class CheckController {
 		case "bca" :  
 			dog[0]="뉴펀들랜드";
 			dog[1]="그레이트 피레니즈";
-			dog[2]="버니즈마운틴독";
+			dog[2]="버니즈 마운틴 독";
 			dogEx[0]="■ 수명<br/>8–10년\r\n<br />" + 
 					"■ 성격<br/>상냥한, 온화한, 훈련 능력이 뛰어난\r\n<br />" + 
 					"■ 높이<br/>수컷: 69–74 센티미터, 암컷: 63–69 센티미터\r\n<br />" + 
@@ -234,7 +234,7 @@ public class CheckController {
 			dogImg[2]="bm.jpg";
 			break;
 		case "bab" :  
-			dog[0]="비숑";
+			dog[0]="비숑 프리제";
 			dog[1]="빠삐용";
 			dog[2]="토이 푸들";
 			dogEx[0]="■ 수명<br/>12–15년\r\n<br />" + 
@@ -257,8 +257,8 @@ public class CheckController {
 			break;
 		case "bbb" :  
 			dog[0]="슈나우져";
-			dog[1]="셔틀랜드쉽독";
-			dog[2]="보더콜리";
+			dog[1]="셔틀랜드 쉽독";
+			dog[2]="보더 콜리";
 			dogEx[0]="■ 수명<br/>미니어처 슈나우저: 12 – 14년, 자이언트 슈나우저: 10 – 12년, 스탠더드 슈나우저: 13 – 16년\r\n<br />" + 
 					"■ 크기/ 높이<br/>미니어처 슈나우저: 30 – 36cm, 자이언트 슈나우저: 65 – 70cm, 스탠더드 슈나우저: 47 – 50cm\r\n<br />" + 
 					"■ 무게<br/>미니어처 슈나우저: 5 – 8.2kg, 자이언트 슈나우저: 34 – 43kg, 스탠더드 슈나우저: 14 – 20kg";
@@ -275,7 +275,7 @@ public class CheckController {
 			dogImg[2]="border.jpg";
 			break;
 		case "bcb" :  
-			dog[0]="골든리트리버";
+			dog[0]="골든 리트리버";
 			dog[1]="사모예드";
 			dog[2]="스탠다드 푸들";
 			dogEx[0]="■ 수명<br/>10–12년\r\n<br />" + 

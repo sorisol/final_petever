@@ -143,7 +143,7 @@
 </c:if>
 	<div id="con">
 		<div class="score">${total }점</div>
-		<a href="${pageContext.request.contextPath }/index.jsp" class="animated-button thar-three">Home ></a>
+		<a href="${pageContext.request.contextPath}" class="animated-button thar-three">Home ></a>
 	</div>
 	<div class="check-result">
 	<c:if test="${total < 60}">
@@ -230,13 +230,19 @@
 		</ul>
 		<div class="dogEx">
 			<div class="av">
+			<c:if test='${ not empty av.fileName }'>
 				<a href="${pageContext.request.contextPath }/shelterBoard/shelterAni?deserNo=${ av.desertionNo }">
 					<img src="${ av.fileName }"/>
 				</a>
-				<br />사지말고 입양하세요<br />
+					<br />사지말고 입양하세요<br />
 				■ 나이 : ${ av.age }<br />
 				■ 무게 : ${ av.weight }<br />
 				■ 성별 : ${ av.genderCd }<br />
+			</c:if>
+			<c:if test='${ empty av.fileName }'>
+				해당 유기견은 모두 <br />
+				입양 종료되었습니다.
+			</c:if>
 			</div>
 			<div class="ex">
 				${dogEx[0] }
@@ -244,6 +250,7 @@
 		</div>
 		<div class="dogEx out">
 			<div class="av">
+			<c:if test='${ not empty av1.fileName }'>
 				<a href="${pageContext.request.contextPath }/shelterBoard/shelterAni?deserNo=${ av1.desertionNo }">
 					<img src="${ av1.fileName }"/>
 				</a>
@@ -251,6 +258,11 @@
 				■ 나이 : ${ av1.age }<br />
 				■ 무게 : ${ av1.weight }<br />
 				■ 성별 : ${ av1.genderCd }<br />
+				</c:if>
+			<c:if test='${ empty av1.fileName }'>
+				해당 유기견은 모두 <br />
+				입양 종료되었습니다.
+			</c:if>
 			</div>
 			<div class="ex">
 				${dogEx[1] }
@@ -258,6 +270,7 @@
 		</div>
 		<div class="dogEx out">
 			<div class="av">
+			<c:if test='${ not empty av2.fileName }'>
 				<a href="${pageContext.request.contextPath }/shelterBoard/shelterAni?deserNo=${ av2.desertionNo }">
 					<img src="${ av2.fileName }"/>
 				</a>
@@ -265,6 +278,11 @@
 				■ 나이 : ${ av2.age }<br />
 				■ 무게 : ${ av2.weight }<br />
 				■ 성별 : ${ av2.genderCd }<br />
+				</c:if>
+			<c:if test='${ empty av2.fileName }'>
+				해당 유기견은 모두 <br />
+				입양 종료되었습니다.
+			</c:if>
 			</div>
 			<div class="ex">
 				${dogEx[2] }

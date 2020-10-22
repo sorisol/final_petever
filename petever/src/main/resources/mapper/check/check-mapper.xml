@@ -6,7 +6,7 @@
 
 	<select id="selectOne" resultMap="av">
 		select *
-from(select * from shelteranimal order by dbms_random.value) where rownum <![CDATA[ <=  ]]> 1 and  kind_cd like #{dog}
+from(select * from shelteranimal order by dbms_random.value) where rownum <![CDATA[ <=  ]]> 1 and  kind_cd like #{dog} and  process_state like '%보호%'
 	</select>
 	<resultMap id="av" type="AnimalView">
 		<id column="desertion_no" property="desertionNo"></id>

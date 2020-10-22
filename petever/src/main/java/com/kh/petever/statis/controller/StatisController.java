@@ -34,63 +34,57 @@ public class StatisController {
 	@Autowired
 	private StatisService statisService;
 	
-//	@PostMapping("/statisXml.do")
-////	@RequestMapping(value="/statis.do" , method = {RequestMethod.GET, RequestMethod.POST})
-//	public String statisXml(ShelterAnimal statis) {
-//		String serviceKey = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/abandonmentPublic?bgnde=20190101&endde=20201020&pageNo=3&numOfRows=100000&ServiceKey=8K6TziMrpfFbxxnak21vb%2B1P77px04rGI6I5hJxhxlzk2pcZzthYznTc9ZfSOox93LUNH3Z1PbMaF%2FVk62rUjQ%3D%3D";
-//		
-//		DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
-//		DocumentBuilder dBuilder;
-//
-//		try {
-//			dBuilder = dbFactoty.newDocumentBuilder();
-//			Document doc = dBuilder.parse(serviceKey);
-//			doc.getDocumentElement().normalize();
-//			System.out.println("Root element: " + doc.getDocumentElement().getNodeName()); // Root element: result
-//			NodeList nList = doc.getElementsByTagName("item");
-//			System.out.println("파싱할 리스트 수 : "+ nList.getLength());  // 파싱할 리스트 수 :  5
-//			
-//			for(int temp = 0; temp < nList.getLength(); temp++){		
-//				Node nNode = nList.item(temp);
-//				if(nNode.getNodeType() == Node.ELEMENT_NODE){
-//					Element eElement = (Element) nNode;
-//					System.out.println("######################");
-//					System.out.println("1  : " + getTagValue("desertionNo", eElement));
-//					System.out.println("2  : " + getTagValue("happenDt", eElement));
-//					System.out.println("3  : " + getTagValue("orgNm", eElement));
-//					System.out.println("4  : " + getTagValue("happenPlace", eElement));
-//					statis.setDesertionNo(getTagValue("desertionNo", eElement));
-//					statis.setFileName(getTagValue("filename", eElement));
-//					statis.setHappenDt(getTagValue("happenDt", eElement));
-//					statis.setHappenPlace(getTagValue("happenPlace", eElement));
-//					statis.setKindCd(getTagValue("kindCd", eElement));
-//					statis.setColorCd(getTagValue("colorCd", eElement));
-//					statis.setAge(getTagValue("age", eElement));
-//					statis.setWeight(getTagValue("weight", eElement));
-//					statis.setNoticeNo(getTagValue("noticeNo", eElement));
-//					statis.setNoticeSdt(getTagValue("noticeSdt", eElement));
-//					statis.setNoticeEdt(getTagValue("noticeEdt", eElement));
-//					statis.setPopfile(getTagValue("popfile", eElement));
-//					statis.setProcessState(getTagValue("processState", eElement));
-//					statis.setGenderCd(getTagValue("sexCd", eElement));
-//					statis.setNeuterYn(getTagValue("neuterYn", eElement));
-//					statis.setSpecialMark(getTagValue("specialMark", eElement));
-//					statis.setCareNm(getTagValue("careNm", eElement));
-//					statis.setCareTel(getTagValue("careTel", eElement));
-//					statis.setCareAddr(getTagValue("careAddr", eElement));
-//					statis.setOrgNm(getTagValue("orgNm", eElement));
-//					statis.setChargeNm(getTagValue("chargeNm", eElement));
-//					statis.setOfficetel(getTagValue("officetel", eElement));
-//					int result = statisService.insertXml(statis);
-//					System.out.println( result > 0 ? "성공" : "실패");
-//					
-//				}	// for end
-//			}	// if end
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return "statis/statis";
-//	}
+	@PostMapping("/statisXml.do")
+	public String statisXml(ShelterAnimal statis) {
+		String serviceKey = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/abandonmentPublic?bgnde=20190101&endde=20201020&pageNo=3&numOfRows=100000&ServiceKey=8K6TziMrpfFbxxnak21vb%2B1P77px04rGI6I5hJxhxlzk2pcZzthYznTc9ZfSOox93LUNH3Z1PbMaF%2FVk62rUjQ%3D%3D";
+		
+		DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder;
+
+		try {
+			dBuilder = dbFactoty.newDocumentBuilder();
+			Document doc = dBuilder.parse(serviceKey);
+			doc.getDocumentElement().normalize();
+			System.out.println("Root element: " + doc.getDocumentElement().getNodeName()); // Root element: result
+			NodeList nList = doc.getElementsByTagName("item");
+			System.out.println("파싱할 리스트 수 : "+ nList.getLength());  // 파싱할 리스트 수 :  5
+			
+			for(int temp = 0; temp < nList.getLength(); temp++){		
+				Node nNode = nList.item(temp);
+				if(nNode.getNodeType() == Node.ELEMENT_NODE){
+					Element eElement = (Element) nNode;
+					statis.setDesertionNo(getTagValue("desertionNo", eElement));
+					statis.setFileName(getTagValue("filename", eElement));
+					statis.setHappenDt(getTagValue("happenDt", eElement));
+					statis.setHappenPlace(getTagValue("happenPlace", eElement));
+					statis.setKindCd(getTagValue("kindCd", eElement));
+					statis.setColorCd(getTagValue("colorCd", eElement));
+					statis.setAge(getTagValue("age", eElement));
+					statis.setWeight(getTagValue("weight", eElement));
+					statis.setNoticeNo(getTagValue("noticeNo", eElement));
+					statis.setNoticeSdt(getTagValue("noticeSdt", eElement));
+					statis.setNoticeEdt(getTagValue("noticeEdt", eElement));
+					statis.setPopfile(getTagValue("popfile", eElement));
+					statis.setProcessState(getTagValue("processState", eElement));
+					statis.setGenderCd(getTagValue("sexCd", eElement));
+					statis.setNeuterYn(getTagValue("neuterYn", eElement));
+					statis.setSpecialMark(getTagValue("specialMark", eElement));
+					statis.setCareNm(getTagValue("careNm", eElement));
+					statis.setCareTel(getTagValue("careTel", eElement));
+					statis.setCareAddr(getTagValue("careAddr", eElement));
+					statis.setOrgNm(getTagValue("orgNm", eElement));
+					statis.setChargeNm(getTagValue("chargeNm", eElement));
+					statis.setOfficetel(getTagValue("officetel", eElement));
+					int result = statisService.insertXml(statis);
+					System.out.println( result > 0 ? "성공" : "실패");
+					
+				}	// for end
+			}	// if end
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "statis/statis";
+	}
 
 	private static String getTagValue(String tag, Element eElement) {
 		try {

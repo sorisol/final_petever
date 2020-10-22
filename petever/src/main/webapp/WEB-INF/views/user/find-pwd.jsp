@@ -11,6 +11,11 @@
 <script src="${ pageContext.request.contextPath }/resources/js/jquery-3.3.1.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css">
 <style>
+body{
+background: url('${pageContext.request.contextPath}/resources/images/find-back.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 0px -49px;}
 .content-wrap {
 	padding: 10px;
 }
@@ -32,7 +37,7 @@ input[type=button] {
     font-weight: bold;
     border-radius: 30px;
 }
-input[type=tel] {
+input[type=text] {
 	width: 180px;
 	margin: 0px 10px;
 	height: 26px;
@@ -40,9 +45,8 @@ input[type=tel] {
     border: 1px solid #ebecef;
     border-radius: 30px;
 }
-.second input[type=tel] {
-	margin-top: 5px;
-	margin-left: 130px;
+#userEmail {
+	margin-top: 10px;
 }
 .second input[type=button] {
 	width: 50px;

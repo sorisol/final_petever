@@ -54,10 +54,13 @@
 					<hr
 						style="width: 500px; background-color: white; height: 1px; border: none; margin: 0 auto;">
 					<p>
-						현재 <span id="area" style="color:white; font-weight:bold; font-size:20px;">대한민국</span> 유기된 동물 <br />Data provided by OpenApi Animal and
+						<span id="day-sub" style="color:white;">2017년 ~ 현재 </span> <span id="area" style="color:white; font-weight:bold; font-size:20px;">대한민국</span> 유기된 동물 <br />Data provided by OpenApi Animal and
 						Plant Quarantine Agency.
 					</p>
 				</article>
+				<div class="sub-wrap">
+					<p style="color:white;"><span id="area-sub" style="color:white; font-weight:bold; font-size:20px;">대한민국</span> 행정구역별 각 유기동물 상태(%)</p>
+				</div>
 				<div class="canvas-wrap">
 					<div class="area">
 						<canvas id="AreabarChart1" class="chartjs"></canvas>
@@ -307,7 +310,7 @@
                 labels: ["서울", "경기", "인천", "강원도", "충남", "충북", "경북", "경남", "전남", "전북", "제주도"],
 
                 datasets: [{
-                    label: "지역별 입양 및 보호율(%) 17.01.01 ~ 현재",
+                    label: "행정구역별 입양 및 보호율(%) 17.01.01 ~ 현재",
                     barPercentage: 0.5,
                     barThickness: 15,
                     maxBarThickness: 15,
@@ -358,7 +361,7 @@
             	labels: ["수도권", "강원도", "충남", "충북", "경북", "경남", "전남", "전북", "제주도"],
 
                 datasets: [{
-                    label: "지역별 안락사 및 자연사율(%) 17.01.01 ~ 현재",
+                    label: "행정구역별 안락사 및 자연사율(%) 17.01.01 ~ 현재",
                     barPercentage: 0.5,
                     barThickness: 15,
                     maxBarThickness: 15,
@@ -474,6 +477,7 @@
 
 					$(".totalStatis").text("총 "+ numberWithCommas(res.areaResult[0])+" 마리");
 					$("#area").text("대한민국");
+					$("#day-sub").text(startDay+' ~ '+endDay);
 				},
 				error : function(xhr, status, err){
 					console.log("처리실패", xhr, status, err);
@@ -530,6 +534,8 @@
 
 				$(".totalStatis").text("총 "+ numberWithCommas(res.areaResult[0])+" 마리");
 				$("#area").text($("select[name=city]").val()+" "+$("select[name=province]").val());
+				$("#area-sub").text($("select[name=city]").val());
+				$("#day-sub").text(startDay+' ~ '+endDay);
 			},
 			error : function(xhr, status, err){
 				console.log("처리실패", xhr, status, err);
@@ -541,9 +547,9 @@
 	    chart.data.labels =label;
 	    chart.data.datasets.forEach((dataset) => {
 		    if(num==1){
-	    	dataset.label =labelCity+" 지역별 입양 및 보호율(%) 17.01.01 ~ 현재";
+	    	dataset.label =labelCity+" 행정구역별 입양 및 보호율(%) 17.01.01 ~ 현재";
 			}else if(num==2){
-	    	dataset.label =labelCity+" 지역별 안락사 및 자연사율(%) 17.01.01 ~ 현재";
+	    	dataset.label =labelCity+" 행정구역 안락사 및 자연사율(%) 17.01.01 ~ 현재";
 			}
 	        dataset.data = data;
 	    });

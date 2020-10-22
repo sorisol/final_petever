@@ -11,6 +11,11 @@
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css">
 <style>
+body{
+background: url('${pageContext.request.contextPath}/resources/images/find-back.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 0px -49px;}
 .content-wrap {
 	padding: 10px;
 }
