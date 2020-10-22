@@ -256,7 +256,7 @@ public class AdminController {
 		if(role.equals("R")) {
 			msg = (result > 0) ? id+" 회원이 사면되었습니다." : "회원 사면에 실패하셨습니다.";
 		}else {
-			msg = (result > 0) ? id+" 회원이 휴면되었습니다." : "회원 휴면에 실패하셨습니다.";
+			msg = (result > 0) ? id+" 회원이 정지되었습니다." : "회원 정지에 실패하셨습니다.";
 		}
 		
  		redirectAttr.addFlashAttribute("msg", msg);

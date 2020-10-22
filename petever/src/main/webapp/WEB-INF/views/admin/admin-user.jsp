@@ -204,7 +204,7 @@
 																<td style="text-align:center;">${offset+vs.count}</td>
 																<c:choose>
 																    <c:when test="${user.userRole eq 'R'.charAt(0)}">
-																	<td class="sorting_1"><span style="font-size:11px;">(휴면)</span>${user.userId}</td>
+																	<td class="sorting_1"><span style="font-size:11px;">(정지)</span>${user.userId}</td>
 																    </c:when>
 																    <c:when test="${user.userRole eq 'U'.charAt(0)}">
 																	<td class="sorting_1">${user.userId}</td>
@@ -270,7 +270,7 @@ function adminRole(userRole,id){
 		if(confirm("해당 유저를 사면 시키시겠습니까?") == false)
 			return;
 	}else{
-		if(confirm("해당 유저를 휴면 시키시겠습니까?") == false)
+		if(confirm("해당 유저를 정지 시키시겠습니까?") == false)
 			return;
 	}
 	var frm = document.adminRoleFrm;
