@@ -169,7 +169,6 @@ public class userPwdController {
 		log.debug("user = {}", userOk);
 		
 		int result = 0;
-		String location = "";
 		String msg = "";
 		if(userOk != null && userOk.getSigNo().equals(sigNo)) {
 			String rawPassword = user.getUserPwd();
@@ -181,8 +180,7 @@ public class userPwdController {
 			msg = "ID 혹은 최신 key값이 아닙니다.";
 		}
 		redirectAttr.addFlashAttribute("msg", msg);
-		location = (result > 0) ? "/user/login" : "redirect:/";
-		return location;
+		return "redirect:/";
 	}
 	
 	public String randomSigNo() {

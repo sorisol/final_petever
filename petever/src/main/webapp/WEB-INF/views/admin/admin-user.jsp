@@ -174,7 +174,7 @@
 											<div id="dataTable_filter" class="dataTables_filter">
 												<label>Search:<input id="adminSearch" type="search" class="form-control form-control-sm"
 													placeholder="" aria-controls="dataTable"></label>
-													<a href="#" id="searchRole" class="btn btn-secondary">휴면회원 확인하기</a>
+													<a href="#" id="searchRole" class="btn btn-secondary">정지회원 확인하기</a>
 													<a href="#" id="searchBack" class="btn btn-light" style="border:1px solid #ebebeb;">회원보기</a>
 											</div>
 										</div>
