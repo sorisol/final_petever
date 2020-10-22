@@ -31,14 +31,10 @@ section.msg-content{
 }
 
 .message-Date{
-	 margin-top: 30px;
 	 float: right;
 }
 .empty-login-message{
 	text-align: center;
-}
-.userId{
-	padding-left: 10px;
 }
 .message-userTable{
 	padding-top:20px; padding-left: 10px;
@@ -51,6 +47,23 @@ section.msg-content{
  	height: 300px;
  	position: relative;
  	left: 100px;
+}
+.msg-background::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+.msg-background::-webkit-scrollbar
+{
+	width: 15px;
+	background-color: #F5F5F5;
+}
+.msg-background::-webkit-scrollbar-thumb{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #E6BCB0;
 }
 .message-detail-date{
 	text-align: center;
@@ -77,6 +90,7 @@ section.msg-content{
     margin: 30px 5px 0px 5px;
     font-size: 12px;
     color: #898989;
+    position: relative;
 }
 
 .message-detail-send{
@@ -96,13 +110,14 @@ section.msg-content{
 .messge-detail-content.mine {
     text-align: right;
 }
-.sendMsg{
-	clear:both;  padding-top: 10px;
-	
+.msg-send-wrap{
+	width: 799px;
+    margin: 0 auto;
 }
 .sendMsg input[type=text]{
-	width: 683px; height: 32px;
-	border: none;
+	width: 698px;
+    height: 32px;
+    border: 1px solid #E6BCB0;
 }
 .sendMsg input[type=text]:focus{
 	outline-color: #f2aa8a;
@@ -116,6 +131,7 @@ section.msg-content{
 	font-weight: bold;
 	color: #373b44;
 	font-size: 15px;
+	vertical-align: middle;
 }
 .sendMsg input[type=submit]:focus{
 	outline-color: #f2aa8a;
@@ -123,9 +139,23 @@ section.msg-content{
 .msg-background {
 	display: none;
 }
-.message-userTable :nth-child(2) {
+.message-userTable .msg-preview {
 	display: inline-block;
 	width: 600px;
-	margin-left: 30px;
+	margin-left: 40px;
 	word-break:break-all;
+}
+.sendUser{
+	width: 45px;
+    height: 45px;
+    border-radius: 43%;
+    text-align: center;
+    line-height: 45px;
+    font-size: 26px;
+    float:left;
+}
+
+.userId{
+	font-weight: bold;
+    font-size: 18px;
 }
