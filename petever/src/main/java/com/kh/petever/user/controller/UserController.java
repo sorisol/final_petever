@@ -134,6 +134,11 @@ public class UserController {
 		String location = "/";
 		String saveId = request.getParameter("saveId");
 		log.debug("saveId {}", saveId);
+		//신고된 사용자
+		if(user != null && bcryptPasswordEncoder.matches(userPwd, user.getUserPwd()) && user.getUserRole().equals("R")) {
+			redirectAttr.addFlashAttribute("msg", "귀하는 신고로 인해 사이트 이용이 중지되었습니다. 고객센터로 연락해주세요.");
+			return "redirect:/user/login.do";
+		}
 		// 로그인 성공
 		if (user != null && bcryptPasswordEncoder.matches(userPwd, user.getUserPwd())) {
 
@@ -173,11 +178,6 @@ public class UserController {
 			return "redirect:/"+location;
 			
 		} 
-		//신고된 사용자
-		else if(user != null && bcryptPasswordEncoder.matches(userPwd, user.getUserPwd()) && !user.getUserRole().equals("R")) {
-			redirectAttr.addFlashAttribute("msg", "귀하는 신고로 인해 사이트 이용이 중지되었습니다. 고객센터로 연락해주세요.");
-			return "redirect:/user/login.do";
-		}
 		// 로그인 실패
 		else {
 			redirectAttr.addFlashAttribute("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
