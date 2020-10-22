@@ -29,6 +29,7 @@
     float: left;
     margin: 20px 10px;
     text-decoration: none;
+    height: 210px;
 }
 
 .post:nth-child(4n+1) {
@@ -50,6 +51,9 @@
 span {
     font-size: 14px;
     margin-top: 5px;
+}
+.post img {
+	max-width: 100%;
 }
 
 #post-title {

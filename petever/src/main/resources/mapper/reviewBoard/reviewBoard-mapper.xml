@@ -67,10 +67,14 @@
 	</select>
 	
 	<select id="selectAttachList" resultMap="reviewAttachMap">
-		select
-			*
-		from
-			review_attach
+		select r.*
+		from (select 
+              	rew_bo_id,
+              	rew_at_original_name,
+              	rew_at_renamed_name,
+              	row_number() over(partition by rew_bo_id order by rew_at_id)as rowidx
+            from review_attach) r
+		where rowIdx = 1
 	</select>
 	
   	<select id="selectOneBoardAttachList" resultMap="reviewAttachMap">
@@ -95,12 +99,14 @@
 	
 	<!-- 삭제 -->
 	<delete id="deleteBoard">
-	delete
-		from 
-	review_board A left join report R
-					on(A.rew_bo_id = r.ani_bo_id)
-		where
-			rew_bo_id = #{rewBoId}
+	delete from
+		review_board 
+	where
+		rew_bo_id = (
+		select rew_bo_id
+		from review_board rb left join report r on(rb.rew_bo_id = r.ani_bo_id)
+		where rew_bo_id = #{rewBoId}
+		)
 	</delete>
 	
 	<!-- 첨부파일삭제 -->
