@@ -18,7 +18,8 @@
 
         </section>
         <section class="content-wrap">
-            <h1>입양후기 디테일페이지입니다~~</h1>
+            <h1>입양후기 게시판</h1>
+	        <p>동물을 입양한 사람들이 사진과 후기를 남기는 게시판입니다.</p>
             <div class="content">
                 <div class="board-container">
                     <div class="board-header">

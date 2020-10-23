@@ -80,7 +80,7 @@ function shelterAniDetail(shelterNo) {
    <div id="main-wrap">
        <section class="main"></section>
  	      <section class="content-wrap">
-           <h1>유기동물 보호소</h1>
+           <h1>유기 동물 보호소</h1>
            <p>전국 동물 보호 센터 입니다. </p>
            <div class="content">
 			<form action="${pageContext.request.contextPath}/shelter/shelterAnimalBoardXml.do" method="POST">

@@ -8,7 +8,12 @@
 body{
     overflow-x: hidden;
 }
-@import url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css);
+@font-face {
+    font-family: 'Binggrae';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Binggrae.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
 html, body, div, span, applet, object, iframe,
 
@@ -34,4 +39,8 @@ figure, figcaption, footer, header, hgroup,
 
 menu, nav, output, ruby, section, summary,
 
-time, mark, audio, video  { font-family: 'NanumSquare', sans-serif !important; }
+time, mark, audio, video, button, input  { font-family: 'Binggrae', sans-serif !important; }
+
+input[type=password] {
+	font-family: sans-serif !important;
+}
