@@ -343,8 +343,10 @@ input[type="radio"]:checked + label span {
 }
 
 .dogEx .ex{
-	width:530px;
-	float: left;
+	width: 500px;
+    float: left;
+    text-align: left;
+    padding-left: 30px;
 }
 .out{
 	display:none;

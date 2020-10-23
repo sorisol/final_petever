@@ -78,7 +78,7 @@ a.animated-button.thar-three:before {
 			<div class="mm-survey">
 
 				<div class="mm-survey-progress">
-					<div class="mm-survey-progress-bar mm-progress"><div style="margin-left:calc(50% - 20px);">(<span id="page">1</span>/9)</div></div>
+					<div class="mm-survey-progress-bar mm-progress"><div style="margin-left:calc(50% - 20px);">(<span id="page">1</span>/12)</div></div>
 				</div>
 
 				<div class="mm-survey-results">

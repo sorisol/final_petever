@@ -1,7 +1,7 @@
 .main {
     width: 1440px;
     height: 716px;
-    background: url("../images/sub2.jpg") no-repeat center;
+    background: url("../images/sub7.jpg") no-repeat center;
     background-size: 1440px;
     margin: 0 auto;
 }
@@ -26,7 +26,6 @@
 
 .content .post {
     width: 200px;
-    float: left;
     margin: 20px 10px;
     text-decoration: none;
     height: 210px;

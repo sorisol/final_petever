@@ -152,17 +152,16 @@
 											${cl.userId}
 										</span>
 			                            <script>
-			                        function setRandomColor(dec) {
-			                        	
-			                      	  $(".${fn:substring(cl.userId,0,1)}").css("background-color", '#'+dec);
-			                      	}
-			                      	var id = Number('${cl.userId}'.charCodeAt(0))*2;
-			                      	var id1 = Number('${cl.userId}'.charCodeAt(1));
-			                      	var id2 = Number('${cl.userId}'.charCodeAt(2));
-			                      	var dec = ((id*id1*id2* ${fn:length(cl.userId)}).toString(16)).substring(0,6);
-			                      	console.log(dec);
-			                      	setRandomColor(dec);
-			                        </script>
+					                        function setRandomColor(dec) {
+					                        	
+					                      	  $(".${fn:substring(cl.userId,0,1)}").css("background-color", '#'+dec);
+					                      	}
+					                      	var id = Number('${cl.userId}'.charCodeAt(0))*2;
+					                      	var id1 = Number('${cl.userId}'.charCodeAt(1));
+					                      	var id2 = Number('${cl.userId}'.charCodeAt(2));
+					                      	var dec = ((id*id1*id2* ${fn:length(cl.userId)}).toString(16)).substring(0,6);
+					                      	setRandomColor(dec);
+				                        </script>
 		                            	<c:if test="${not empty loginUser}">
 				                            <img class="icon" src="${pageContext.request.contextPath}/resources/images/icon.png"/>
 				                            <div class="comment-menu">
@@ -213,8 +212,8 @@
         </section>
     </div>
 <script>
-function sendLink() {
 	Kakao.init("127b0f341e46ad8b0a7b6e38df529a1b");
+function sendLink() {
 	Kakao.Link.sendDefault({
     objectType: 'feed',
     content: {
@@ -305,10 +304,6 @@ $(function() {
 //아이디 클릭시 메뉴
 $(".writer").click(function() {
     $(".writer-menu").toggle();
-});
-//공유하기 이미지 클릭시
-$(".ico_bbs").click(function() {
-	$("#kakao-link-btn").toggle();
 });
 //댓글 이미지 클릭시
 $(".icon").click(function() {
