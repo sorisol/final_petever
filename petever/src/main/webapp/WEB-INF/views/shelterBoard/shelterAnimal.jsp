@@ -11,8 +11,8 @@
 
         </section>
         <section class="content-wrap">
-            <h1>보호소동물 게시판</h1>
-            <p>보호중인 동물들은 상시로 공고하고 있습니다.</p>
+            <h1>보호소 동물 게시판</h1>
+            <p>보호소에 보호, 입양 완료 등 정보를 제공하는 게시판입니다.</p>
             <p></p>
             <div class="content">
                 <div class="border">

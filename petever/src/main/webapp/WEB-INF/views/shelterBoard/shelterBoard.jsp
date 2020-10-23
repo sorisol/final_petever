@@ -132,8 +132,8 @@ $(function () {
 
         </section>
         <section class="content-wrap">
-            <h1>유기동물 게시판</h1>
-            <p>남은 겨울이 라이너 별 어머니, 불러 덮어 이름과, 까닭입니다.</p>
+            <h1>보호소 동물 게시판</h1>
+            <p>보호소에 보호, 입양 완료 등 정보를 제공하는 게시판입니다.</p>
             <div class="content">
                 <div class="border">
 					<form action="">

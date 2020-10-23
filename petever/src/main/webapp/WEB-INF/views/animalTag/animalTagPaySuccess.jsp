@@ -89,7 +89,7 @@ $(function(){
         <section class="main"></section>
         <section class="content-wrap">
             <h1>동물 인식표(결제내역)</h1>
-            <p>펫에버에서는 이러한 일들을 합니다.</p>
+            <p>원하는 데로 인식표를 커스텀 마이징 할 수 있습니다.</p>
             <div class="content">
 
 	        <div class="drawsvg">
