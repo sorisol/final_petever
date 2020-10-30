@@ -163,15 +163,15 @@
 					                      	setRandomColor(dec);
 				                        </script>
 		                            	<c:if test="${not empty loginUser}">
-				                            <img class="icon" src="${pageContext.request.contextPath}/resources/images/icon.png"/>
-				                            <div class="comment-menu">
-			                            		<c:if test="${loginUser.userId eq cl.userId || loginUser.userId == 'admin'}">
-						                            <ul>
-						                                <li class="comment-edit" value="${cl.aniCoId}">수정</li>
-						                                <li class="comment-delete" value="${cl.aniCoId}">삭제</li>
-						                            </ul>
+		                            		<c:if test="${loginUser.userId eq cl.userId || loginUser.userId == 'admin'}">
+						                            <img class="icon" src="${pageContext.request.contextPath}/resources/images/icon.png"/>
+						                            <div class="comment-menu">
+								                            <ul>
+								                                <li class="comment-edit" value="${cl.aniCoId}">수정</li>
+								                                <li class="comment-delete" value="${cl.aniCoId}">삭제</li>
+								                            </ul>
+							                        </div>
 				                            	</c:if>
-					                        </div>
 		                            	</c:if>
 			                            <p>${cl.aniCoContent}</p>
 			                            <span class="comment-time">
@@ -212,7 +212,7 @@
         </section>
     </div>
 <script>
-	Kakao.init("127b0f341e46ad8b0a7b6e38df529a1b");
+Kakao.init("127b0f341e46ad8b0a7b6e38df529a1b");
 function sendLink() {
 	Kakao.Link.sendDefault({
     objectType: 'feed',
@@ -260,7 +260,6 @@ function xSize(e) {
        
 $(".reply-btn").on('click', function() {
 	/* $(".comment-reply-write") */
-	console.log($(this));
 	$(this).next().toggle();
     var reply = '<form action="${pageContext.request.contextPath}/animalboard/insertComment" method="post">';
 
@@ -352,22 +351,6 @@ $(".comment-edit").on("click",  function() {
 			return;
 		location.href="${pageContext.request.contextPath}/animalboard/deleteComment?no=${animalBoard.aniBoId}&commentNo="+$(this).val();
     });
-    $(".comment-edit").on("click",  function() {
-        $(this).parent().parent().toggle();
-        var val = $(this).parent().parent().next().html();
-        var ht = '<form action="${pageContext.request.contextPath}/animalboard/editComment" method="post">'
-            	+'<textarea rows="1" class="edit comment_inbox_text" placeholder="댓글을 입력하세요" onkeyup="xSize(this)" name="aniCoContent">'+val+'</textarea>'
-        		+'<button type="submit" class="comment-edit-btn">수정</button>'
-        		+'<input type="hidden" name="aniCoId" value="'+$(this).val()+'" />'
-        		+'<input type="hidden" name="aniBoId" value="${animalBoard.aniBoId}" />'
-        		+'</form>';
-        $(this).parent().parent().next().html(ht);
-        $(".edit").focus();
-        
-    });
-    $(".comment-edit-btn").on("click", function() {
-    });
-    
 });
    
 function cancleBtn(btn) {
@@ -379,6 +362,16 @@ $('.slider').slick({
 	infinite: true,
 	slidesToShow: 5,
 	slidesToScroll: 4
+});
+
+//메뉴 밖 클릭 시
+$('html').click(function(e) {
+	if(!$(e.target).hasClass("writer")) { 
+    	$(".writer-menu").hide();
+   	}
+	if(!$(e.target).hasClass("icon")) { 
+    	$(".comment-menu").hide();
+   	}
 });
 
 </script>

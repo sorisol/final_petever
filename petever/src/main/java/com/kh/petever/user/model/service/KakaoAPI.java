@@ -39,7 +39,7 @@ public class KakaoAPI {
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=94eafcad9cc336603158ae0aa47f30a3");
-            sb.append("&redirect_uri=http://localhost:9090/petever/user/kakaologin.do");
+            sb.append("&redirect_uri=http://15.165.176.151:8080/petever/user/kakaologin.do");
             sb.append("&code=" + authorize_code);
             bw.write(sb.toString());
             bw.flush();

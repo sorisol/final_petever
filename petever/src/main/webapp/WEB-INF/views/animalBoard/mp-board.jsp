@@ -218,8 +218,9 @@
     </div>
 <script>
 //기본이미지
-var defaultImg = function defaultImg() {
+function defaultImg() {
 	$(".post").each(function(){
+		//console.log($(this).children().find("img"));
 	    if($(this).children().find("img")[0] == null){
 	        var html = '<img src="${pageContext.request.contextPath}/resources/images/dog/petever.png">';
 	        $(this).children().prepend(html);
@@ -232,7 +233,6 @@ function searchFunc() {
 	//console.log(formData);
 	$.ajax({
 		url: '${pageContext.request.contextPath}/animalboard/search',
-		dataType: 'json',
 		method: 'post',
 		data: formData,
 		success: function(data) {
@@ -243,8 +243,8 @@ function searchFunc() {
 				html += '<p align="center">조회된 게시물이 없습니다.</p>';		
 			}
 			else {
-				/* console.log(data);
-				console.log(data.attachList); */
+				//console.log(data);
+				//console.log(data.attachList);
 				for(var i in data.boardList) {
 					var b = data.boardList[i];
 					//console.log(b.aniBoDate);
@@ -332,7 +332,6 @@ $(function() {
         }
 	});
 	//강아지, 고양이 별 종
-	var $breed = $(this).val();
 	var $selectTag = $("#aniBoKind");
 	var dog = ['믹스견', '리트리버', '말티즈', '보더콜리', '불독', '비숑프리제', '시츄', '웰시코기', '요크셔테리어', '치와와', '포메라니안', '푸들'];
 	var cat = ['코리안숏헤어', '노르웨이숲', '러시안블루', '렉돌', '먼치킨', '뱅갈', '브리티쉬숏헤어', '샴', '스코티쉬폴드', '터키쉬앙고라'];
