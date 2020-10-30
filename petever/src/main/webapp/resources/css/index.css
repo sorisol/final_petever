@@ -43,6 +43,7 @@ section.content-wrap {
     height: 200px;
     margin: 0px auto;
 }
+
 .slick-center {
     transform: scale(1.2);
     background-color: white;
@@ -61,6 +62,26 @@ section.content-wrap {
 }
 .slider div .post-local {
 	font-size: 12px;
+}
+
+.slider1 div {
+    margin-top: 10px;
+    height: 300px;
+    text-align: center;
+}
+.slider1 img {
+    width: 200px;
+    height: 200px;
+    margin: 0px auto;
+}
+
+.slider1 div p {
+	margin: 0px auto;
+	width: 200px;
+	display: inilne-block;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
 }
 
 .total-wrap{
