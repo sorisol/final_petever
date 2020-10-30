@@ -32,7 +32,7 @@
               			
                	</div>
  				<a href="${pageContext.request.contextPath}/reviewBoard/reviewBoardPhoto.do" class="review-title">■ 입양후기</a>
-              	<div class="review slider" data-slick='{"slidesToShow": 5, "slidesToScroll": 5}'>
+              	<div class="review slider1" data-slick='{"slidesToShow": 5, "slidesToScroll": 5}'>
               			
                	</div>               	
             </article>
@@ -220,39 +220,67 @@ var defaultImg = function defaultImg() {
 	});
 }
     
+	$.noConflict();
+	function slickCarousel() {
+	 	$('.slider').slick({
+		  centerMode: true,
+		  centerPadding: '60px',
+		  slidesToShow: 5,
+		  responsive: [
+		    {
+		      breakpoint: 768,
+		      settings: {
+		        arrows: false,
+		        centerMode: true,
+		        centerPadding: '40px',
+		        slidesToShow: 3
+		      }
+		    },
+		    {
+		      breakpoint: 480,
+		      settings: {
+		        arrows: false,
+		        centerMode: true,
+		        centerPadding: '40px',
+		        slidesToShow: 1
+		      }
+		    }
+		  ]
+		});
+	}
+
+	//$.noConflict();
+	function slickCarousel1() {
+	 	$('.slider1').slick({
+		  centerMode: true,
+		  centerPadding: '60px',
+		  slidesToShow: 5,
+		  responsive: [
+		    {
+		      breakpoint: 768,
+		      settings: {
+		        arrows: false,
+		        centerMode: true,
+		        centerPadding: '40px',
+		        slidesToShow: 3
+		      }
+		    },
+		    {
+		      breakpoint: 480,
+		      settings: {
+		        arrows: false,
+		        centerMode: true,
+		        centerPadding: '40px',
+		        slidesToShow: 1
+		      }
+		    }
+		  ]
+		});
+	}
+	
 window.onload = function(){
-    /* 입양후기 슬라이드쇼 */
-	 
-	  $.ajax({
-			url : "${pageContext.request.contextPath}/reviewBoard/index",
-			method : "GET",
-			success : function(data){
-				if(data.boardList != null) {
-					var $review = $('.review');
-					
-					var rev = '';
-					for(var i in data.boardList) {
-						var b = data.boardList[i];
-						rev += '<div class ="post">';
-						rev += '<a href="${ pageContext.request.contextPath }/reviewBoard/reviewBoardView.do?no='+b.rewBoId+'">';
-						for(var j in data.attachList) {
-							var a = data.attachList[j];
-							if(b.rewBoId == a.rewBoId){
-									rev += '<img src="${pageContext.request.contextPath}/resources/editor/multiupload/'+a.rewAtRenamedName+'" alt="입양후기사진">';
-							}
-						}
-						rev += '<p class="post-title">['+b.rewBoTitle+']</p>';
-						rev += '</a></div>';
-					}
-				}
-				$review.append(rev);
-			},
-			error : function(xhr, status, err){
-				console.log("처리실패", xhr, status, err);
-	 		}
-		}); 
-	
-	
+
+    	
 	 $.ajax({
 		url : "${pageContext.request.contextPath}/animalboard/index",
 		method : "GET",
@@ -298,35 +326,41 @@ window.onload = function(){
 			console.log("처리실패", xhr, status, err);
  		}
 	});
+
+	 /* 입양후기 슬라이드쇼 */
+	  $.ajax({
+			url : "${pageContext.request.contextPath}/reviewBoard/index",
+			method : "GET",
+			success : function(data){
+				if(data.boardList != null) {
+					var $review = $('.review');
+					
+					var rev = '';
+					for(var i in data.boardList) {
+						var b = data.boardList[i];
+						rev += '<div class ="post">';
+						rev += '<a href="${ pageContext.request.contextPath }/reviewBoard/reviewBoardView.do?no='+b.rewBoId+'">';
+						for(var j in data.attachList) {
+							var a = data.attachList[j];
+							if(b.rewBoId == a.rewBoId){
+									rev += '<img src="${pageContext.request.contextPath}/resources/editor/multiupload/'+a.rewAtRenamedName+'" alt="입양후기사진">';
+							}
+						}
+						rev += '<p class="post-title">['+b.rewBoTitle+']</p>';
+						rev += '</a></div>';
+					}
+				}
+				$review.append(rev);
+				defaultImg();
+				slickCarousel1();
+			},
+			error : function(xhr, status, err){
+				console.log("처리실패", xhr, status, err);
+	 		}
+		}); 
+
 		
-	$.noConflict();
-	function slickCarousel() {
-	 	$('.slider').slick({
-		  centerMode: true,
-		  centerPadding: '60px',
-		  slidesToShow: 5,
-		  responsive: [
-		    {
-		      breakpoint: 768,
-		      settings: {
-		        arrows: false,
-		        centerMode: true,
-		        centerPadding: '40px',
-		        slidesToShow: 3
-		      }
-		    },
-		    {
-		      breakpoint: 480,
-		      settings: {
-		        arrows: false,
-		        centerMode: true,
-		        centerPadding: '40px',
-		        slidesToShow: 1
-		      }
-		    }
-		  ]
-		});
-	}
+	
 	
 		$.ajax({
 			url : "${ pageContext.request.contextPath}/statis/mainLoadStatis.do",
