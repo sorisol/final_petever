@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css">
 <style>
 body{
-background: url('${pageContext.request.contextPath}/resources/images/find-back.png');
+background: url('${pageContext.request.contextPath}/resources/images/find-id-back.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 0px -49px;}
@@ -21,11 +21,15 @@ background: url('${pageContext.request.contextPath}/resources/images/find-back.p
 }
 .content-wrap p,label,input {
 	text-align: center;
-	margin-top: 20px;
+	margin: 20px 10px;
+}
+.content-wrap label {
+	font-weight: bold;
 }
 .first {
-	width: 412px;
-	margin: 10px 50px;
+	width: 435px;
+	height: 35px;
+	margin: 10px auto;
 }
 input[type=button] {
     width: 95px;
@@ -46,10 +50,10 @@ input[type=tel] {
 }
 .second input[type=tel] {
 	margin-top: 5px;
-	margin-left: 130px;
+	margin-left: 121px;
 }
 .second input[type=button] {
-	width: 50px;
+	width: 95px;
 	height: 26px;
 }
 #cuserId {
@@ -75,7 +79,8 @@ input[type=tel] {
 var verificationCode;
 $("#send-sms").on("click", function() {
 	var $userPhone = $("#userPhone").val();
-	if($userPhone.trim().length != 11){
+	var regExp_phone = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})([0-9]{3,4})([0-9]{4})$/;
+    if(!regExp_phone.test($userPhone)) {
 		alert("유효한 번호를 입력해주세요");
 		return;
 	}

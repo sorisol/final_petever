@@ -367,14 +367,14 @@ public class UserController {
 
 	    HashMap<String, Object> result = new HashMap<>();
 	    String msg = "인증번호를 발송했습니다. 인증번호가 오지 않으면 입력하신 정보가 회원정보와 일치하는지 확인해 주세요.";
-	    try {
-	      JSONObject obj = (JSONObject) coolsms.send(params);
-	      log.debug("{}", obj.toString());
-	    } catch (CoolsmsException e) {
-	      log.error("문자 발송 오류", e.getMessage());
-	      log.error("문자 발송 오류",e.getCode());
-	      msg = "인증번호 전송에 실패하였습니다.";
-	    }
+//	    try {
+//	      JSONObject obj = (JSONObject) coolsms.send(params);
+//	      log.debug("{}", obj.toString());
+//	    } catch (CoolsmsException e) {
+//	      log.error("문자 발송 오류", e.getMessage());
+//	      log.error("문자 발송 오류",e.getCode());
+//	      msg = "인증번호 전송에 실패하였습니다.";
+//	    }
 	    result.put("msg", msg);
 	    result.put("verificationCode", rndCode);
 	    
