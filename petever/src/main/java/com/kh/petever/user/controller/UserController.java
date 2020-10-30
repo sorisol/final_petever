@@ -115,7 +115,7 @@ public class UserController {
 	public String login(HttpServletRequest request, HttpSession session) {
 		String referer = request.getHeader("referer"); //로그인을 요청한 페이지
 //		log.debug("{}", referer);
-		String next = referer.replaceAll("http://localhost:9090/petever/", "");
+		String next = referer.replaceAll("http://15.165.176.151:8080/petever/", "");
 //		log.debug("{}", next);
 		session.setAttribute("next", next);
 		
@@ -272,9 +272,9 @@ public class UserController {
 			rttr.addFlashAttribute("msg", false);
 			return "redirect:/user/userDelete";
 		}
-		log.debug("000");
+//		log.debug("000");
 		int result = userService.userDelete(user);
-		log.debug("111");
+//		log.debug("111");
 
 		if(result == 0) {
 			log.debug("222");
@@ -287,8 +287,7 @@ public class UserController {
 	
 
 	@GetMapping("/checkIdDuplicate1.do")
-	public ModelAndView checkIdDuplicate1(ModelAndView mav,
-										  @RequestParam("userId") String userId) {
+	public ModelAndView checkIdDuplicate1(ModelAndView mav, @RequestParam("userId") String userId) {
 		
 		//1. 업무로직 : 중복체크
 		User user = userService.selectOneUser(userId);
@@ -361,7 +360,7 @@ public class UserController {
 	    // 4 params(to, from, type, text) are mandatory. must be filled
 	    HashMap<String, String> params = new HashMap<>();
 	    params.put("to", user.getUserPhone());	// 수신전화번호
-	    params.put("from", "01041148802");	// 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
+	    params.put("from", "01012345678");	// 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
 	    params.put("type", "SMS");
 	    params.put("text", String.valueOf(rndCode));
 	    params.put("app_version", "test app 1.2"); // application name and version

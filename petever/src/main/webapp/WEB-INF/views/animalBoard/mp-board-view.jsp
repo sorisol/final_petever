@@ -212,7 +212,7 @@
         </section>
     </div>
 <script>
-	Kakao.init("127b0f341e46ad8b0a7b6e38df529a1b");
+	Kakao.init("???");
 function sendLink() {
 	Kakao.Link.sendDefault({
     objectType: 'feed',
